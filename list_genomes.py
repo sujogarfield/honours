@@ -4,7 +4,7 @@
 # file present in the directories campy_fas and campy_ann 
 # respectively.
 
-import os, gzip
+import os
 
 count = 1
 
@@ -20,7 +20,7 @@ for directory in directories:
         print(f"File {count}: {file}")
         count += 1
 
-        with gzip.open(filepath, "rt") as f:
+        with open(filepath, "r") as f:
             for line in f:
                 if line.startswith(">"):
                     print(line.strip())

@@ -5,7 +5,7 @@
 # campy_ann. Takes unique species from 200 results.
 
 from Bio import Entrez
-import os, urllib.request
+import os, urllib.request, gzip, shutil
 
 Entrez.email = "suhanijones2@gmail.com"
 
@@ -54,12 +54,20 @@ for rec in records["DocumentSummarySet"]["DocumentSummary"]:
                 else:
                     continue
 
-                if os.path.exists(filepath):
+                unzippedpath = filepath[:-3]
+
+                if os.path.exists(filepath) or os.path.exists(unzippedpath):
                     print(f"Skipping: {filename}")
                 else:
                     print(f"Downloading: {filename}")
                     urllib.request.urlretrieve(url, filepath)
-            
+                    # unzip here
+                    with gzip.open(filepath, "rb") as f_in:
+                        with open(unzippedpath, "wb") as f_out:
+                            shutil.copyfileobj(f_in, f_out)
+                
+                os.remove(filepath)
+
             count += 1
             if count == 10:
                 break
