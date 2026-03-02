@@ -7,7 +7,7 @@
 import os
 from helpers import get_organism_from_fasta
 
-genes = ["fliI", "fliF", "fliC"]
+genes = ["motA"]
 print(f"\033[95mSEARCH RESULTS:\033[0m")
 
 for file in os.listdir("campy_ann"):

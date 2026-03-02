@@ -11,7 +11,7 @@ Entrez.email = "suhanijones2@gmail.com"
 
 search = Entrez.esearch(
     db="assembly",
-    term="Campylobacter[Organism]",
+    term="Campylobacterota[Phylum]",
     retmax=200
 )
 
