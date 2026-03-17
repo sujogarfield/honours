@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
-import sys, subprocess, os, re
+import sys, subprocess, os, re, sys
 from pathlib import Path
 
 if len(sys.argv) == 1:
     print("please enter one existing gene file in gene_extractions directory to generate alignment fasta file")
-    exit(1)
+    sys.exit(1)
 
 input_fasta = sys.argv[1]
 file_path = Path("gene_extractions") / f"{input_fasta}"
@@ -39,29 +39,3 @@ subprocess.run(
     ["muscle", "-align", str(file_path), "-output", str(aligned_fasta)],
     check=True
 )
-
-# alignment = AlignIO.read(aligned_fasta, "fasta")
-# print(f"Alignment length: {alignment.get_alignment_length()}")
-
-# calculator = DistanceCalculator("identity")
-# constructor = DistanceTreeConstructor(calculator, "nj")
-# tree = constructor.build_tree(alignment)
-
-# Phylo.write(tree, tree_path, "newick")
-
-# fig = plt.figure(figsize=(10, 6))
-# ax = fig.add_subplot(1, 1, 1)
-
-# for clade in tree.get_nonterminals():
-#     clade.name = None
-
-# Phylo.draw(tree, axes=ax)
-# print("Number of clades:", len(tree.get_terminals()))
-# plt.savefig(image_path, dpi=300, bbox_inches="tight")
-# plt.close(fig)
-
-# if os.path.exists(aligned_fasta):
-#     os.remove(aligned_fasta)
-
-# print(f"Tree saved as {tree_path}")
-# print(f"Image saved as {image_path}")
