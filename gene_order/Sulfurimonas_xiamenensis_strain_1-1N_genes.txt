@@ -1,0 +1,6 @@
+gene	contig	start	end	strand	overlaps
+flif	NZ_CP041166.1	367342	368703	+	
+flig	NZ_CP041166.1	368704	369732	+	
+flim	NZ_CP041166.1	598844	599866	+	fliy
+fliy	NZ_CP041166.1	599859	600719	+	flim
+flin	NZ_CP041166.1	905961	906230	-	

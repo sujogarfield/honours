@@ -4,7 +4,7 @@ from ete3 import Tree, TreeStyle, TextFace, NodeStyle
 from pathlib import Path
 import os, sys
 
-path = Path("gene_phylo_trees") / "flge_tree.nwk"
+path = Path("gene_phylo_trees") / "motb_tree.nwk"
 
 if not path.exists():
     print(f"{path} path not found")
@@ -13,15 +13,15 @@ if not path.exists():
 ete_dir = "ete_visualisation"
 os.makedirs(ete_dir, exist_ok=True)
 
-save_path = Path("ete_visualisation") / "flgearc.png"
+save_path = Path("ete_visualisation") / "motbnormlen.png"
 
 
 # NORMAL TREE WITH BRANCH LENGTHS
-# t = Tree(str(path), format=1)
-# ts = TreeStyle()
-# ts.show_leaf_name = True
-# ts.show_branch_length = True
-# ts.show_branch_support = True
+t = Tree(str(path), format=1)
+ts = TreeStyle()
+ts.show_leaf_name = True
+ts.show_branch_length = True
+ts.show_branch_support = True
 # t.render(str(save_path), w=300, units="mm", tree_style=ts)
 # NORMAL TREE WITH BRANCH LENGTHS
 
@@ -39,12 +39,14 @@ save_path = Path("ete_visualisation") / "flgearc.png"
 # CIRCULAR TREES
 
 # ARC TREES
-t = Tree(str(path), format=1)
-ts = TreeStyle()
-ts.mode = "c"
-ts.arc_start = -180
-ts.arc_span = 180
-ts.title.add_face(TextFace("FlgE Phylogenetic Tree of Representative GTDB Campylobacterota Species", fsize=20), column=0)
+# t = Tree(str(path), format=1)
+# ts = TreeStyle()
+# ts.mode = "c"
+# ts.arc_start = -180
+# ts.arc_span = 180
+# ARC TREES
+
+ts.title.add_face(TextFace("motB Phylogenetic Tree of Representative GTDB Campylobacterota Species", fsize=20), column=0)
 
 for n in t.traverse():
    nstyle = NodeStyle()
@@ -59,27 +61,112 @@ for leaf in t.iter_leaves():
     nstyle = NodeStyle()
     nstyle["size"] = 6
     if leaf.name.startswith("Helicobacter"):
-        nstyle["bgcolor"] = "#f2a5a0"
+        nstyle["bgcolor"] = "#ff5b50"
     elif leaf.name.startswith("Campylobacter"):
-        nstyle["bgcolor"] = "#f2dfa0"
+        nstyle["bgcolor"] = "#ffd54c"
     elif leaf.name.startswith("Sulfurimonas"):
-        nstyle["bgcolor"] = "#c4f2a0"
+        nstyle["bgcolor"] = "#7c9fd0"
     elif leaf.name.startswith("Wolinella"):
-        nstyle["bgcolor"] = "#cca0f2"
+        nstyle["bgcolor"] = "#deb9ff"
     elif leaf.name.startswith("Hippea"):
-        nstyle["bgcolor"] = "#a0ccf2"
+        nstyle["bgcolor"] = "#b8deff"
     elif leaf.name.startswith("Sulfuricurvum"):
-        nstyle["bgcolor"] = "#76d67b"
+        nstyle["bgcolor"] = "#ab45ff"
     elif leaf.name.startswith("Candidatus"):
         nstyle["bgcolor"] = "#cdd1cf"
     elif leaf.name.startswith("Sulfurospirillum"):
-        nstyle["bgcolor"] = "#ab91cb"
+        nstyle["bgcolor"] = "#ffb5ff"
     elif leaf.name.startswith("Hydrogenimonas"):
-        nstyle["bgcolor"] = "#adb7f0"
+        nstyle["bgcolor"] = "#b7fff2"
+    elif leaf.name.startswith("Nitrosophilus"):
+        nstyle["bgcolor"] = "#8a86c7"
+    elif leaf.name.startswith("Desulfurella"):
+        nstyle["bgcolor"] = "#86b4c7"
+    elif leaf.name.startswith("Caminibacter"):
+        nstyle["bgcolor"] = "#c786c3"
+    elif leaf.name.startswith("Nautilia"):
+        nstyle["bgcolor"] = "#c78686"
+    elif leaf.name.startswith("Lebetimonas"):
+        nstyle["bgcolor"] = "#90c786"
+    elif leaf.name.startswith("Nitratiruptor"):
+        nstyle["bgcolor"] = "#bec786"
+    elif leaf.name.startswith("Sulfurovum"):
+        nstyle["bgcolor"] = "#c7b386"
+    elif leaf.name.startswith("Nitratifractor"):
+        nstyle["bgcolor"] = "#ffa9a9"
+    elif leaf.name.startswith("Arcobacter"):
+        nstyle["bgcolor"] = "#14ff47"
+    elif leaf.name.startswith("Aliarcobacter"):
+        nstyle["bgcolor"] = "#6577ff"
+    elif leaf.name.startswith("Malaciobacter"):
+        nstyle["bgcolor"] = "#ff43dc"
+    elif leaf.name.startswith("Halarcobacter"):
+        nstyle["bgcolor"] = "#43e6ff"
+    elif leaf.name.startswith("Poseidonibacter"):
+        nstyle["bgcolor"] = "#fffa9b"
     leaf.set_style(nstyle)
 
-t.render(str(save_path), w=1000, units="mm", tree_style=ts)
-# ARC TREES
+t.render(str(save_path), w=2500, units="mm", tree_style=ts)
+
+# COLOUR
+# ts.title.add_face(TextFace("16S Phylogenetic Tree of Representative GTDB Campylobacterota Species", fsize=20), column=0)
+# for n in t.traverse():
+#    nstyle = NodeStyle()
+#    nstyle["fgcolor"] = "red"
+#    nstyle["size"] = 8
+#    n.set_style(nstyle)
+
+# t.img_style["size"] = 15
+# t.img_style["fgcolor"] = "blue"
+
+# for leaf in t.iter_leaves():
+#     nstyle = NodeStyle()
+#     nstyle["size"] = 6
+#     if leaf.name.startswith("Helicobacter"):
+#         nstyle["bgcolor"] = "#ff5b50"
+#     elif leaf.name.startswith("Campylobacter"):
+#         nstyle["bgcolor"] = "#ffd54c"
+#     elif leaf.name.startswith("Sulfurimonas"):
+#         nstyle["bgcolor"] = "#7c9fd0"
+#     elif leaf.name.startswith("Wolinella"):
+#         nstyle["bgcolor"] = "#deb9ff"
+#     elif leaf.name.startswith("Hippea"):
+#         nstyle["bgcolor"] = "#b8deff"
+#     elif leaf.name.startswith("Sulfuricurvum"):
+#         nstyle["bgcolor"] = "#ab45ff"
+#     elif leaf.name.startswith("Candidatus"):
+#         nstyle["bgcolor"] = "#cdd1cf"
+#     elif leaf.name.startswith("Sulfurospirillum"):
+#         nstyle["bgcolor"] = "#ffb5ff"
+#     elif leaf.name.startswith("Hydrogenimonas"):
+#         nstyle["bgcolor"] = "#b7fff2"
+#     elif leaf.name.startswith("Nitrosophilus"):
+#         nstyle["bgcolor"] = "#8a86c7"
+#     elif leaf.name.startswith("Desulfurella"):
+#         nstyle["bgcolor"] = "#86b4c7"
+#     elif leaf.name.startswith("Caminibacter"):
+#         nstyle["bgcolor"] = "#c786c3"
+#     elif leaf.name.startswith("Nautilia"):
+#         nstyle["bgcolor"] = "#c78686"
+#     elif leaf.name.startswith("Lebetimonas"):
+#         nstyle["bgcolor"] = "#90c786"
+#     elif leaf.name.startswith("Nitratiruptor"):
+#         nstyle["bgcolor"] = "#bec786"
+#     elif leaf.name.startswith("Sulfurovum"):
+#         nstyle["bgcolor"] = "#c7b386"
+#     elif leaf.name.startswith("Nitratifractor"):
+#         nstyle["bgcolor"] = "#ffa9a9"
+#     elif leaf.name.startswith("Arcobacter"):
+#         nstyle["bgcolor"] = "#14ff47"
+#     elif leaf.name.startswith("Aliarcobacter"):
+#         nstyle["bgcolor"] = "#6577ff"
+#     elif leaf.name.startswith("Malaciobacter"):
+#         nstyle["bgcolor"] = "#ff43dc"
+#     elif leaf.name.startswith("Halarcobacter"):
+#         nstyle["bgcolor"] = "#43e6ff"
+#     elif leaf.name.startswith("Poseidonibacter"):
+#         nstyle["bgcolor"] = "#fffa9b"
+#     leaf.set_style(nstyle)
 
 # IMPORTANT STYLE
 # ts.scale =  120 # 120 pixels per branch length unit
