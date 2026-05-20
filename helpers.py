@@ -11,12 +11,23 @@ def get_organism_from_fasta(fasta_path):
     parts = description.split(" ", 1)
 
     if len(parts) > 1:
-        name_part = parts[1]
+        name_part = parts[1].split(",")
 
-        name_part = name_part.split(" chromosome")[0]
-        name_part = name_part.split(" complete genome")[0]
+        # name_part = name_part.split(" chromosome")[0]
+        # name_part = name_part.split(" complete genome")[0]
 
-        return name_part.replace(" ", "_")
+        # return name_part.replace(" ", "_")
+        just_name = name_part[0].split(" ")
+        genus = just_name[0]
+        species = just_name[1].lower()
+
+        if genus == "Candidatus" and len(just_name) > 2:
+            genus = species.capitalize()
+            species = just_name[2]
+            return f"{genus} {species}"
+
+        return f"{genus} {species}"
+        # return name_part[0].replace(" ", "_")
 
     return "Unknown"
 

@@ -42,4 +42,4 @@ for fasta_file in os.listdir(fasta_dir):
     all_records.append(first_16S)
 
 SeqIO.write(all_records, merged_fasta, "fasta")
-print(f"\nSaved {len(all_records)} 16S sequences to {merged_fasta}")
+print(f"\nsee merged 16S sequences in {merged_fasta}")

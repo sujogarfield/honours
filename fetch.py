@@ -2,7 +2,7 @@
 
 # Script that downloads fasta and annotation (gff) files
 # from NCBI. Fasta is saved to campy_fas and gff is saved to
-# campy_ann. Takes unique species from 200 results.
+# campy_ann.
 
 from Bio import Entrez
 import os, urllib.request, gzip, shutil
@@ -34,7 +34,7 @@ for gcf in gcf_accessions:
     
     ftp_path = summary['DocumentSummarySet']['DocumentSummary'][0]['FtpPath_RefSeq']
     if not ftp_path:
-        print(f"No FTP path for {gcf}")
+        print(f"no FTP path for {gcf}")
         continue
     
     fname_base = ftp_path.split("/")[-1]
