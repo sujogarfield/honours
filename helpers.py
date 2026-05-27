@@ -3,6 +3,8 @@
 from Bio import SeqIO
 import matplotlib.pyplot as plt
 import os
+from ete3 import Tree
+import random
 
 def get_organism_from_fasta(fasta_path):
     record = next(SeqIO.parse(fasta_path, "fasta"))
@@ -24,12 +26,83 @@ def get_organism_from_fasta(fasta_path):
         if genus == "Candidatus" and len(just_name) > 2:
             genus = species.capitalize()
             species = just_name[2]
+            print(f"{genus} {species}")
             return f"{genus} {species}"
 
         return f"{genus} {species}"
         # return name_part[0].replace(" ", "_")
 
     return "Unknown"
+"""
+Verify that pruning hasn't distorted phylogenetic relationships.
+Checks that pairwise distances between taxa are preserved.
+"""
+def validate_pruned_tree_integrity():
+    large_tree = Tree("bac120.tree", format=1, quoted_node_names=True)
+    small_tree = Tree(
+        "phylo_trees/gtdb_ref_tree_og.nwk",
+        format=1,
+        quoted_node_names=True
+    )
+    
+    small_leaves = small_tree.get_leaf_names()
+
+    # 1: all taxa exist
+    large_leaves = set(large_tree.get_leaf_names())
+    missing = set(small_leaves) - large_leaves
+    
+    if missing:
+        print(f"{len(missing)} taxa not in GTDB")
+        return False
+    
+    print(f"all {len(small_leaves)} taxa found in GTDB")
+    
+    # 2: topology matches when re-pruned
+    fresh_pruned = large_tree.copy()
+    fresh_pruned.prune(small_leaves, preserve_branch_length=True)
+    
+    rf, max_rf = fresh_pruned.robinson_foulds(small_tree, unrooted_trees=True)[:2]
+    
+    if rf != 0:
+        print(f"topology mismatch (RF distance = {rf}/{max_rf})")
+        return False
+    
+    print("topology preserved correctly")
+    
+    # 3: pairwise distances preserved 
+    # sample random pairs to verify distances match
+    sample_size = min(20, len(small_leaves) // 2)
+    sampled_pairs = []
+    
+    for _ in range(sample_size):
+        pair = random.sample(small_leaves, 2)
+        sampled_pairs.append(pair)
+    
+    distance_errors = []
+    for leaf1, leaf2 in sampled_pairs:
+        node1_large = large_tree.search_nodes(name=leaf1)[0]
+        node2_large = large_tree.search_nodes(name=leaf2)[0]
+        dist_large = node1_large.get_distance(node2_large)
+        
+        node1_small = small_tree.search_nodes(name=leaf1)[0]
+        node2_small = small_tree.search_nodes(name=leaf2)[0]
+        dist_small = node1_small.get_distance(node2_small)
+        
+        if abs(dist_large - dist_small) > 1e-6:
+            distance_errors.append({
+                'pair': (leaf1.split('_')[0], leaf2.split('_')[0]),
+                'gtdb': dist_large,
+                'pruned': dist_small,
+                'diff': abs(dist_large - dist_small)
+            })
+    
+    if distance_errors:
+        print(f"{len(distance_errors)} distance mismatches detected")
+        return False
+    
+    print("pruned tree did not distort original relationships of GTDB.")
+    return True
+    
 
 def plot_species(species_name, genes, output_dir="gene_order"):
     os.makedirs(output_dir, exist_ok=True)

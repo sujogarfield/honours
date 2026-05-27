@@ -4,7 +4,7 @@ from ete3 import Tree, TextFace
 from ete3.treeview import TreeStyle, NodeStyle
 import subprocess
 from pathlib import Path
-from helpers import get_organism_from_fasta
+from helpers import get_organism_from_fasta, validate_pruned_tree_integrity
 
 results = []
 
@@ -25,7 +25,7 @@ not_found = []
 for leaf in tree.iter_leaves():
     for acc in gcf_accessions:
         if acc in leaf.name:
-            target_leaves.append(leaf)
+            target_leaves.append(leaf.name)
             found.append(acc)
             break
         else:
@@ -35,53 +35,67 @@ print(f"{len(found)} found out of {len(gcf_accessions)}")
 
 output_dir = Path("phylo_trees")
 if len(target_leaves) > 1:
-    ancestor = tree.get_common_ancestor(target_leaves)
-    leaves_to_keep = set(target_leaves)
-    for leaf in ancestor.get_leaves():
-        if leaf not in leaves_to_keep:
-            leaf.delete()
-    
+    pruned_tree = tree.copy()
+    pruned_tree.prune(target_leaves, preserve_branch_length=True)
+    og_pruned = pruned_tree.copy()
     fasta_dir = Path("campy_fas")
-    for leaf in ancestor.get_leaves():
+
+    for leaf in pruned_tree.get_leaves():
         for acc in gcf_accessions:
             if acc in leaf.name:
                 matching_files = list(fasta_dir.glob(f"{acc}*.fna"))
                 if matching_files:
                     fasta_file = matching_files[0]
-                
-                if fasta_file.exists():
-                    organism_name = get_organism_from_fasta(fasta_file)
-                    leaf.name = organism_name
-                    print(f"Renamed {acc} -> {organism_name}")
-                else:
-                    leaf.name = acc
-                    print("keep")
-                break
 
-    ancestor.write(outfile=str(output_dir / "gtdb_ref_tree.nwk"))
+                    if fasta_file.exists():
+                        organism_name = get_organism_from_fasta(fasta_file)
+                        leaf.name = organism_name
+                        print(f"accession: {acc}, organism: {organism_name}")
+                    else:
+                        leaf.name = acc
+                        print(f"accession: {acc}, organism: couldn't retrieve")
+                    break
 
-    tree = Tree("phylo_trees/gtdb_ref_tree.nwk", format=1, quoted_node_names=True)
+pruned_tree.write(outfile=str(output_dir / "gtdb_ref_tree.nwk"))
+og_pruned.write(outfile=str(output_dir / "gtdb_ref_tree_og.nwk"))
 
-    ts = TreeStyle()
+tree = Tree(str(output_dir / "gtdb_ref_tree.nwk"), format=1, quoted_node_names=True)
+og_tree = Tree(str(output_dir / "gtdb_ref_tree_og.nwk"), format=1, quoted_node_names=True)
 
-    # ts.show_leaf_name = True
+ts = TreeStyle()
 
-    ts.show_leaf_name = False
+# ts.show_leaf_name = True
 
-    for leaf in tree.iter_leaves():
-        face = TextFace(
-            leaf.name,
-            fstyle="italic"
-        )
-        leaf.add_face(face, column=0, position="branch-right")
-    
-    for node in tree.traverse():
-        node.dist = 1
+ts.show_leaf_name = False
 
-    nstyle = NodeStyle()
-    nstyle["size"] = 0
+for leaf in tree.iter_leaves():
+    face = TextFace(leaf.name, fstyle="italic")
+    leaf.add_face(face, column=0, position="branch-right")
 
-    for node in tree.traverse():
-        node.set_style(nstyle)
+for node in tree.traverse():
+    node.dist = 1
 
-    tree.render(str(output_dir / "gtdb_ref_tree.png"), tree_style=ts)
+nstyle = NodeStyle()
+nstyle["size"] = 0
+
+for node in tree.traverse():
+    node.set_style(nstyle)
+
+tree.render(str(output_dir / "gtdb_ref_tree.png"), tree_style=ts)
+
+for leaf in og_tree.iter_leaves():
+    face = TextFace(leaf.name, fstyle="italic")
+    leaf.add_face(face, column=0, position="branch-right")
+
+for node in og_tree.traverse():
+    node.dist = 1
+
+nstyle = NodeStyle()
+nstyle["size"] = 0
+
+for node in og_tree.traverse():
+    node.set_style(nstyle)
+
+og_tree.render(str(output_dir / "gtdb_ref_tree_og.png"), tree_style=ts)
+
+validate_pruned_tree_integrity()
