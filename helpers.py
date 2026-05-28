@@ -3,22 +3,16 @@
 from Bio import SeqIO
 import matplotlib.pyplot as plt
 import os
-from ete3 import Tree
+from ete3 import Tree, NodeStyle
 import random
 
 def get_organism_from_fasta(fasta_path):
     record = next(SeqIO.parse(fasta_path, "fasta"))
     description = record.description
-
     parts = description.split(" ", 1)
 
     if len(parts) > 1:
         name_part = parts[1].split(",")
-
-        # name_part = name_part.split(" chromosome")[0]
-        # name_part = name_part.split(" complete genome")[0]
-
-        # return name_part.replace(" ", "_")
         just_name = name_part[0].split(" ")
         genus = just_name[0]
         species = just_name[1].lower()
@@ -26,13 +20,61 @@ def get_organism_from_fasta(fasta_path):
         if genus == "Candidatus" and len(just_name) > 2:
             genus = species.capitalize()
             species = just_name[2]
-            print(f"{genus} {species}")
             return f"{genus} {species}"
 
         return f"{genus} {species}"
-        # return name_part[0].replace(" ", "_")
-
     return "Unknown"
+
+def colour_tree_by_species(tree):
+    for leaf in tree.iter_leaves():
+        nstyle = NodeStyle()
+        nstyle["size"] = 0
+        if leaf.name.startswith("Helicobacter"):
+            nstyle["bgcolor"] = "#ffd2d0"
+        elif leaf.name.startswith("Campylobacter"):
+            nstyle["bgcolor"] = "#ddffdd"
+        elif leaf.name.startswith("Sulfurimonas"):
+            nstyle["bgcolor"] = "#fffad1"
+        elif leaf.name.startswith("Wolinella"):
+            nstyle["bgcolor"] = "#edd9ff"
+        elif leaf.name.startswith("Hippea"):
+            nstyle["bgcolor"] = "#d0e9ff"
+        elif leaf.name.startswith("Sulfuricurvum"):
+            nstyle["bgcolor"] = "#ecd5ff"
+        elif leaf.name.startswith("Candidatus"):
+            nstyle["bgcolor"] = "#d7ffeb"
+        elif leaf.name.startswith("Sulfurospirillum"):
+            nstyle["bgcolor"] = "#feffc9"
+        elif leaf.name.startswith("Hydrogenimonas"):
+            nstyle["bgcolor"] = "#d6fff8"
+        elif leaf.name.startswith("Nitrosophilus"):
+            nstyle["bgcolor"] = "#e2dfff"
+        elif leaf.name.startswith("Desulfurella"):
+            nstyle["bgcolor"] = "#dbf4ff"
+        elif leaf.name.startswith("Caminibacter"):
+            nstyle["bgcolor"] = "#ffdefd"
+        elif leaf.name.startswith("Nautilia"):
+            nstyle["bgcolor"] = "#ffdbdb"
+        elif leaf.name.startswith("Lebetimonas"):
+            nstyle["bgcolor"] = "#e4ffdf"
+        elif leaf.name.startswith("Nitratiruptor"):
+            nstyle["bgcolor"] = "#faffd8"
+        elif leaf.name.startswith("Sulfurovum"):
+            nstyle["bgcolor"] = "#fff4da"
+        elif leaf.name.startswith("Nitratifractor"):
+            nstyle["bgcolor"] = "#ffdbdb"
+        elif leaf.name.startswith("Arcobacter"):
+            nstyle["bgcolor"] = "#deffe5"
+        elif leaf.name.startswith("Aliarcobacter"):
+            nstyle["bgcolor"] = "#e5e8ff"
+        elif leaf.name.startswith("Malaciobacter"):
+            nstyle["bgcolor"] = "#ffdcf9"
+        elif leaf.name.startswith("Halarcobacter"):
+            nstyle["bgcolor"] = "#e6fcff"
+        elif leaf.name.startswith("Poseidonibacter"):
+            nstyle["bgcolor"] = "#ffe1fc"
+        leaf.set_style(nstyle)
+
 """
 Verify that pruning hasn't distorted phylogenetic relationships.
 Checks that pairwise distances between taxa are preserved.

@@ -4,7 +4,7 @@ from ete3 import Tree, TextFace
 from ete3.treeview import TreeStyle, NodeStyle
 import subprocess
 from pathlib import Path
-from helpers import get_organism_from_fasta, validate_pruned_tree_integrity
+from helpers import get_organism_from_fasta, validate_pruned_tree_integrity, colour_tree_by_species
 
 results = []
 
@@ -80,6 +80,8 @@ nstyle["size"] = 0
 
 for node in tree.traverse():
     node.set_style(nstyle)
+
+colour_tree_by_species(tree)
 
 tree.render(str(output_dir / "gtdb_ref_tree.png"), tree_style=ts)
 
