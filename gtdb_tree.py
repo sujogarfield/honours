@@ -4,7 +4,7 @@ from ete3 import Tree, TextFace
 from ete3.treeview import TreeStyle, NodeStyle
 import subprocess
 from pathlib import Path
-from helpers import get_organism_from_fasta, validate_pruned_tree_integrity, colour_tree_by_species
+from helpers import get_organism_from_fasta, validate_pruned_tree_integrity, colour_tree_by_species, validate_bootstrap_support
 
 results = []
 
@@ -101,3 +101,7 @@ for node in og_tree.traverse():
 og_tree.render(str(output_dir / "gtdb_ref_tree_og.png"), tree_style=ts)
 
 validate_pruned_tree_integrity()
+validate_bootstrap_support(
+    small_nwk="phylo_trees/gtdb_ref_tree_og.nwk",
+    output_png="phylo_trees/gtdb_ref_tree_support.png"
+)

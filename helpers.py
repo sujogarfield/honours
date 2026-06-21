@@ -3,7 +3,8 @@
 from Bio import SeqIO
 import matplotlib.pyplot as plt
 import os
-from ete3 import Tree, NodeStyle
+from ete3 import Tree, NodeStyle, TreeStyle, TextFace, CircleFace
+from pathlib import Path
 import random
 
 def get_organism_from_fasta(fasta_path):
@@ -90,6 +91,7 @@ def validate_pruned_tree_integrity():
     small_leaves = small_tree.get_leaf_names()
 
     # 1: all taxa exist
+    # no new random taxa are added
     large_leaves = set(large_tree.get_leaf_names())
     missing = set(small_leaves) - large_leaves
     
@@ -100,6 +102,9 @@ def validate_pruned_tree_integrity():
     print(f"all {len(small_leaves)} taxa found in GTDB")
     
     # 2: topology matches when re-pruned
+    # proves the branching pattern between the 166 species
+    # is identical to what GTDB has for those same species
+    # i.e. pruning didn't accidentally swap any relationships
     fresh_pruned = large_tree.copy()
     fresh_pruned.prune(small_leaves, preserve_branch_length=True)
     
@@ -112,7 +117,9 @@ def validate_pruned_tree_integrity():
     print("topology preserved correctly")
     
     # 3: pairwise distances preserved 
-    # sample random pairs to verify distances match
+    # proves the evolutionary distances between species pairs
+    # are numerically identical to GTDB branch lengths
+    # were correctly transferred when intermediate nodes collapsed
     sample_size = min(20, len(small_leaves) // 2)
     sampled_pairs = []
     
@@ -129,6 +136,8 @@ def validate_pruned_tree_integrity():
         node1_small = small_tree.search_nodes(name=leaf1)[0]
         node2_small = small_tree.search_nodes(name=leaf2)[0]
         dist_small = node1_small.get_distance(node2_small)
+
+        print(f"{dist_large} - {dist_small} = {abs(dist_large - dist_small)}")
         
         if abs(dist_large - dist_small) > 1e-6:
             distance_errors.append({
@@ -144,6 +153,95 @@ def validate_pruned_tree_integrity():
     
     print("pruned tree did not distort original relationships of GTDB.")
     return True
+
+def validate_bootstrap_support(
+    small_nwk="phylo_trees/gtdb_ref_tree_og.nwk",
+    threshold=0.70,
+    output_png="phylo_trees/gtdb_ref_tree_support.png"
+):
+    """
+    Read GTDB SH support values preserved in subtree and render a
+    colour-coded tree. Green >= 0.95, orange >= 0.70, red < 0.70.
+
+    Returns dict with support summary statistics.
+    """
+    print("\n── Bootstrap / SH support analysis ──")
+
+    tree = Tree(small_nwk, format=1, quoted_node_names=True)
+    internal = [n for n in tree.traverse() if not n.is_leaf()]
+    values = [n.support for n in internal]
+
+    if not any(v > 0 for v in values):
+        print("⚠️  No support values found in tree — may have been lost during pruning")
+        return None
+
+    strong   = sum(1 for v in values if v >= 0.95)
+    moderate = sum(1 for v in values if 0.70 <= v < 0.95)
+    weak     = sum(1 for v in values if v < 0.70)
+    total    = len(values)
+
+    print(f"Internal nodes : {total}")
+    print(f"Strong  ≥ 0.95 : {strong}  ({100*strong/total:.1f}%)")
+    print(f"Moderate 0.70–0.95 : {moderate}  ({100*moderate/total:.1f}%)")
+    print(f"Weak    < 0.70 : {weak}  ({100*weak/total:.1f}%)")
+    print(f"Mean support   : {sum(values)/total:.3f}")
+
+    weak_nodes = [n for n in internal if n.support < threshold and n.support > 0]
+    if weak_nodes:
+        print(f"\nWeakly supported clades (< {threshold}):")
+        for node in weak_nodes:
+            leaves = node.get_leaf_names()
+            print(f"  SH={node.support:.2f}  covers: {', '.join(leaves[:3])}{'...' if len(leaves) > 3 else ''}")
+
+    # ── Render support-coloured tree ──────────────────────────────────────
+    def support_color(v):
+        if v >= 0.95: return "#2ecc71"
+        if v >= 0.70: return "#f39c12"
+        return "#e74c3c"
+
+    for node in tree.traverse():
+        ns = NodeStyle()
+        if node.is_leaf():
+            ns["size"] = 0
+        else:
+            ns["size"] = 8
+            ns["fgcolor"] = support_color(node.support)
+            if node.support > 0:
+                face = TextFace(f" {node.support:.2f}", fsize=6,
+                                fgcolor=support_color(node.support))
+                node.add_face(face, column=0, position="branch-top")
+        node.set_style(ns)
+
+    fasta_dir = Path("campy_fas")
+    for leaf in tree.iter_leaves():
+        bare_acc = leaf.name.replace("RS_", "").replace("GB_", "")
+        matching_files = list(fasta_dir.glob(f"{bare_acc}*.fna"))
+        if matching_files:
+            fasta_file = matching_files[0]
+            if fasta_file.exists():
+                organism_name = get_organism_from_fasta(fasta_file)
+                display_name = organism_name
+            else:
+                display_name = leaf.name
+            leaf.name = display_name
+            face = TextFace(leaf.name, fstyle="italic", fsize=9)
+            leaf.add_face(face, column=0, position="branch-right")
+
+    ts = TreeStyle()
+    ts.show_leaf_name = False
+    ts.show_scale = False
+
+    for label, color in [("≥ 0.95 strong", "#2ecc71"),
+                          ("0.70–0.95 moderate", "#f39c12"),
+                          ("<0.70 weak", "#e74c3c")]:
+        ts.legend.add_face(CircleFace(6, color), column=0)
+        ts.legend.add_face(TextFace(f" {label}", fsize=8), column=1)
+
+    Path(output_png).parent.mkdir(parents=True, exist_ok=True)
+    tree.render(output_png, tree_style=ts, w=800, h=4000)
+
+    return {"strong": strong, "moderate": moderate,
+            "weak": weak, "mean": sum(values)/total}
     
 
 def plot_species(species_name, genes, output_dir="gene_order"):
