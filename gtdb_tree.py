@@ -1,9 +1,12 @@
 #!/usr/bin/env python3 
 
-from ete3 import Tree, TextFace
+import os
+from Bio import SeqIO
+from ete3 import Tree, TextFace, RectFace, faces
 from ete3.treeview import TreeStyle, NodeStyle
 import subprocess
 from pathlib import Path
+from collections import defaultdict
 from helpers import get_organism_from_fasta, validate_pruned_tree_integrity, colour_tree_by_species, validate_bootstrap_support
 
 results = []

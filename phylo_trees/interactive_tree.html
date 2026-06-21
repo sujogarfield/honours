@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Interactive Phylogenetic Tree</title>
+<style>
+  body { margin: 0; font-family: sans-serif; background: #fafafa; }
+  #controls { padding: 8px 16px; background: #fff; border-bottom: 1px solid #ddd; display: flex; gap: 12px; align-items: center; }
+  #controls label { font-size: 13px; color: #444; }
+  svg { display: block; }
+  .node circle { fill: #555; stroke: #999; stroke-width: 1px; }
+  .node.leaf circle { fill: #2c7bb6; }
+  .node text { font-size: 12px; fill: #222; }
+  .link { fill: none; stroke: #bbb; stroke-width: 1.2px; }
+  #tooltip {
+    position: fixed;
+    background: rgba(0,0,0,0.82);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    max-width: 320px;
+    word-break: break-all;
+    z-index: 100;
+  }
+  .leaf-label { cursor: default; }
+  .leaf-label:hover { fill: #e44; font-weight: bold; }
+</style>
+</head>
+<body>
+<div id="controls">
+  <label>Zoom: <input type="range" id="zoomSlider" min="0.3" max="3" step="0.05" value="1" style="width:120px"></label>
+  <label><input type="checkbox" id="showBranchLen"> Show branch lengths</label>
+  <span style="color:#888; font-size:12px; margin-left:8px">Hover a leaf to see its GCF accession</span>
+</div>
+<div id="tooltip"></div>
+<div id="chart"></div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+const RAW = {"name": "", "length": 0.0, "children": [{"name": "1", "length": 0.33747, "children": [{"name": "1", "length": 0.0339, "children": [{"name": "1", "length": 0.01635, "children": [{"name": "1", "length": 0.00994, "children": [{"name": "1", "length": 0.00926, "children": [{"name": "1", "length": 0.06439, "children": [{"name": "1", "length": 0.01413, "children": [{"name": "1", "length": 0.06701, "children": [{"name": "1", "length": 0.01638, "children": [{"name": "1", "length": 0.01448, "children": [{"name": "1", "length": 0.01475, "children": [{"name": "1", "length": 0.02346, "children": [{"name": "1", "length": 0.0229, "children": [{"name": "Campylobacter hominis", "length": 0.06829, "gcf": "RS_GCF_000017585.1"}, {"name": "Campylobacter gracilis", "length": 0.0982, "gcf": "RS_GCF_001190745.1"}]}, {"name": "1", "length": 0.03621, "children": [{"name": "1", "length": 0.01693, "children": [{"name": "1", "length": 0.01603, "children": [{"name": "Campylobacter ureolyticus", "length": 0.05612, "gcf": "RS_GCF_013372225.1"}, {"name": "Campylobacter corcagiensis", "length": 0.05177, "gcf": "RS_GCF_013201645.1"}]}, {"name": "Campylobacter portucalensis", "length": 0.05256, "gcf": "RS_GCF_009690845.1"}]}, {"name": "1", "length": 0.00829, "children": [{"name": "Campylobacter geochelonis", "length": 0.03827, "gcf": "RS_GCF_013201685.1"}, {"name": "Campylobacter blaseri", "length": 0.05357, "gcf": "RS_GCF_013201895.1"}]}]}]}, {"name": "Campylobacter sputorum", "length": 0.07186, "gcf": "RS_GCF_008245005.1"}]}, {"name": "1", "length": 0.03152, "children": [{"name": "1", "length": 0.01268, "children": [{"name": "1", "length": 0.03528, "children": [{"name": "1", "length": 0.00422, "children": [{"name": "1", "length": 0.0106, "children": [{"name": "Campylobacter vicugnae", "length": 0.00498, "gcf": "RS_GCF_002139875.1"}, {"name": "Campylobacter devanensis", "length": 0.00953, "gcf": "RS_GCF_002139915.1"}]}, {"name": "Campylobacter porcelli", "length": 0.00972, "gcf": "RS_GCF_002139855.1"}]}, {"name": "Campylobacter lanienae", "length": 0.00842, "gcf": "RS_GCF_002139935.1"}]}, {"name": "1", "length": 0.01046, "children": [{"name": "1", "length": 0.0043, "children": [{"name": "Campylobacter iguaniorum", "length": 0.01835, "gcf": "RS_GCF_000736415.1"}, {"name": "Campylobacter fetus", "length": 0.02035, "gcf": "RS_GCF_900475935.1"}]}, {"name": "Campylobacter hyointestinalis", "length": 0.01732, "gcf": "RS_GCF_013372145.1"}]}]}, {"name": "Campylobacter magnus", "length": 0.13441, "gcf": "RS_GCF_028649595.1"}]}]}, {"name": "1", "length": 0.03505, "children": [{"name": "1", "length": 0.01767, "children": [{"name": "1", "length": 0.00975, "children": [{"name": "Campylobacter concisus", "length": 0.03761, "gcf": "RS_GCF_001298465.1"}, {"name": "Campylobacter curvus", "length": 0.02315, "gcf": "RS_GCF_013372125.1"}]}, {"name": "1", "length": 0.00629, "children": [{"name": "Campylobacter anatolicus", "length": 0.02864, "gcf": "RS_GCF_018145655.1"}, {"name": "1", "length": 0.02257, "children": [{"name": "1", "length": 0.01044, "children": [{"name": "1", "length": 0.0093, "children": [{"name": "Campylobacter majalis", "length": 0.03843, "gcf": "RS_GCF_905120465.1"}, {"name": "Campylobacter pinnipediorum", "length": 0.03945, "gcf": "RS_GCF_002021925.1"}]}, {"name": "1", "length": 0.01874, "children": [{"name": "Campylobacter mucosalis", "length": 0.02388, "gcf": "RS_GCF_013372205.1"}, {"name": "Campylobacter gastrosuis", "length": 0.02371, "gcf": "RS_GCF_030249845.1"}]}]}, {"name": "Campylobacter suis", "length": 0.03936, "gcf": "RS_GCF_905120475.1"}]}]}]}, {"name": "1", "length": 0.06413, "children": [{"name": "Campylobacter showae", "length": 0.00567, "gcf": "RS_GCF_004803815.1"}, {"name": "1", "length": 0.00365, "children": [{"name": "Campylobacter rectus", "length": 0.00574, "gcf": "RS_GCF_004803795.1"}, {"name": "Campylobacter massiliensis", "length": 0.00355, "gcf": "RS_GCF_014253065.1"}]}]}]}]}, {"name": "1", "length": 0.03787, "children": [{"name": "1", "length": 0.0312, "children": [{"name": "1", "length": 0.02855, "children": [{"name": "1", "length": 0.0044, "children": [{"name": "1", "length": 0.00541, "children": [{"name": "1", "length": 0.00488, "children": [{"name": "1", "length": 0.00055, "children": [{"name": "Campylobacter ornithocola", "length": 0.00748, "gcf": "RS_GCF_013201605.1"}, {"name": "Campylobacter subantarcticus", "length": 0.00737, "gcf": "RS_GCF_000816305.1"}]}, {"name": "Campylobacter lari", "length": 0.00497, "gcf": "RS_GCF_013372185.1"}]}, {"name": "Campylobacter armoricus", "length": 0.00853, "gcf": "RS_GCF_013372105.1"}]}, {"name": "Campylobacter peloridis", "length": 0.01037, "gcf": "RS_GCF_000816785.1"}]}, {"name": "1", "length": 0.00473, "children": [{"name": "Campylobacter insulaenigrae", "length": 0.01695, "gcf": "RS_GCF_000816185.1"}, {"name": "Campylobacter volucris", "length": 0.01342, "gcf": "RS_GCF_008245045.1"}]}]}, {"name": "1", "length": 0.02422, "children": [{"name": "1", "length": 0.0046, "children": [{"name": "1", "length": 0.00387, "children": [{"name": "1", "length": 0.00953, "children": [{"name": "1", "length": 0.00795, "children": [{"name": "1", "length": 0.00545, "children": [{"name": "1", "length": 0.02114, "children": [{"name": "Campylobacter aviculae", "length": 0.0043, "gcf": "RS_GCF_005406215.1"}, {"name": "Campylobacter taeniopygiae", "length": 0.01075, "gcf": "RS_GCF_005406225.1"}]}, {"name": "Campylobacter coli", "length": 0.01323, "gcf": "RS_GCF_000254135.1"}]}, {"name": "1", "length": 0.00761, "children": [{"name": "1", "length": 0.01029, "children": [{"name": "Campylobacter hepaticus", "length": 0.01687, "gcf": "RS_GCF_001687475.2"}, {"name": "Campylobacter bilis", "length": 0.01561, "gcf": "RS_GCF_016806695.1"}]}, {"name": "Campylobacter jejuni", "length": 0.01031, "gcf": "RS_GCF_001457695.1"}]}]}, {"name": "Campylobacter novaezeelandiae", "length": 0.03764, "gcf": "RS_GCF_004323845.1"}]}, {"name": "Campylobacter cuniculorum", "length": 0.0436, "gcf": "RS_GCF_002104335.1"}]}, {"name": "1", "length": 0.03718, "children": [{"name": "Campylobacter helveticus", "length": 0.01033, "gcf": "RS_GCF_002080395.1"}, {"name": "Campylobacter upsaliensis", "length": 0.00968, "gcf": "RS_GCF_900637395.1"}]}]}, {"name": "1", "length": 0.01767, "children": [{"name": "Campylobacter troglodytis", "length": 0.10885, "gcf": "RS_GCF_006864425.1"}, {"name": "Campylobacter avium", "length": 0.0846, "gcf": "RS_GCF_002238335.1"}]}]}]}, {"name": "Campylobacter canadensis", "length": 0.18276, "gcf": "RS_GCF_013177655.1"}]}]}, {"name": "Sulfurospirillum tamanense", "length": 0.09093, "gcf": "RS_GCF_016937535.1"}]}, {"name": "1", "length": 0.02542, "children": [{"name": "Sulfurospirillum arcachonense", "length": 0.07976, "gcf": "RS_GCF_000597725.1"}, {"name": "1", "length": 0.06696, "children": [{"name": "1", "length": 0.00635, "children": [{"name": "1", "length": 0.00309, "children": [{"name": "1", "length": 0.00923, "children": [{"name": "Sulfurospirillum multivorans", "length": 0.00173, "gcf": "RS_GCF_000568815.1"}, {"name": "Sulfurospirillum halorespirans", "length": 0.0019, "gcf": "RS_GCF_001723605.1"}]}, {"name": "Sulfurospirillum oryzae", "length": 0.00832, "gcf": "RS_GCF_025770725.1"}]}, {"name": "Sulfurospirillum diekertiae", "length": 0.01038, "gcf": "RS_GCF_011769985.2"}]}, {"name": "1", "length": 0.00375, "children": [{"name": "1", "length": 0.00729, "children": [{"name": "Sulfurospirillum deleyianum", "length": 0.01061, "gcf": "RS_GCF_000024885.1"}, {"name": "Sulfurospirillum barnesii", "length": 0.01294, "gcf": "RS_GCF_000265295.1"}]}, {"name": "Sulfurospirillum cavolei", "length": 0.02635, "gcf": "RS_GCF_000813325.1"}]}]}]}]}, {"name": "1", "length": 0.10372, "children": [{"name": "1", "length": 0.01183, "children": [{"name": "1", "length": 0.06125, "children": [{"name": "1", "length": 0.00942, "children": [{"name": "1", "length": 0.01274, "children": [{"name": "1", "length": 0.01944, "children": [{"name": "Helicobacter rodentium", "length": 0.03837, "gcf": "RS_GCF_000687535.1"}, {"name": "1", "length": 0.02745, "children": [{"name": "Helicobacter turcicus", "length": 0.01254, "gcf": "RS_GCF_019711685.1"}, {"name": "Helicobacter winghamensis", "length": 0.01391, "gcf": "RS_GCF_028751035.1"}]}]}, {"name": "1", "length": 0.02617, "children": [{"name": "Helicobacter pullorum", "length": 0.01706, "gcf": "RS_GCF_017979475.1"}, {"name": "1", "length": 0.01301, "children": [{"name": "Helicobacter canadensis", "length": 0.00473, "gcf": "RS_GCF_000162575.1"}, {"name": "Helicobacter colisuis", "length": 0.00758, "gcf": "RS_GCF_023646285.1"}]}]}]}, {"name": "Helicobacter valdiviensis", "length": 0.03286, "gcf": "RS_GCF_003245365.1"}]}, {"name": "Helicobacter ibis", "length": 0.05535, "gcf": "RS_GCF_027859255.1"}]}, {"name": "Wolinella succinogenes", "length": 0.07193, "gcf": "RS_GCF_000196135.1"}]}, {"name": "1", "length": 0.05823, "children": [{"name": "1", "length": 0.00997, "children": [{"name": "1", "length": 0.00923, "children": [{"name": "1", "length": 0.01136, "children": [{"name": "1", "length": 0.00901, "children": [{"name": "1", "length": 0.06523, "children": [{"name": "1", "length": 0.0806, "children": [{"name": "1", "length": 0.0088, "children": [{"name": "1", "length": 0.02717, "children": [{"name": "1", "length": 0.00931, "children": [{"name": "Helicobacter salomonis", "length": 0.01724, "gcf": "RS_GCF_017979425.1"}, {"name": "1", "length": 0.0155, "children": [{"name": "Helicobacter labacensis", "length": 0.02274, "gcf": "RS_GCF_003660285.1"}, {"name": "Helicobacter vulpis", "length": 0.00771, "gcf": "RS_GCF_003660395.1"}]}]}, {"name": "Helicobacter felis", "length": 0.02858, "gcf": "RS_GCF_000200595.1"}]}, {"name": "Helicobacter mehlei", "length": 0.03768, "gcf": "RS_GCF_003660265.1"}]}, {"name": "1", "length": 0.01605, "children": [{"name": "1", "length": 0.03004, "children": [{"name": "Helicobacter ailurogastricus", "length": 0.00822, "gcf": "RS_GCF_001282945.1"}, {"name": "Helicobacter heilmannii", "length": 0.02911, "gcf": "RS_GCF_001283065.1"}]}, {"name": "Helicobacter suis", "length": 0.04783, "gcf": "RS_GCF_026000295.1"}]}]}, {"name": "1", "length": 0.09401, "children": [{"name": "1", "length": 0.01651, "children": [{"name": "Helicobacter pylori", "length": 0.0121, "gcf": "RS_GCF_900478295.1"}, {"name": "Helicobacter acinonychis", "length": 0.00937, "gcf": "RS_GCF_900461455.1"}]}, {"name": "Helicobacter cetorum", "length": 0.00899, "gcf": "RS_GCF_000259275.1"}]}]}, {"name": "1", "length": 0.05783, "children": [{"name": "1", "length": 0.0178, "children": [{"name": "Helicobacter anatolicus", "length": 0.0335, "gcf": "RS_GCF_021300615.1"}, {"name": "Helicobacter mustelae", "length": 0.04092, "gcf": "RS_GCF_900476215.1"}]}, {"name": "Helicobacter anseris", "length": 0.03769, "gcf": "RS_GCF_003364335.1"}]}]}, {"name": "1", "length": 0.04673, "children": [{"name": "Helicobacter canis", "length": 0.0961, "gcf": "RS_GCF_008693005.1"}, {"name": "Helicobacter macacae", "length": 0.08053, "gcf": "RS_GCF_000507845.1"}]}]}, {"name": "1", "length": 0.1184, "children": [{"name": "1", "length": 0.00888, "children": [{"name": "1", "length": 0.00858, "children": [{"name": "1", "length": 0.04415, "children": [{"name": "Helicobacter trogontum", "length": 0.01098, "gcf": "RS_GCF_000765905.2"}, {"name": "Helicobacter bilis", "length": 0.01055, "gcf": "RS_GCF_000686565.1"}]}, {"name": "Helicobacter didelphidarum", "length": 0.05344, "gcf": "RS_GCF_003364195.1"}]}, {"name": "Helicobacter saguini", "length": 0.07098, "gcf": "RS_GCF_000762875.2"}]}, {"name": "Helicobacter muridarum", "length": 0.07739, "gcf": "RS_GCF_000765805.2"}]}]}, {"name": "1", "length": 0.02559, "children": [{"name": "1", "length": 0.0573, "children": [{"name": "1", "length": 0.00486, "children": [{"name": "1", "length": 0.01901, "children": [{"name": "Helicobacter cinaedi", "length": 0.00856, "gcf": "RS_GCF_000155475.1"}, {"name": "Helicobacter labetoulli", "length": 0.00788, "gcf": "RS_GCF_003670275.1"}]}, {"name": "Helicobacter jaachi", "length": 0.03457, "gcf": "RS_GCF_000763135.2"}]}, {"name": "1", "length": 0.01217, "children": [{"name": "Helicobacter japonicus", "length": 0.02568, "gcf": "RS_GCF_000762845.2"}, {"name": "Helicobacter marmotae", "length": 0.0379, "gcf": "RS_GCF_003364255.1"}]}]}, {"name": "Helicobacter himalayensis", "length": 0.11598, "gcf": "RS_GCF_001602095.1"}]}]}, {"name": "1", "length": 0.0605, "children": [{"name": "1", "length": 0.00942, "children": [{"name": "Helicobacter enhydrae", "length": 0.05455, "gcf": "RS_GCF_001693335.1"}, {"name": "1", "length": 0.02857, "children": [{"name": "Helicobacter pametensis", "length": 0.01939, "gcf": "RS_GCF_000518225.1"}, {"name": "Helicobacter kayseriensis", "length": 0.02039, "gcf": "RS_GCF_021300655.1"}]}]}, {"name": "1", "length": 0.01884, "children": [{"name": "Helicobacter brantae", "length": 0.01687, "gcf": "RS_GCF_003364205.1"}, {"name": "Helicobacter cholecystus", "length": 0.03893, "gcf": "RS_GCF_003364215.1"}]}]}]}]}]}, {"name": "1", "length": 0.01489, "children": [{"name": "1", "length": 0.02351, "children": [{"name": "1", "length": 0.09274, "children": [{"name": "1", "length": 0.07419, "children": [{"name": "1", "length": 0.02053, "children": [{"name": "Sulfurovum riftiae", "length": 0.00812, "gcf": "RS_GCF_001595645.1"}, {"name": "Sulfurovum lithotrophicum", "length": 0.01004, "gcf": "RS_GCF_000987835.1"}]}, {"name": "Sulfurovum indicum", "length": 0.02416, "gcf": "RS_GCF_014931715.1"}]}, {"name": "Nitratifractor salsuginis", "length": 0.08224, "gcf": "RS_GCF_000186245.1"}]}, {"name": "1", "length": 0.06926, "children": [{"name": "1", "length": 0.00789, "children": [{"name": "Hydrogenimonas thermophila", "length": 0.02103, "gcf": "RS_GCF_900115615.1"}, {"name": "Hydrogenimonas cancrithermarum", "length": 0.01, "gcf": "RS_GCF_030296055.1"}]}, {"name": "Hydrogenimonas urashimensis", "length": 0.01299, "gcf": "RS_GCF_016593255.1"}]}]}, {"name": "1", "length": 0.03648, "children": [{"name": "1", "length": 0.0131, "children": [{"name": "Nitratiruptor tergarcus", "length": 0.08285, "gcf": "RS_GCF_027946175.1"}, {"name": "1", "length": 0.01469, "children": [{"name": "Nitrosophilus kaiyonis", "length": 0.02332, "gcf": "RS_GCF_027943725.1"}, {"name": "Nitrosophilus labii", "length": 0.02605, "gcf": "RS_GCF_014466985.1"}]}]}, {"name": "Nitrosophilus alvini", "length": 0.03601, "gcf": "RS_GCF_015100395.1"}]}]}]}, {"name": "1", "length": 0.10333, "children": [{"name": "1", "length": 0.07511, "children": [{"name": "1", "length": 0.02966, "children": [{"name": "1", "length": 0.00629, "children": [{"name": "1", "length": 0.00496, "children": [{"name": "1", "length": 0.00416, "children": [{"name": "Sulfurimonas aquatica", "length": 0.06839, "gcf": "RS_GCF_017357825.1"}, {"name": "1", "length": 0.0175, "children": [{"name": "Sulfurimonas gotlandica", "length": 0.02737, "gcf": "RS_GCF_000242915.1"}, {"name": "Sulfurimonas hongkongensis", "length": 0.03214, "gcf": "RS_GCF_000445475.1"}]}]}, {"name": "1", "length": 0.0315, "children": [{"name": "Sulfurimonas baltica", "length": 0.00496, "gcf": "RS_GCF_015265455.1"}, {"name": "Sulfurimonas marisnigri", "length": 0.00728, "gcf": "RS_GCF_015265475.1"}]}]}, {"name": "Sulfurimonas lithotrophica", "length": 0.05889, "gcf": "RS_GCF_009258225.1"}]}, {"name": "1", "length": 0.01283, "children": [{"name": "1", "length": 0.01421, "children": [{"name": "1", "length": 0.01245, "children": [{"name": "1", "length": 0.00898, "children": [{"name": "Sulfurimonas hydrogeniphila", "length": 0.00317, "gcf": "RS_GCF_009068765.1"}, {"name": "Sulfurimonas sediminis", "length": 0.00277, "gcf": "RS_GCF_014905115.1"}]}, {"name": "Sulfurimonas autotrophica", "length": 0.00818, "gcf": "RS_GCF_000147355.1"}]}, {"name": "1", "length": 0.01329, "children": [{"name": "Sulfurimonas indica", "length": 0.01434, "gcf": "RS_GCF_009192995.1"}, {"name": "Sulfurimonas paralvinellae", "length": 0.01119, "gcf": "RS_GCF_014905135.1"}]}]}, {"name": "Sulfurimonas marina", "length": 0.0523, "gcf": "RS_GCF_014905095.1"}]}]}, {"name": "1", "length": 0.02711, "children": [{"name": "1", "length": 0.00793, "children": [{"name": "Sulfurimonas xiamenensis", "length": 0.01482, "gcf": "RS_GCF_009258045.1"}, {"name": "Sulfurimonas crateris", "length": 0.0201, "gcf": "RS_GCF_005217605.1"}]}, {"name": "Sulfurimonas denitrificans", "length": 0.03515, "gcf": "RS_GCF_000012965.1"}]}]}, {"name": "Sulfuricurvum kujiense", "length": 0.08572, "gcf": "RS_GCF_000183725.1"}]}]}, {"name": "1", "length": 0.17956, "children": [{"name": "1", "length": 0.02485, "children": [{"name": "1", "length": 0.00791, "children": [{"name": "1", "length": 0.00938, "children": [{"name": "Malaciobacter halophilus", "length": 0.01056, "gcf": "RS_GCF_002837275.1"}, {"name": "Malaciobacter marinus", "length": 0.0175, "gcf": "RS_GCF_003544855.1"}]}, {"name": "Malaciobacter molluscorum", "length": 0.0266, "gcf": "RS_GCF_003544935.1"}]}, {"name": "Malaciobacter mytili", "length": 0.01862, "gcf": "RS_GCF_003346775.1"}]}, {"name": "1", "length": 0.01382, "children": [{"name": "1", "length": 0.00598, "children": [{"name": "1", "length": 0.0134, "children": [{"name": "1", "length": 0.0079, "children": [{"name": "1", "length": 0.02774, "children": [{"name": "1", "length": 0.00313, "children": [{"name": "1", "length": 0.0038, "children": [{"name": "1", "length": 0.01027, "children": [{"name": "1", "length": 0.01036, "children": [{"name": "1", "length": 0.00235, "children": [{"name": "Arcobacter suis", "length": 0.00508, "gcf": "RS_GCF_003544815.1"}, {"name": "Arcobacter caeni", "length": 0.01313, "gcf": "RS_GCF_003063245.1"}]}, {"name": "Arcobacter venerupis", "length": 0.00796, "gcf": "RS_GCF_013201665.1"}]}, {"name": "Arcobacter acticola", "length": 0.02508, "gcf": "RS_GCF_013177675.1"}]}, {"name": "1", "length": 0.00751, "children": [{"name": "Arcobacter aquimarinus", "length": 0.00279, "gcf": "RS_GCF_013177635.1"}, {"name": "Arcobacter cloacae", "length": 0.00115, "gcf": "RS_GCF_013201935.1"}]}]}, {"name": "1", "length": 0.00219, "children": [{"name": "Arcobacter defluvii", "length": 0.006, "gcf": "RS_GCF_013201725.1"}, {"name": "Arcobacter ellisii", "length": 0.00691, "gcf": "RS_GCF_003544915.1"}]}]}, {"name": "1", "length": 0.01241, "children": [{"name": "1", "length": 0.01963, "children": [{"name": "1", "length": 0.00643, "children": [{"name": "1", "length": 0.00705, "children": [{"name": "1", "length": 0.00811, "children": [{"name": "Aliarcobacter trophiarum", "length": 0.01076, "gcf": "RS_GCF_003355515.1"}, {"name": "Aliarcobacter cryaerophilus", "length": 0.01492, "gcf": "RS_GCF_003660105.1"}]}, {"name": "1", "length": 0.01033, "children": [{"name": "1", "length": 0.02083, "children": [{"name": "Aliarcobacter thereius", "length": 0.00514, "gcf": "RS_GCF_004214815.1"}, {"name": "Arcobacter porcinus", "length": 0.00187, "gcf": "RS_GCF_004299785.2"}]}, {"name": "Aliarcobacter skirrowii", "length": 0.01426, "gcf": "RS_GCF_003544835.1"}]}]}, {"name": "1", "length": 0.00926, "children": [{"name": "Aliarcobacter vitoriensis", "length": 0.00829, "gcf": "RS_GCF_003316695.1"}, {"name": "Aliarcobacter lanthieri", "length": 0.00876, "gcf": "RS_GCF_013201625.1"}]}]}, {"name": "1", "length": 0.01704, "children": [{"name": "1", "length": 0.00523, "children": [{"name": "Aliarcobacter faecis", "length": 0.00663, "gcf": "RS_GCF_013201705.1"}, {"name": "Aliarcobacter cibarius", "length": 0.01047, "gcf": "RS_GCF_013372265.1"}]}, {"name": "Arcobacter vandammei", "length": 0.01062, "gcf": "RS_GCF_016106035.1"}]}]}, {"name": "1", "length": 0.01438, "children": [{"name": "Arcobacter lacus", "length": 0.00324, "gcf": "RS_GCF_003063295.1"}, {"name": "Aliarcobacter butzleri", "length": 0.00253, "gcf": "RS_GCF_900187115.1"}]}]}]}, {"name": "Malaciobacter pacificus", "length": 0.01779, "gcf": "RS_GCF_004214795.1"}]}, {"name": "1", "length": 0.00349, "children": [{"name": "1", "length": 0.01364, "children": [{"name": "1", "length": 0.0252, "children": [{"name": "Poseidonibacter antarcticus", "length": 0.01197, "gcf": "RS_GCF_003667345.1"}, {"name": "Poseidonibacter parvus", "length": 0.01264, "gcf": "RS_GCF_001956695.1"}]}, {"name": "Poseidonibacter lekithochrous", "length": 0.0159, "gcf": "RS_GCF_013283835.1"}]}, {"name": "Arcobacter roscoffensis", "length": 0.02849, "gcf": "RS_GCF_024267655.1"}]}]}, {"name": "1", "length": 0.01337, "children": [{"name": "Halarcobacter bivalviorum", "length": 0.02895, "gcf": "RS_GCF_003346815.1"}, {"name": "1", "length": 0.00848, "children": [{"name": "1", "length": 0.0142, "children": [{"name": "Halarcobacter anaerophilus", "length": 0.01399, "gcf": "RS_GCF_006459125.1"}, {"name": "Halarcobacter ebronensis", "length": 0.02085, "gcf": "RS_GCF_013201825.1"}]}, {"name": "Arcobacter arenosus", "length": 0.02289, "gcf": "RS_GCF_005771535.1"}]}]}]}, {"name": "Arcobacter nitrofigilis", "length": 0.05251, "gcf": "RS_GCF_000092245.1"}]}]}]}, {"name": "1", "length": 0.14303, "children": [{"name": "1", "length": 0.00792, "children": [{"name": "1", "length": 0.01447, "children": [{"name": "Caminibacter pacificus", "length": 0.02042, "gcf": "RS_GCF_003752135.1"}, {"name": "Caminibacter mediatlanticus", "length": 0.032, "gcf": "RS_GCF_005843985.1"}]}, {"name": "Nautilia profundicola", "length": 0.04206, "gcf": "RS_GCF_000021725.1"}]}, {"name": "Lebetimonas natsushimae", "length": 0.02815, "gcf": "RS_GCF_002335445.1"}]}]}, {"name": "1", "length": 0.28074, "children": [{"name": "1", "length": 0.14334, "children": [{"name": "1", "length": 0.00836, "children": [{"name": "Hippea alviniae", "length": 0.03937, "gcf": "RS_GCF_000420385.1"}, {"name": "Hippea maritima", "length": 0.03862, "gcf": "RS_GCF_000194135.1"}]}, {"name": "Hippea jasoniae", "length": 0.04563, "gcf": "RS_GCF_000744435.1"}]}, {"name": "Desulfurella amilsii", "length": 0.17324, "gcf": "RS_GCF_002119425.1"}]}]};
+const MARGIN = { top: 20, right: 280, bottom: 20, left: 60 };
+const HEIGHT = 2988;
+
+let showLen = false;
+let currentZoom = 1;
+
+function render(zoomScale) {
+  d3.select("#chart").selectAll("*").remove();
+
+  const width = Math.max(900, window.innerWidth - 20);
+  const innerW = (width - MARGIN.left - MARGIN.right) * zoomScale;
+  const innerH = (HEIGHT - MARGIN.top - MARGIN.bottom) * zoomScale;
+
+  const svg = d3.select("#chart")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", HEIGHT * zoomScale + 40)
+    .append("g")
+    .attr("transform", `translate(${MARGIN.left},${MARGIN.top})`);
+
+  const root = d3.hierarchy(RAW, d => d.children);
+
+  // compute max depth for scaling
+  let maxDepth = 0;
+  root.each(d => { if (d.depth > maxDepth) maxDepth = d.depth; });
+
+  const treeLayout = d3.tree().size([innerH, innerW]);
+  treeLayout(root);
+
+  // Elbow connector (right-angle cladogram style)
+  const link = svg.selectAll(".link")
+    .data(root.links())
+    .join("path")
+    .attr("class", "link")
+    .attr("d", d => {
+      return `M${d.source.y},${d.source.x}
+              H${d.target.y}
+              V${d.target.x}`;
+    });
+
+  const node = svg.selectAll(".node")
+    .data(root.descendants())
+    .join("g")
+    .attr("class", d => "node" + (d.children ? "" : " leaf"))
+    .attr("transform", d => `translate(${d.y},${d.x})`);
+
+  node.append("circle").attr("r", d => d.children ? 2 : 3.5);
+
+  // Leaf labels with tooltip
+  const tooltip = document.getElementById("tooltip");
+
+  node.filter(d => !d.children)
+    .append("text")
+    .attr("class", "leaf-label")
+    .attr("dy", "0.31em")
+    .attr("x", 8)
+    .style("font-style", "italic")
+    .text(d => d.data.name)
+    .on("mousemove", (event, d) => {
+      const gcf = d.data.gcf || "—";
+      tooltip.innerHTML = `<b>${d.data.name}</b><br>GCF: ${gcf}`;
+      tooltip.style.opacity = 1;
+      tooltip.style.left = (event.clientX + 14) + "px";
+      tooltip.style.top  = (event.clientY - 10) + "px";
+    })
+    .on("mouseleave", () => { tooltip.style.opacity = 0; });
+
+  // Internal node labels (bootstrap / branch length)
+  if (showLen) {
+    node.filter(d => !d.children)
+      .append("text")
+      .attr("dy", "-0.5em")
+      .attr("x", 8)
+      .style("font-size", "9px")
+      .style("fill", "#888")
+      .text(d => d.data.length > 0 ? d.data.length.toFixed(4) : "");
+  }
+}
+
+render(1);
+
+document.getElementById("zoomSlider").addEventListener("input", e => {
+  render(parseFloat(e.target.value));
+});
+
+document.getElementById("showBranchLen").addEventListener("change", e => {
+  showLen = e.target.checked;
+  render(parseFloat(document.getElementById("zoomSlider").value));
+});
+</script>
+</body>
+</html>
