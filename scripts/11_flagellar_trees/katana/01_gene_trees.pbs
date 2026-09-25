@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=4:mem=8gb
+#PBS -l walltime=06:00:00
+#PBS -j oe
+#PBS -N flag_gene_trees
+
+# PBS array job, one element per gene in gene_order/flagellar_trees/genes.txt
+# (submit.sh sets -J 1-N). Per gene:
+#   MAFFT L-INS-i  ->  trimAl -automated1  ->  IQ-TREE ModelFinder + 1000 UFBoot
+# IQ-TREE resumes from its checkpoint if the job is rerun after a walltime kill.
+
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+CONDA_BASE=${CONDA_BASE:-/srv/scratch/baker/miniforge3}
+source "$CONDA_BASE/etc/profile.d/conda.sh"
+conda activate ./.katana_env
+
+D=gene_order/flagellar_trees
+GENE=$(sed -n "${PBS_ARRAY_INDEX}p" "$D/genes.txt")
+mkdir -p "$D/aligned" "$D/trimmed" "$D/gene_trees"
+echo "=== $GENE (array index $PBS_ARRAY_INDEX) on $(hostname) ==="
+
+mafft --localpair --maxiterate 1000 --thread "$NCPUS" --quiet \
+    "$D/genes/$GENE.faa" > "$D/aligned/$GENE.faa"
+trimal -in "$D/aligned/$GENE.faa" -out "$D/trimmed/$GENE.faa" -automated1
+
+iqtree2 -s "$D/trimmed/$GENE.faa" -m MFP -B 1000 -T "$NCPUS" \
+    --prefix "$D/gene_trees/$GENE"
+
+echo "=== done $GENE ==="

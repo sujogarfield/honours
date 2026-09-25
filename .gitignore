@@ -21,3 +21,4 @@ archive/
 # campy_orthologs/archive_json/ when rebuilding, so keep this on disk, just
 # don't commit it.
 campy_orthologs/
+.katana_env/

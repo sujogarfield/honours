@@ -1,0 +1,37 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=16:mem=32gb
+#PBS -l walltime=24:00:00
+#PBS -j oe
+#PBS -N flag_concat
+
+# Runs after every gene tree in 01_gene_trees.pbs has finished.
+#  1. Concatenated (partitioned) flagellar tree, ModelFinder per gene, 1000 UFBoot.
+#  2. Gene + site concordance factors (gCF, sCFL) on the flagellar tree.
+#  3. The same concordance factors on the GTDB species tree: for each species
+#     branch, how many flagellar genes / sites support it.
+#  4. Flagellar tree vs GTDB comparison (compare_to_gtdb.py).
+
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+CONDA_BASE=${CONDA_BASE:-/srv/scratch/baker/miniforge3}
+source "$CONDA_BASE/etc/profile.d/conda.sh"
+conda activate ./.katana_env
+
+D=gene_order/flagellar_trees
+mkdir -p "$D/concat" "$D/concordance"
+
+iqtree2 -p "$D/trimmed" -m MFP -B 1000 -T "$NCPUS" --prefix "$D/concat/concat"
+
+cat "$D"/gene_trees/*.treefile > "$D/concordance/loci.treefile"
+
+# best_model.nex fixes the per-gene models found above, so sCFL doesn't rerun ModelFinder
+iqtree2 -te "$D/concat/concat.treefile" -p "$D/concat/concat.best_model.nex" \
+    --gcf "$D/concordance/loci.treefile" --scfl 100 -T "$NCPUS" \
+    --prefix "$D/concordance/flagellar"
+iqtree2 -te "$D/gtdb_ref_pruned.nwk" -p "$D/concat/concat.best_model.nex" \
+    --gcf "$D/concordance/loci.treefile" --scfl 100 -T "$NCPUS" \
+    --prefix "$D/concordance/gtdb"
+
+python scripts/11_flagellar_trees/compare_to_gtdb.py
+
+echo "=== done ==="

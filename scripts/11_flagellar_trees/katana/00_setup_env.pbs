@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=4:mem=16gb
+#PBS -l walltime=01:00:00
+#PBS -j oe
+#PBS -N flag_env
+
+# One-off: builds <repo>/.katana_env from env.yml. Submitted automatically by
+# submit.sh when the env is missing. A conda solve this size is too slow for
+# the login node.
+
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+CONDA_BASE=${CONDA_BASE:-/srv/scratch/baker/miniforge3}
+source "$CONDA_BASE/etc/profile.d/conda.sh"
+
+conda env create -p .katana_env -f scripts/11_flagellar_trees/katana/env.yml \
+  || conda env update -p .katana_env -f scripts/11_flagellar_trees/katana/env.yml
+conda activate ./.katana_env
+iqtree2 --version | head -1
+mafft --version
+trimal --version
+python -c "import numpy, ete3; print('python deps OK')"

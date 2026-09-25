@@ -1,0 +1,363 @@
+{
+  "rule": {
+    "min_genome_coverage": 100,
+    "max_multicopy_frac": 0.1,
+    "min_genes_per_genome": 20
+  },
+  "genes": {
+    "chea": {
+      "genomes_with_gene": 110,
+      "genomes_multicopy_excluded": 2,
+      "sequences_written": 108,
+      "protein_missing_from_faa": 0
+    },
+    "chev": {
+      "genomes_with_gene": 106,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 106,
+      "protein_missing_from_faa": 0
+    },
+    "flag": {
+      "genomes_with_gene": 120,
+      "genomes_multicopy_excluded": 1,
+      "sequences_written": 119,
+      "protein_missing_from_faa": 0
+    },
+    "flga": {
+      "genomes_with_gene": 119,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 119,
+      "protein_missing_from_faa": 0
+    },
+    "flgb": {
+      "genomes_with_gene": 153,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 153,
+      "protein_missing_from_faa": 0
+    },
+    "flgc": {
+      "genomes_with_gene": 153,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 153,
+      "protein_missing_from_faa": 0
+    },
+    "flgd": {
+      "genomes_with_gene": 142,
+      "genomes_multicopy_excluded": 4,
+      "sequences_written": 137,
+      "protein_missing_from_faa": 0
+    },
+    "flgg": {
+      "genomes_with_gene": 153,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 152,
+      "protein_missing_from_faa": 0
+    },
+    "flgh": {
+      "genomes_with_gene": 153,
+      "genomes_multicopy_excluded": 1,
+      "sequences_written": 151,
+      "protein_missing_from_faa": 0
+    },
+    "flgi": {
+      "genomes_with_gene": 154,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 153,
+      "protein_missing_from_faa": 0
+    },
+    "flgj": {
+      "genomes_with_gene": 145,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 145,
+      "protein_missing_from_faa": 0
+    },
+    "flgk": {
+      "genomes_with_gene": 154,
+      "genomes_multicopy_excluded": 6,
+      "sequences_written": 148,
+      "protein_missing_from_faa": 0
+    },
+    "flgl": {
+      "genomes_with_gene": 152,
+      "genomes_multicopy_excluded": 4,
+      "sequences_written": 147,
+      "protein_missing_from_faa": 0
+    },
+    "flgr": {
+      "genomes_with_gene": 105,
+      "genomes_multicopy_excluded": 1,
+      "sequences_written": 104,
+      "protein_missing_from_faa": 0
+    },
+    "flgs": {
+      "genomes_with_gene": 103,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 103,
+      "protein_missing_from_faa": 0
+    },
+    "flha": {
+      "genomes_with_gene": 152,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 151,
+      "protein_missing_from_faa": 0
+    },
+    "flhb": {
+      "genomes_with_gene": 152,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 152,
+      "protein_missing_from_faa": 0
+    },
+    "flhf": {
+      "genomes_with_gene": 151,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 147,
+      "protein_missing_from_faa": 0
+    },
+    "flia": {
+      "genomes_with_gene": 120,
+      "genomes_multicopy_excluded": 4,
+      "sequences_written": 116,
+      "protein_missing_from_faa": 0
+    },
+    "flid": {
+      "genomes_with_gene": 154,
+      "genomes_multicopy_excluded": 5,
+      "sequences_written": 148,
+      "protein_missing_from_faa": 0
+    },
+    "flie": {
+      "genomes_with_gene": 152,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 152,
+      "protein_missing_from_faa": 0
+    },
+    "flif": {
+      "genomes_with_gene": 154,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 153,
+      "protein_missing_from_faa": 0
+    },
+    "flig": {
+      "genomes_with_gene": 154,
+      "genomes_multicopy_excluded": 1,
+      "sequences_written": 152,
+      "protein_missing_from_faa": 0
+    },
+    "flih": {
+      "genomes_with_gene": 149,
+      "genomes_multicopy_excluded": 1,
+      "sequences_written": 147,
+      "protein_missing_from_faa": 0
+    },
+    "flii": {
+      "genomes_with_gene": 154,
+      "genomes_multicopy_excluded": 3,
+      "sequences_written": 150,
+      "protein_missing_from_faa": 0
+    },
+    "flil": {
+      "genomes_with_gene": 105,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 105,
+      "protein_missing_from_faa": 0
+    },
+    "flim": {
+      "genomes_with_gene": 154,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 152,
+      "protein_missing_from_faa": 0
+    },
+    "flin": {
+      "genomes_with_gene": 154,
+      "genomes_multicopy_excluded": 8,
+      "sequences_written": 145,
+      "protein_missing_from_faa": 0
+    },
+    "flip": {
+      "genomes_with_gene": 152,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 151,
+      "protein_missing_from_faa": 0
+    },
+    "fliq": {
+      "genomes_with_gene": 153,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 152,
+      "protein_missing_from_faa": 0
+    },
+    "flir": {
+      "genomes_with_gene": 153,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 153,
+      "protein_missing_from_faa": 0
+    },
+    "flis": {
+      "genomes_with_gene": 154,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 153,
+      "protein_missing_from_faa": 0
+    },
+    "fliy": {
+      "genomes_with_gene": 113,
+      "genomes_multicopy_excluded": 0,
+      "sequences_written": 112,
+      "protein_missing_from_faa": 0
+    },
+    "pflb": {
+      "genomes_with_gene": 117,
+      "genomes_multicopy_excluded": 3,
+      "sequences_written": 114,
+      "protein_missing_from_faa": 0
+    }
+  },
+  "genes_not_selected": {
+    "cheb": {
+      "genomes": 78,
+      "multicopy": 3
+    },
+    "chep": {
+      "genomes": 21,
+      "multicopy": 0
+    },
+    "cheq": {
+      "genomes": 33,
+      "multicopy": 0
+    },
+    "cher": {
+      "genomes": 48,
+      "multicopy": 1
+    },
+    "chew": {
+      "genomes": 93,
+      "multicopy": 0
+    },
+    "chey": {
+      "genomes": 1,
+      "multicopy": 0
+    },
+    "chez": {
+      "genomes": 11,
+      "multicopy": 0
+    },
+    "flaa": {
+      "genomes": 42,
+      "multicopy": 6
+    },
+    "flab": {
+      "genomes": 92,
+      "multicopy": 35
+    },
+    "flac": {
+      "genomes": 60,
+      "multicopy": 0
+    },
+    "flge": {
+      "genomes": 116,
+      "multicopy": 109
+    },
+    "flgf": {
+      "genomes": 6,
+      "multicopy": 0
+    },
+    "flgm": {
+      "genomes": 82,
+      "multicopy": 0
+    },
+    "flgn": {
+      "genomes": 81,
+      "multicopy": 1
+    },
+    "flgp": {
+      "genomes": 81,
+      "multicopy": 2
+    },
+    "flgq": {
+      "genomes": 49,
+      "multicopy": 0
+    },
+    "flhg": {
+      "genomes": 15,
+      "multicopy": 0
+    },
+    "flik": {
+      "genomes": 141,
+      "multicopy": 35
+    },
+    "flio": {
+      "genomes": 4,
+      "multicopy": 0
+    },
+    "flit": {
+      "genomes": 1,
+      "multicopy": 0
+    },
+    "fliw": {
+      "genomes": 140,
+      "multicopy": 54
+    },
+    "maf_2356": {
+      "genomes": 90,
+      "multicopy": 24
+    },
+    "mota": {
+      "genomes": 88,
+      "multicopy": 0
+    },
+    "motb": {
+      "genomes": 88,
+      "multicopy": 0
+    },
+    "pfla": {
+      "genomes": 2,
+      "multicopy": 0
+    }
+  },
+  "n_genomes_included": 153,
+  "genomes_dropped": {
+    "GCF_000017585.1": {
+      "organism": "Campylobacter hominis",
+      "selected_genes_carried": 0
+    },
+    "GCF_000186245.1": {
+      "organism": "Nitratifractor salsuginis",
+      "selected_genes_carried": 1
+    },
+    "GCF_000987835.1": {
+      "organism": "Sulfurovum lithotrophicum",
+      "selected_genes_carried": 1
+    },
+    "GCF_001190745.1": {
+      "organism": "Campylobacter gracilis",
+      "selected_genes_carried": 0
+    },
+    "GCF_001595645.1": {
+      "organism": "Sulfurovum riftiae",
+      "selected_genes_carried": 2
+    },
+    "GCF_009258045.1": {
+      "organism": "Sulfurimonas xiamenensis",
+      "selected_genes_carried": 6
+    },
+    "GCF_013177675.1": {
+      "organism": "Arcobacter acticola",
+      "selected_genes_carried": 11
+    },
+    "GCF_013201645.1": {
+      "organism": "Campylobacter corcagiensis",
+      "selected_genes_carried": 0
+    },
+    "GCF_013201685.1": {
+      "organism": "Campylobacter geochelonis",
+      "selected_genes_carried": 0
+    },
+    "GCF_013201895.1": {
+      "organism": "Campylobacter blaseri",
+      "selected_genes_carried": 0
+    },
+    "GCF_014931715.1": {
+      "organism": "Sulfurovum indicum",
+      "selected_genes_carried": 1
+    }
+  },
+  "gene_calls_without_protein_id": {}
+}
