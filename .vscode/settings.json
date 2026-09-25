@@ -1,0 +1,20 @@
+{
+  "python.analysis.extraPaths": [
+    "scripts/common",
+    "scripts/04_synteny",
+    "scripts/06_orthology",
+    "scripts/09_hgt"
+  ],
+  "files.watcherExclude": {
+    "**/campy_orthologs/**": true,
+    "**/emappertmp_*/**": true,
+    "**/.venv/**": true
+  },
+  "search.exclude": {
+    "**/campy_orthologs/**": true,
+    "**/emappertmp_*/**": true
+  },
+  "files.exclude": {
+    "**/emappertmp_*": true
+  }
+}

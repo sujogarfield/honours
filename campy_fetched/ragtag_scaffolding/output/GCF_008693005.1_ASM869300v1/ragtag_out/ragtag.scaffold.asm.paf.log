@@ -1,0 +1,10 @@
+[M::mm_idx_gen::0.015*1.10] collected minimizers
+[M::mm_idx_gen::0.019*1.64] sorted minimizers
+[M::main::0.019*1.64] loaded/built the index for 1 target sequence(s)
+[M::mm_mapopt_update::0.020*1.60] mid_occ = 50
+[M::mm_idx_stat] kmer size: 19; skip: 19; is_hpc: 0; #seq: 1
+[M::mm_idx_stat::0.021*1.57] distinct minimizers: 189095 (98.86% are singletons); average occurrences: 1.017; average spacing: 10.050; total length: 1932823
+[M::worker_pipeline::0.050*2.24] mapped 26 sequences
+[M::main] Version: 2.31-r1302
+[M::main] CMD: minimap2 -x asm5 -t 4 /Users/suhani/Desktop/honours/honours/ragtag_scaffolding/output/GCF_008693005.1_ASM869300v1/reference.fna /Users/suhani/Desktop/honours/honours/ragtag_scaffolding/output/GCF_008693005.1_ASM869300v1/query.fna
+[M::main] Real time: 0.051 sec; CPU: 0.113 sec; Peak RSS: 0.029 GB

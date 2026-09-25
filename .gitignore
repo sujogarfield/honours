@@ -1,0 +1,23 @@
+.DS_Store
+__pycache__/
+
+# Local environment / tooling
+.venv/
+.claude/
+
+# eggNOG-mapper temp dir left behind by an interrupted run
+emappertmp_*/
+
+# Old handover bundle, single-gene alignments, 16S side scripts -- kept
+# locally for reference only
+archive/
+
+# eggNOG-mapper run outputs and OrthoFinder's full working output (~7GB) --
+# generated locally, never committed. Confirmed results are folded into the
+# tracked gene_order/*.json files instead; several scripts
+# (scripts/09_hgt/build_concat_tree.py, build_gene_tanglegram_data.py,
+# scripts/06_orthology/*) still read directly from
+# campy_orthologs/orthofinder_results/, campy_orthologs/eggnog_out*/ and
+# campy_orthologs/archive_json/ when rebuilding, so keep this on disk, just
+# don't commit it.
+campy_orthologs/

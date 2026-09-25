@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flagellar Genes — Chromosome vs. Plasmid</title>
+<style>
+  html, body { margin: 0; font-family: sans-serif; background: #fafafa; color: #0b0b0b; }
+  #wrap { padding: 24px 32px; max-width: 760px; }
+  h1 { font-size: 16px; margin: 0 0 4px; }
+  .hint { color: #52514e; font-size: 13px; margin-bottom: 20px; max-width: 640px; }
+  .axis-label { font-size: 11px; fill: #52514e; }
+  .grid-line { stroke: #e1e0d9; stroke-width: 1px; }
+  .bar-label { font-size: 13px; fill: #0b0b0b; font-weight: 600; }
+  .bar-count { font-size: 12px; fill: #52514e; }
+  .footnote { color: #898781; font-size: 11px; margin-top: 16px; max-width: 640px; }
+  #tooltip {
+    position: fixed; background: rgba(11,11,11,0.9); color: #fff; padding: 6px 10px;
+    border-radius: 4px; font-size: 12px; pointer-events: none; opacity: 0;
+    transition: opacity 0.1s; max-width: 320px; z-index: 100;
+  }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <h1>Flagellar/motility gene locations — chromosome vs. plasmid</h1>
+  <div class="hint">6,356 gene records from the combined (string-match + OrthoFinder+eggNOG-verified) dataset, classified by where each gene's contig is identified in its genome assembly's FASTA header ("plasmid pXXX" vs. "complete genome/sequence" vs. no explicit designation on a draft contig).</div>
+  <svg id="chart"></svg>
+  <div class="footnote">"Unclassified" = draft (whole-genome-shotgun) contigs with no explicit chromosome/plasmid label in the assembly header — almost certainly chromosomal fragments, just not confidently labelled as such. 9 records (1 genome, GCF_028649595.1) excluded: that genome's GFF references contigs absent from its own FASTA file, a data mismatch between the two source files for that one assembly.</div>
+</div>
+<div id="tooltip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+const DATA = [
+  { label: "Chromosome",                  count: 3634, note: "confidently chromosomal (finished assembly header)",     color: "#2a78d6" },
+  { label: "Unclassified (draft contig)", count: 2713, note: "draft contig, no explicit label -- likely chromosomal",   color: "#c3c2b7" },
+  { label: "Plasmid",                      count: 0,    note: "zero flagellar/motility genes found on any plasmid",     color: "#eb6834" },
+];
+
+const tooltip = document.getElementById("tooltip");
+function showTooltip(event, html) {
+  tooltip.innerHTML = html;
+  tooltip.style.opacity = 1;
+  tooltip.style.left = (event.clientX + 14) + "px";
+  tooltip.style.top = (event.clientY - 10) + "px";
+}
+function hideTooltip() { tooltip.style.opacity = 0; }
+
+const margin = { top: 20, right: 90, bottom: 30, left: 200 };
+const barH = 40, gap = 22;
+const plotW = 420;
+const width = margin.left + plotW + margin.right;
+const height = margin.top + DATA.length * (barH + gap) - gap + margin.bottom;
+
+const svg = d3.select("#chart").attr("width", width).attr("height", height);
+const maxCount = d3.max(DATA, d => d.count);
+const x = d3.scaleLinear().domain([0, maxCount]).range([0, plotW]);
+
+// grid + axis
+[0, 0.25, 0.5, 0.75, 1].forEach(t => {
+  const v = Math.round(maxCount * t);
+  const gx = margin.left + x(v);
+  svg.append("line").attr("class", "grid-line")
+    .attr("x1", gx).attr("x2", gx).attr("y1", margin.top - 4).attr("y2", height - margin.bottom);
+  svg.append("text").attr("class", "axis-label").attr("x", gx).attr("y", margin.top - 8)
+    .attr("text-anchor", "middle").text(v.toLocaleString());
+});
+
+const rows = svg.selectAll(".row").data(DATA).join("g")
+  .attr("transform", (d, i) => `translate(${margin.left},${margin.top + i * (barH + gap)})`);
+
+rows.append("text").attr("class", "bar-label")
+  .attr("x", -12).attr("y", barH / 2 + 4).attr("text-anchor", "end")
+  .text(d => d.label);
+
+rows.append("rect")
+  .attr("x", 0).attr("y", 0).attr("height", barH)
+  .attr("width", d => Math.max(2, x(d.count)))
+  .attr("fill", d => d.color)
+  .on("mousemove", (event, d) => showTooltip(event, `<b>${d.label}</b><br>${d.count.toLocaleString()} genes<br>${d.note}`))
+  .on("mouseleave", hideTooltip);
+
+rows.append("text").attr("class", "bar-count")
+  .attr("x", d => Math.max(2, x(d.count)) + 8).attr("y", barH / 2 + 4)
+  .text(d => d.count.toLocaleString() + (d.count === 0 ? "  (none)" : ""));
+</script>
+</body>
+</html>

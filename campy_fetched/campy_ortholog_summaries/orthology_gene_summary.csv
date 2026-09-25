@@ -1,0 +1,44 @@
+gene,total_records,genomes,main_orthology_records,external_seed_records,confirmed,reclassified,orthogroups,external_seed_notes
+maf_2356,166,90,0,166,166,0,OG0000011,unresolved paralog family (maf2/3/5/6)
+flii,157,154,0,157,157,0,OG0000549,NCTC 11168 comprehensive regulon sweep
+flab,154,92,0,154,154,0,OG0000010,unresolved paralog family (flaA/flaB)
+flgi,153,153,153,0,153,0,OG0000580,
+flgj,145,145,0,145,145,0,OG0000671,NCTC 11168 comprehensive regulon sweep
+flgg2,141,141,141,0,0,141,OG0000613,
+flge,124,111,124,0,124,0,OG0000814;OG0000865,
+flia,124,120,0,124,124,0,OG0000780,NCTC 11168 comprehensive regulon sweep
+mind,122,122,122,0,0,122,OG0000570,
+flag,121,120,0,121,121,0,OG0000794,NCTC 11168 comprehensive regulon sweep
+flgd,112,108,112,0,112,0,OG0000643,
+pflb,111,108,111,0,111,0,OG0000644,
+chea,111,109,111,0,111,0,OG0000879,
+chev,105,105,105,0,105,0,OG0000863,
+flgr,104,103,104,0,104,0,OG0000773,
+flgs,99,99,99,0,99,0,OG0000833,
+chew,89,89,89,0,89,0,OG0001042,
+flgm,77,77,77,0,77,0,OG0000842,
+flgp,73,71,73,0,73,0,OG0000894,
+flik,70,67,70,0,70,0,OG0000081,
+cheb,69,68,69,0,69,0,OG0001145,
+flgn,60,60,60,0,60,0,OG0000672;OG0007351,
+yuxg,55,52,0,55,55,0,OG0001663,NCTC 11168 comprehensive regulon sweep
+flgl,54,53,54,0,54,0,OG0000539,
+flac,53,53,53,0,53,0,OG0001530,
+flaa,52,42,0,52,52,0,OG0000010,unresolved paralog family (flaA/flaB)
+flgh,48,47,48,0,48,0,OG0000582,
+cher,48,47,48,0,48,0,OG0001874,
+flih,47,46,47,0,47,0,OG0000624,
+flgq,46,46,46,0,46,0,OG0000913,
+flin,41,41,41,0,41,0,OG0000572,
+flir,39,39,39,0,39,0,OG0000597,
+fliq,34,34,34,0,34,0,OG0000599,
+flgk,32,29,32,0,32,0,OG0000504,
+flhf,8,8,8,0,8,0,OG0000603,
+flil,5,5,5,0,5,0,OG0000933,
+flgf,4,4,4,0,4,0,OG0000613,
+fliw,3,3,3,0,3,0,OG0001873,
+flga,3,3,3,0,3,0,OG0000820,
+flis,1,1,1,0,1,0,OG0000586,
+flio,1,1,1,0,1,0,OG0006508,
+flha,1,1,1,0,1,0,OG0000609,
+flid,1,1,1,0,1,0,OG0000514,

@@ -1,0 +1,31 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=16:mem=32gb
+#PBS -l walltime=04:00:00
+#PBS -j oe
+#PBS -N campy_concat_tree
+
+# Concatenated (supermatrix) flagellar/chemotaxis tree -- 15 single-copy,
+# well-populated confirmed genes x 153 genomes, 6760 AA columns
+# (gene_order/concat_tree/concat_alignment.fasta, partitions.txt).
+# See KATANA_TEST_PLAN.md for host conventions (this job follows them):
+# submit with `qsub -W block=true`, no `-q` flag, select=1:ncpus=N:mem=Xgb.
+
+set -euo pipefail
+export CAMPY_ROOT=/srv/scratch/baker/campylobacterota
+cd "$CAMPY_ROOT/honours/gene_order/concat_tree"
+
+# Prefer the module if present; fall back to the containerised v2.4.0.
+if module avail iq-tree 2>&1 | grep -q iq-tree; then
+    module load iq-tree/2.2.2.5
+    IQTREE_BIN=iqtree2
+else
+    IQTREE_BIN="apptainer exec /srv/scratch/baker/containers/iqtree2.sif iqtree2"
+    export APPTAINER_CACHEDIR=/srv/scratch/baker/apptainer_cache
+    export APPTAINER_TMPDIR=/srv/scratch/baker/apptainer_tmp
+fi
+
+$IQTREE_BIN -s concat_alignment.fasta -p partitions.txt \
+    -B 1000 -T 16 --prefix concat_tree -m MFP
+
+echo "=== done ==="
+ls -la concat_tree.*

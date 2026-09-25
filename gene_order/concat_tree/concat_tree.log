@@ -1,0 +1,242 @@
+IQ-TREE version 3.1.3 for MacOS ARM 64-bit built Jul 26 2026
+Developed by Bui Quang Minh, Thomas Wong, Nhan Ly-Trong, Huaiyan Ren
+Contributed by Lam-Tung Nguyen, Dominik Schrempf, Chris Bielow,
+Olga Chernomor, Michael Woodhams, Diep Thi Hoang, Heiko Schmidt
+
+Host:    Suhanis-MacBook-Air-2.local (SSE4.2, 24 GB RAM)
+Command: iqtree -s gene_order/concat_tree/concat_alignment.fasta -p gene_order/concat_tree/partitions.txt -B 1000 -T AUTO --prefix gene_order/concat_tree/concat_tree -m MFP
+Seed:    262714 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Fri Sep 25 21:06:12 2026
+Kernel:  SSE2 - auto-detect threads (10 CPU cores detected)
+
+Reading partition model file gene_order/concat_tree/partitions.txt ...
+Partition file is not in NEXUS format, assuming RAxML-style partition file...
+Reading alignment file gene_order/concat_tree/concat_alignment.fasta ... Fasta format detected
+Reading fasta file: done in 0.015353 secs using 91.06% CPU
+Alignment most likely contains protein sequences
+Constructing alignment: done in 0.0172081 secs using 84.13% CPU
+WARNING: 1901 sites contain only gaps or ambiguous characters.
+Alignment has 153 sequences with 6760 columns, 4560 distinct patterns
+3958 parsimony-informative, 222 singleton sites, 2580 constant sites
+                                                                           Gap/Ambiguity  Composition  p-value
+Analyzing sequences: done in 0.000767946 secs using 474.8% CPU
+   1  GCF_000012965_1_ASM1296v1                                                   39.47%    failed      0.89%
+   2  GCF_000021725_1_ASM2172v1                                                   49.32%    failed      0.00%
+   3  GCF_000024885_1_ASM2488v1                                                   39.51%    passed     45.44%
+   4  GCF_000092245_1_ASM9224v1                                                   61.14%    failed      0.16%
+   5  GCF_000147355_1_ASM14735v1                                                  43.68%    passed      6.03%
+   6  GCF_000155475_1_ASM15547v1                                                  39.59%    passed      9.95%
+   7  GCF_000162575_1_ASM16257v1                                                  39.35%    passed      7.46%
+   8  GCF_000183725_1_ASM18372v1                                                  39.33%    failed      0.00%
+   9  GCF_000194135_1_ASM19413v1                                                  65.12%    failed      1.97%
+  10  GCF_000196135_1_ASM19613v1                                                  39.75%    failed      0.00%
+  11  GCF_000200595_1_ASM20059v1                                                  39.54%    failed      1.32%
+  12  GCF_000242915_1_ASM24291v2                                                  39.47%    failed      4.83%
+  13  GCF_000254135_1_ASM25413v2                                                  43.85%    passed     74.32%
+  14  GCF_000259275_1_ASM25927v1                                                  43.31%    passed     11.34%
+  15  GCF_000265295_1_ASM26529v1                                                  39.50%    passed     93.87%
+  16  GCF_000420385_1_ASM42038v1                                                  65.13%    failed      0.06%
+  17  GCF_000445475_1_Version_1_of_the_Sulfurimonas_hongkongensis_AST-10_genome   39.56%    passed     16.22%
+  18  GCF_000507845_1_Heli_maca_MIT_99-5501_V1                                    38.46%    passed      7.64%
+  19  GCF_000518225_1_ASM51822v1                                                  44.47%    passed      8.42%
+  20  GCF_000568815_1_ASM56881v1                                                  39.39%    passed     91.63%
+  21  GCF_000597725_1_ASM59772v1                                                  39.20%    passed     90.37%
+  22  GCF_000686565_1_ASM68656v1                                                  41.55%    failed      0.38%
+  23  GCF_000687535_1_ASM68753v1                                                  39.50%    passed     12.95%
+  24  GCF_000736415_1_ASM73641v1                                                  39.72%    passed     95.04%
+  25  GCF_000744435_1_ASM74443v1                                                  65.22%    failed      0.11%
+  26  GCF_000762845_2_ASM76284v2                                                  39.19%    passed     21.15%
+  27  GCF_000762875_2_ASM76287v2                                                  41.15%    failed      1.02%
+  28  GCF_000763135_2_ASM76313v2                                                  39.23%    passed     27.70%
+  29  GCF_000765805_2_ASM76580v2                                                  41.60%    passed     33.61%
+  30  GCF_000765905_2_ASM76590v2                                                  41.41%    failed      0.98%
+  31  GCF_000813325_1_ASM81332v1                                                  43.70%    passed     62.08%
+  32  GCF_000816185_1_ASM81618v1                                                  43.89%    passed     56.32%
+  33  GCF_000816305_1_ASM81630v1                                                  43.93%    passed     93.34%
+  34  GCF_000816785_1_ASM81678v1                                                  39.67%    passed     87.09%
+  35  GCF_001282945_1_gastric_feline_helicobacters                                39.60%    failed      0.72%
+  36  GCF_001283065_1_Hheil                                                       39.82%    failed      1.28%
+  37  GCF_001298465_1_ASM129846v1                                                 39.64%    passed     78.36%
+  38  GCF_001457695_1_NCTC11351                                                   43.80%    passed     74.69%
+  39  GCF_001602095_1_ASM160209v1                                                 39.19%    passed      6.02%
+  40  GCF_001687475_2_ASM168747v2                                                 43.79%    passed     31.66%
+  41  GCF_001693335_1_ASM169333v1                                                 44.19%    passed     37.52%
+  42  GCF_001723605_1_ASM172360v1                                                 39.39%    passed     78.18%
+  43  GCF_001956695_1_ASM195669v1                                                 61.15%    failed      0.01%
+  44  GCF_002021925_1_ASM202192v1                                                 39.70%    passed     74.16%
+  45  GCF_002080395_1_ASM208039v1                                                 43.85%    passed     60.98%
+  46  GCF_002104335_1_ASM210433v1                                                 43.59%    passed     33.20%
+  47  GCF_002119425_1_ASM211942v1                                                 65.49%    failed      0.00%
+  48  GCF_002139855_1_ASM213985v1                                                 39.66%    passed     41.58%
+  49  GCF_002139875_1_ASM213987v1                                                 39.60%    passed     47.27%
+  50  GCF_002139915_1_ASM213991v1                                                 39.63%    passed     49.46%
+  51  GCF_002139935_1_ASM213993v1                                                 39.69%    passed     67.16%
+  52  GCF_002238335_1_ASM223833v1                                                 43.77%    passed     45.57%
+  53  GCF_002335445_1_ASM233544v1                                                 49.44%    failed      0.00%
+  54  GCF_002837275_1_ASM283727v1                                                 60.56%    passed      5.78%
+  55  GCF_003063245_1_ASM306324v1                                                 57.13%    failed      0.00%
+  56  GCF_003063295_1_ASM306329v1                                                 56.97%    failed      0.00%
+  57  GCF_003245365_1_ASM324536v1                                                 39.41%    passed     45.20%
+  58  GCF_003316695_1_ASM331669v1                                                 56.98%    failed      0.03%
+  59  GCF_003346775_1_ASM334677v1                                                 60.53%    failed      0.23%
+  60  GCF_003346815_1_ASM334681v1                                                 56.89%    passed      6.07%
+  61  GCF_003355515_1_ASM335551v1                                                 57.00%    failed      4.56%
+  62  GCF_003364195_1_ASM336419v1                                                 41.54%    failed      0.11%
+  63  GCF_003364205_1_ASM336420v1                                                 45.75%    passed     26.73%
+  64  GCF_003364215_1_ASM336421v1                                                 44.26%    passed     62.93%
+  65  GCF_003364255_1_ASM336425v1                                                 39.14%    failed      3.68%
+  66  GCF_003364335_1_ASM336433v1                                                 51.27%    passed     86.19%
+  67  GCF_003544815_1_ASM354481v1                                                 57.13%    failed      0.00%
+  68  GCF_003544835_1_ASM354483v1                                                 56.95%    failed      0.05%
+  69  GCF_003544855_1_ASM354485v1                                                 60.53%    failed      2.27%
+  70  GCF_003544915_1_ASM354491v1                                                 61.09%    failed      0.00%
+  71  GCF_003544935_1_ASM354493v1                                                 61.01%    failed      0.72%
+  72  GCF_003660105_1_ASM366010v1                                                 57.00%    failed      1.30%
+  73  GCF_003660265_1_ASM366026v1                                                 49.26%    passed     33.87%
+  74  GCF_003660285_1_ASM366028v1                                                 39.54%    failed      0.02%
+  75  GCF_003660395_1_ASM366039v1                                                 43.59%    failed      0.13%
+  76  GCF_003667345_1_ASM366734v1                                                 57.06%    failed      0.00%
+  77  GCF_003670275_1_ASM367027v1                                                 39.63%    passed     11.35%
+  78  GCF_003752135_1_ASM375213v1                                                 45.65%    failed      0.00%
+  79  GCF_004214795_1_ASM421479v1                                                 57.19%    failed      0.00%
+  80  GCF_004214815_1_ASM421481v1                                                 56.98%    failed      1.37%
+  81  GCF_004299785_2_ASM429978v2                                                 56.98%    failed      1.21%
+  82  GCF_004323845_1_ASM432384v1                                                 43.82%    passed     23.99%
+  83  GCF_004803795_1_ASM480379v1                                                 39.62%    passed     18.09%
+  84  GCF_004803815_1_ASM480381v1                                                 44.41%    passed     33.40%
+  85  GCF_005217605_1_ASM521760v1                                                 43.68%    passed     11.17%
+  86  GCF_005406215_1_ASM540621v1                                                 43.82%    passed     79.34%
+  87  GCF_005406225_1_ASM540622v1                                                 43.83%    passed     73.38%
+  88  GCF_005771535_1_ASM577153v1                                                 57.07%    failed      0.03%
+  89  GCF_005843985_1_ASM584398v1                                                 45.67%    failed      0.00%
+  90  GCF_006459125_1_ASM645912v1                                                 57.16%    passed      6.49%
+  91  GCF_006864425_1_ASM686442v1                                                 46.32%    passed      8.58%
+  92  GCF_008245005_1_ASM824500v1                                                 39.47%    passed     49.24%
+  93  GCF_008245045_1_ASM824504v1                                                 39.63%    passed     97.80%
+  94  GCF_008693005_1_ASM869300v1                                                 39.23%    failed      1.25%
+  95  GCF_009068765_1_ASM906876v1                                                 39.35%    failed      3.71%
+  96  GCF_009192995_1_ASM919299v1                                                 39.39%    passed      6.02%
+  97  GCF_009258225_1_ASM925822v1                                                 39.47%    passed     58.07%
+  98  GCF_011769985_2_ASM1176998v3                                                39.91%    passed     71.68%
+  99  GCF_013177635_1_ASM1317763v1                                                57.10%    failed      0.00%
+ 100  GCF_013177655_1_ASM1317765v1                                                44.72%    failed      0.02%
+ 101  GCF_013201605_1_ASM1320160v1                                                43.88%    passed     94.16%
+ 102  GCF_013201625_1_ASM1320162v1                                                56.98%    failed      0.01%
+ 103  GCF_013201665_1_ASM1320166v1                                                57.14%    failed      0.00%
+ 104  GCF_013201705_1_ASM1320170v1                                                57.04%    failed      0.00%
+ 105  GCF_013201725_1_ASM1320172v1                                                61.09%    failed      0.00%
+ 106  GCF_013201825_1_ASM1320182v1                                                57.07%    failed      0.01%
+ 107  GCF_013201935_1_ASM1320193v1                                                57.10%    failed      0.00%
+ 108  GCF_013283835_1_ASM1328383v1                                                56.91%    failed      0.01%
+ 109  GCF_013372105_1_ASM1337210v1                                                39.64%    passed     70.69%
+ 110  GCF_013372125_1_ASM1337212v1                                                39.45%    passed     56.63%
+ 111  GCF_013372145_1_ASM1337214v1                                                39.66%    passed     68.10%
+ 112  GCF_013372185_1_ASM1337218v1                                                39.63%    passed     87.95%
+ 113  GCF_013372205_1_ASM1337220v1                                                39.51%    passed     35.47%
+ 114  GCF_013372265_1_ASM1337226v1                                                57.04%    failed      0.01%
+ 115  GCF_014253065_1_ASM1425306v1                                                39.56%    passed     35.03%
+ 116  GCF_014466985_1_ASM1446698v1                                                53.95%    failed      0.00%
+ 117  GCF_014905095_1_ASM1490509v1                                                39.32%    passed     20.28%
+ 118  GCF_014905115_1_ASM1490511v1                                                39.35%    passed      6.50%
+ 119  GCF_014905135_1_ASM1490513v1                                                39.60%    failed      0.05%
+ 120  GCF_015100395_1_ASM1510039v1                                                61.95%    failed      0.02%
+ 121  GCF_015265455_1_ASM1526545v1                                                39.53%    passed      5.33%
+ 122  GCF_015265475_1_ASM1526547v1                                                39.50%    failed      2.72%
+ 123  GCF_016106035_1_ASM1610603v1                                                56.97%    failed      0.01%
+ 124  GCF_016593255_1_ASM1659325v1                                                39.32%    failed      0.00%
+ 125  GCF_016806695_1_ASM1680669v1                                                43.71%    passed     78.80%
+ 126  GCF_016937535_1_ASM1693753v1                                                39.72%    failed      0.00%
+ 127  GCF_017357825_1_ASM1735782v1                                                39.57%    failed      0.10%
+ 128  GCF_017979425_1_ASM1797942v1                                                43.58%    failed      0.26%
+ 129  GCF_017979475_1_ASM1797947v1                                                39.44%    passed     41.08%
+ 130  GCF_018145655_1_ASM1814565v1                                                43.85%    passed     32.34%
+ 131  GCF_019711685_1_ASM1971168v1                                                39.20%    passed      8.59%
+ 132  GCF_021300615_1_ASM2130061v1                                                44.20%    passed     17.90%
+ 133  GCF_021300655_1_ASM2130065v1                                                44.47%    passed     27.16%
+ 134  GCF_023646285_1_ASM2364628v1                                                39.36%    passed     20.84%
+ 135  GCF_024267655_1_ASM2426765v1                                                56.83%    failed      1.36%
+ 136  GCF_025770725_1_ASM2577072v1                                                43.76%    passed     50.45%
+ 137  GCF_026000295_1_ASM2600029v1                                                48.85%    passed      6.19%
+ 138  GCF_027859255_1_ASM2785925v1                                                39.48%    passed     81.08%
+ 139  GCF_027943725_1_ASM2794372v1                                                53.89%    failed      0.00%
+ 140  GCF_027946175_1_ASM2794617v1                                                53.88%    failed      0.03%
+ 141  GCF_028649595_1_ASM2864959v1                                                38.71%    failed      0.01%
+ 142  GCF_028751035_1_ASM2875103v1                                                39.33%    passed     58.64%
+ 143  GCF_030249845_1_ASM3024984v1                                                44.54%    passed     92.29%
+ 144  GCF_030296055_1_ASM3029605v1                                                44.42%    failed      0.00%
+ 145  GCF_900115615_1_IMG-taxon_2654587899_annotated_assembly                     39.44%    failed      2.09%
+ 146  GCF_900187115_1_51699_F01                                                   61.01%    failed      0.06%
+ 147  GCF_900461455_1_57530_D01                                                   48.67%    failed      0.37%
+ 148  GCF_900475935_1_48450_H02                                                   39.64%    passed     69.95%
+ 149  GCF_900476215_1_51342_F02                                                   47.91%    failed      4.34%
+ 150  GCF_900478295_1_35377_D02                                                   43.36%    failed      1.11%
+ 151  GCF_900637395_1_50648_G01                                                   43.85%    passed     59.65%
+ 152  GCF_905120465_1_LMG_7974                                                    39.62%    passed     84.02%
+ 153  GCF_905120475_1_LMG_8286                                                    39.62%    passed     61.52%
+WARNING: 42 sequences contain more than 50% gaps/ambiguity
+****  TOTAL                                                                       46.20%  71 sequences failed composition chi2 test (p-value<5%; df=19)
+Identifying sites to remove: done in 0.000631809 secs using 93.22% CPU
+Identifying sites to remove: done in 0.00110698 secs using 96.21% CPU
+Identifying sites to remove: done in 0.00112104 secs using 96.61% CPU
+Identifying sites to remove: done in 0.000712872 secs using 92.44% CPU
+Identifying sites to remove: done in 0.000222921 secs using 99.14% CPU
+Identifying sites to remove: done in 0.000545979 secs using 94.88% CPU
+Identifying sites to remove: done in 0.000793934 secs using 93.46% CPU
+Identifying sites to remove: done in 0.000614882 secs using 94.16% CPU
+Identifying sites to remove: done in 0.00109506 secs using 95.34% CPU
+Subset	Type	Seqs	Sites	Infor	Invar	Model	Name
+1	AA	106	518	277	228	AUTO	chev
+2	AA	153	183	139	28	AUTO	flgb
+3	AA	153	222	145	68	AUTO	flgc
+4	AA	141	777	260	511	AUTO	flgg2
+5	AA	153	496	340	115	AUTO	flgi
+6	AA	103	885	326	539	AUTO	flgs
+7	AA	152	387	340	31	AUTO	flhb
+8	AA	152	132	102	20	AUTO	flie
+9	AA	153	608	587	16	AUTO	flif
+10	AA	105	400	181	190	AUTO	flil
+11	AA	152	419	359	50	AUTO	flim
+12	AA	153	281	258	16	AUTO	flir
+13	AA	153	158	122	24	AUTO	flis
+14	AA	112	433	261	146	AUTO	fliy
+15	AA	117	861	261	598	AUTO	mind
+Degree of missing data: 0.142
+
+
+Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.157 seconds
+Measuring multi-threading efficiency up to 10 CPU cores
+4 trees examined
+Threads: 1 / Time: 11.253 sec / Speedup: 1.000 / Efficiency: 100% / LogL: -789936
+Threads: 2 / Time: 7.062 sec / Speedup: 1.594 / Efficiency: 80% / LogL: -789936
+Threads: 3 / Time: 5.494 sec / Speedup: 2.048 / Efficiency: 68% / LogL: -789936
+Threads: 4 / Time: 5.479 sec / Speedup: 2.054 / Efficiency: 51% / LogL: -789936
+Threads: 5 / Time: 5.293 sec / Speedup: 2.126 / Efficiency: 43% / LogL: -789936
+Determining AUTO threadcount: done in 34.6588 secs using 138.3% CPU
+BEST NUMBER OF THREADS: 3
+
+Perform fast likelihood tree search using LG+I+G model...
+Estimate model parameters (epsilon = 5.000)
+Initial log-likelihood: -400814.591
+Current log-likelihood at step 1: -394795.196
+Current log-likelihood at step 2: -393752.890
+Current log-likelihood at step 3: -393655.934
+Current log-likelihood at step 4: -393555.388
+Current log-likelihood at step 5: -393543.194
+Current log-likelihood at step 6: -393505.257
+Current log-likelihood at step 7: -393492.826
+Current log-likelihood at step 8: -393490.318
+Parameters optimization took 7 rounds (48.527 sec)
+
+Perform nearest neighbor interchange...
+Estimate model parameters (epsilon = 1.000)
+Initial log-likelihood: -393387.170
+Current log-likelihood at step 1: -393385.833
+Current log-likelihood at step 2: -393385.673
+Partition-specific rates:  0.813 0.935 0.459 0.822 0.999 1.652 0.844 1.020 0.856 1.312 0.652 0.900 0.694 1.627 0.724
+Parameters optimization took 1 rounds (8.690 sec)
+
+Time for fast ML tree search: 69.476 seconds
+
+NOTE: ModelFinder requires 366 MB RAM!
+Selecting individual models for 15 charsets using BIC...
+ModelFinder will allocate partition-specific threads based on partition sizes

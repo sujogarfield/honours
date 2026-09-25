@@ -1,0 +1,498 @@
+{
+  "Aliarcobacter vitoriensis": {
+    "accession": "GCF_003316695.1_ASM331669v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_048320235.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 2352861,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/048/320/235/GCF_048320235.1_ASM4832023v1"
+  },
+  "Arcobacter arenosus": {
+    "accession": "GCF_005771535.1_ASM577153v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Arcobacter caeni": {
+    "accession": "GCF_003063245.1_ASM306324v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Arcobacter lacus": {
+    "accession": "GCF_003063295.1_ASM306329v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Arcobacter vandammei": {
+    "accession": "GCF_016106035.1_ASM1610603v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Caminibacter pacificus": {
+    "accession": "GCF_003752135.1_ASM375213v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_005083985.2",
+    "reference_status": "Complete Genome",
+    "reference_n50": 1779337,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/005/083/985/GCF_005083985.2_ASM508398v2"
+  },
+  "Campylobacter anatolicus": {
+    "accession": "GCF_018145655.1_ASM1814565v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Campylobacter aviculae": {
+    "accession": "GCF_005406215.1_ASM540621v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Campylobacter bilis": {
+    "accession": "GCF_016806695.1_ASM1680669v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_041735015.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 1461042,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/041/735/015/GCF_041735015.1_Iowa-C.bilis_2"
+  },
+  "Campylobacter coli": {
+    "accession": "GCF_000254135.1_ASM25413v2",
+    "ragtag_possible": true,
+    "reference_accession": "GCA_005361125.2",
+    "reference_status": "Complete Genome",
+    "reference_n50": 1861994,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/005/361/125/GCA_005361125.2_Tricycler"
+  },
+  "Campylobacter gastrosuis": {
+    "accession": "GCF_030249845.1_ASM3024984v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Campylobacter magnus": {
+    "accession": "GCF_028649595.1_ASM2864959v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Campylobacter majalis": {
+    "accession": "GCF_905120465.1_LMG_7974",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Campylobacter massiliensis": {
+    "accession": "GCF_014253065.1_ASM1425306v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Campylobacter novaezeelandiae": {
+    "accession": "GCF_004323845.1_ASM432384v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_018968685.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 1505645,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/018/968/685/GCF_018968685.1_ASM1896868v1"
+  },
+  "Campylobacter suis": {
+    "accession": "GCF_905120475.1_LMG_8286",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Campylobacter taeniopygiae": {
+    "accession": "GCF_005406225.1_ASM540622v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Campylobacter troglodytis": {
+    "accession": "GCF_006864425.1_ASM686442v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Desulfurella amilsii": {
+    "accession": "GCF_002119425.1_ASM211942v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter ailurogastricus": {
+    "accession": "GCF_001282945.1_gastric_feline_helicobacters",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_025998115.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 1580959,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/025/998/115/GCF_025998115.1_ASM2599811v1"
+  },
+  "Helicobacter anatolicus": {
+    "accession": "GCF_021300615.1_ASM2130061v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter anseris": {
+    "accession": "GCF_003364335.1_ASM336433v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter bilis": {
+    "accession": "GCF_000686565.1_ASM68656v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_001999985.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 2620399,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/001/999/985/GCF_001999985.1_ASM199998v1"
+  },
+  "Helicobacter brantae": {
+    "accession": "GCF_003364205.1_ASM336420v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter canis": {
+    "accession": "GCF_008693005.1_ASM869300v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_902381735.1",
+    "reference_status": "Chromosome",
+    "reference_n50": 524378,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/902/381/735/GCF_902381735.1_UHGG_MGYG-HGUT-01463"
+  },
+  "Helicobacter cholecystus": {
+    "accession": "GCF_003364215.1_ASM336421v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_900638485.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 1420261,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/900/638/485/GCF_900638485.1_57728_B01"
+  },
+  "Helicobacter cinaedi": {
+    "accession": "GCF_000155475.1_ASM15547v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_902381705.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 2240130,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/902/381/705/GCF_902381705.1_UHGG_MGYG-HGUT-01432"
+  },
+  "Helicobacter colisuis": {
+    "accession": "GCF_023646285.1_ASM2364628v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_023646285.2",
+    "reference_status": "Complete Genome",
+    "reference_n50": 1604337,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/023/646/285/GCF_023646285.2_ASM2364628v2"
+  },
+  "Helicobacter didelphidarum": {
+    "accession": "GCF_003364195.1_ASM336419v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter heilmannii": {
+    "accession": "GCF_001283065.1_Hheil",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_025998055.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 1621963,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/025/998/055/GCF_025998055.1_ASM2599805v1"
+  },
+  "Helicobacter ibis": {
+    "accession": "GCF_027859255.1_ASM2785925v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter jaachi": {
+    "accession": "GCF_000763135.2_ASM76313v2",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter japonicus": {
+    "accession": "GCF_000762845.2_ASM76284v2",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter kayseriensis": {
+    "accession": "GCF_021300655.1_ASM2130065v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter labacensis": {
+    "accession": "GCF_003660285.1_ASM366028v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter labetoulli": {
+    "accession": "GCF_003670275.1_ASM367027v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter macacae": {
+    "accession": "GCF_000507845.1_Heli_maca_MIT_99-5501_V1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter marmotae": {
+    "accession": "GCF_003364255.1_ASM336425v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter mehlei": {
+    "accession": "GCF_003660265.1_ASM366026v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter muridarum": {
+    "accession": "GCF_000765805.2_ASM76580v2",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter pametensis": {
+    "accession": "GCF_000518225.1_ASM51822v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter pullorum": {
+    "accession": "GCF_017979475.1_ASM1797947v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_900638355.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 1733410,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/900/638/355/GCF_900638355.1_57428_B01"
+  },
+  "Helicobacter rodentium": {
+    "accession": "GCF_000687535.1_ASM68753v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter saguini": {
+    "accession": "GCF_000762875.2_ASM76287v2",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_003546745.1",
+    "reference_status": "Chromosome",
+    "reference_n50": 2776003,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/546/745/GCF_003546745.1_ASM354674v1"
+  },
+  "Helicobacter salomonis": {
+    "accession": "GCF_017979425.1_ASM1797942v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter trogontum": {
+    "accession": "GCF_000765905.2_ASM76590v2",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter turcicus": {
+    "accession": "GCF_019711685.1_ASM1971168v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter valdiviensis": {
+    "accession": "GCF_003245365.1_ASM324536v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Helicobacter vulpis": {
+    "accession": "GCF_003660395.1_ASM366039v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Hippea alviniae": {
+    "accession": "GCF_000420385.1_ASM42038v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Hippea jasoniae": {
+    "accession": "GCF_000744435.1_ASM74443v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Hydrogenimonas thermophila": {
+    "accession": "GCF_900115615.1_IMG-taxon_2654587899_annotated_assembly",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_032850805.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 2544243,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/032/850/805/GCF_032850805.1_ASM3285080v1"
+  },
+  "Lebetimonas natsushimae": {
+    "accession": "GCF_002335445.1_ASM233544v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Malaciobacter halophilus": {
+    "accession": "GCF_002837275.1_ASM283727v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_003346755.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 2812536,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/346/755/GCF_003346755.1_ASM334675v1"
+  },
+  "Poseidonibacter antarcticus": {
+    "accession": "GCF_003667345.1_ASM366734v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Sulfurimonas crateris": {
+    "accession": "GCF_005217605.1_ASM521760v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Sulfurimonas hongkongensis": {
+    "accession": "GCF_000445475.1_Version_1_of_the_Sulfurimonas_hongkongensis_AST-10_genome",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Sulfurimonas indica": {
+    "accession": "GCF_009192995.1_ASM919299v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Sulfurospirillum arcachonense": {
+    "accession": "GCF_000597725.1_ASM59772v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Sulfurospirillum cavolei": {
+    "accession": "GCF_000813325.1_ASM81332v1",
+    "ragtag_possible": true,
+    "reference_accession": "GCF_001548055.1",
+    "reference_status": "Complete Genome",
+    "reference_n50": 2698323,
+    "reference_ftp_path": "ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/001/548/055/GCF_001548055.1_ASM154805v1"
+  },
+  "Sulfurospirillum oryzae": {
+    "accession": "GCF_025770725.1_ASM2577072v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  },
+  "Sulfurospirillum tamanense": {
+    "accession": "GCF_016937535.1_ASM1693753v1",
+    "ragtag_possible": false,
+    "reference_accession": null,
+    "reference_status": null,
+    "reference_n50": null,
+    "reference_ftp_path": null
+  }
+}

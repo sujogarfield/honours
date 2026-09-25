@@ -1,0 +1,1458 @@
+{
+  "Aliarcobacter butzleri": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 24,
+    "n_strains_with_motility_info": 3,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 5,
+      "agreement_pct": 100.0
+    }
+  },
+  "Aliarcobacter cibarius": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 66.75
+    },
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "flagella",
+      "n_strains": 1,
+      "agreement_pct": 50.0
+    }
+  },
+  "Aliarcobacter cryaerophilus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 6,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Aliarcobacter faecis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 67.35
+    },
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 2,
+      "agreement_pct": 100.0
+    }
+  },
+  "Aliarcobacter lanthieri": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 3,
+      "agreement_pct": 100.0
+    }
+  },
+  "Aliarcobacter skirrowii": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 10,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Aliarcobacter thereius": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Aliarcobacter trophiarum": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Aliarcobacter vitoriensis": {
+    "motility": "motile",
+    "flagellum_arrangement": "polar",
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Arcobacter acticola": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 69.12
+    }
+  },
+  "Arcobacter aquimarinus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Arcobacter arenosus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Arcobacter caeni": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 74.37
+    }
+  },
+  "Arcobacter cloacae": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Arcobacter defluvii": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 76.25
+    }
+  },
+  "Arcobacter ellisii": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 77.11
+    }
+  },
+  "Arcobacter lacus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 72.69
+    }
+  },
+  "Arcobacter nitrofigilis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 2,
+      "agreement_pct": 100.0
+    }
+  },
+  "Arcobacter porcinus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 75.79
+    }
+  },
+  "Arcobacter roscoffensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Arcobacter suis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Arcobacter vandammei": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 71.28
+    }
+  },
+  "Arcobacter venerupis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 79.92
+    }
+  },
+  "Caminibacter mediatlanticus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 2,
+      "agreement_pct": 66.7
+    }
+  },
+  "Caminibacter pacificus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 57.42
+    }
+  },
+  "Campylobacter anatolicus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter armoricus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Campylobacter aviculae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter avium": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Campylobacter bilis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 64.66
+    }
+  },
+  "Campylobacter blaseri": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "no",
+      "confidence": 71.68
+    }
+  },
+  "Campylobacter canadensis": {
+    "motility": "motile",
+    "flagellum_arrangement": "monotrichous, polar",
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Campylobacter coli": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 104,
+    "n_strains_with_motility_info": 9,
+    "predicted_motility": null
+  },
+  "Campylobacter concisus": {
+    "motility": "non-motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 18,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Campylobacter corcagiensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter cuniculorum": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Campylobacter curvus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 6,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter devanensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter fetus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 92,
+    "n_strains_with_motility_info": 36,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 11,
+      "agreement_pct": 91.7
+    }
+  },
+  "Campylobacter gastrosuis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 0,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter geochelonis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Campylobacter gracilis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 9,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter helveticus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 13,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Campylobacter hepaticus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Campylobacter hominis": {
+    "motility": "non-motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Campylobacter hyointestinalis": {
+    "motility": "motile",
+    "flagellum_arrangement": "monotrichous, polar",
+    "n_strains_matched": 53,
+    "n_strains_with_motility_info": 3,
+    "predicted_motility": null
+  },
+  "Campylobacter iguaniorum": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 1,
+      "agreement_pct": 100.0
+    }
+  },
+  "Campylobacter insulaenigrae": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Campylobacter jejuni": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 292,
+    "n_strains_with_motility_info": 18,
+    "predicted_motility": null
+  },
+  "Campylobacter lanienae": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Campylobacter lari": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 20,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Campylobacter magnus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter majalis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 58.56
+    }
+  },
+  "Campylobacter massiliensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter mucosalis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 10,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Campylobacter novaezeelandiae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 64.27
+    }
+  },
+  "Campylobacter ornithocola": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 62.75
+    }
+  },
+  "Campylobacter peloridis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter pinnipediorum": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 61.78
+    }
+  },
+  "Campylobacter porcelli": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter portucalensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "no",
+      "confidence": 71.17
+    }
+  },
+  "Campylobacter rectus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 10,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter showae": {
+    "motility": "motile",
+    "flagellum_arrangement": "lophotrichous",
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Campylobacter sputorum": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 37,
+    "n_strains_with_motility_info": 14,
+    "predicted_motility": null
+  },
+  "Campylobacter subantarcticus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 6,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Campylobacter suis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter taeniopygiae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter troglodytis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter upsaliensis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 61,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Campylobacter ureolyticus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 36,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter vicugnae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Campylobacter volucris": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Desulfurella amilsii": {
+    "motility": "non-motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Halarcobacter anaerophilus": {
+    "motility": "non-motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "non-motile",
+      "raw_value": "no",
+      "n_strains": 1,
+      "agreement_pct": 100.0
+    }
+  },
+  "Halarcobacter bivalviorum": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 0,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Halarcobacter ebronensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 80.42
+    }
+  },
+  "Helicobacter acinonychis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 3,
+      "agreement_pct": 100.0
+    }
+  },
+  "Helicobacter ailurogastricus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "no",
+      "confidence": 53.85
+    }
+  },
+  "Helicobacter anatolicus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter anseris": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter bilis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Helicobacter brantae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter canadensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter canis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 6,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Helicobacter cetorum": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter cholecystus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Helicobacter cinaedi": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 16,
+    "n_strains_with_motility_info": 4,
+    "predicted_motility": null
+  },
+  "Helicobacter colisuis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter didelphidarum": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 56.71
+    }
+  },
+  "Helicobacter enhydrae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "no",
+      "confidence": 51.5
+    }
+  },
+  "Helicobacter felis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Helicobacter heilmannii": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Helicobacter himalayensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter ibis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 0,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter jaachi": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 68.5
+    }
+  },
+  "Helicobacter japonicus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 68.46
+    }
+  },
+  "Helicobacter kayseriensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter labacensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "no",
+      "confidence": 52.35
+    }
+  },
+  "Helicobacter labetoulli": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 0,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter macacae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter marmotae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter mehlei": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "no",
+      "confidence": 52.5
+    }
+  },
+  "Helicobacter muridarum": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Helicobacter mustelae": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Helicobacter pametensis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 5,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Helicobacter pullorum": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 7,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Helicobacter pylori": {
+    "motility": "motile",
+    "flagellum_arrangement": "polar",
+    "n_strains_matched": 70,
+    "n_strains_with_motility_info": 6,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 208,
+      "agreement_pct": 97.7
+    }
+  },
+  "Helicobacter rodentium": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 68.07
+    }
+  },
+  "Helicobacter saguini": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter salomonis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Helicobacter suis": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Helicobacter trogontum": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 4,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter turcicus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 70.86
+    }
+  },
+  "Helicobacter valdiviensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Helicobacter vulpis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "no",
+      "confidence": 53.35
+    }
+  },
+  "Helicobacter winghamensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 0,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Hippea alviniae": {
+    "motility": "non-motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "non-motile",
+      "raw_value": "no",
+      "n_strains": 1,
+      "agreement_pct": 100.0
+    }
+  },
+  "Hippea jasoniae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Hippea maritima": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 2,
+      "agreement_pct": 100.0
+    }
+  },
+  "Hydrogenimonas cancrithermarum": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Hydrogenimonas thermophila": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 70.81
+    },
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "flagella",
+      "n_strains": 1,
+      "agreement_pct": 100.0
+    }
+  },
+  "Hydrogenimonas urashimensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 65.17
+    }
+  },
+  "Lebetimonas natsushimae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Malaciobacter halophilus": {
+    "motility": "motile",
+    "flagellum_arrangement": "polar",
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "flagella",
+      "n_strains": 1,
+      "agreement_pct": 100.0
+    }
+  },
+  "Malaciobacter marinus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Malaciobacter molluscorum": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 79.36
+    }
+  },
+  "Malaciobacter mytili": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Malaciobacter pacificus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 75.53
+    }
+  },
+  "Nautilia profundicola": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 3,
+      "agreement_pct": 100.0
+    }
+  },
+  "Nitratifractor salsuginis": {
+    "motility": "non-motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "non-motile",
+      "raw_value": "no",
+      "n_strains": 3,
+      "agreement_pct": 100.0
+    }
+  },
+  "Nitratiruptor tergarcus": {
+    "motility": "non-motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "non-motile",
+      "raw_value": "no",
+      "n_strains": 1,
+      "agreement_pct": 100.0
+    }
+  },
+  "Nitrosophilus alvini": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Nitrosophilus kaiyonis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Nitrosophilus labii": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Poseidonibacter antarcticus": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Poseidonibacter lekithochrous": {
+    "motility": "motile",
+    "flagellum_arrangement": "polar",
+    "n_strains_matched": 3,
+    "n_strains_with_motility_info": 2,
+    "predicted_motility": null
+  },
+  "Poseidonibacter parvus": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfuricurvum kujiense": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Sulfurimonas aquatica": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfurimonas autotrophica": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 72.49
+    },
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 1,
+      "agreement_pct": 100.0
+    }
+  },
+  "Sulfurimonas baltica": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 0,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfurimonas crateris": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfurimonas denitrificans": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 70.65
+    },
+    "motility_madin": {
+      "motility": "non-motile",
+      "raw_value": "no",
+      "n_strains": 3,
+      "agreement_pct": 100.0
+    }
+  },
+  "Sulfurimonas gotlandica": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Sulfurimonas hongkongensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 73.13
+    }
+  },
+  "Sulfurimonas hydrogeniphila": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 0,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfurimonas indica": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 70.75
+    }
+  },
+  "Sulfurimonas lithotrophica": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 71.15
+    }
+  },
+  "Sulfurimonas marina": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfurimonas marisnigri": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfurimonas paralvinellae": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Sulfurimonas sediminis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 0,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfurimonas xiamenensis": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "no",
+      "confidence": 62.03
+    }
+  },
+  "Sulfurospirillum arcachonense": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 75.41
+    }
+  },
+  "Sulfurospirillum barnesii": {
+    "motility": "motile",
+    "flagellum_arrangement": "polar",
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 1,
+      "agreement_pct": 100.0
+    }
+  },
+  "Sulfurospirillum cavolei": {
+    "motility": "motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 2,
+      "agreement_pct": 66.7
+    }
+  },
+  "Sulfurospirillum deleyianum": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 2,
+      "agreement_pct": 100.0
+    }
+  },
+  "Sulfurospirillum diekertiae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfurospirillum halorespirans": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 74.82
+    },
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 1,
+      "agreement_pct": 100.0
+    }
+  },
+  "Sulfurospirillum multivorans": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 2,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 70.88
+    },
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 2,
+      "agreement_pct": 100.0
+    }
+  },
+  "Sulfurospirillum oryzae": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfurospirillum tamanense": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": null
+  },
+  "Sulfurovum indicum": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "no",
+      "confidence": 54.55
+    }
+  },
+  "Sulfurovum lithotrophicum": {
+    "motility": "non-motile",
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null,
+    "motility_madin": {
+      "motility": "non-motile",
+      "raw_value": "no",
+      "n_strains": 1,
+      "agreement_pct": 100.0
+    }
+  },
+  "Sulfurovum riftiae": {
+    "motility": "motile",
+    "flagellum_arrangement": "polar",
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 1,
+    "predicted_motility": null
+  },
+  "Wolinella succinogenes": {
+    "motility": null,
+    "flagellum_arrangement": null,
+    "n_strains_matched": 1,
+    "n_strains_with_motility_info": 0,
+    "predicted_motility": {
+      "answer": "yes",
+      "confidence": 71.82
+    },
+    "motility_madin": {
+      "motility": "motile",
+      "raw_value": "yes",
+      "n_strains": 2,
+      "agreement_pct": 100.0
+    }
+  }
+}
