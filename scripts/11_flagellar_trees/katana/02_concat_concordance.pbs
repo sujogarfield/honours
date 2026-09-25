@@ -10,6 +10,7 @@
 #  3. The same concordance factors on the GTDB species tree: for each species
 #     branch, how many flagellar genes / sites support it.
 #  4. Flagellar tree vs GTDB comparison (compare_to_gtdb.py).
+#  5. HGT candidate screen (screen_hgt_candidates.py).
 
 set -euo pipefail
 cd "$PBS_O_WORKDIR"
@@ -33,5 +34,6 @@ iqtree2 -te "$D/gtdb_ref_pruned.nwk" -p "$D/concat/concat.best_model.nex" \
     --prefix "$D/concordance/gtdb"
 
 python scripts/11_flagellar_trees/compare_to_gtdb.py
+python scripts/11_flagellar_trees/screen_hgt_candidates.py
 
 echo "=== done ==="
