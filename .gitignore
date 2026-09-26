@@ -23,3 +23,12 @@ archive/
 campy_orthologs/
 .katana_env/
 gene_order/flagellar_trees/au/
+# Katana run outputs (regenerated on Katana, copied back with rsync)
+gene_order/flagellar_trees/aligned/
+gene_order/flagellar_trees/trimmed/
+gene_order/flagellar_trees/gene_trees/
+gene_order/flagellar_trees/concat/
+gene_order/flagellar_trees/concordance/
+gene_order/flagellar_trees/comparison.json
+gene_order/flagellar_trees/hgt_candidates.tsv
+gene_order/flagellar_trees/hgt_screen.json
