@@ -32,3 +32,8 @@ gene_order/flagellar_trees/concordance/
 gene_order/flagellar_trees/comparison.json
 gene_order/flagellar_trees/hgt_candidates.tsv
 gene_order/flagellar_trees/hgt_screen.json
+gene_order/flagellar_trees/verify/*.dmnd
+gene_order/flagellar_trees/verify/hits_*.tsv
+gene_order/flagellar_trees/verify/queries.faa
+gene_order/flagellar_trees/verify/*.emapper.hits
+gene_order/flagellar_trees/verify/*.emapper.seed_orthologs
