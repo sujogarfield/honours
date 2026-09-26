@@ -128,6 +128,12 @@ genes at that node.
 4. **Synteny link**: check flagellar gene order and nearby mobile elements for
    the shortlisted genomes (existing synteny outputs).
 5. Donor search (DIAMOND vs RefSeq) only if a candidate survives 1–3.
+6. **Planned sensitivity analysis — motility-essential genes below the
+   100-genome cut-off:** motA (85 genomes) and motB (88) as ordinary genes at a
+   lower threshold; flaA/flaB (tandem flagellin duplicates, 38 % of genomes
+   with 2+ copies in one orthogroup) need a copy rule first, e.g. one copy per
+   genome when the copies are near-identical. Rerun trees + concordance and
+   check whether the main results change.
 
 ## Caveats
 
