@@ -1,0 +1,4 @@
+GCF_000012965.1	Sulfurimonas denitrificans
+GCF_005217605.1	Sulfurimonas crateris
+GCF_015265455.1	Sulfurimonas baltica
+GCF_015265475.1	Sulfurimonas marisnigri

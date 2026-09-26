@@ -90,17 +90,21 @@ genes at that node.
 
 ### B. Deeper single-/few-gene placements
 
-- **Sulfurospirillum** sits next to *Campylobacter* in fliA, fliL, fliR
-  (UFBoot 99–100) and flgS, instead of next to *Helicobacter*/*Wolinella* as
-  in GTDB (span 49). Family-level; the Campylobacter/Sulfurospirillum/
-  Helicobacteraceae split is a short backbone branch, so moderate priority.
+- ***Sulfurospirillum tamanense***: GTDB places it as sister to *Campylobacter*,
+  apart from the other eight *Sulfurospirillum* (so GTDB's *Sulfurospirillum*
+  is not monophyletic). The flagellar genes put it back with its genus, which
+  is sister to *Campylobacter* (fliA, fliL, fliR, flgS at UFBoot 95–100, and the
+  concatenated tree). Here the flagellar genes follow the named genus and GTDB
+  is the odd one out, so it may be the species tree rather than the flagellar
+  genes that needs explaining. Moderate priority.
 - **Enterohepatic *Helicobacter*** (11 spp.) move in flhB (UFBoot 98, span 31).
 - ***Arcobacter nitrofigilis*** pairs with *Halarcobacter* in fliQ/fliI/fliN —
   but fliQ and fliN are two of the shortest genes. Low priority.
 
 ## 5. Next steps
 
-1. **Targeted AU tests** on shortlist 1–4 and 6: for each, the flagellar
+1. **Targeted AU tests** (set up: `prepare_au_tests.py`, `katana/submit_au.sh`)
+   on shortlist 1–6, *C. mucosalis* + *C. suis* and *S. tamanense*: for each, the flagellar
    alignment (concatenated and per-gene) with the group constrained to its GTDB
    position vs unconstrained (`iqtree2 -g constraint.nwk`, then
    `-z trees -n 0 -zb 10000 -au`).

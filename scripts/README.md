@@ -22,7 +22,7 @@ All data paths inside the scripts (`gene_order/...`, `campy_fetched/...`,
 | `08_motility/` | BacDive + Madin motility traits, gene content vs. motility | `fetch_motility.py`, `fetch_madin_traits.py`, `motility_clustering.py` |
 | `09_hgt/` | gene-tree vs. species-tree tanglegrams, concatenated tree | `build_gene_tanglegram_data.py`, `export_tanglegram_newick.py`, `build_concat_tree.py` |
 | `10_visualisation/` | interactive HTML outputs in `frontend/` | `interactive_tree.py`, `gene_order_dashboard.py` |
-| `11_flagellar_trees/` | per-gene + concatenated IQ-TREE flagellar trees on Katana, gCF/sCF, comparison with GTDB, HGT candidate screen | `prepare_gene_sets.py`, `katana/submit.sh`, `compare_to_gtdb.py`, `screen_hgt_candidates.py` |
+| `11_flagellar_trees/` | per-gene + concatenated IQ-TREE flagellar trees on Katana, gCF/sCF, comparison with GTDB, HGT candidate screen, AU tests | `prepare_gene_sets.py`, `katana/submit.sh`, `compare_to_gtdb.py`, `screen_hgt_candidates.py`, `plot_results.py`, `prepare_au_tests.py`, `katana/submit_au.sh`, `summarise_au.py` |
 | `side_single_gene_trees/` | early single-gene phylogenies (side branch) | `gene_search.py`, `gene_extract.py`, `gene_aligner.py`, `etetest.py` |
 
 Scripts that import from another folder (`common/`, or `06_orthology/` for

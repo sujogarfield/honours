@@ -1,0 +1,3 @@
+GCF_014466985.1	Nitrosophilus labii
+GCF_015100395.1	Nitrosophilus alvini
+GCF_027943725.1	Nitrosophilus kaiyonis

@@ -1,0 +1,2 @@
+GCF_000762875.2	Helicobacter saguini
+GCF_003364195.1	Helicobacter didelphidarum

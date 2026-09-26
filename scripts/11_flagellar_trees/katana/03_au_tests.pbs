@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=8:mem=16gb
+#PBS -l walltime=12:00:00
+#PBS -j oe
+#PBS -N flag_au
+
+# PBS array job, one element per HGT candidate in au/candidates.txt
+# (submit_au.sh sets -J 1-N). Per candidate: AU test on the concatenated
+# alignment (all 8 CPUs), then on each informative gene (4 genes at a time,
+# 2 threads each). Tree 1 = unconstrained best tree, tree 2 = best tree with
+# the candidate's GTDB branch(es) enforced (prepare_au_tests.py).
+# Resubmitting skips finished tests.
+
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
+
+A=gene_order/flagellar_trees/au
+K=scripts/11_flagellar_trees/katana
+CAND=$(sed -n "${PBS_ARRAY_INDEX}p" "$A/candidates.txt")
+echo "=== $CAND on $(hostname) ==="
+
+bash "$K/au_one.sh" "$CAND" concat - "$NCPUS"
+awk -v c="$CAND" '{print c, $1, $2}' "$A/$CAND/genes.tsv" \
+    | xargs -P 4 -n 3 sh -c 'bash '"$K"'/au_one.sh "$0" "$1" "$2" 2'
+
+echo "=== done $CAND ==="

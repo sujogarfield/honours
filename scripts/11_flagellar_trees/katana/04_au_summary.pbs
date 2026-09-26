@@ -1,0 +1,12 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=1:mem=4gb
+#PBS -l walltime=00:20:00
+#PBS -j oe
+#PBS -N flag_au_summary
+
+# Runs after every AU array element has ended (afterany, so a failed candidate
+# doesn't block the others' results).
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
+python scripts/11_flagellar_trees/summarise_au.py
