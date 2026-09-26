@@ -16,7 +16,7 @@ All data paths inside the scripts (`gene_order/...`, `campy_fetched/...`,
 | `02_species_tree/` | prune GTDB bac120 tree to the 166 genomes | `gtdb_tree.py` |
 | `03_gene_order/` | string-match flagellar genes from GFFs, static tree overlay | `gene_order.py`, `gene_order_overlay.py` |
 | `04_synteny/` | gene order vs. phylogeny (Mantel, agreement), full-contig sensitivity check | `synteny_analysis.py`, `synteny_analysis_full_contigs.py`, `build_merged_synteny.py` |
-| `05_ragtag/` | RagTag scaffolding of split assemblies, lift coordinates | `check_ragtag_feasibility.py`, `run_ragtag_scaffold.py`, `lift_ragtag_coordinates.py`, `build_scaffolded_gene_order.py` |
+| `05_ragtag/` | RagTag scaffolding of split assemblies, lift coordinates | `check_ragtag_feasibility.py`, `run_ragtag_scaffold.py`, `lift_ragtag_coordinates.py` |
 | `06_orthology/` | OrthoFinder crossref + eggNOG confirmation → combined gene set | `orthology_crossref*.py`, `orthology_eggnog_confirm*.py`, `build_combined_gene_order*.py`, `orthology_overlay_preview.py` |
 | `07_combined_synteny/` | synteny analysis on the combined gene set | `orthology_synteny_preview.py`, `build_merged_synteny_combined.py` |
 | `08_motility/` | BacDive + Madin motility traits, gene content vs. motility | `fetch_motility.py`, `fetch_madin_traits.py`, `motility_clustering.py` |

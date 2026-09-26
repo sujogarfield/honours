@@ -13,8 +13,14 @@ Rule used here instead:
 
   - gene present in >= MIN_GENOME_COVERAGE genomes, and
   - multi-copy in <= MAX_MULTICOPY_FRAC of the genomes that carry it;
-  - genomes where that gene IS multi-copy are left out of that gene only
-    (which copy is the ortholog is ambiguous), not dropped from the study;
+  - copies are resolved with OrthoFinder: each gene's main orthogroup is the
+    one most of its proteins fall in. A genome keeps its copy if exactly one
+    is in the main orthogroup (a second, differently-clustered copy is a
+    paralog or mis-named protein); a lone copy OUTSIDE the main orthogroup is
+    dropped (named like the gene, but OrthoFinder says it is a different
+    family -- e.g. the 8 thermophile "flgG" proteins in their own OG);
+  - genomes with 2+ copies IN the main orthogroup are left out of that gene
+    only (which copy is the ortholog is ambiguous), not dropped from the study;
   - genomes carrying < MIN_GENE_FRAC of the selected genes are dropped from
     every gene (too few loci to place reliably -- same rationale as the
     MIN_GENES_PER_GENOME cut in build_concat_tree.py).
@@ -36,6 +42,7 @@ Output (gene_order/flagellar_trees/):
   genes.txt                 -- selected gene names, one per line (PBS array index)
 """
 
+import csv
 import glob
 import json
 import os
@@ -49,6 +56,7 @@ from orthology_crossref import build_gff_index, GFF_DIR
 
 GENE_ORDER_JSON = "gene_order/gene_order_combined.json"
 PROT_DIR = "campy_fetched/campy_prot"
+ORTHOGROUPS_TSV = "campy_orthologs/orthofinder_results/Results_Sep23/Orthogroups/Orthogroups.tsv"
 GTDB_TREE = "images_and_newick/thesis_b/gtdb_ref_tree_og.nwk"
 OUTPUT_DIR = "gene_order/flagellar_trees"
 
@@ -79,8 +87,49 @@ def read_fasta(path):
     return seqs
 
 
+def load_protein_to_og():
+    p2og = {}
+    with open(ORTHOGROUPS_TSV) as f:
+        reader = csv.reader(f, delimiter="\t")
+        next(reader)
+        for row in reader:
+            for cell in row[1:]:
+                for p in cell.split(","):
+                    if p.strip():
+                        p2og[p.strip()] = row[0]
+    return p2og
+
+
+def resolve_copies(gene_to_proteins, p2og):
+    """gene -> (main OG, {genome: protein | None}, {genome: reason}) where None
+    means 2+ copies in the main OG (ambiguous) and reasons record every
+    genome whose call was changed or dropped."""
+    out = {}
+    for gene, gp in gene_to_proteins.items():
+        og_counts = Counter(p2og.get(p) for pids in gp.values() for p in set(pids))
+        og_counts.pop(None, None)
+        main_og = og_counts.most_common(1)[0][0] if og_counts else None
+        calls, notes = {}, {}
+        for genome, pids in gp.items():
+            pids = sorted(set(pids))
+            in_main = [p for p in pids if p2og.get(p) == main_og]
+            if len(in_main) == 1:
+                calls[genome] = in_main[0]
+                if len(pids) > 1:
+                    notes[genome] = "multi-copy, resolved to main-OG copy"
+            elif len(in_main) > 1:
+                calls[genome] = None
+                notes[genome] = "2+ copies in main OG (ambiguous), excluded"
+            else:
+                notes[genome] = f"only copy outside main OG ({p2og.get(pids[0])}), dropped"
+        out[gene] = (main_og, calls, notes)
+    return out
+
+
 def main():
     os.makedirs(os.path.join(OUTPUT_DIR, "genes"), exist_ok=True)
+    for old in glob.glob(os.path.join(OUTPUT_DIR, "genes", "*.faa")):
+        os.remove(old)  # a gene that drops out of the selection must not leave a stale input
     combined = json.load(open(GENE_ORDER_JSON))
 
     # gene -> genome -> [protein_id, ...]
@@ -96,18 +145,24 @@ def main():
             else:
                 unresolved[g["gene"]] += 1
 
+    resolved = resolve_copies(gene_to_proteins, load_protein_to_og())
+
     selected, report = [], {}
-    for gene, gp in sorted(gene_to_proteins.items()):
-        n_multi = sum(1 for pids in gp.values() if len(set(pids)) > 1)
-        if len(gp) < MIN_GENOME_COVERAGE or n_multi / len(gp) > MAX_MULTICOPY_FRAC:
+    for gene, (main_og, calls_g, notes) in sorted(resolved.items()):
+        n_multi = sum(1 for v in calls_g.values() if v is None)
+        if len(calls_g) < MIN_GENOME_COVERAGE or n_multi / len(calls_g) > MAX_MULTICOPY_FRAC:
             continue
         selected.append(gene)
-        report[gene] = {"genomes_with_gene": len(gp), "genomes_multicopy_excluded": n_multi}
+        report[gene] = {
+            "main_orthogroup": main_og,
+            "genomes_with_gene": len(calls_g),
+            "genomes_multicopy_excluded": n_multi,
+            "copy_resolution": {accession(g): r for g, r in sorted(notes.items())},
+        }
     print(f"Selected {len(selected)} genes: {selected}")
 
-    # single-copy calls only
-    calls = {gene: {gn: pids[0] for gn, pids in gene_to_proteins[gene].items() if len(set(pids)) == 1}
-             for gene in selected}
+    # single-copy (or OG-resolved) calls only
+    calls = {gene: {gn: pid for gn, pid in resolved[gene][1].items() if pid} for gene in selected}
     genes_per_genome = Counter(gn for gene in selected for gn in calls[gene])
     min_genes = int(round(MIN_GENE_FRAC * len(selected)))
 
@@ -158,9 +213,9 @@ def main():
                  "max_multicopy_frac": MAX_MULTICOPY_FRAC,
                  "min_genes_per_genome": min_genes},
         "genes": report,
-        "genes_not_selected": {g: {"genomes": len(gp),
-                                   "multicopy": sum(1 for p in gp.values() if len(set(p)) > 1)}
-                               for g, gp in sorted(gene_to_proteins.items()) if g not in selected},
+        "genes_not_selected": {g: {"genomes": len(r[1]),
+                                   "multicopy_in_main_og": sum(1 for v in r[1].values() if v is None)}
+                               for g, r in sorted(resolved.items()) if g not in selected},
         "n_genomes_included": len(included),
         "genomes_dropped": {accession(gn): {"organism": combined[gn]["organism"],
                                             "selected_genes_carried": genes_per_genome.get(gn, 0)}

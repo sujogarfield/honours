@@ -1,2 +1,0 @@
-GCF_013372205.1	Campylobacter mucosalis
-GCF_905120475.1	Campylobacter suis

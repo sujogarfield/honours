@@ -2,317 +2,613 @@
   "rule": {
     "min_genome_coverage": 100,
     "max_multicopy_frac": 0.1,
-    "min_genes_per_genome": 20
+    "min_genes_per_genome": 22
   },
   "genes": {
     "chea": {
+      "main_orthogroup": "OG0000879",
       "genomes_with_gene": 110,
       "genomes_multicopy_excluded": 2,
+      "copy_resolution": {
+        "GCF_003660285.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_003660395.1": "2+ copies in main OG (ambiguous), excluded"
+      },
       "sequences_written": 108,
       "protein_missing_from_faa": 0
     },
     "chev": {
+      "main_orthogroup": "OG0000863",
       "genomes_with_gene": 106,
       "genomes_multicopy_excluded": 0,
+      "copy_resolution": {},
       "sequences_written": 106,
       "protein_missing_from_faa": 0
     },
     "flag": {
+      "main_orthogroup": "OG0000794",
       "genomes_with_gene": 120,
       "genomes_multicopy_excluded": 1,
+      "copy_resolution": {
+        "GCF_000183725.1": "2+ copies in main OG (ambiguous), excluded"
+      },
       "sequences_written": 119,
       "protein_missing_from_faa": 0
     },
     "flga": {
+      "main_orthogroup": "OG0000820",
       "genomes_with_gene": 119,
       "genomes_multicopy_excluded": 0,
+      "copy_resolution": {},
       "sequences_written": 119,
       "protein_missing_from_faa": 0
     },
     "flgb": {
+      "main_orthogroup": "OG0000593",
       "genomes_with_gene": 153,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 153,
+      "copy_resolution": {},
+      "sequences_written": 149,
       "protein_missing_from_faa": 0
     },
     "flgc": {
+      "main_orthogroup": "OG0000592",
       "genomes_with_gene": 153,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 153,
+      "copy_resolution": {},
+      "sequences_written": 149,
       "protein_missing_from_faa": 0
     },
     "flgd": {
+      "main_orthogroup": "OG0000643",
       "genomes_with_gene": 142,
       "genomes_multicopy_excluded": 4,
+      "copy_resolution": {
+        "GCF_003544815.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_003544915.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_005771535.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_013201665.1": "2+ copies in main OG (ambiguous), excluded"
+      },
       "sequences_written": 137,
       "protein_missing_from_faa": 0
     },
-    "flgg": {
-      "genomes_with_gene": 153,
+    "flge": {
+      "main_orthogroup": "OG0000814",
+      "genomes_with_gene": 114,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 152,
+      "copy_resolution": {
+        "GCF_000012965.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000021725.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000024885.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000147355.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000155475.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000162575.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000183725.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000196135.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000200595.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000242915.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000254135.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000259275.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000265295.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000445475.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000507845.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000518225.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000568815.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000597725.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000686565.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000687535.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000736415.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000762845.2": "multi-copy, resolved to main-OG copy",
+        "GCF_000762875.2": "multi-copy, resolved to main-OG copy",
+        "GCF_000763135.2": "multi-copy, resolved to main-OG copy",
+        "GCF_000765805.2": "multi-copy, resolved to main-OG copy",
+        "GCF_000765905.2": "multi-copy, resolved to main-OG copy",
+        "GCF_000813325.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000816185.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000816305.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000816785.1": "multi-copy, resolved to main-OG copy",
+        "GCF_001282945.1": "multi-copy, resolved to main-OG copy",
+        "GCF_001283065.1": "multi-copy, resolved to main-OG copy",
+        "GCF_001298465.1": "multi-copy, resolved to main-OG copy",
+        "GCF_001457695.1": "multi-copy, resolved to main-OG copy",
+        "GCF_001602095.1": "multi-copy, resolved to main-OG copy",
+        "GCF_001687475.2": "multi-copy, resolved to main-OG copy",
+        "GCF_001723605.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002021925.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002080395.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002104335.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002139855.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002139875.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002139915.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002139935.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002238335.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002335445.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003245365.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003364195.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003364205.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003364215.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003364255.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003364335.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003660265.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003660285.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003660395.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003670275.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003752135.1": "multi-copy, resolved to main-OG copy",
+        "GCF_004323845.1": "multi-copy, resolved to main-OG copy",
+        "GCF_004803795.1": "multi-copy, resolved to main-OG copy",
+        "GCF_004803815.1": "multi-copy, resolved to main-OG copy",
+        "GCF_005217605.1": "multi-copy, resolved to main-OG copy",
+        "GCF_005406215.1": "multi-copy, resolved to main-OG copy",
+        "GCF_005406225.1": "multi-copy, resolved to main-OG copy",
+        "GCF_005843985.1": "multi-copy, resolved to main-OG copy",
+        "GCF_006864425.1": "multi-copy, resolved to main-OG copy",
+        "GCF_008245005.1": "multi-copy, resolved to main-OG copy",
+        "GCF_008245045.1": "multi-copy, resolved to main-OG copy",
+        "GCF_008693005.1": "multi-copy, resolved to main-OG copy",
+        "GCF_009068765.1": "only copy outside main OG (OG0000865), dropped",
+        "GCF_009192995.1": "multi-copy, resolved to main-OG copy",
+        "GCF_009258225.1": "multi-copy, resolved to main-OG copy",
+        "GCF_011769985.2": "multi-copy, resolved to main-OG copy",
+        "GCF_013177655.1": "multi-copy, resolved to main-OG copy",
+        "GCF_013201605.1": "multi-copy, resolved to main-OG copy",
+        "GCF_013372105.1": "multi-copy, resolved to main-OG copy",
+        "GCF_013372125.1": "multi-copy, resolved to main-OG copy",
+        "GCF_013372145.1": "multi-copy, resolved to main-OG copy",
+        "GCF_013372185.1": "multi-copy, resolved to main-OG copy",
+        "GCF_013372205.1": "multi-copy, resolved to main-OG copy",
+        "GCF_014253065.1": "multi-copy, resolved to main-OG copy",
+        "GCF_014905095.1": "multi-copy, resolved to main-OG copy",
+        "GCF_014905115.1": "multi-copy, resolved to main-OG copy",
+        "GCF_014905135.1": "multi-copy, resolved to main-OG copy",
+        "GCF_015265455.1": "multi-copy, resolved to main-OG copy",
+        "GCF_015265475.1": "multi-copy, resolved to main-OG copy",
+        "GCF_016593255.1": "multi-copy, resolved to main-OG copy",
+        "GCF_016806695.1": "multi-copy, resolved to main-OG copy",
+        "GCF_016937535.1": "multi-copy, resolved to main-OG copy",
+        "GCF_017357825.1": "multi-copy, resolved to main-OG copy",
+        "GCF_017979425.1": "only copy outside main OG (OG0000865), dropped",
+        "GCF_017979475.1": "multi-copy, resolved to main-OG copy",
+        "GCF_018145655.1": "multi-copy, resolved to main-OG copy",
+        "GCF_019711685.1": "multi-copy, resolved to main-OG copy",
+        "GCF_021300615.1": "multi-copy, resolved to main-OG copy",
+        "GCF_021300655.1": "multi-copy, resolved to main-OG copy",
+        "GCF_023646285.1": "multi-copy, resolved to main-OG copy",
+        "GCF_025770725.1": "multi-copy, resolved to main-OG copy",
+        "GCF_026000295.1": "multi-copy, resolved to main-OG copy",
+        "GCF_027859255.1": "multi-copy, resolved to main-OG copy",
+        "GCF_028649595.1": "multi-copy, resolved to main-OG copy",
+        "GCF_028751035.1": "multi-copy, resolved to main-OG copy",
+        "GCF_030249845.1": "multi-copy, resolved to main-OG copy",
+        "GCF_030296055.1": "multi-copy, resolved to main-OG copy",
+        "GCF_900115615.1": "multi-copy, resolved to main-OG copy",
+        "GCF_900461455.1": "multi-copy, resolved to main-OG copy",
+        "GCF_900475935.1": "multi-copy, resolved to main-OG copy",
+        "GCF_900476215.1": "multi-copy, resolved to main-OG copy",
+        "GCF_900478295.1": "multi-copy, resolved to main-OG copy",
+        "GCF_900637395.1": "multi-copy, resolved to main-OG copy",
+        "GCF_905120465.1": "multi-copy, resolved to main-OG copy",
+        "GCF_905120475.1": "multi-copy, resolved to main-OG copy"
+      },
+      "sequences_written": 114,
+      "protein_missing_from_faa": 0
+    },
+    "flgg": {
+      "main_orthogroup": "OG0000662",
+      "genomes_with_gene": 145,
+      "genomes_multicopy_excluded": 0,
+      "copy_resolution": {
+        "GCF_000194135.1": "only copy outside main OG (OG0006280), dropped",
+        "GCF_000420385.1": "only copy outside main OG (OG0006280), dropped",
+        "GCF_000744435.1": "only copy outside main OG (OG0006280), dropped",
+        "GCF_002119425.1": "only copy outside main OG (OG0006280), dropped",
+        "GCF_014466985.1": "only copy outside main OG (OG0006280), dropped",
+        "GCF_015100395.1": "only copy outside main OG (OG0006280), dropped",
+        "GCF_027943725.1": "only copy outside main OG (OG0006280), dropped",
+        "GCF_027946175.1": "only copy outside main OG (OG0006280), dropped"
+      },
+      "sequences_written": 140,
       "protein_missing_from_faa": 0
     },
     "flgh": {
+      "main_orthogroup": "OG0000582",
       "genomes_with_gene": 153,
       "genomes_multicopy_excluded": 1,
-      "sequences_written": 151,
+      "copy_resolution": {
+        "GCF_016937535.1": "2+ copies in main OG (ambiguous), excluded"
+      },
+      "sequences_written": 147,
       "protein_missing_from_faa": 0
     },
     "flgi": {
+      "main_orthogroup": "OG0000580",
       "genomes_with_gene": 154,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 153,
+      "copy_resolution": {},
+      "sequences_written": 149,
       "protein_missing_from_faa": 0
     },
     "flgj": {
+      "main_orthogroup": "OG0000671",
       "genomes_with_gene": 145,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 145,
+      "copy_resolution": {},
+      "sequences_written": 141,
       "protein_missing_from_faa": 0
     },
     "flgk": {
+      "main_orthogroup": "OG0000504",
       "genomes_with_gene": 154,
       "genomes_multicopy_excluded": 6,
+      "copy_resolution": {
+        "GCF_003544815.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_003544915.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_005406225.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_005771535.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_013177675.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_013201665.1": "2+ copies in main OG (ambiguous), excluded"
+      },
       "sequences_written": 148,
       "protein_missing_from_faa": 0
     },
     "flgl": {
+      "main_orthogroup": "OG0000539",
       "genomes_with_gene": 152,
       "genomes_multicopy_excluded": 4,
+      "copy_resolution": {
+        "GCF_003544815.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_003544915.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_005771535.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_013201665.1": "2+ copies in main OG (ambiguous), excluded"
+      },
       "sequences_written": 147,
       "protein_missing_from_faa": 0
     },
     "flgr": {
+      "main_orthogroup": "OG0000773",
       "genomes_with_gene": 105,
       "genomes_multicopy_excluded": 1,
+      "copy_resolution": {
+        "GCF_000155475.1": "2+ copies in main OG (ambiguous), excluded"
+      },
       "sequences_written": 104,
       "protein_missing_from_faa": 0
     },
     "flgs": {
+      "main_orthogroup": "OG0000833",
       "genomes_with_gene": 103,
       "genomes_multicopy_excluded": 0,
+      "copy_resolution": {},
       "sequences_written": 103,
       "protein_missing_from_faa": 0
     },
     "flha": {
+      "main_orthogroup": "OG0000609",
       "genomes_with_gene": 152,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 151,
-      "protein_missing_from_faa": 0
-    },
-    "flhb": {
-      "genomes_with_gene": 152,
-      "genomes_multicopy_excluded": 0,
-      "sequences_written": 152,
-      "protein_missing_from_faa": 0
-    },
-    "flhf": {
-      "genomes_with_gene": 151,
-      "genomes_multicopy_excluded": 0,
+      "copy_resolution": {},
       "sequences_written": 147,
       "protein_missing_from_faa": 0
     },
+    "flhb": {
+      "main_orthogroup": "OG0000608",
+      "genomes_with_gene": 152,
+      "genomes_multicopy_excluded": 0,
+      "copy_resolution": {},
+      "sequences_written": 148,
+      "protein_missing_from_faa": 0
+    },
+    "flhf": {
+      "main_orthogroup": "OG0000603",
+      "genomes_with_gene": 151,
+      "genomes_multicopy_excluded": 0,
+      "copy_resolution": {},
+      "sequences_written": 143,
+      "protein_missing_from_faa": 0
+    },
     "flia": {
+      "main_orthogroup": "OG0000780",
       "genomes_with_gene": 120,
       "genomes_multicopy_excluded": 4,
+      "copy_resolution": {
+        "GCF_000194135.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_000420385.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_000744435.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_002119425.1": "2+ copies in main OG (ambiguous), excluded"
+      },
       "sequences_written": 116,
       "protein_missing_from_faa": 0
     },
     "flid": {
+      "main_orthogroup": "OG0000514",
       "genomes_with_gene": 154,
       "genomes_multicopy_excluded": 5,
+      "copy_resolution": {
+        "GCF_003544815.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_003544915.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_005771535.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_011769985.2": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_013201665.1": "2+ copies in main OG (ambiguous), excluded"
+      },
       "sequences_written": 148,
       "protein_missing_from_faa": 0
     },
     "flie": {
+      "main_orthogroup": "OG0000607",
       "genomes_with_gene": 152,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 152,
+      "copy_resolution": {},
+      "sequences_written": 148,
       "protein_missing_from_faa": 0
     },
     "flif": {
+      "main_orthogroup": "OG0000579",
       "genomes_with_gene": 154,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 153,
+      "copy_resolution": {},
+      "sequences_written": 149,
       "protein_missing_from_faa": 0
     },
     "flig": {
+      "main_orthogroup": "OG0000564",
       "genomes_with_gene": 154,
       "genomes_multicopy_excluded": 1,
-      "sequences_written": 152,
+      "copy_resolution": {
+        "GCF_000183725.1": "2+ copies in main OG (ambiguous), excluded"
+      },
+      "sequences_written": 148,
       "protein_missing_from_faa": 0
     },
     "flih": {
+      "main_orthogroup": "OG0000624",
       "genomes_with_gene": 149,
       "genomes_multicopy_excluded": 1,
-      "sequences_written": 147,
+      "copy_resolution": {
+        "GCF_001723605.1": "2+ copies in main OG (ambiguous), excluded"
+      },
+      "sequences_written": 143,
       "protein_missing_from_faa": 0
     },
     "flii": {
+      "main_orthogroup": "OG0000549",
       "genomes_with_gene": 154,
       "genomes_multicopy_excluded": 3,
-      "sequences_written": 150,
+      "copy_resolution": {
+        "GCF_000021725.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_002335445.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_015100395.1": "2+ copies in main OG (ambiguous), excluded"
+      },
+      "sequences_written": 146,
+      "protein_missing_from_faa": 0
+    },
+    "flik": {
+      "main_orthogroup": "OG0000081",
+      "genomes_with_gene": 136,
+      "genomes_multicopy_excluded": 9,
+      "copy_resolution": {
+        "GCF_000092245.1": "only copy outside main OG (OG0000986), dropped",
+        "GCF_000147355.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000183725.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000254135.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000445475.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000816185.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_000816305.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_000816785.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_001298465.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002080395.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002104335.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002139855.1": "only copy outside main OG (OG0000986), dropped",
+        "GCF_002139935.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002238335.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003063245.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003316695.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003346775.1": "only copy outside main OG (OG0000986), dropped",
+        "GCF_003544835.1": "multi-copy, resolved to main-OG copy",
+        "GCF_003544855.1": "only copy outside main OG (OG0000986), dropped",
+        "GCF_003544935.1": "only copy outside main OG (OG0000986), dropped",
+        "GCF_003660105.1": "multi-copy, resolved to main-OG copy",
+        "GCF_004214795.1": "multi-copy, resolved to main-OG copy",
+        "GCF_004214815.1": "multi-copy, resolved to main-OG copy",
+        "GCF_004803795.1": "multi-copy, resolved to main-OG copy",
+        "GCF_004803815.1": "multi-copy, resolved to main-OG copy",
+        "GCF_005217605.1": "multi-copy, resolved to main-OG copy",
+        "GCF_006864425.1": "multi-copy, resolved to main-OG copy",
+        "GCF_008245045.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_011769985.2": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_013177655.1": "multi-copy, resolved to main-OG copy",
+        "GCF_013201605.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_013201625.1": "multi-copy, resolved to main-OG copy",
+        "GCF_013372105.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_013372185.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_013372205.1": "multi-copy, resolved to main-OG copy",
+        "GCF_014253065.1": "multi-copy, resolved to main-OG copy",
+        "GCF_025770725.1": "multi-copy, resolved to main-OG copy",
+        "GCF_026000295.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_900187115.1": "multi-copy, resolved to main-OG copy",
+        "GCF_905120465.1": "multi-copy, resolved to main-OG copy"
+      },
+      "sequences_written": 124,
       "protein_missing_from_faa": 0
     },
     "flil": {
+      "main_orthogroup": "OG0000933",
       "genomes_with_gene": 105,
       "genomes_multicopy_excluded": 0,
+      "copy_resolution": {},
       "sequences_written": 105,
       "protein_missing_from_faa": 0
     },
     "flim": {
+      "main_orthogroup": "OG0000581",
       "genomes_with_gene": 154,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 152,
+      "copy_resolution": {},
+      "sequences_written": 148,
       "protein_missing_from_faa": 0
     },
     "flin": {
+      "main_orthogroup": "OG0000572",
       "genomes_with_gene": 154,
-      "genomes_multicopy_excluded": 8,
-      "sequences_written": 145,
+      "genomes_multicopy_excluded": 0,
+      "copy_resolution": {
+        "GCF_000194135.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000420385.1": "multi-copy, resolved to main-OG copy",
+        "GCF_000744435.1": "multi-copy, resolved to main-OG copy",
+        "GCF_002119425.1": "multi-copy, resolved to main-OG copy",
+        "GCF_014466985.1": "multi-copy, resolved to main-OG copy",
+        "GCF_015100395.1": "multi-copy, resolved to main-OG copy",
+        "GCF_027943725.1": "multi-copy, resolved to main-OG copy",
+        "GCF_027946175.1": "multi-copy, resolved to main-OG copy"
+      },
+      "sequences_written": 149,
       "protein_missing_from_faa": 0
     },
     "flip": {
+      "main_orthogroup": "OG0000610",
       "genomes_with_gene": 152,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 151,
+      "copy_resolution": {},
+      "sequences_written": 147,
       "protein_missing_from_faa": 0
     },
     "fliq": {
+      "main_orthogroup": "OG0000599",
       "genomes_with_gene": 153,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 152,
+      "copy_resolution": {},
+      "sequences_written": 148,
       "protein_missing_from_faa": 0
     },
     "flir": {
+      "main_orthogroup": "OG0000597",
       "genomes_with_gene": 153,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 153,
+      "copy_resolution": {},
+      "sequences_written": 149,
       "protein_missing_from_faa": 0
     },
     "flis": {
+      "main_orthogroup": "OG0000586",
       "genomes_with_gene": 154,
       "genomes_multicopy_excluded": 0,
-      "sequences_written": 153,
+      "copy_resolution": {},
+      "sequences_written": 149,
       "protein_missing_from_faa": 0
     },
     "fliy": {
+      "main_orthogroup": "OG0000573",
       "genomes_with_gene": 113,
       "genomes_multicopy_excluded": 0,
+      "copy_resolution": {},
       "sequences_written": 112,
       "protein_missing_from_faa": 0
     },
     "pflb": {
+      "main_orthogroup": "OG0000644",
       "genomes_with_gene": 117,
-      "genomes_multicopy_excluded": 3,
-      "sequences_written": 114,
+      "genomes_multicopy_excluded": 2,
+      "copy_resolution": {
+        "GCF_000507845.1": "multi-copy, resolved to main-OG copy",
+        "GCF_013372185.1": "2+ copies in main OG (ambiguous), excluded",
+        "GCF_026000295.1": "2+ copies in main OG (ambiguous), excluded"
+      },
+      "sequences_written": 115,
       "protein_missing_from_faa": 0
     }
   },
   "genes_not_selected": {
     "cheb": {
       "genomes": 78,
-      "multicopy": 3
+      "multicopy_in_main_og": 2
     },
     "chep": {
       "genomes": 21,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "cheq": {
       "genomes": 33,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "cher": {
       "genomes": 48,
-      "multicopy": 1
+      "multicopy_in_main_og": 1
     },
     "chew": {
       "genomes": 93,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "chey": {
       "genomes": 1,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "chez": {
       "genomes": 11,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "flaa": {
       "genomes": 42,
-      "multicopy": 6
+      "multicopy_in_main_og": 6
     },
     "flab": {
       "genomes": 92,
-      "multicopy": 35
+      "multicopy_in_main_og": 35
     },
     "flac": {
       "genomes": 60,
-      "multicopy": 0
-    },
-    "flge": {
-      "genomes": 116,
-      "multicopy": 109
+      "multicopy_in_main_og": 0
     },
     "flgf": {
       "genomes": 6,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "flgm": {
       "genomes": 82,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "flgn": {
-      "genomes": 81,
-      "multicopy": 1
+      "genomes": 77,
+      "multicopy_in_main_og": 0
     },
     "flgp": {
       "genomes": 81,
-      "multicopy": 2
+      "multicopy_in_main_og": 2
     },
     "flgq": {
       "genomes": 49,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "flhg": {
       "genomes": 15,
-      "multicopy": 0
-    },
-    "flik": {
-      "genomes": 141,
-      "multicopy": 35
+      "multicopy_in_main_og": 0
     },
     "flio": {
       "genomes": 4,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "flit": {
       "genomes": 1,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "fliw": {
-      "genomes": 140,
-      "multicopy": 54
+      "genomes": 94,
+      "multicopy_in_main_og": 0
     },
     "maf_2356": {
       "genomes": 90,
-      "multicopy": 24
+      "multicopy_in_main_og": 24
     },
     "mota": {
-      "genomes": 88,
-      "multicopy": 0
+      "genomes": 32,
+      "multicopy_in_main_og": 0
     },
     "motb": {
       "genomes": 88,
-      "multicopy": 0
+      "multicopy_in_main_og": 0
     },
     "pfla": {
-      "genomes": 2,
-      "multicopy": 0
+      "genomes": 1,
+      "multicopy_in_main_og": 0
     }
   },
-  "n_genomes_included": 153,
+  "n_genomes_included": 149,
   "genomes_dropped": {
     "GCF_000017585.1": {
       "organism": "Campylobacter hominis",
@@ -334,6 +630,18 @@
       "organism": "Sulfurovum riftiae",
       "selected_genes_carried": 2
     },
+    "GCF_003544815.1": {
+      "organism": "Arcobacter suis",
+      "selected_genes_carried": 21
+    },
+    "GCF_003544915.1": {
+      "organism": "Arcobacter ellisii",
+      "selected_genes_carried": 21
+    },
+    "GCF_005771535.1": {
+      "organism": "Arcobacter arenosus",
+      "selected_genes_carried": 20
+    },
     "GCF_009258045.1": {
       "organism": "Sulfurimonas xiamenensis",
       "selected_genes_carried": 6
@@ -345,6 +653,10 @@
     "GCF_013201645.1": {
       "organism": "Campylobacter corcagiensis",
       "selected_genes_carried": 0
+    },
+    "GCF_013201665.1": {
+      "organism": "Arcobacter venerupis",
+      "selected_genes_carried": 21
     },
     "GCF_013201685.1": {
       "organism": "Campylobacter geochelonis",

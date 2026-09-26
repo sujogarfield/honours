@@ -1,2 +1,0 @@
-GCF_016593255.1	Hydrogenimonas urashimensis
-GCF_030296055.1	Hydrogenimonas cancrithermarum

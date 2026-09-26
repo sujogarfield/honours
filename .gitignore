@@ -22,3 +22,4 @@ archive/
 # don't commit it.
 campy_orthologs/
 .katana_env/
+gene_order/flagellar_trees/au/

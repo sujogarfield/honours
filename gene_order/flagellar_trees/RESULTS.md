@@ -1,4 +1,12 @@
-# Flagellar trees vs GTDB: results (Katana run, 26 Sep 2026)
+# Flagellar trees vs GTDB: results (Katana run 1, 26 Sep 2026)
+
+> **Superseded — rerun pending.** Run 1 used 34 genes / 153 genomes. The gene
+> inputs were then corrected (27 Sep): gene copies are now resolved with
+> OrthoFinder orthogroups, which dropped 15 proteins that only shared a gene
+> name (including 8 thermophile "flgG" proteins from a separate orthogroup,
+> a likely contributor to the deep thermophile grouping in §3) and recovered
+> 144 multi-copy calls, giving 36 genes (+flgE, +fliK) × 149 genomes. Numbers
+> below are from run 1 and will be replaced after the rerun.
 
 34 flagellar/chemotaxis genes × 153 Campylobacterota genomes (selection rule in
 `gene_selection.json`). Per-gene IQ-TREE trees (ModelFinder + 1000 UFBoot), a

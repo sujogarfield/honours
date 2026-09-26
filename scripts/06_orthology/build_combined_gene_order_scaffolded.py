@@ -12,7 +12,7 @@ coordinates the orthology candidates were mapped from -- see the original
 version of this file's docstring for the full explanation). Their existing
 scaffolded (string-match-only) gene set is kept as-is.
 
-Run AFTER build_scaffolded_gene_order.py and orthology_eggnog_confirm.py.
+Run AFTER lift_ragtag_coordinates.py and orthology_eggnog_confirm.py.
 """
 
 import json

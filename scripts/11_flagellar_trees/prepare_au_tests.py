@@ -2,8 +2,8 @@
 """
 prepare_au_tests.py
 Builds the inputs for targeted AU tests (katana/03_au_tests.pbs) on the HGT
-shortlist from RESULTS.md. Run locally after the Katana tree outputs have been
-copied back (needs concat/concat.treefile, gene_trees/, trimmed/).
+shortlist from RESULTS.md. Run by katana/submit_au.sh on Katana, where the tree
+outputs are (needs concat/concat.treefile, gene_trees/, trimmed/).
 
 For each candidate -- a group of genomes that the flagellar genes place
 together against GTDB -- the constraint tree forces ONLY the GTDB branches

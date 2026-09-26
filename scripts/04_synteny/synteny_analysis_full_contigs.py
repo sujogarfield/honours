@@ -33,7 +33,7 @@ Usage:
     python3 synteny_analysis_full_contigs.py [gene_order_json] [output_json]
 
 Defaults to gene_order/gene_order.json -> gene_order/synteny_analysis_full_contigs.json.
-Pass gene_order/gene_order_scaffolded.json (see build_scaffolded_gene_order.py)
+Pass gene_order/gene_order_scaffolded.json (see lift_ragtag_coordinates.py)
 as gene_order_json to also credit the RagTag-recovered genomes.
 
 Run AFTER gene_order.py, gtdb_tree.py, and synteny_analysis.py.
