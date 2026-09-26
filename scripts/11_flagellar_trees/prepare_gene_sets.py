@@ -14,11 +14,16 @@ Rule used here instead:
   - gene present in >= MIN_GENOME_COVERAGE genomes, and
   - multi-copy in <= MAX_MULTICOPY_FRAC of the genomes that carry it;
   - copies are resolved with OrthoFinder: each gene's main orthogroup is the
-    one most of its proteins fall in. A genome keeps its copy if exactly one
-    is in the main orthogroup (a second, differently-clustered copy is a
-    paralog or mis-named protein); a lone copy OUTSIDE the main orthogroup is
-    dropped (named like the gene, but OrthoFinder says it is a different
-    family -- e.g. the 8 thermophile "flgG" proteins in their own OG);
+    one most of its proteins fall in. A genome with 2+ same-named copies keeps
+    the one copy that is in the main orthogroup (the other is a paralog or a
+    mis-named protein). A genome's ONLY copy sitting in a different orthogroup
+    is kept only if that orthogroup never occurs in the same genome as the
+    main one -- a lineage-specific divergent version of the gene, e.g. the
+    Hippea/Desulfurella/Nitrosophilus/Nitratiruptor FlgG (own orthogroup, but
+    47-62% identical to FlgG across the phylum vs <= 32% to the other rod
+    proteins in the same genome). If the other orthogroup co-occurs with the
+    main one anywhere, it is a paralog family (e.g. flgE, fliK, fliW), and a
+    lone copy from it is more likely a paralog than the ortholog -> dropped;
   - genomes with 2+ copies IN the main orthogroup are left out of that gene
     only (which copy is the ortholog is ambiguous), not dropped from the study;
   - genomes carrying < MIN_GENE_FRAC of the selected genes are dropped from
@@ -87,20 +92,22 @@ def read_fasta(path):
     return seqs
 
 
-def load_protein_to_og():
-    p2og = {}
+def load_orthogroups():
+    """(protein -> OG, OG -> set of genomes it occurs in)"""
+    p2og, og_genomes = {}, defaultdict(set)
     with open(ORTHOGROUPS_TSV) as f:
         reader = csv.reader(f, delimiter="\t")
-        next(reader)
+        genomes = next(reader)[1:]
         for row in reader:
-            for cell in row[1:]:
+            for genome, cell in zip(genomes, row[1:]):
                 for p in cell.split(","):
                     if p.strip():
                         p2og[p.strip()] = row[0]
-    return p2og
+                        og_genomes[row[0]].add(genome)
+    return p2og, og_genomes
 
 
-def resolve_copies(gene_to_proteins, p2og):
+def resolve_copies(gene_to_proteins, p2og, og_genomes):
     """gene -> (main OG, {genome: protein | None}, {genome: reason}) where None
     means 2+ copies in the main OG (ambiguous) and reasons record every
     genome whose call was changed or dropped."""
@@ -120,8 +127,18 @@ def resolve_copies(gene_to_proteins, p2og):
             elif len(in_main) > 1:
                 calls[genome] = None
                 notes[genome] = "2+ copies in main OG (ambiguous), excluded"
+            elif len(pids) == 1:
+                other = p2og.get(pids[0])
+                shared = len(og_genomes.get(other, set()) & og_genomes.get(main_og, set()))
+                if other and shared == 0:
+                    calls[genome] = pids[0]
+                    notes[genome] = f"single copy in lineage-specific OG ({other}), kept"
+                else:
+                    notes[genome] = (f"single copy in paralog OG ({other}, co-occurs with main OG "
+                                     f"in {shared} genomes), dropped")
             else:
-                notes[genome] = f"only copy outside main OG ({p2og.get(pids[0])}), dropped"
+                calls[genome] = None
+                notes[genome] = "2+ copies, none in main OG (ambiguous), excluded"
         out[gene] = (main_og, calls, notes)
     return out
 
@@ -145,7 +162,7 @@ def main():
             else:
                 unresolved[g["gene"]] += 1
 
-    resolved = resolve_copies(gene_to_proteins, load_protein_to_og())
+    resolved = resolve_copies(gene_to_proteins, *load_orthogroups())
 
     selected, report = [], {}
     for gene, (main_og, calls_g, notes) in sorted(resolved.items()):

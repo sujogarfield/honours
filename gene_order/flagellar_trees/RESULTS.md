@@ -1,11 +1,14 @@
 # Flagellar trees vs GTDB: results (Katana run 1, 26 Sep 2026)
 
 > **Superseded — rerun pending.** Run 1 used 34 genes / 153 genomes. The gene
-> inputs were then corrected (27 Sep): gene copies are now resolved with
-> OrthoFinder orthogroups, which dropped 15 proteins that only shared a gene
-> name (including 8 thermophile "flgG" proteins from a separate orthogroup,
-> a likely contributor to the deep thermophile grouping in §3) and recovered
-> 144 multi-copy calls, giving 36 genes (+flgE, +fliK) × 149 genomes. Numbers
+> inputs were then corrected (27 Sep): when a genome has several copies named
+> as the same gene, the copy in the gene's main OrthoFinder orthogroup is used
+> (recovering 192 calls that were previously excluded); a genome's only copy
+> is dropped if it belongs to a paralog orthogroup that elsewhere sits
+> alongside the main one (47 calls, in flgE, fliK, fliW), and kept if its
+> orthogroup is lineage-specific (the 8 Hippea/Desulfurella/Nitrosophilus/
+> Nitratiruptor FlgG: a divergent but genuine FlgG, 47–62 % identical to FlgG
+> elsewhere). Result: 37 genes (+flgE, +fliK, +fliW) × 149 genomes. Numbers
 > below are from run 1 and will be replaced after the rerun.
 
 34 flagellar/chemotaxis genes × 153 Campylobacterota genomes (selection rule in
