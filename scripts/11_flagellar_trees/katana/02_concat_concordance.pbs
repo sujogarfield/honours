@@ -14,24 +14,31 @@
 
 set -euo pipefail
 cd "$PBS_O_WORKDIR"
-CONDA_BASE=${CONDA_BASE:-/srv/scratch/baker/miniforge3}
-source "$CONDA_BASE/etc/profile.d/conda.sh"
-conda activate ./.katana_env
+# env binaries on PATH directly -- no conda activation, so CONDA_BASE isn't needed
+export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
 
 D=gene_order/flagellar_trees
-mkdir -p "$D/concat" "$D/concordance"
+C=$D/concordance
+mkdir -p "$D/concat" "$C"
 
-iqtree2 -p "$D/trimmed" -m MFP -B 1000 -T "$NCPUS" --prefix "$D/concat/concat"
+# Each step is skipped if its output already exists, so a failed job can simply
+# be resubmitted (IQ-TREE refuses to overwrite a finished run without -redo).
+[ -s "$D/concat/concat.treefile" ] || \
+    iqtree2 -p "$D/trimmed" -m MFP -B 1000 -T "$NCPUS" --prefix "$D/concat/concat"
 
-cat "$D"/gene_trees/*.treefile > "$D/concordance/loci.treefile"
+cat "$D"/gene_trees/*.treefile > "$C/loci.treefile"
 
-# best_model.nex fixes the per-gene models found above, so sCFL doesn't rerun ModelFinder
-iqtree2 -te "$D/concat/concat.treefile" -p "$D/concat/concat.best_model.nex" \
-    --gcf "$D/concordance/loci.treefile" --scfl 100 -T "$NCPUS" \
-    --prefix "$D/concordance/flagellar"
-iqtree2 -te "$D/gtdb_ref_pruned.nwk" -p "$D/concat/concat.best_model.nex" \
-    --gcf "$D/concordance/loci.treefile" --scfl 100 -T "$NCPUS" \
-    --prefix "$D/concordance/gtdb"
+# IQ-TREE >= 2.4 won't combine --gcf and --scfl in one run, so gene and site
+# concordance are separate. best_model.nex fixes the per-gene models found
+# above, so sCFL doesn't rerun ModelFinder.
+for REF in flagellar:"$D/concat/concat.treefile" gtdb:"$D/gtdb_ref_pruned.nwk"; do
+    NAME=${REF%%:*}; TREE=${REF#*:}
+    [ -s "$C/${NAME}_gcf.cf.stat" ] || \
+        iqtree2 -t "$TREE" --gcf "$C/loci.treefile" --prefix "$C/${NAME}_gcf"
+    [ -s "$C/${NAME}_scfl.cf.stat" ] || \
+        iqtree2 -te "$TREE" -p "$D/concat/concat.best_model.nex" --scfl 100 \
+            -T "$NCPUS" --prefix "$C/${NAME}_scfl"
+done
 
 python scripts/11_flagellar_trees/compare_to_gtdb.py
 python scripts/11_flagellar_trees/screen_hgt_candidates.py

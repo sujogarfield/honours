@@ -24,7 +24,7 @@ Each candidate is annotated with
     (moved genome + new sister, large span) and once as the gap it left behind
     (its old relatives, gtdb_extra = the genome that moved out);
   - min_gcf_conflicting: lowest gCF among the GTDB branches it contradicts
-    (from concordance/gtdb.cf.*). Low gCF there means the flagellar genes as a
+    (from concordance/gtdb_gcf.cf.*). Low gCF there means the flagellar genes as a
     whole don't support that species branch either;
   - n_sites: trimmed alignment length -- short genes carry little signal;
   - recurrence: how many genes/trees show the same group. The same group in
@@ -53,8 +53,8 @@ D = "gene_order/flagellar_trees"
 GTDB_TREE = f"{D}/gtdb_ref_pruned.nwk"
 FLAG_TREE = f"{D}/concat/concat.treefile"
 GENE_TREES = f"{D}/gene_trees/*.treefile"
-GTDB_CF_BRANCH = f"{D}/concordance/gtdb.cf.branch"
-GTDB_CF_STAT = f"{D}/concordance/gtdb.cf.stat"
+GTDB_CF_BRANCH = f"{D}/concordance/gtdb_gcf.cf.branch"
+GTDB_CF_STAT = f"{D}/concordance/gtdb_gcf.cf.stat"
 TAXA_TSV = f"{D}/taxa.tsv"
 OUT_TSV = f"{D}/hgt_candidates.tsv"
 OUT_JSON = f"{D}/hgt_screen.json"

@@ -11,9 +11,7 @@
 
 set -euo pipefail
 cd "$PBS_O_WORKDIR"
-CONDA_BASE=${CONDA_BASE:-/srv/scratch/baker/miniforge3}
-source "$CONDA_BASE/etc/profile.d/conda.sh"
-conda activate ./.katana_env
+export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
 
 D=gene_order/flagellar_trees
 GENE=$(sed -n "${PBS_ARRAY_INDEX}p" "$D/genes.txt")

@@ -37,8 +37,10 @@ D = "gene_order/flagellar_trees"
 FLAG_TREE = f"{D}/concat/concat.treefile"
 GTDB_TREE = f"{D}/gtdb_ref_pruned.nwk"
 GENE_TREES = f"{D}/gene_trees/*.treefile"
-CF_STATS = {"flagellar_tree": f"{D}/concordance/flagellar.cf.stat",
-            "gtdb_tree": f"{D}/concordance/gtdb.cf.stat"}
+CF_STATS = {"flagellar_tree": [f"{D}/concordance/flagellar_gcf.cf.stat",
+                               f"{D}/concordance/flagellar_scfl.cf.stat"],
+            "gtdb_tree": [f"{D}/concordance/gtdb_gcf.cf.stat",
+                          f"{D}/concordance/gtdb_scfl.cf.stat"]}
 OUTPUT_JSON = f"{D}/comparison.json"
 
 N_SHUFFLES = 1000
@@ -110,12 +112,19 @@ def restrict(tree, taxa):
     return t
 
 
-def cf_summary(path):
-    if not os.path.exists(path):
-        return None
-    with open(path) as f:
-        rows = [l.rstrip("\n").split("\t") for l in f if not l.startswith("#") and l.strip()]
-    header, rows = rows[0], rows[1:]
+def cf_summary(paths):
+    """gCF and sCF come from separate IQ-TREE runs (--gcf, --scfl); merge them."""
+    out = {}
+    for path in paths:
+        if not os.path.exists(path):
+            continue
+        with open(path) as f:
+            rows = [l.rstrip("\n").split("\t") for l in f if not l.startswith("#") and l.strip()]
+        out.update(cf_columns(rows[0], rows[1:]))
+    return out or None
+
+
+def cf_columns(header, rows):
     col = {h: i for i, h in enumerate(header)}
     out = {"n_branches": len(rows)}
     for key in ("gCF", "sCF"):
