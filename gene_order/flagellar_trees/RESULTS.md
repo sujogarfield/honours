@@ -11,6 +11,17 @@ pinned in `02_species_tree/gtdb_tree.py`), pruned to our genomes by exact
 accession with branch lengths preserved — the relationships GTDB inferred among
 these genomes within the full tree, not a tree re-inferred from them alone.
 
+**Summary.** The 37 flagellar genes recover 74 % of GTDB species-tree branches
+(chance ≈ 0 %); per-gene disagreement tracks gene length (ρ = −0.84) and deep
+conflicts are unresolved rather than contradicted — the flagellar system is
+inherited largely vertically, as a unit. Of 8 local spots where the flagellar
+genes significantly reject the GTDB tree (AU p < 10⁻⁴), GTDB's own marker
+genes show 4 to be species-tree problems, 3 remain unresolved, and **1 is a
+genuine discordance: *Poseidonibacter lekithochrous* + *Arcobacter
+roscoffensis***, where the genome backbone rejects the grouping the flagellar
+genes support (p = 0.006; Holm 0.048) — non-vertical inheritance of the
+flagellar genes.
+
 Run 1 (34 genes / 153 genomes, 26 Sep) is superseded; its headline numbers are
 within 1–2 % of run 2's (table in §1).
 
@@ -144,10 +155,10 @@ constrained tree wins no RELL replicate, p is reported as < 10⁻⁴ (IQ-TREE's 
 value is then an unstable extrapolation). Holm correction across candidates
 (concatenated), Benjamini–Hochberg across genes within a candidate.
 
-### M11. Species-marker test (`prepare_marker_test.py`, `katana/05–07_*.pbs`, `summarise_marker_test.py`) — *running*
+### M11. Species-marker test (`prepare_marker_test.py`, `katana/05–07_*.pbs`, `summarise_marker_test.py`)
 GTDB R232's masked concatenated bac120 marker alignment for representative
 genomes (`bac120_msa_reps_r232.faa.gz`), reduced to the 149 genomes (5,010
-sites; `markers/bac120_msa_r232.faa`). Unconstrained IQ-TREE tree (ModelFinder,
+sites; `markers/bac120_msa_r232.faa`). Unconstrained IQ-TREE tree (ModelFinder → Q.yeast+F+R7,
 1000 UFBoot); per candidate, best trees with (a) the flagellar grouping forced
 and (b) the GTDB branch(es) forced (3 seeds each); AU on {free, flagellar-
 forced, GTDB-forced}, 10,000 RELL; Holm across candidates. If the markers
@@ -317,15 +328,56 @@ confirm the conflicts are real features of the flagellar data (not search
 noise), but the p-values are post-selection and are not independent
 confirmation. (2) Rejecting GTDB is not by itself HGT (see next steps).
 
+### Species-marker test (is it the flagellar genes or GTDB?)
+Same 8 spots, tested on GTDB R232's own bac120 marker alignment for the 149
+genomes (M11). Tree 1 = unconstrained ML marker tree, 2 = flagellar grouping
+forced, 3 = GTDB branch(es) forced.
+
+| Candidate | Marker tree has | p, flagellar grouping (Holm, 8) | p, GTDB arrangement | Verdict |
+|---|---|---|---|---|
+| *P. lekithochrous* + *A. roscoffensis* | GTDB branch (UFBoot 100) | **0.006 (0.048)** | 0.52 | **markers reject the flagellar grouping → non-vertical inheritance of the flagellar genes** |
+| *C. mucosalis* + *C. suis* | GTDB branches (UFBoot 96) | 0.048 (0.33) | 0.59 | suggestive only |
+| *C. pinnipediorum* / *gastrosuis* / *majalis* | GTDB branch (UFBoot 97) | 0.050 (0.33) | 0.61 | suggestive only (same conflict) |
+| *Nitrosophilus* | GTDB branch (UFBoot 100) | 0.10 (0.51) | 0.61 | not supported |
+| *Hydrogenimonas* | flagellar grouping | 0.55 | 0.43 | markers can't separate → GTDB uncertain |
+| *H. saguini* + *H. didelphidarum* | flagellar grouping | 0.52 | 0.43 | markers can't separate → GTDB uncertain |
+| *Sulfurimonas* subgroup | flagellar grouping | 0.48 | **< 10⁻⁴** | markers reject GTDB → GTDB tree likely wrong here |
+| *S. tamanense* | flagellar grouping | 0.55 | **0.011** | markers reject GTDB → GTDB tree likely wrong here |
+
+Where the markers side with GTDB, the unconstrained marker tree equals the
+GTDB-forced tree (ΔlogL ≈ 0) and forcing the flagellar grouping costs 74–87
+logL; where they side with the flagellar genes, the reverse. With only the 4
+primary candidates in the Holm correction, *Poseidonibacter* is p = 0.024.
+
+**Reading.** Of the 8 spots where the flagellar genes reject the GTDB tree:
+- **4 are species-tree problems, not flagellar ones.** An ML tree built from
+  GTDB's own markers on these 149 genomes agrees with the flagellar genes
+  (Hydrogenimonas, H. saguini/didelphidarum) or even rejects GTDB's
+  arrangement (Sulfurimonas; S. tamanense, where the flagellar and marker genes
+  keep Sulfurospirillum monophyletic). GTDB's tree is built with FastTree
+  across ~190,000 genomes, so short, local branches can differ from a focused
+  ML analysis. At these spots the flagellar genes follow the genome.
+- **1 is a genuine discordance:** *P. lekithochrous* + *A. roscoffensis*. The
+  genome backbone firmly supports the GTDB arrangement (UFBoot 100) and
+  significantly rejects the grouping the flagellar genes support (13 gene
+  trees + concatenated tree; AU p < 10⁻⁴ on the flagellar data). The flagellar
+  gene set of one of these genomes has a history different from its genome —
+  non-vertical inheritance (HGT or homologous recombination) of the flagellar
+  system. Borderline after correcting across all 8 (Holm 0.048).
+- **3 are unresolved:** the *Campylobacter mucosalis/suis/pinnipediorum* group
+  (one conflict; markers lean against the flagellar grouping, p ≈ 0.05, not
+  significant after correction) and *Nitrosophilus* (p = 0.10).
+
 ## 5. Next steps
 
-1. **Is GTDB wrong there?** *(Set up: M11, `katana/submit_markers.sh`.)* For
-   each candidate, check whether GTDB's own bac120 marker genes support the
-   GTDB branch or the flagellar one. Markers agreeing with the flagellar genes → species-tree
-   uncertainty, not HGT. Markers agreeing with GTDB → the flagellar genes have a
-   genuinely different history → HGT/recombination candidate.
-2. **Synteny link**: flagellar gene order and nearby mobile elements for the
-   candidate genomes (existing synteny outputs).
+1. ~~Is GTDB wrong there?~~ Done (species-marker test, §4): 1 genuine
+   discordance (*P. lekithochrous* + *A. roscoffensis*), 4 GTDB problems,
+   3 unresolved.
+2. **Characterise the Poseidonibacter/Arcobacter case**: which genome's
+   flagellar genes moved (compare branch lengths / placement in each gene
+   tree), flagellar gene order vs. both relatives (existing synteny outputs),
+   mobile elements and GC/codon usage around the flagellar clusters.
+   Optionally a whole-genome core-gene tree as a second backbone.
 3. **Thermophile artefact check**: site-heterogeneous model / recoding (§3).
 4. Donor search (DIAMOND vs RefSeq) only for candidates surviving 1.
 5. **Planned sensitivity analysis — motility-essential genes below the
