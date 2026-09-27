@@ -1,147 +1,182 @@
-# Flagellar trees vs GTDB: results (Katana run 1, 26 Sep 2026)
+# Flagellar trees vs GTDB: results (Katana run 2, 27 Sep 2026)
 
-> **Superseded — rerun pending.** Run 1 used 34 genes / 153 genomes. The gene
-> inputs were then corrected (27 Sep): when a genome has several copies named
-> as the same gene, the copy in the gene's main OrthoFinder orthogroup is used
-> (recovering 192 calls that were previously excluded); a genome's only copy
-> is dropped if it belongs to a paralog orthogroup that elsewhere sits
-> alongside the main one (47 calls, in flgE, fliK, fliW), and kept if its
-> orthogroup is lineage-specific (the 8 Hippea/Desulfurella/Nitrosophilus/
-> Nitratiruptor FlgG: a divergent but genuine FlgG, 47–62 % identical to FlgG
-> elsewhere). Result: 37 genes (+flgE, +fliK, +fliW) × 149 genomes. Numbers
-> below are from run 1 and will be replaced after the rerun.
+37 flagellar/chemotaxis genes × 149 Campylobacterota genomes. Per-gene IQ-TREE
+trees (MAFFT L-INS-i, trimAl -automated1, ModelFinder, 1000 UFBoot), a
+partitioned concatenated tree (9,927 aa sites, 10.8 % missing data), gene and
+site concordance factors (gCF, sCFL) on both the flagellar and GTDB trees, and
+targeted AU tests. Figures in `figures/` (`plot_results.py`).
 
-34 flagellar/chemotaxis genes × 153 Campylobacterota genomes (selection rule in
-`gene_selection.json`). Per-gene IQ-TREE trees (ModelFinder + 1000 UFBoot), a
-partitioned concatenated tree (9,427 aa sites, 10.8 % missing data), gene and site concordance
-factors on both the flagellar and GTDB trees. Figures in `figures/`, regenerate
-with `python scripts/11_flagellar_trees/plot_results.py`.
+Run 1 (34 genes / 153 genomes, 26 Sep) is superseded; its headline numbers are
+within 1–2 % of run 2's (table in §1).
+
+## 0. Gene set and verification
+
+Selection (`prepare_gene_sets.py`, `gene_selection.json`): gene in ≥ 100 of 164
+genomes, ≤ 10 % of those with ambiguous extra copies; genomes kept if they carry
+≥ 60 % of the selected genes (≥ 22 of 37).
+
+Copies are resolved with OrthoFinder orthogroups: of several same-named copies,
+the one in the gene's main orthogroup is used (192 calls recovered); a genome's
+only copy is dropped if it sits in a paralog orthogroup that elsewhere occurs
+alongside the main one (47 calls, in flgE, fliK, fliW) and kept if its
+orthogroup is lineage-specific (8 Hippea/Desulfurella/Nitrosophilus/
+Nitratiruptor FlgG: own orthogroup, but 47–62 % identical to FlgG across the
+phylum vs ≤ 32 % to the other rod proteins in the same genome).
+
+All 4,964 tree-input proteins were checked against five reference proteomes
+spanning the phylum (`verify/`, DIAMOND very-sensitive, ≥ 50 % query cover):
+94.3 % agree by majority; the 6 flagged were reviewed by sequence and are
+correct calls (`verify/REVIEW.md`). flgJ/flgR, which the references don't name,
+are covered by the original OrthoFinder + eggNOG confirmation.
+
+Not included (22 genes, all < 100 genomes; flaA/flaB/maf_2356 also ambiguous
+multi-copy). Some low counts are detection gaps, not absence: flgF and flhG
+calls were dropped by the confirmed-only eggNOG rule, cheY/fliO/fliT are
+usually unnamed in NCBI, and **flagellin detection is incomplete** — 58 genomes
+with an NCBI "flagellin" protein have no flaA/flaB/flaC call (their flagellins,
+mostly Arcobacteraceae and Sulfurimonas, fall in orthogroups other than the
+C. jejuni-seeded OG0000010). Presence/absence claims for these genes should
+read "not detected".
 
 ## 1. Flagellar genes carry a strong vertical (species-tree) signal
 
-| Measure | Value |
-|---|---|
-| GTDB branches recovered by the flagellar tree | **112 / 150 (74.7 %)** |
-| …of which flagellar UFBoot ≥ 95 | 105 |
-| Random-shuffle null (1000 tip relabellings) | mean 0.22 shared, max 2, **p = 0.001** |
-| Robinson–Foulds | 76 (normalised 0.25) |
-| Mantel, patristic distances | **r = 0.59, p = 0.0001** (9999 perms, 11,628 pairs) |
-| gCF on flagellar tree | mean 63 %, no branch below 10 % |
-| gCF on GTDB tree | mean 56 %, 83/150 branches ≥ 50 %, 18 below 10 %, 7 at 0 % |
+| Measure | Run 2 | (run 1) |
+|---|---|---|
+| GTDB branches recovered by the flagellar tree | **108 / 146 (74.0 %)** | 112/150 (74.7 %) |
+| …of which flagellar UFBoot ≥ 95 | 101 | 105 |
+| Random-shuffle null (1000 tip relabellings) | mean 0.19, max 2, **p = 0.001** | 0.22 |
+| Robinson–Foulds | 76 (normalised 0.26) | 0.25 |
+| Mantel, patristic distances | **r = 0.57, p = 0.0001** | 0.59 |
+| gCF on flagellar tree | mean 62 %, none below 10 % | 63 % |
+| gCF on GTDB tree | mean 55 %, 81/146 ≥ 50 %, 15 below 10 %, 6 at 0 % | 56 % |
 
 The flagellar system was mostly inherited vertically, as one unit: the genes
-agree with each other (gCF 63 %) and three quarters of species-tree branches
-are recovered — against ~0 expected by chance. Compare the synteny-UPGMA tree
-from Thesis B, which recovered 23.8 %.
+agree with each other and recover three quarters of species-tree branches,
+against ~0 expected by chance (the synteny-UPGMA tree from Thesis B recovered
+23.8 %). The shuffle null is a weak baseline (random trees share almost
+nothing), so RF and concordance carry the argument; the Mantel test is
+supporting only (Mantel tests on tree-derived distances are criticised: Harmon
+& Glor 2010; Guillot & Rousset 2013).
 
 ## 2. Most per-gene disagreement is weak signal, not transfer
 
-Normalised RF to GTDB falls with alignment length: **Spearman ρ = −0.82**
-across the 34 genes (`fig2_signal_vs_length.png`). The most discordant genes
-are the shortest after trimming — fliE (67 sites), flgJ (74), flaG (63),
-fliQ (86), fliN (87), fliS (110). The long genes (pflB, cheA, fliF, flhA,
-flgK) are the closest to GTDB. A gene tree disagreeing with GTDB on its own is
-therefore not evidence of HGT here; it is expected for 60–110-site genes.
+Normalised RF to GTDB falls with trimmed alignment length: **Spearman
+ρ = −0.84** across 37 genes (`fig2_signal_vs_length.png`). Most discordant are
+the shortest — flaG (51 sites, 0.64), fliE (67), flgJ (78), fliS (110), fliN
+(72), fliQ (86); least discordant are long — pflB (589 sites, 0.29), fliF, flgR,
+flgS, fliR, flhB. A single gene disagreeing with GTDB is expected at this
+length and is not evidence of HGT.
 
-## 3. The ten GTDB branches no flagellar gene recovers are mostly unresolved, not contradicted
+## 3. GTDB branches no flagellar gene recovers are unresolved, not contradicted
 
-`fig3_concordance_gtdb.png`. For every branch with gCF ≤ 5 %:
+`fig3_concordance_gtdb.png`. For the 9 branches with gCF ≤ 5 %, the gene-tree
+disagreement is mostly **gDFP** (44–100 %: gene trees messy around the clade)
+rather than one consistent alternative (largest one-sided gDF 33 %), and the
+**sCF is 39–86 %, above both alternatives for all 9** — at site level the
+alignment still leans towards GTDB. They sit on the deep backbone
+(Arcobacteraceae / Nautiliales / Desulfurellia), the Nitratiruptoraceae, and
+internal Sulfurimonas branches.
 
-- the gene-tree disagreement is almost all **gDFP** (77–100 %) — gene trees
-  that are simply messy around a large clade — rather than one consistent
-  alternative (gDF1/gDF2 mostly < 20 %). The exception is the *Poseidonibacter*
-  branch, where 75 % of gene trees agree on one alternative (shortlist #1, §4);
-- the **sCF is 37–76 %, above the ⅓ no-signal line for all ten**, and above
-  both alternatives (sDF1/sDF2) for all ten (narrowly for the 12-genome
-  Sulfurimonas branch: 37 % vs 36 %). At site level the flagellar
-  alignment still leans towards the GTDB branch.
-
-Where they sit: the deep backbone (the 56-, 41- and 29-genome clades around
-Arcobacteraceae/Sulfurimonas/Nautiliales), the attachment of the GTDB root
-(Desulfurellia: *Hippea*, *Desulfurella*), and internal Sulfurimonas branches.
-
-**The deep thermophile grouping looks like an artefact.** In the flagellar
-trees *Hippea*/*Desulfurella* (the GTDB root) attach next to *Nitrosophilus*/
-*Nitratiruptor* instead of Nautiliales, and *Hydrogenimonas* separates from
-*Nitrosophilus* (`fig1_tanglegram.png`). These are all deep-sea-vent
-thermophiles, and they are exactly the genomes failing IQ-TREE's amino-acid
-composition test most often (*Nitrosophilus* ×3 and *Nitratiruptor* fail in
-7 genes each; *Hippea*, *Lebetimonas*, *Desulfurella* 4–5; 167 failures of
-4703 sequence-gene tests overall). Thermophile proteome composition bias plus a
-long outgroup branch is a textbook source of spurious grouping. Treat as
-artefact unless it survives recoding / site-heterogeneous models (below).
+The deep thermophile grouping (*Hippea*/*Desulfurella*, the GTDB root, attaching
+next to *Nitrosophilus*/*Nitratiruptor* rather than Nautiliales; 6 gene trees)
+looks like a composition/long-branch artefact: these are exactly the genomes
+failing IQ-TREE's amino-acid composition test most often (*Nitrosophilus* ×3,
+*Nitratiruptor* 7 genes each; *Hippea*, *Desulfurella* 6; *Lebetimonas* 5; 171
+of 4,964 sequence-gene tests overall). To test: site-heterogeneous model
+(LG+C20+F+G / PMSF) or Dayhoff-6 recoding.
 
 ## 4. HGT candidates
 
-The screen (`hgt_candidates.tsv`) found 458 strongly supported (UFBoot ≥ 95)
-conflicts in 178 distinct groups; most are single-gene, shallow, or in short
-genes. Two kinds are worth following up.
+### Screen
+`screen_hgt_candidates.py`: 501 strongly supported (UFBoot ≥ 95) conflicts
+with GTDB in 178 distinct groups (`hgt_candidates.tsv`); most single-gene,
+shallow, or in short genes.
 
-### A. Consistent alternative histories — shortlist
+### Shortlist
+Explicit rule, applied to run 2 (it formalises the criteria used informally on
+run 1, so it is a screening rule, not an independent test):
 
-The same grouping in many gene trees *and* the concatenated tree, with the gene
-trees favouring **one** specific alternative (gDF strongly one-sided; noise
-would split roughly evenly). `fig4_recurrent_conflicts.png`.
+1. in ≥ 10 gene trees **and** the concatenated tree;
+2. one-sided: at the contradicted GTDB branch, ≥ 50 % of gene trees favour this
+   alternative and ≥ 3× as many as the other alternative;
+3. the GTDB branch is not unusually short (≥ 25th percentile, 0.0086 subst./site).
 
-| # | Group (flagellar genes put together) | Gene trees | gDF of the favoured alternative | GTDB branch length | Read |
+**Primary** (pass all three): *C. mucosalis* + *C. suis*; *H. saguini* +
+*H. didelphidarum*; *P. lekithochrous* + *A. roscoffensis*;
+*C. pinnipediorum* / *gastrosuis* / *majalis*.
+**Exploratory** (fail one criterion, tested for a stated reason):
+*Hydrogenimonas* (GTDB branch 0.0079, just short; most recurrent, 20 genes),
+*Sulfurimonas* subgroup (not one-sided; deepest within-genus conflict),
+*Nitrosophilus* (7 genes; tests the thermophile question), *S. tamanense*
+(5 genes; deep and one-sided, GTDB splits the genus).
+The rule selects nothing that was not already on the list.
+
+### AU tests
+`prepare_au_tests.py` → `katana/03_au_tests.pbs` → `summarise_au.py`. For each
+candidate, the constraint forces only the GTDB branch(es) the grouping
+contradicts; best of 3 constrained searches (different seeds) vs the
+unconstrained tree; AU with 10,000 RELL replicates, on the concatenated
+alignment and every informative gene. Constrained and free concatenated trees
+differ only at the forced branch(es) (1 split; 2 for the Campylobacter pair;
+4 for Sulfurimonas), and the three constrained replicates agree to < 0.01 logL.
+
+| Candidate | | Concat p (GTDB) | Holm (8) | ΔlogL | Genes rejecting GTDB, p < 0.05 / BH |
 |---|---|---|---|---|---|
-| 1 | *Poseidonibacter lekithochrous* + *Arcobacter roscoffensis* | 13 + concat | 75 % (other alt. 0 %) | 0.0136 (median) | **Top candidate** — GTDB branch is not short, genes very one-sided |
-| 2 | *Hydrogenimonas urashimensis* + *H. cancrithermarum* | 19 + concat | 73 % (3 %) | 0.0079 | Strong, but within-genus |
-| 3 | *Helicobacter saguini* + *H. didelphidarum* | 15 + concat | 61 % (3 %) | 0.0086 | Strong |
-| 4 | *Campylobacter pinnipediorum* + *C. gastrosuis* + *C. majalis* | 7 + concat | 55 % (0 %) | 0.0187 (long) | Worth testing — long GTDB branch |
-| 5 | *Nitrosophilus* spp. (vs *Nitratiruptor*) | 7 + concat | 64 % (9 %) | 0.0131 | Thermophile caveat (§3) |
-| 6 | *Sulfurimonas denitrificans* / *crateris* / *baltica* / *marisnigri* | 9 + concat | gCF 0 on 4 GTDB branches | 0.005 | Deepest recurrent within-genus conflict (GTDB span 14) |
-| — | *Sulfurospirillum diekertiae* + *S. oryzae* | 13 + concat | 58 % | **0.0031** (short) | GTDB itself uncertain here — low priority |
+| *P. lekithochrous* + *A. roscoffensis* | primary | **< 10⁻⁴** | 0.0008 | 262 | 6 / 0 of 25 |
+| *H. saguini* + *H. didelphidarum* | primary | **< 10⁻⁴** | 0.0008 | 181 | 6 / 0 of 36 |
+| *C. mucosalis* + *C. suis* | primary | **< 10⁻⁴** | 0.0008 | 700 | 16 / 11 of 37 |
+| *C. pinnipediorum* / *gastrosuis* / *majalis* | primary | **< 10⁻⁴** | 0.0008 | 700 | 12 / 9 of 36 |
+| *Hydrogenimonas* | exploratory | **< 10⁻⁴** | 0.0008 | 286 | 7 / 3 of 35 |
+| *Sulfurimonas* subgroup | exploratory | **< 10⁻⁴** | 0.0008 | 908 | 24 / 23 of 36 |
+| *S. tamanense* | exploratory | **< 10⁻⁴** | 0.0008 | 148 | 3 / 0 of 35 |
+| *Nitrosophilus* | exploratory | 0.0044 | 0.0044 | 41 | 2 / 0 of 23 |
 
-These are shallow (close relatives), so the realistic interpretations are:
-the flagellar operon moved as a unit between close relatives (HGT or
-homologous recombination), or GTDB's placement of a short branch is wrong.
-Distinguishing the two needs the AU test and a check of GTDB's own marker
-genes at that node.
+"< 10⁻⁴": the GTDB-constrained tree won none of the 10,000 RELL replicates
+(KH and SH p also 0). IQ-TREE's AU value is then an unstable extrapolation
+(identical tree pairs gave 0.037 and 8 × 10⁻⁷), so 10⁻⁴ is reported and used
+for Holm. No gene significantly preferred GTDB over its free tree.
 
-### B. Deeper single-/few-gene placements
+**Reading.** At all eight spots the flagellar genes, taken together,
+significantly reject the GTDB arrangement. Individually few genes do (except
+*Sulfurimonas*: 23/36 after BH, and the *Campylobacter* pair: 9–11): the signal
+is spread across many genes, i.e. the flagellar gene set shares one history
+there that differs from GTDB — consistent with the flagellar system moving
+(or recombining) as a unit between close relatives, or with GTDB being wrong at
+those nodes. The two *Campylobacter* candidates are one conflict (their
+constrained trees are identical).
 
-- ***Sulfurospirillum tamanense***: GTDB places it as sister to *Campylobacter*,
-  apart from the other eight *Sulfurospirillum* (so GTDB's *Sulfurospirillum*
-  is not monophyletic). The flagellar genes put it back with its genus, which
-  is sister to *Campylobacter* (fliA, fliL, fliR, flgS at UFBoot 95–100, and the
-  concatenated tree). Here the flagellar genes follow the named genus and GTDB
-  is the odd one out, so it may be the species tree rather than the flagellar
-  genes that needs explaining. Moderate priority.
-- **Enterohepatic *Helicobacter*** (11 spp.) move in flhB (UFBoot 98, span 31).
-- ***Arcobacter nitrofigilis*** pairs with *Halarcobacter* in fliQ/fliI/fliN —
-  but fliQ and fliN are two of the shortest genes. Low priority.
+**Caveats.** (1) The candidates were chosen from these same trees, so the tests
+confirm the conflicts are real features of the flagellar data (not search
+noise), but the p-values are post-selection and are not independent
+confirmation. (2) Rejecting GTDB is not by itself HGT (see next steps).
 
 ## 5. Next steps
 
-1. **Targeted AU tests** (set up: `prepare_au_tests.py`, `katana/submit_au.sh`)
-   on shortlist 1–6, *C. mucosalis* + *C. suis* and *S. tamanense*: for each, the flagellar
-   alignment (concatenated and per-gene) with the group constrained to its GTDB
-   position vs unconstrained (`iqtree2 -g constraint.nwk`, then
-   `-z trees -n 0 -zb 10000 -au`).
-2. **Artefact check for the thermophiles**: rerun the concatenated tree with a
-   site-heterogeneous model (`LG+C20+F+G`, or PMSF) and/or Dayhoff-6 recoding;
-   see whether *Hippea*/*Desulfurella* move back next to Nautiliales.
-3. **Is GTDB wrong there?** For the shallow candidates, check whether GTDB's
-   own bac120 marker gene trees support the GTDB branch or the flagellar one.
-   If the markers split too, it's a species-tree uncertainty, not HGT.
-4. **Synteny link**: check flagellar gene order and nearby mobile elements for
-   the shortlisted genomes (existing synteny outputs).
-5. Donor search (DIAMOND vs RefSeq) only if a candidate survives 1–3.
-6. **Planned sensitivity analysis — motility-essential genes below the
-   100-genome cut-off:** motA (85 genomes) and motB (88) as ordinary genes at a
-   lower threshold; flaA/flaB (tandem flagellin duplicates, 38 % of genomes
-   with 2+ copies in one orthogroup) need a copy rule first, e.g. one copy per
-   genome when the copies are near-identical. Rerun trees + concordance and
-   check whether the main results change.
+1. **Is GTDB wrong there?** For each candidate, check whether GTDB's own
+   bac120 marker genes (or a whole-genome tree) support the GTDB branch or the
+   flagellar one. Markers agreeing with the flagellar genes → species-tree
+   uncertainty, not HGT. Markers agreeing with GTDB → the flagellar genes have a
+   genuinely different history → HGT/recombination candidate.
+2. **Synteny link**: flagellar gene order and nearby mobile elements for the
+   candidate genomes (existing synteny outputs).
+3. **Thermophile artefact check**: site-heterogeneous model / recoding (§3).
+4. Donor search (DIAMOND vs RefSeq) only for candidates surviving 1.
+5. **Planned sensitivity analysis — motility-essential genes below the
+   100-genome cut-off:** motA (85 genomes) and motB (88) at a lower threshold;
+   flaA/flaB after re-detecting flagellin properly (§0) and a copy rule for the
+   tandem duplicates. Rerun trees + concordance and check the main results.
 
 ## Caveats
 
-- UFBoot ≥ 95 was the "strong" threshold; UFBoot is known to be slightly
-  optimistic under model misspecification.
-- Genomes with a multi-copy call for a gene are missing from that gene tree,
-  which lowers gCF for clades containing them.
-- 11 genomes were excluded (< 20 of 34 genes), including *C. hominis* and
-  *C. gracilis* (no selected genes) — results say nothing about those.
-- Per-gene trees did not save bootstrap trees (`--wbtl`), so reconciliation
-  with ALE would need the gene-tree step rerun.
+- UFBoot ≥ 95 as "strong" (UFBoot is slightly optimistic under model
+  misspecification).
+- trimAl -automated1 trims some genes heavily (e.g. flaG → 51 sites); a less
+  aggressive trimmer (BMGE/ClipKIT) would be a useful sensitivity check.
+- 15 genomes excluded (< 22 of 37 genes), including *C. hominis* and
+  *C. gracilis* (no selected genes) and 4 Arcobacter at 20–21 genes.
+- Per-gene constrained searches: best of 3 used; 72 of 271 tests had
+  replicates > 2 logL apart, and in 8 gene tests the constrained tree beat the
+  original free gene tree by 0.6–7 logL (gene-tree searches are not perfectly
+  optimal). Concatenated tests were stable.
+- Per-gene trees did not save UFBoot trees (`--wbtl`), so reconciliation with
+  ALE would need the gene-tree step rerun.

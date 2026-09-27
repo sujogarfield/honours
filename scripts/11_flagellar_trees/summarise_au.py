@@ -9,7 +9,8 @@ allowed) with tree 2 = best tree forced to keep the candidate's GTDB branch(es).
   p_AU_gtdb < 0.05  -> the alignment significantly REJECTS the GTDB arrangement
   p_AU_free < 0.05  -> the alignment significantly rejects its own unconstrained
                        tree, i.e. prefers GTDB (rare; means the free search was poor)
-Per-gene p-values are Benjamini-Hochberg corrected within each candidate;
+p_AU_gtdb is reported as "<1e-04" when the GTDB tree never wins a RELL
+replicate (see p_gtdb). Per-gene p-values are Benjamini-Hochberg corrected within each candidate;
 the concatenated-alignment p-values are Holm corrected across candidates.
 con_rep_spread = logL range across the 3 constrained-search replicates: a
 large spread means the constrained search is unstable, so treat that p-value
@@ -26,6 +27,18 @@ import os
 
 A = "gene_order/flagellar_trees/au"
 ALPHA = 0.05
+N_RELL = 10000  # -zb in au_one.sh
+
+
+def p_gtdb(t):
+    """p-value for the GTDB-constrained tree (tree 2). When it wins in none of
+    the RELL replicates (bp-RELL = 0) the AU p-value is an extrapolation of the
+    multiscale-bootstrap fit and is numerically unstable (identical tree pairs
+    gave 0.037 and 8e-7), so it is reported as < 1/N_RELL and 1/N_RELL is used
+    as a conservative value for the multiple-testing corrections."""
+    if t[2].get("bp-RELL", 1) == 0:
+        return 1 / N_RELL, f"<{1 / N_RELL:g}"
+    return t[2]["p-AU"], f"{t[2]['p-AU']:.3g}"
 
 
 def parse_user_trees(path):
@@ -82,7 +95,7 @@ def replicate_spread(cand, aln):
 
 def main():
     cands = open(f"{A}/candidates.txt").read().split()
-    rows, summary = [], []
+    rows, summary, results_concat = [], [], {}
     for cand in cands:
         group = [l.split("\t")[1] for l in open(f"{A}/{cand}/group.txt").read().splitlines()]
         genes = [l.split("\t")[0] for l in open(f"{A}/{cand}/genes.tsv").read().splitlines() if l]
@@ -93,24 +106,28 @@ def main():
             if t and 1 in t and 2 in t:
                 results[aln] = t
         gene_alns = [g for g in genes if g in results]
-        q = dict(zip(gene_alns, bh([results[g][2]["p-AU"] for g in gene_alns]))) if gene_alns else {}
+        q = dict(zip(gene_alns, bh([p_gtdb(results[g])[0] for g in gene_alns]))) if gene_alns else {}
 
         for aln, t in results.items():
             rows.append([cand, aln, t[1]["logL"], t[2]["logL"], round(t[1]["logL"] - t[2]["logL"], 3),
-                         t[2]["p-AU"], q.get(aln, ""), t[1]["p-AU"], replicate_spread(cand, aln)])
+                         p_gtdb(t)[1], t[2]["p-AU"], t[2].get("bp-RELL", ""), q.get(aln, ""), t[1]["p-AU"],
+                         replicate_spread(cand, aln)])
 
         c = results.get("concat")
-        n_rej = sum(results[g][2]["p-AU"] < ALPHA for g in gene_alns)
+        if c:
+            results_concat[cand] = c
+        n_rej = sum(p_gtdb(results[g])[0] < ALPHA for g in gene_alns)
         n_rej_bh = sum(q[g] < ALPHA for g in gene_alns)
         n_pref_gtdb = sum(results[g][1]["p-AU"] < ALPHA for g in gene_alns)
         summary.append([cand, "; ".join(group),
-                        c[2]["p-AU"] if c else "NA", None,
+                        p_gtdb(c)[1] if c else "NA", None,
                         round(c[1]["logL"] - c[2]["logL"], 3) if c else "NA",
                         f"{len(gene_alns)}/{len(genes)}", n_rej, n_rej_bh, n_pref_gtdb,
                         replicate_spread(cand, "concat")])
 
-    have = [r for r in summary if r[2] != "NA"]
-    for r, adj in zip(have, holm([r[2] for r in have])):
+    pval = {r[0]: p_gtdb(results_concat[r[0]])[0] for r in summary if r[0] in results_concat}
+    have = [r for r in summary if r[0] in pval]
+    for r, adj in zip(have, holm([pval[r[0]] for r in have])):
         r[3] = round(adj, 5)
     for r in summary:
         if r[3] is None:
@@ -118,7 +135,7 @@ def main():
 
     with open(f"{A}/au_results.tsv", "w") as f:
         f.write("candidate\talignment\tlogL_free\tlogL_gtdb_constrained\tdelta_logL\t"
-                "p_AU_gtdb\tq_BH_gtdb\tp_AU_free\tcon_rep_spread\n")
+                "p_gtdb\tp_AU_raw\tbp_RELL_gtdb\tq_BH_gtdb\tp_AU_free\tcon_rep_spread\n")
         for r in rows:
             f.write("\t".join(str(x) for x in r) + "\n")
     with open(f"{A}/au_summary.tsv", "w") as f:
@@ -130,7 +147,7 @@ def main():
     print(f"{'candidate':30s} {'concat p-AU':>11s} {'Holm':>8s} {'ΔlogL':>8s} {'genes':>6s} "
           f"{'reject':>6s} {'BH':>4s} {'rep spread':>10s}")
     for r in summary:
-        p = f"{r[2]:.4f}" if r[2] != "NA" else "NA"
+        p = r[2]
         h = f"{r[3]:.4f}" if r[3] != "NA" else "NA"
         print(f"{r[0]:30s} {p:>11s} {h:>8s} {str(r[4]):>8s} {r[5]:>6s} {r[6]:>6d} {r[7]:>4d} {str(r[9]):>10s}")
     print(f"\nHolm-corrected concat p-AU < {ALPHA}: the flagellar alignment significantly rejects "
