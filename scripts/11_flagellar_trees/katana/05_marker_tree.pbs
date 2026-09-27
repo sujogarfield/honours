@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=16:mem=32gb
+#PBS -l walltime=12:00:00
+#PBS -j oe
+#PBS -N flag_marker_tree
+
+# Unconstrained ML tree from GTDB R232's bac120 marker alignment for the 149
+# genomes (ModelFinder + 1000 UFBoot). The genome-backbone reference for the
+# marker test of the AU candidates.
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
+M=gene_order/flagellar_trees/markers
+mkdir -p "$M/free"
+[ -s "$M/free/markers.treefile" ] || \
+    iqtree2 -s "$M/bac120_msa_r232.faa" -m MFP -B 1000 -T "$NCPUS" --prefix "$M/free/markers"
+echo "=== done ==="

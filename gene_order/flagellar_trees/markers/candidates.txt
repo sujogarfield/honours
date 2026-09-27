@@ -1,0 +1,8 @@
+poseidonibacter_roscoffensis
+hydrogenimonas
+helicobacter_saguini
+campylobacter_pinnipediorum
+campylobacter_mucosalis
+nitrosophilus
+sulfurimonas
+sulfurospirillum_tamanense

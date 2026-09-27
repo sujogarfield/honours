@@ -1,0 +1,9 @@
+GCF_000024885.1	Sulfurospirillum deleyianum
+GCF_000265295.1	Sulfurospirillum barnesii
+GCF_000568815.1	Sulfurospirillum multivorans
+GCF_000597725.1	Sulfurospirillum arcachonense
+GCF_000813325.1	Sulfurospirillum cavolei
+GCF_001723605.1	Sulfurospirillum halorespirans
+GCF_011769985.2	Sulfurospirillum diekertiae
+GCF_016937535.1	Sulfurospirillum tamanense
+GCF_025770725.1	Sulfurospirillum oryzae

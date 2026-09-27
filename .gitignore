@@ -37,3 +37,6 @@ gene_order/flagellar_trees/verify/hits_*.tsv
 gene_order/flagellar_trees/verify/queries.faa
 gene_order/flagellar_trees/verify/*.emapper.hits
 gene_order/flagellar_trees/verify/*.emapper.seed_orthologs
+gene_order/flagellar_trees/markers/free/
+gene_order/flagellar_trees/markers/*/run/
+gene_order/flagellar_trees/markers/marker_test.tsv

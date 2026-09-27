@@ -1,0 +1,40 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=8:mem=16gb
+#PBS -l walltime=12:00:00
+#PBS -j oe
+#PBS -N flag_marker_au
+
+# PBS array job, one element per candidate in markers/candidates.txt.
+# On the bac120 marker alignment: best tree with the FLAGELLAR grouping forced
+# and best tree with the GTDB branch(es) forced (3 seeds each, best kept), then
+# AU on {1 unconstrained marker tree, 2 flagellar-forced, 3 GTDB-forced}.
+# Model = the marker tree's best-fit model. Finished steps are skipped on resubmit.
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
+M=gene_order/flagellar_trees/markers
+CAND=$(sed -n "${PBS_ARRAY_INDEX}p" "$M/candidates.txt")
+W=$M/$CAND/run
+mkdir -p "$W"
+MODEL=$(awk '/^Best-fit model according to BIC:/{print $NF; exit}' "$M/free/markers.iqtree")
+echo "=== $CAND, model $MODEL, on $(hostname) ==="
+
+for KIND in flag gtdb; do
+    for SEED in 1 2 3; do
+        P=$W/${KIND}_s$SEED
+        [ -s "$P.treefile" ] || \
+            iqtree2 -s "$M/bac120_msa_r232.faa" -m "$MODEL" -g "$M/$CAND/${KIND}_constraint.nwk" \
+                -T "$NCPUS" --seed "$SEED" --prefix "$P" --quiet
+    done
+    TOP=$(for SEED in 1 2 3; do
+            printf '%s %s\n' "$(awk '/^Log-likelihood of the tree:/{print $5; exit}' "$W/${KIND}_s$SEED.iqtree")" "$SEED"
+          done | sort -g -r | head -1 | cut -d' ' -f2)
+    echo "$TOP" > "$W/${KIND}_best_seed.txt"
+done
+
+cat "$M/free/markers.treefile" "$W/flag_s$(cat "$W/flag_best_seed.txt").treefile" \
+    "$W/gtdb_s$(cat "$W/gtdb_best_seed.txt").treefile" > "$W/trees.nwk"
+[ -s "$W/au.iqtree" ] || \
+    iqtree2 -s "$M/bac120_msa_r232.faa" -m "$MODEL" -z "$W/trees.nwk" -n 0 -zb 10000 -au \
+        -T "$NCPUS" --prefix "$W/au" --quiet
+echo "=== done $CAND ==="
