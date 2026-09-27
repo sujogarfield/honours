@@ -16,12 +16,12 @@ results = []
 with open("campy_fetched/campy_refseq_accessions.txt") as f:
     gcf_accessions = [line.strip() for line in f if line.strip()]
 
-subprocess.run([
-    "wget",
-    "-nc",
-    "-P", "scripts/02_species_tree",
-    "https://data.gtdb.ecogenomic.org/releases/latest/bac120.tree"
-])
+# Pinned to GTDB R232 (released 15 Apr 2026). The committed bac120.tree is
+# byte-identical to this file (md5 a8b589ffabbf41ebd7e8ab45795b8e6a). Don't use
+# releases/latest: it would silently change the reference tree on a rerun.
+GTDB_TREE_URL = "https://data.gtdb.ecogenomic.org/releases/release232/232.0/bac120_r232.tree"
+if not os.path.exists("scripts/02_species_tree/bac120.tree"):
+    subprocess.run(["wget", "-O", "scripts/02_species_tree/bac120.tree", GTDB_TREE_URL], check=True)
 
 tree = Tree("scripts/02_species_tree/bac120.tree", format=1, quoted_node_names=True)
 

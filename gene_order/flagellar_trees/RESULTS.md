@@ -6,6 +6,11 @@ partitioned concatenated tree (9,927 aa sites, 10.8 % missing data), gene and
 site concordance factors (gCF, sCFL) on both the flagellar and GTDB trees, and
 targeted AU tests. Figures in `figures/` (`plot_results.py`).
 
+Species tree: GTDB **R232** bac120 tree (15 Apr 2026, 189,801 genomes; file
+pinned in `02_species_tree/gtdb_tree.py`), pruned to our genomes by exact
+accession with branch lengths preserved — the relationships GTDB inferred among
+these genomes within the full tree, not a tree re-inferred from them alone.
+
 Run 1 (34 genes / 153 genomes, 26 Sep) is superseded; its headline numbers are
 within 1–2 % of run 2's (table in §1).
 
@@ -168,6 +173,9 @@ confirmation. (2) Rejecting GTDB is not by itself HGT (see next steps).
 
 ## Caveats
 
+- The pruned GTDB tree's node labels are GTDB's support for the corresponding
+  splits in the full 189,801-genome tree, not support for a 149-genome tree;
+  they are not used in any analysis here.
 - UFBoot ≥ 95 as "strong" (UFBoot is slightly optimistic under model
   misspecification).
 - trimAl -automated1 trims some genes heavily (e.g. flaG → 51 sites); a less
