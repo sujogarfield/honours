@@ -166,6 +166,23 @@ significantly reject the flagellar grouping, the flagellar genes and the genome
 backbone have different histories at that spot (non-vertical inheritance
 candidate); if not, the species tree is uncertain there.
 
+### M13. Single-gene screen (`prepare_single_gene_tests.py`, `katana/08–10_*.pbs`, `single_one.sh`, `summarise_single_gene.py`) — *running*
+Looks for genes that moved on their own. The 37 gene trees were re-screened
+(M9 logic) against the ML marker tree (M11), rooted on Desulfurellia like GTDB,
+instead of GTDB, since GTDB was shown to be wrong or uncertain at several
+spots. Cases kept: UFBoot ≥ 95; not in the concatenated tree and in ≤ 3 gene
+trees (recurring conflicts were covered by M10–M11); gene with ≥ 150
+parsimony-informative sites; enclosing marker-tree clade ≥ 3 genomes larger
+than the group. → 73 cases in 25 genes, 58 distinct groups (filters are
+screening choices, set before testing). Per case: (a) gene test — the gene
+alignment, unconstrained gene tree vs best tree forcing the marker-tree
+branch(es) the group contradicts; (b) marker test (per group) — the marker
+alignment, unconstrained marker tree vs best tree forcing the gene's grouping.
+3 seeds per constrained search, AU with 10,000 RELL, bp-RELL = 0 → p < 10⁻⁴;
+Benjamini–Hochberg across cases (gene tests) and groups (marker tests). A case
+is a candidate only if both q < 0.05; groups containing genomes that fail the
+composition test in ≥ 5 genes are labelled with a composition caveat.
+
 ### M12. Software and computing
 | Tool | Version | Use |
 |---|---|---|
@@ -182,7 +199,8 @@ candidate); if not, the species tree is uncertain there.
 Tree inference ran on UNSW Katana (PBS Pro; conda environment
 `scripts/11_flagellar_trees/katana/env.yml`); gene calling, verification,
 comparisons and figures ran locally. Full rerun: `katana/submit.sh`, then
-`katana/submit_au.sh`, then `katana/submit_markers.sh`; locally
+`katana/submit_au.sh`, then `katana/submit_markers.sh`, then
+`katana/submit_single.sh` (after `prepare_single_gene_tests.py`); locally
 `plot_results.py`, `verify_gene_calls.py`.
 
 # Results
@@ -373,7 +391,8 @@ primary candidates in the Holm correction, *Poseidonibacter* is p = 0.024.
 1. ~~Is GTDB wrong there?~~ Done (species-marker test, §4): 1 genuine
    discordance (*P. lekithochrous* + *A. roscoffensis*), 4 GTDB problems,
    3 unresolved.
-2. **Characterise the Poseidonibacter/Arcobacter case**: which genome's
+2. **Single-gene screen** (M13) — running.
+3. **Characterise the Poseidonibacter/Arcobacter case**: which genome's
    flagellar genes moved (compare branch lengths / placement in each gene
    tree), flagellar gene order vs. both relatives (existing synteny outputs),
    mobile elements and GC/codon usage around the flagellar clusters.

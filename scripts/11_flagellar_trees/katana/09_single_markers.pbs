@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=8:mem=16gb
+#PBS -l walltime=08:00:00
+#PBS -j oe
+#PBS -N flag_single_marker
+
+# PBS array, one element per row of single/groups.tsv (marker test).
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
+GROUP=$(sed -n "$((PBS_ARRAY_INDEX + 1))p" gene_order/flagellar_trees/single/groups.tsv | cut -f1)
+MODEL=$(awk '/^Best-fit model according to BIC:/{print $NF; exit}' gene_order/flagellar_trees/markers/free/markers.iqtree)
+bash scripts/11_flagellar_trees/katana/single_one.sh marker "$GROUP" - "$MODEL" "$NCPUS"

@@ -1,0 +1,74 @@
+case_id	gene	model	group_id	ufboot	informative_sites	n_gene_trees	marker_span	forced_branches	organisms
+c001	flgi	LG+F+I+R4	g001	100.0	219	3	149	3	Hippea maritima; Hippea alviniae; Hippea jasoniae; Desulfurella amilsii; Nitrosophilus labii; Nitrosophilus alvini; Nitrosophilus kaiyonis; Nitratiruptor tergarcus
+c002	flgh	Q.yeast+I+R5	g001	100.0	157	3	147	3	Hippea maritima; Hippea alviniae; Hippea jasoniae; Desulfurella amilsii; Nitrosophilus labii; Nitrosophilus alvini; Nitrosophilus kaiyonis; Nitratiruptor tergarcus
+c003	flha	Q.yeast+I+R6	g002	98.0	440	3	32	1	Helicobacter cinaedi; Helicobacter pametensis; Helicobacter japonicus; Helicobacter jaachi; Helicobacter himalayensis; Helicobacter enhydrae; Helicobacter brantae; Helicobacter cholecystus; Helicobacter marmotae; Helicobacter labetoulli; Helicobacter kayseriensis
+c004	flhf	Q.yeast+I+G4	g002	99.0	274	3	31	1	Helicobacter cinaedi; Helicobacter pametensis; Helicobacter japonicus; Helicobacter jaachi; Helicobacter himalayensis; Helicobacter enhydrae; Helicobacter brantae; Helicobacter cholecystus; Helicobacter marmotae; Helicobacter labetoulli; Helicobacter kayseriensis
+c005	pflb	Q.yeast+F+R6	g002	95.0	574	3	31	1	Helicobacter cinaedi; Helicobacter pametensis; Helicobacter japonicus; Helicobacter jaachi; Helicobacter himalayensis; Helicobacter enhydrae; Helicobacter brantae; Helicobacter cholecystus; Helicobacter marmotae; Helicobacter labetoulli; Helicobacter kayseriensis
+c006	flgd	LG+F+I+G4	g003	100.0	161	3	14	2	Sulfurimonas gotlandica; Sulfurimonas hongkongensis; Sulfurimonas lithotrophica
+c007	chea	Q.yeast+I+R6	g003	95.0	465	3	14	2	Sulfurimonas gotlandica; Sulfurimonas hongkongensis; Sulfurimonas lithotrophica
+c008	flge	LG+F+I+R5	g003	95.0	422	3	13	2	Sulfurimonas gotlandica; Sulfurimonas hongkongensis; Sulfurimonas lithotrophica
+c009	flig	Q.insect+F+R5	g004	100.0	314	3	8	3	Helicobacter rodentium; Helicobacter valdiviensis
+c010	flge	LG+F+I+R5	g004	97.0	422	3	8	3	Helicobacter rodentium; Helicobacter valdiviensis
+c011	flgi	LG+F+I+R4	g005	100.0	219	3	6	2	Campylobacter coli; Campylobacter jejuni
+c012	flge	LG+F+I+R5	g006	99.0	422	3	7	2	Helicobacter turcicus; Helicobacter ibis; Helicobacter winghamensis
+c013	flhb	Q.yeast+F+I+G4	g005	98.0	236	3	6	2	Campylobacter coli; Campylobacter jejuni
+c014	flir	mtZOA+R6	g007	97.0	205	3	7	1	Sulfurospirillum deleyianum; Sulfurospirillum barnesii; Sulfurospirillum cavolei
+c015	flig	Q.insect+F+R5	g006	95.0	314	3	7	2	Helicobacter turcicus; Helicobacter ibis; Helicobacter winghamensis
+c016	flgl	Q.yeast+F+I+R5	g008	98.0	207	2	29	2	Arcobacter nitrofigilis; Malaciobacter halophilus; Malaciobacter mytili; Malaciobacter marinus; Malaciobacter molluscorum
+c017	flgh	Q.yeast+I+R5	g008	97.0	157	2	29	2	Arcobacter nitrofigilis; Malaciobacter halophilus; Malaciobacter mytili; Malaciobacter marinus; Malaciobacter molluscorum
+c018	flii	Q.yeast+I+R6	g009	99.0	336	2	25	1	Arcobacter nitrofigilis; Halarcobacter bivalviorum; Halarcobacter anaerophilus; Halarcobacter ebronensis
+c019	flhf	Q.yeast+I+G4	g009	98.0	274	2	25	1	Arcobacter nitrofigilis; Halarcobacter bivalviorum; Halarcobacter anaerophilus; Halarcobacter ebronensis
+c020	flim	Q.insect+R5	g010	98.0	273	2	29	2	Arcobacter nitrofigilis; Malaciobacter halophilus; Malaciobacter mytili; Halarcobacter bivalviorum; Malaciobacter marinus; Malaciobacter molluscorum; Halarcobacter anaerophilus; Halarcobacter ebronensis
+c021	flid	Q.pfam+F+I+R5	g011	99.0	571	2	21	2	Helicobacter macacae; Helicobacter anseris; Helicobacter canis; Helicobacter anatolicus; Helicobacter mustelae
+c022	flge	LG+F+I+R5	g011	96.0	422	2	20	2	Helicobacter macacae; Helicobacter anseris; Helicobacter canis; Helicobacter anatolicus; Helicobacter mustelae
+c023	flid	Q.pfam+F+I+R5	g012	100.0	571	2	16	2	Arcobacter caeni; Arcobacter aquimarinus; Arcobacter defluvii; Arcobacter cloacae
+c024	flir	mtZOA+R6	g012	97.0	205	2	16	2	Arcobacter caeni; Arcobacter aquimarinus; Arcobacter defluvii; Arcobacter cloacae
+c025	flgg	LG+F+I+R4	g013	97.0	201	2	13	2	Sulfurimonas denitrificans; Sulfurimonas gotlandica; Sulfurimonas hongkongensis; Sulfurimonas crateris; Sulfurimonas baltica; Sulfurimonas marisnigri; Sulfurimonas aquatica
+c026	flid	Q.pfam+F+I+R5	g014	100.0	571	2	7	3	Campylobacter peloridis; Campylobacter ornithocola
+c027	flig	Q.insect+F+R5	g015	99.0	314	2	7	4	Campylobacter subantarcticus; Campylobacter peloridis
+c028	flgs	Q.yeast+I+R5	g015	98.0	218	2	7	4	Campylobacter subantarcticus; Campylobacter peloridis
+c029	flip	Q.yeast+I+R6	g014	97.0	195	2	7	3	Campylobacter peloridis; Campylobacter ornithocola
+c030	flgg	LG+F+I+R4	g016	100.0	201	2	6	2	Campylobacter insulaenigrae; Campylobacter armoricus
+c031	flid	Q.pfam+F+I+R5	g017	100.0	571	2	6	3	Sulfurimonas denitrificans; Sulfurimonas hongkongensis
+c032	flge	LG+F+I+R5	g018	98.0	422	2	6	4	Campylobacter subantarcticus; Campylobacter volucris
+c033	flgd	LG+F+I+G4	g018	95.0	161	2	6	4	Campylobacter subantarcticus; Campylobacter volucris
+c034	flif	Q.yeast+R6	g019	100.0	414	2	7	1	Helicobacter rodentium; Helicobacter turcicus; Helicobacter ibis; Helicobacter winghamensis
+c035	flii	Q.yeast+I+R6	g020	100.0	336	1	146	3	Hippea maritima; Hippea alviniae; Hippea jasoniae; Desulfurella amilsii; Nitrosophilus labii; Nitrosophilus kaiyonis; Nitratiruptor tergarcus
+c036	flid	Q.pfam+F+I+R5	g021	95.0	571	1	144	3	Nautilia profundicola; Lebetimonas natsushimae; Caminibacter pacificus; Caminibacter mediatlanticus; Hydrogenimonas urashimensis; Hydrogenimonas cancrithermarum; Hydrogenimonas thermophila
+c037	flgd	LG+F+I+G4	g022	99.0	161	1	137	3	Hippea maritima; Hippea alviniae; Hippea jasoniae; Desulfurella amilsii; Nitrosophilus labii; Nitrosophilus kaiyonis
+c038	flgr	Q.yeast+I+R6	g023	96.0	321	1	38	1	Helicobacter canadensis; Wolinella succinogenes; Helicobacter rodentium; Helicobacter valdiviensis; Helicobacter turcicus; Helicobacter colisuis; Helicobacter ibis; Helicobacter winghamensis
+c039	flhb	Q.yeast+F+I+G4	g024	98.0	236	1	29	3	Poseidonibacter parvus; Malaciobacter halophilus; Malaciobacter mytili; Malaciobacter marinus; Malaciobacter molluscorum; Poseidonibacter antarcticus; Poseidonibacter lekithochrous; Arcobacter roscoffensis
+c040	flgg	LG+F+I+R4	g025	96.0	201	1	21	3	Poseidonibacter parvus; Poseidonibacter antarcticus; Malaciobacter pacificus
+c041	flgi	LG+F+I+R4	g026	99.0	219	1	27	2	Helicobacter cinaedi; Helicobacter bilis; Helicobacter japonicus; Helicobacter saguini; Helicobacter jaachi; Helicobacter muridarum; Helicobacter trogontum; Helicobacter himalayensis; Helicobacter didelphidarum; Helicobacter marmotae; Helicobacter labetoulli
+c042	flip	Q.yeast+I+R6	g027	97.0	195	1	21	6	Poseidonibacter parvus; Poseidonibacter antarcticus; Arcobacter aquimarinus; Arcobacter defluvii; Arcobacter cloacae
+c043	flgh	Q.yeast+I+R5	g028	99.0	157	1	13	1	Arcobacter lacus; Arcobacter defluvii; Aliarcobacter butzleri
+c044	flgi	LG+F+I+R4	g029	99.0	219	1	14	2	Sulfurimonas denitrificans; Sulfurimonas crateris; Sulfurimonas lithotrophica; Sulfurimonas baltica; Sulfurimonas marisnigri
+c045	flgl	Q.yeast+F+I+R5	g030	99.0	207	1	14	3	Sulfurimonas denitrificans; Sulfurimonas gotlandica; Sulfurimonas hongkongensis; Sulfurimonas crateris; Sulfurimonas lithotrophica
+c046	flgg	LG+F+I+R4	g031	100.0	201	1	12	2	Campylobacter helveticus; Campylobacter avium; Campylobacter troglodytis; Campylobacter upsaliensis
+c047	flif	Q.yeast+R6	g032	100.0	414	1	14	1	Sulfurimonas denitrificans; Sulfurimonas gotlandica; Sulfurimonas hongkongensis; Sulfurimonas crateris; Sulfurimonas lithotrophica; Sulfurimonas baltica; Sulfurimonas marisnigri
+c048	flip	Q.yeast+I+R6	g033	100.0	195	1	10	2	Campylobacter helveticus; Campylobacter novaezeelandiae; Campylobacter upsaliensis
+c049	flgr	Q.yeast+I+R6	g034	99.0	321	1	11	3	Campylobacter rectus; Campylobacter showae; Campylobacter curvus; Campylobacter massiliensis
+c050	flii	Q.yeast+I+R6	g035	96.0	336	1	10	4	Campylobacter hepaticus; Campylobacter cuniculorum; Campylobacter bilis
+c051	flhb	Q.yeast+F+I+G4	g036	95.0	236	1	9	1	Sulfurospirillum arcachonense; Sulfurospirillum tamanense
+c052	flgs	Q.yeast+I+R5	g037	100.0	218	1	9	3	Campylobacter concisus; Campylobacter rectus; Campylobacter massiliensis
+c053	flgh	Q.yeast+I+R5	g038	99.0	157	1	7	4	Campylobacter peloridis; Campylobacter lari
+c054	flgs	Q.yeast+I+R5	g039	98.0	218	1	20	1	Helicobacter felis; Helicobacter cetorum; Helicobacter macacae; Helicobacter ailurogastricus; Helicobacter heilmannii; Helicobacter anseris; Helicobacter mehlei; Helicobacter labacensis; Helicobacter vulpis; Helicobacter canis; Helicobacter salomonis; Helicobacter anatolicus; Helicobacter acinonychis; Helicobacter mustelae; Helicobacter pylori
+c055	flim	Q.insect+R5	g040	98.0	273	1	10	2	Aliarcobacter vitoriensis; Aliarcobacter skirrowii; Aliarcobacter thereius; Arcobacter porcinus; Aliarcobacter lanthieri
+c056	flia	Q.yeast+R6	g041	97.0	201	1	10	3	Campylobacter jejuni; Campylobacter hepaticus; Campylobacter helveticus; Campylobacter bilis; Campylobacter upsaliensis
+c057	flir	mtZOA+R6	g042	95.0	205	1	7	1	Sulfurimonas marina; Sulfurimonas aquatica
+c058	chev	Q.yeast+I+R5	g043	100.0	263	1	7	1	Campylobacter insulaenigrae; Campylobacter peloridis; Campylobacter volucris
+c059	flid	Q.pfam+F+I+R5	g044	100.0	571	1	6	2	Sulfurospirillum cavolei; Sulfurospirillum oryzae
+c060	flid	Q.pfam+F+I+R5	g045	99.0	571	1	6	3	Sulfurimonas gotlandica; Sulfurimonas marisnigri
+c061	flim	Q.insect+R5	g046	98.0	273	1	7	3	Campylobacter peloridis; Campylobacter volucris; Campylobacter armoricus
+c062	fliy	Q.yeast+I+G4	g047	98.0	153	1	7	2	Sulfurospirillum multivorans; Sulfurospirillum cavolei; Sulfurospirillum halorespirans
+c063	flge	LG+F+I+R5	g048	96.0	422	1	7	4	Campylobacter peloridis; Campylobacter ornithocola; Campylobacter lari
+c064	flgi	LG+F+I+R4	g049	96.0	219	1	6	2	Campylobacter volucris; Campylobacter armoricus
+c065	flgi	LG+F+I+R4	g050	99.0	219	1	7	1	Helicobacter canadensis; Helicobacter pullorum; Helicobacter colisuis; Helicobacter ibis
+c066	flgd	LG+F+I+G4	g051	98.0	161	1	5	3	Sulfurimonas hydrogeniphila; Sulfurimonas indica
+c067	flgk	LG+F+I+R6	g052	98.0	468	1	7	2	Sulfurimonas autotrophica; Sulfurimonas hydrogeniphila; Sulfurimonas marina; Sulfurimonas sediminis
+c068	flga	Q.yeast+F+R5	g053	96.0	183	1	7	2	Helicobacter rodentium; Helicobacter valdiviensis; Helicobacter turcicus; Helicobacter winghamensis
+c069	flga	Q.yeast+F+R5	g054	96.0	183	1	8	3	Campylobacter concisus; Campylobacter curvus; Campylobacter mucosalis; Campylobacter anatolicus; Campylobacter suis
+c070	flha	Q.yeast+I+R6	g055	96.0	440	1	8	1	Campylobacter porcelli; Campylobacter vicugnae; Campylobacter devanensis; Campylobacter lanienae; Campylobacter magnus
+c071	flia	Q.yeast+R6	g056	95.0	201	1	8	2	Helicobacter canadensis; Helicobacter valdiviensis; Helicobacter pullorum; Helicobacter colisuis; Helicobacter ibis
+c072	flip	Q.yeast+I+R6	g057	95.0	195	1	6	2	Sulfurospirillum barnesii; Sulfurospirillum multivorans; Sulfurospirillum halorespirans
+c073	fliy	Q.yeast+I+G4	g058	95.0	153	1	5	2	Helicobacter jaachi; Helicobacter marmotae
