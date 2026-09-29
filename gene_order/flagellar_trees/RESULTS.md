@@ -406,7 +406,7 @@ the same genomes' other genes. After the checks:
 | Status | Gene | Group | Note |
 |---|---|---|---|
 | **clean** | fliG | *H. turcicus* / *ibis* / *winghamensis* | same group also in flgE (below) |
-| **clean** | flgR | *C. rectus* / *showae* / *curvus* / *massiliensis* | with flgS below: the FlgS–FlgR flagellar two-component regulator, both in the *C. concisus/rectus* (oral) group |
+| **clean** | flgR | *C. rectus* / *showae* / *curvus* / *massiliensis* | with flgS below: the FlgS–FlgR flagellar two-component regulator, both in the *C. concisus/rectus* group |
 | **clean** | flgS | *C. concisus* / *rectus* / *massiliensis* | |
 | **clean** | flgS | *C. subantarcticus* / *peloridis* | |
 | **clean** | flgD | *Sulfurimonas hydrogeniphila* / *indica* | |
@@ -417,7 +417,7 @@ the same genomes' other genes. After the checks:
 **Reading.** Single-gene non-vertical inheritance is also rare: 5 clean
 cases in 5 genes out of 73 tested, none recent. The most coherent is the
 flagellar regulatory pair FlgS/FlgR disagreeing with the genome in the same
-oral *Campylobacter* clade. Caveats as for the AU tests: cases were selected
+*C. concisus/rectus* clade. Caveats as for the AU tests: cases were selected
 from the same gene trees (post-selection p-values), and 150–600-site genes
 carry limited signal.
 
