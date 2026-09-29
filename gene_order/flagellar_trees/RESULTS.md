@@ -415,8 +415,15 @@ primary candidates in the Holm correction, *Poseidonibacter* is p = 0.024.
 - **Direction unresolved.** Either genome could be the recipient (both give
   the same topology), and base composition cannot tell: genome GC 28.5 % vs
   28.7 %, flagellar genes 29.4 % vs 29.9 %.
-- **Interpretation.** Replacement or homologous recombination of the flagellar
-  gene set, at both loci, between the *P. lekithochrous* and *A. roscoffensis*
+- **Same loci, same order, no mobile elements.** All four genomes carry the
+  same two flagellar loci with identical gene order (18 genes flhA…flgG; 7
+  genes fliS…fliM; *P. antarcticus* only reversed on its draft contigs). No
+  transposase, integrase, phage or conjugation genes within 15 kb of either
+  locus in any of the four (the only keyword hit, RuvX, is a housekeeping
+  Holliday-junction resolvase).
+- **Interpretation.** Not the insertion of a foreign flagellar system: the
+  alleles at the existing loci were replaced, most plausibly by homologous
+  recombination between the *P. lekithochrous* and *A. roscoffensis*
   lineages, after they diverged but not recently.
 
 ### Single-gene screen (genes that moved on their own)
@@ -454,9 +461,9 @@ carry limited signal.
    3 unresolved.
 2. ~~Single-gene screen~~ Done (M13, §4): 5 clean single-gene cases, 9
    caveated. FlgS/FlgR neighbourhoods checked: not co-located (§4).
-3. **Poseidonibacter/Arcobacter case**: partly characterised (§4: both loci,
-   whole gene set, not recent, direction unresolved). Remaining: flagellar
-   gene order in the four genomes, mobile elements near the two loci, and a
+3. **Poseidonibacter/Arcobacter case**: characterised (§4: both loci, whole
+   gene set, identical gene order, no mobile elements, not recent, direction
+   unresolved → allelic replacement by recombination). Remaining option: a
    whole-genome core-gene tree as a second backbone.
 3. **Thermophile artefact check**: site-heterogeneous model / recoding (§3).
 4. Donor search (DIAMOND vs RefSeq) only for candidates surviving 1.
