@@ -27,6 +27,10 @@ import os
 
 A = "gene_order/flagellar_trees/au"
 ALPHA = 0.05
+# the 4 candidates passing the explicit shortlist rule (RESULTS.md section 4);
+# Holm is also reported across these only
+PRIMARY = {"poseidonibacter_roscoffensis", "helicobacter_saguini", "campylobacter_mucosalis",
+           "campylobacter_pinnipediorum"}
 N_RELL = 10000  # -zb in au_one.sh
 
 
@@ -132,6 +136,10 @@ def main():
     for r in summary:
         if r[3] is None:
             r[3] = "NA"
+    prim = [r for r in have if r[0] in PRIMARY]
+    holm_primary = dict(zip([r[0] for r in prim], holm([pval[r[0]] for r in prim])))
+    for r in summary:
+        r.append(round(holm_primary[r[0]], 5) if r[0] in holm_primary else "")
 
     with open(f"{A}/au_results.tsv", "w") as f:
         f.write("candidate\talignment\tlogL_free\tlogL_gtdb_constrained\tdelta_logL\t"
@@ -140,7 +148,8 @@ def main():
             f.write("\t".join(str(x) for x in r) + "\n")
     with open(f"{A}/au_summary.tsv", "w") as f:
         f.write("candidate\tgroup\tconcat_p_AU_gtdb\tconcat_p_holm\tconcat_delta_logL\tgenes_done\t"
-                "genes_reject_gtdb_p05\tgenes_reject_gtdb_BH05\tgenes_prefer_gtdb_p05\tconcat_con_rep_spread\n")
+                "genes_reject_gtdb_p05\tgenes_reject_gtdb_BH05\tgenes_prefer_gtdb_p05\tconcat_con_rep_spread\t"
+                "concat_p_holm_primary\n")
         for r in summary:
             f.write("\t".join(str(x) for x in r) + "\n")
 

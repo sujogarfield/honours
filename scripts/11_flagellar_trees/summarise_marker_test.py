@@ -28,7 +28,7 @@ from ete3 import Tree
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from screen_hgt_candidates import bitmask_splits
-from summarise_au import holm, parse_user_trees, N_RELL
+from summarise_au import holm, parse_user_trees, N_RELL, PRIMARY
 
 M = "gene_order/flagellar_trees/markers"
 ALPHA = 0.05
@@ -93,9 +93,14 @@ def main():
         else:
             r[8] = "markers cannot reject flagellar grouping -> species tree uncertain"
 
+    prim = [r for r in done if r[0] in PRIMARY]
+    hp = dict(zip([r[0] for r in prim], holm([float(r[4].lstrip("<")) for r in prim])))
+    for r in rows:
+        r.append(round(hp[r[0]], 5) if r[0] in hp else "")
+
     with open(f"{M}/marker_test.tsv", "w") as f:
         f.write("candidate\tmarker_tree_has_gtdb_branch\tmarker_ufboot_gtdb_branch\tmarker_tree_has_flag_group\t"
-                "p_flag\tdelta_logL_flag\tp_flag_holm\tp_gtdb\tverdict\n")
+                "p_flag\tdelta_logL_flag\tp_flag_holm\tp_gtdb\tverdict\tp_flag_holm_primary\n")
         for r in rows:
             f.write("\t".join("" if x is None else str(x) for x in r) + "\n")
 

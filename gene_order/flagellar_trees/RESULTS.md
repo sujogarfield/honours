@@ -338,7 +338,8 @@ differ only at the forced branch(es) (1 split; 2 for the Campylobacter pair;
 "< 10⁻⁴": the GTDB-constrained tree won none of the 10,000 RELL replicates
 (KH and SH p also 0). IQ-TREE's AU value is then an unstable extrapolation
 (identical tree pairs gave 0.037 and 8 × 10⁻⁷), so 10⁻⁴ is reported and used
-for Holm. No gene significantly preferred GTDB over its free tree.
+for Holm (Holm across the 4 primary candidates only: 0.0004 each). No gene
+significantly preferred GTDB over its free tree.
 
 **Reading.** At all eight spots the flagellar genes, taken together,
 significantly reject the GTDB arrangement. Individually few genes do (except
