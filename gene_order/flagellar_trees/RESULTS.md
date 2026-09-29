@@ -20,9 +20,9 @@ genes show 4 to be species-tree problems, 3 remain unresolved, and **1 is a
 genuine discordance: *Poseidonibacter lekithochrous* + *Arcobacter
 roscoffensis***, where the genome backbone rejects the grouping the flagellar
 genes support (p = 0.006; Holm 0.048) — non-vertical inheritance of the
-flagellar genes. A single-gene screen (73 cases) adds 5 clean cases of
-individual genes with a history different from the genome (fliG, flgD, and the
-FlgS/FlgR regulator pair), none recent.
+flagellar genes, involving both of its flagellar loci. A single-gene screen
+(73 cases) adds 5 clean cases of individual genes with a history different
+from the genome (fliG, flgD, flgR, flgS ×2), none recent.
 
 Run 1 (34 genes / 153 genomes, 26 Sep) is superseded; its headline numbers are
 within 1–2 % of run 2's (table in §1).
@@ -395,6 +395,30 @@ primary candidates in the Holm correction, *Poseidonibacter* is p = 0.024.
   (one conflict; markers lean against the flagellar grouping, p ≈ 0.05, not
   significant after correction) and *Nitrosophilus* (p = 0.10).
 
+### The Poseidonibacter / Arcobacter case in detail
+- **Where the conflict is.** Among the four genomes alone, both trees split
+  them the same way (*P. parvus* + *P. antarcticus* | *P. lekithochrous* +
+  *A. roscoffensis*). They differ in where the rest of the phylum attaches: the
+  marker tree makes *A. roscoffensis* the outsider (so *P. lekithochrous* sits
+  with its genus), the flagellar tree makes *lekithochrous* + *roscoffensis* a
+  group of their own.
+- **Distances.** Flagellar: *lekithochrous*–*roscoffensis* 0.22 vs
+  *lekithochrous*–*parvus* 0.35. Markers: 0.053 vs 0.049. Flagellar genes
+  normally diverge ~6× faster than the markers here (*parvus*–*antarcticus*
+  0.157 vs 0.025); for *lekithochrous*–*roscoffensis* the ratio is 4.2 — their
+  flagellar genes share a more recent ancestor than their genomes.
+- **It is the whole flagellar gene set.** *P. lekithochrous* has two flagellar
+  loci (≈ 2.94–2.97 Mb and 3.24–3.25 Mb on NZ_CP054052.1). In both, nearly
+  every gene tree groups it with *A. roscoffensis* (19 of 22 resolvable genes;
+  13 at UFBoot ≥ 95); only flgD, flgB and flgH follow the genome, weakly
+  (UFBoot 71–94).
+- **Direction unresolved.** Either genome could be the recipient (both give
+  the same topology), and base composition cannot tell: genome GC 28.5 % vs
+  28.7 %, flagellar genes 29.4 % vs 29.9 %.
+- **Interpretation.** Replacement or homologous recombination of the flagellar
+  gene set, at both loci, between the *P. lekithochrous* and *A. roscoffensis*
+  lineages, after they diverged but not recently.
+
 ### Single-gene screen (genes that moved on their own)
 M13. 73 single-gene conflicts with the ML marker tree tested; 58 not supported
 (the gene cannot reject the marker arrangement), 1 half-supported, **14 with
@@ -407,7 +431,7 @@ the same genomes' other genes. After the checks:
 | Status | Gene | Group | Note |
 |---|---|---|---|
 | **clean** | fliG | *H. turcicus* / *ibis* / *winghamensis* | same group also in flgE (below) |
-| **clean** | flgR | *C. rectus* / *showae* / *curvus* / *massiliensis* | with flgS below: the FlgS–FlgR flagellar two-component regulator, both in the *C. concisus/rectus* group |
+| **clean** | flgR | *C. rectus* / *showae* / *curvus* / *massiliensis* | flgS (next row) also conflicts in this clade, but with a different grouping, and flgS/flgR lie 68–1,445 kb apart in every genome here — two separate signals, not one co-transfer |
 | **clean** | flgS | *C. concisus* / *rectus* / *massiliensis* | |
 | **clean** | flgS | *C. subantarcticus* / *peloridis* | |
 | **clean** | flgD | *Sulfurimonas hydrogeniphila* / *indica* | |
@@ -416,9 +440,10 @@ the same genomes' other genes. After the checks:
 | composition caveat | flgI, fliI, fliD | Hippea/Desulfurella/Nitrosophilus/Nitratiruptor; Nautiliales | thermophile artefact (§3) |
 
 **Reading.** Single-gene non-vertical inheritance is also rare: 5 clean
-cases in 5 genes out of 73 tested, none recent. The most coherent is the
-flagellar regulatory pair FlgS/FlgR disagreeing with the genome in the same
-*C. concisus/rectus* clade. Caveats as for the AU tests: cases were selected
+cases in 5 genes out of 73 tested, none recent. Two of them (flgS, flgR, the
+FlgS–FlgR two-component regulator) fall in the same *C. concisus/rectus*
+clade, but they support different groupings and the genes are far apart in
+every genome, so they are independent signals rather than one co-transfer. Caveats as for the AU tests: cases were selected
 from the same gene trees (post-selection p-values), and 150–600-site genes
 carry limited signal.
 
@@ -428,13 +453,11 @@ carry limited signal.
    discordance (*P. lekithochrous* + *A. roscoffensis*), 4 GTDB problems,
    3 unresolved.
 2. ~~Single-gene screen~~ Done (M13, §4): 5 clean single-gene cases, 9
-   caveated. Next for these: check FlgS/FlgR gene neighbourhoods in the
-   *C. concisus/rectus* clade.
-3. **Characterise the Poseidonibacter/Arcobacter case**: which genome's
-   flagellar genes moved (compare branch lengths / placement in each gene
-   tree), flagellar gene order vs. both relatives (existing synteny outputs),
-   mobile elements and GC/codon usage around the flagellar clusters.
-   Optionally a whole-genome core-gene tree as a second backbone.
+   caveated. FlgS/FlgR neighbourhoods checked: not co-located (§4).
+3. **Poseidonibacter/Arcobacter case**: partly characterised (§4: both loci,
+   whole gene set, not recent, direction unresolved). Remaining: flagellar
+   gene order in the four genomes, mobile elements near the two loci, and a
+   whole-genome core-gene tree as a second backbone.
 3. **Thermophile artefact check**: site-heterogeneous model / recoding (§3).
 4. Donor search (DIAMOND vs RefSeq) only for candidates surviving 1.
 5. **Planned sensitivity analysis — motility-essential genes below the

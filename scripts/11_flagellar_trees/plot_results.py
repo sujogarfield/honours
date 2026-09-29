@@ -29,6 +29,7 @@ from screen_hgt_candidates import bitmask_splits, smaller_side
 
 D = "gene_order/flagellar_trees"
 OUT = f"{D}/figures"
+N_GENES = len(open(f"{D}/genes.txt").read().split())
 
 TEXT, TEXT2, GRID = "#0b0b0b", "#52514e", "#e4e3df"
 SEQ = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"]
@@ -152,9 +153,9 @@ def fig1_tanglegram(org):
 
     n = len(taxa)
     ax.text(tree_w / 2, 2.2, "GTDB species tree", ha="center", fontsize=12, weight="bold", color=TEXT)
-    ax.text(tree_w / 2, 0.9, "branch colour = gCF (share of the 34 flagellar gene trees containing it)",
+    ax.text(tree_w / 2, 0.9, f"branch colour = gCF (share of the {N_GENES} flagellar gene trees containing it)",
             ha="center", fontsize=7.5, color=TEXT2)
-    ax.text(xr_tip + tree_w / 2, 2.2, "Concatenated flagellar tree (34 genes)", ha="center",
+    ax.text(xr_tip + tree_w / 2, 2.2, f"Concatenated flagellar tree ({N_GENES} genes)", ha="center",
             fontsize=12, weight="bold", color=TEXT)
     ax.text(xr_tip + tree_w / 2, 0.9, "solid = UFBoot ≥ 95, dashed = UFBoot < 95; rooted on Desulfurellia",
             ha="center", fontsize=7.5, color=TEXT2)
@@ -268,7 +269,7 @@ def fig3_concordance(org):
     ax.set_xticks([0, 20, 40, 60, 80, 100])
     ax.set_xlabel("gCF: % of flagellar gene trees containing the branch")
     ax.set_ylabel("sCF: % of informative sites supporting the branch")
-    ax.set_title("Concordance of the 34 flagellar genes with each GTDB branch", loc="left",
+    ax.set_title(f"Concordance of the {N_GENES} flagellar genes with each GTDB branch", loc="left",
                  fontsize=11, color=TEXT, weight="bold")
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.13), ncol=2, frameon=False, fontsize=8)
 
@@ -314,7 +315,7 @@ def fig4_recurrent(n_show=12):
     ax.set_yticks(ys)
     ax.set_yticklabels([name(g) for g in top], fontsize=8, color=TEXT)
     ax.set_xlabel("Gene trees grouping these genomes together (UFBoot ≥ 95), against GTDB")
-    ax.set_xlim(0, 34)
+    ax.set_xlim(0, N_GENES)
     ax.xaxis.grid(True, color=GRID, lw=0.6)
     ax.set_axisbelow(True)
     ax.spines["left"].set_visible(False)
