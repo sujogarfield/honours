@@ -427,8 +427,8 @@ carry limited signal.
    discordance (*P. lekithochrous* + *A. roscoffensis*), 4 GTDB problems,
    3 unresolved.
 2. ~~Single-gene screen~~ Done (M13, §4): 5 clean single-gene cases, 9
-   caveated. Next for these: check FlgS/FlgR gene neighbourhoods in the oral
-   Campylobacter clade.
+   caveated. Next for these: check FlgS/FlgR gene neighbourhoods in the
+   *C. concisus/rectus* clade.
 3. **Characterise the Poseidonibacter/Arcobacter case**: which genome's
    flagellar genes moved (compare branch lengths / placement in each gene
    tree), flagellar gene order vs. both relatives (existing synteny outputs),
