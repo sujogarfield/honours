@@ -20,7 +20,9 @@ genes show 4 to be species-tree problems, 3 remain unresolved, and **1 is a
 genuine discordance: *Poseidonibacter lekithochrous* + *Arcobacter
 roscoffensis***, where the genome backbone rejects the grouping the flagellar
 genes support (p = 0.006; Holm 0.048) — non-vertical inheritance of the
-flagellar genes.
+flagellar genes. A single-gene screen (73 cases) adds 5 clean cases of
+individual genes with a history different from the genome (fliG, flgD, and the
+FlgS/FlgR regulator pair), none recent.
 
 Run 1 (34 genes / 153 genomes, 26 Sep) is superseded; its headline numbers are
 within 1–2 % of run 2's (table in §1).
@@ -166,7 +168,7 @@ significantly reject the flagellar grouping, the flagellar genes and the genome
 backbone have different histories at that spot (non-vertical inheritance
 candidate); if not, the species tree is uncertain there.
 
-### M13. Single-gene screen (`prepare_single_gene_tests.py`, `katana/08–10_*.pbs`, `single_one.sh`, `summarise_single_gene.py`) — *running*
+### M13. Single-gene screen (`prepare_single_gene_tests.py`, `katana/08–10_*.pbs`, `single_one.sh`, `summarise_single_gene.py`)
 Looks for genes that moved on their own. The 37 gene trees were re-screened
 (M9 logic) against the ML marker tree (M11), rooted on Desulfurellia like GTDB,
 instead of GTDB, since GTDB was shown to be wrong or uncertain at several
@@ -182,6 +184,12 @@ alignment, unconstrained marker tree vs best tree forcing the gene's grouping.
 Benjamini–Hochberg across cases (gene tests) and groups (marker tests). A case
 is a candidate only if both q < 0.05; groups containing genomes that fail the
 composition test in ≥ 5 genes are labelled with a composition caveat.
+Each candidate was then checked for (i) search stability (3 replicates),
+(ii) how far the constrained trees differ from the free ones, (iii) whether the
+group's genomes had their gene copy resolved by orthogroup (paralogy risk), and
+(iv) pairwise protein identity within the group for that gene vs the same
+genome pairs across the other genes (trimmed alignments; a recent transfer
+would show anomalously high identity).
 
 ### M12. Software and computing
 | Tool | Version | Use |
@@ -386,12 +394,41 @@ primary candidates in the Holm correction, *Poseidonibacter* is p = 0.024.
   (one conflict; markers lean against the flagellar grouping, p ≈ 0.05, not
   significant after correction) and *Nitrosophilus* (p = 0.10).
 
+### Single-gene screen (genes that moved on their own)
+M13. 73 single-gene conflicts with the ML marker tree tested; 58 not supported
+(the gene cannot reject the marker arrangement), 1 half-supported, **14 with
+both tests significant** (BH q < 0.05). All 14 had stable constrained searches
+(replicate spread ≤ 1.0 logL) and marker-side constrained trees differing only
+at the forced branches (2–4 splits). None shows the signature of a *recent*
+transfer: the group's identity in the gene is not anomalously high relative to
+the same genomes' other genes. After the checks:
+
+| Status | Gene | Group | Note |
+|---|---|---|---|
+| **clean** | fliG | *H. turcicus* / *ibis* / *winghamensis* | same group also in flgE (below) |
+| **clean** | flgR | *C. rectus* / *showae* / *curvus* / *massiliensis* | with flgS below: the FlgS–FlgR flagellar two-component regulator, both in the *C. concisus/rectus* (oral) group |
+| **clean** | flgS | *C. concisus* / *rectus* / *massiliensis* | |
+| **clean** | flgS | *C. subantarcticus* / *peloridis* | |
+| **clean** | flgD | *Sulfurimonas hydrogeniphila* / *indica* | |
+| paralogy caveat | flgE ×2 | *H. rodentium*/*valdiviensis*; *H. turcicus*/*ibis*/*winghamensis* | these genomes had two flgE copies, resolved by orthogroup |
+| alignment caveat | fliD ×4 | *C. peloridis*/*ornithocola*; *S. denitrificans*/*hongkongensis*; *S. gotlandica*/*marisnigri*; *Sulfurospirillum cavolei*/*oryzae* | fliD (filament cap) is the fastest-evolving gene here (identities rank 28–36 of 36–37 for these pairs) with a hard-to-align variable middle; ΔlogL up to 714 with 11–14 rearranged branches fits alignment/model problems better than transfer |
+| composition caveat | flgI, fliI, fliD | Hippea/Desulfurella/Nitrosophilus/Nitratiruptor; Nautiliales | thermophile artefact (§3) |
+
+**Reading.** Single-gene non-vertical inheritance is also rare: 5 clean
+cases in 5 genes out of 73 tested, none recent. The most coherent is the
+flagellar regulatory pair FlgS/FlgR disagreeing with the genome in the same
+oral *Campylobacter* clade. Caveats as for the AU tests: cases were selected
+from the same gene trees (post-selection p-values), and 150–600-site genes
+carry limited signal.
+
 ## 5. Next steps
 
 1. ~~Is GTDB wrong there?~~ Done (species-marker test, §4): 1 genuine
    discordance (*P. lekithochrous* + *A. roscoffensis*), 4 GTDB problems,
    3 unresolved.
-2. **Single-gene screen** (M13) — running.
+2. ~~Single-gene screen~~ Done (M13, §4): 5 clean single-gene cases, 9
+   caveated. Next for these: check FlgS/FlgR gene neighbourhoods in the oral
+   Campylobacter clade.
 3. **Characterise the Poseidonibacter/Arcobacter case**: which genome's
    flagellar genes moved (compare branch lengths / placement in each gene
    tree), flagellar gene order vs. both relatives (existing synteny outputs),
