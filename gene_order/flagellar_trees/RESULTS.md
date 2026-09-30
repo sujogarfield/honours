@@ -1,5 +1,57 @@
 # Flagellar trees vs GTDB: results (Katana run 2, 27 Sep 2026)
 
+## In plain terms
+
+**Question.** Were the flagellar genes of Campylobacterota inherited along
+with the rest of the genome (vertically), or do they sometimes move between
+lineages (horizontal gene transfer, HGT, or recombination)?
+
+**Approach.** Build evolutionary trees from 37 flagellar genes across 149
+genomes, compare them with the species tree (GTDB), find places where they
+disagree, and test whether each disagreement is real and whether it is the
+flagellar genes or the species tree that is out of step.
+
+**Findings.**
+1. The flagellar tree matches about three quarters of the species tree —
+   the flagellar system is mostly inherited vertically, as a unit (§1).
+2. Most disagreement between individual genes and the species tree is just
+   weak signal in short genes (§2); the deep disagreements are "can't tell",
+   not "contradicts" (§3).
+3. 8 local disagreements are statistically real (§4, AU tests). Testing them
+   against the rest of the genome shows 4 are errors/uncertainty in the
+   species tree, 3 are unresolved, and **1 is a genuine case**: in
+   *Poseidonibacter lekithochrous* / *Arcobacter roscoffensis* the whole
+   flagellar gene set has a different history from the genome — most likely
+   the flagellar genes were swapped by homologous recombination.
+4. Genes moving on their own are also rare: 5 plausible cases out of 73
+   tested (§4, single-gene screen).
+5. Conclusion: flagellar genes in this phylum are inherited largely
+   vertically; non-vertical inheritance is rare and, where found, not recent.
+
+## Glossary
+
+| Term | Meaning |
+|---|---|
+| Species tree / GTDB | The reference tree of the genomes, from the Genome Taxonomy Database (release R232), built from 120 marker genes |
+| Gene tree | A tree built from one gene; concatenated tree = one tree from all 37 flagellar genes joined end to end |
+| Branch / bipartition | A branch splits the genomes into two groups; two trees "share" a branch if they make the same split |
+| Robinson–Foulds (RF) | Number of branches two trees don't share; normalised 0 = identical, 1 = nothing shared |
+| UFBoot | Ultrafast bootstrap support for a branch (0–100); ≥ 95 counts as strong |
+| gCF / sCF | Gene / site concordance factor: % of gene trees / alignment sites that support a branch. sCF ≈ 33 % means no signal |
+| gDF1, gDF2, gDFP | % of gene trees supporting each of the two alternative arrangements (gDF1/2), or neither because the gene tree is messy there (gDFP) |
+| Constrained tree | The best tree IQ-TREE can find when forced to keep a particular branch |
+| AU test | Approximately unbiased test: is a constrained tree significantly worse than the best tree? p < 0.05 = the data reject that arrangement |
+| RELL, bp-RELL | Resampling used by the AU test; bp-RELL = 0 means the tree never won in 10,000 resamples (reported as p < 10⁻⁴) |
+| ΔlogL | How much worse (in log-likelihood units) the constrained tree fits |
+| Holm / BH | Corrections for running many tests at once (Holm: strict, for the headline tests; Benjamini–Hochberg: for many per-gene tests) |
+| Backbone | Genes representing the genome's own history (GTDB's 120 markers; or 148 core single-copy genes) |
+| Orthogroup / paralog | OrthoFinder's group of related genes across genomes / a second, related copy of a gene within a genome |
+| Composition caveat | Thermophile proteins have biased amino-acid composition, which can make unrelated thermophiles group together artificially |
+
+The Methods are at the end (M1–M14); section numbers (§) refer to Results.
+
+## Technical summary
+
 37 flagellar/chemotaxis genes × 149 Campylobacterota genomes. Per-gene IQ-TREE
 trees (MAFFT L-INS-i, trimAl -automated1, ModelFinder, 1000 UFBoot), a
 partitioned concatenated tree (9,927 aa sites, 10.8 % missing data), gene and
@@ -24,206 +76,10 @@ flagellar genes, involving both of its flagellar loci. A single-gene screen
 (73 cases) adds 5 clean cases of individual genes with a history different
 from the genome (fliG, flgD, flgR, flgS ×2), none recent.
 
+A second backbone test (M13) is running.
+
 Run 1 (34 genes / 153 genomes, 26 Sep) is superseded; its headline numbers are
 within 1–2 % of run 2's (table in §1).
-
-## Methods
-
-Scripts are in `scripts/` (numbered by step; `scripts/README.md`); run from the
-project root. Paths below are relative to it.
-
-### M1. Genomes and reference species tree
-- **Genome set.** GTDB species-representative genomes of phylum
-  Campylobacterota with a RefSeq (GCF_) accession, from a GTDB advanced search
-  (`campy_fetched/gtdb-adv-search.tsv`, `01_fetch/extract_tsv.py`): 166 genomes.
-  Genome sequences, RefSeq GFF annotations and proteomes were downloaded from
-  NCBI (`01_fetch/fetch.py`, `fetch_proteins.py`).
-- **Reference tree.** GTDB R232 bac120 tree (`bac120_r232.tree`; inferred by
-  GTDB with FastTree 2.1.10 under WAG from the concatenated, masked alignment of
-  120 bacterial marker genes; 189,801 genomes). Pruned to the study genomes by
-  exact accession with ete3 `prune(preserve_branch_length=True)`
-  (`02_species_tree/gtdb_tree.py`): all 166 found; checked against an
-  independent re-prune (RF = 0, pairwise distances preserved to < 10⁻⁶).
-  Rooting is GTDB's (Desulfurellia as outgroup); used only for figures — all
-  comparisons are unrooted.
-
-### M2. Flagellar and chemotaxis gene calling
-1. **Annotation names** (`03_gene_order/gene_order.py`): RefSeq GFF `gene`
-   features whose `gene=` tag exactly matches one of 73 flagellar, motor,
-   chemotaxis, regulatory and glycosylation gene names (fl*, mot*, che*, maf*,
-   pfl*). No pseudogenes were matched.
-2. **Orthology extension** (`06_orthology/orthology_crossref*.py`). OrthoFinder
-   3.1.5 on all 166 proteomes (DIAMOND search, FAMSA alignments, otherwise
-   default settings). For each gene name, the orthogroups containing its
-   name-matched proteins were taken as seeds, and every other member of those
-   orthogroups became a candidate call for that gene. Flagellin (flaA/flaB),
-   almost never named in RefSeq, was seeded externally: DIAMOND search of
-   C. jejuni NCTC 11168 FlaA (Cj1339c) and FlaB (Cj1338c) against all
-   proteomes, top hits (≥ 92 % identity, 100 % coverage) all in OG0000010.
-3. **eggNOG confirmation** (`06_orthology/orthology_eggnog_confirm*.py`).
-   Candidates annotated with eggNOG-mapper (emapper 6.0.17 as recorded in the
-   output headers; eggNOG DB 5.0.2; DIAMOND mode, one round in HMMER mode
-   against Bacteria, taxid 2). A candidate was **confirmed** if eggNOG's
-   Preferred_name matched the seed gene or the gene symbol appeared as a whole
-   word in its Description; "reclassified", "unconfirmed" and "no hit" calls
-   were excluded.
-4. **Combined gene set** (`06_orthology/build_combined_gene_order.py` →
-   `gene_order/gene_order_combined.json`): all name-matched calls plus
-   eggNOG-confirmed orthology calls (pflA and yuxG excluded entirely),
-   deduplicated by locus. 6,640 calls in 164 genomes.
-
-### M3. Gene order and RagTag scaffolding (synteny analyses)
-Draft assemblies that split the flagellar genes across contigs were scaffolded
-with RagTag 2.1.0 (`ragtag.py scaffold`, minimap2 2.31) against a
-**same-species** Complete Genome or Chromosome-level NCBI reference only
-(`05_ragtag/check_ragtag_feasibility.py`, `run_ragtag_scaffold.py`), so that no
-other species' gene order is imposed. Gene coordinates were lifted onto the
-scaffolds from RagTag's AGP (`lift_ragtag_coordinates.py`); no re-annotation.
-Adjacencies across RagTag joins are inferred from the reference, so scaffolded
-results are reported alongside unscaffolded ones as a sensitivity analysis.
-(Gene order is not used by the tree analyses below.)
-
-### M4. Gene selection for phylogenetics (`11_flagellar_trees/prepare_gene_sets.py`)
-- **Copy resolution with OrthoFinder.** Each gene's main orthogroup is the one
-  most of its proteins fall in. A genome with several same-named copies keeps
-  the single copy in the main orthogroup; 2+ copies in it = ambiguous. A
-  genome's only copy in another orthogroup is kept if that orthogroup never
-  occurs in the same genome as the main one (lineage-specific divergent copy),
-  dropped if it does (paralog family). (Added after run 1, following a check
-  of the gene calls — not in response to tree results; run 1 is superseded.)
-- **Selection rule** (thresholds set before any tree was inspected; modelled on GTDB's
-  marker criteria, Parks et al. 2017, loosened because flagellar genes are
-  absent from non-motile lineages): gene present in ≥ 100 of 164 genomes and
-  ambiguous in ≤ 10 % of them; genome kept if it carries ≥ 60 % of the selected
-  genes. → 37 genes × 149 genomes.
-- Protein sequences from the RefSeq proteomes (terminal `*` removed); one
-  FASTA per gene, header = genome accession.
-
-### M5. Verification of the tree inputs (`11_flagellar_trees/verify_gene_calls.py`)
-Every tree-input protein (4,964) was searched with DIAMOND 2.2.8 blastp
-(`--very-sensitive`, e ≤ 10⁻⁵, hit covering ≥ 50 % of the query) against the
-complete proteomes of five reference genomes spanning the phylum
-(C. jejuni, H. pylori, A. butzleri, S. denitrificans, N. profundicola). The
-best hit's own RefSeq gene name (gene tag or gene symbol in the product) was
-compared with the call; a protein was flagged if more named best hits disagreed
-than agreed. Flagged proteins were reviewed by pairwise sequence comparison
-(`verify/REVIEW.md`). Genes the references do not name (flgJ, flgR) rely on the
-M2 eggNOG confirmation.
-
-### M6. Alignment and tree inference (Katana; `katana/01_gene_trees.pbs`, `02_concat_concordance.pbs`)
-- Per gene: MAFFT 7.526 L-INS-i (`--localpair --maxiterate 1000`), trimAl 1.5.0
-  `-automated1`, IQ-TREE 2.4.0 with ModelFinder (`-m MFP`, BIC) and 1000
-  ultrafast bootstraps (`-B 1000`).
-- Concatenated tree: IQ-TREE on the directory of trimmed alignments
-  (`-p trimmed/`, edge-proportional partition model, ModelFinder per partition,
-  `-B 1000`): 149 taxa, 37 partitions, 9,927 sites, 10.8 % missing data.
-
-### M7. Concordance factors
-Gene concordance (gCF; `-t <tree> --gcf loci.treefile`) and likelihood-based
-site concordance (sCFL; `-te <tree> -p concat.best_model.nex --scfl 100`,
-Minh et al. 2020; Mo et al. 2022), computed separately (IQ-TREE 2.4 does not
-combine them) on (a) the concatenated flagellar tree and (b) the pruned GTDB
-tree, using the 37 per-gene ML trees.
-
-### M8. Comparing the flagellar and GTDB trees (`11_flagellar_trees/compare_to_gtdb.py`)
-On the shared taxa, unrooted: shared non-trivial bipartitions (also counting
-only flagellar branches with UFBoot ≥ 95); a null distribution from 1,000
-random relabellings of the flagellar tree's tips (topology kept); Robinson–
-Foulds distance, raw and normalised by 2(n − 3); Mantel test (Pearson, 9,999
-permutations) between patristic distance matrices; per-gene normalised RF to
-GTDB and to the flagellar tree (each pruned to the gene's taxa), related to
-parsimony-informative sites by Spearman correlation.
-
-### M9. HGT screen and shortlist (`11_flagellar_trees/screen_hgt_candidates.py`)
-A conflict is a branch in a gene tree or the concatenated tree with UFBoot ≥ 95
-that is **incompatible** with at least one GTDB bipartition (not merely absent
-from it). Conflicts were reduced to minimal groups (no smaller conflicting
-group nested inside) and annotated with the smallest GTDB clade containing the
-group, the gCF of the contradicted GTDB branches, alignment length and
-recurrence across trees. Shortlist rule (§4): ≥ 10 gene trees + the
-concatenated tree; favoured alternative gDF ≥ 50 % and ≥ 3× the other; GTDB
-branch ≥ 25th percentile length. Four further candidates were added as
-exploratory with stated reasons.
-
-### M10. AU topology tests (`prepare_au_tests.py`, `katana/03_au_tests.pbs`, `au_one.sh`, `summarise_au.py`)
-For each candidate, a constraint tree = the GTDB tree collapsed to only the
-branch(es) incompatible with the candidate grouping (everything else free).
-Constrained ML searches (`iqtree2 -g`, 3 seeds, best log-likelihood kept) on the
-concatenated alignment (models fixed from `concat.best_model.nex`) and on every
-gene alignment where the constraint remains informative (gene's best-fit
-model). AU test (Shimodaira 2002) on {unconstrained tree, best constrained
-tree} with 10,000 RELL replicates (`-z -n 0 -zb 10000 -au`). Where the
-constrained tree wins no RELL replicate, p is reported as < 10⁻⁴ (IQ-TREE's AU
-value is then an unstable extrapolation). Holm correction across candidates
-(concatenated), Benjamini–Hochberg across genes within a candidate.
-
-### M11. Species-marker test (`prepare_marker_test.py`, `katana/05–07_*.pbs`, `summarise_marker_test.py`)
-GTDB R232's masked concatenated bac120 marker alignment for representative
-genomes (`bac120_msa_reps_r232.faa.gz`), reduced to the 149 genomes (5,010
-sites; `markers/bac120_msa_r232.faa`). Unconstrained IQ-TREE tree (ModelFinder → Q.yeast+F+R7,
-1000 UFBoot); per candidate, best trees with (a) the flagellar grouping forced
-and (b) the GTDB branch(es) forced (3 seeds each); AU on {free, flagellar-
-forced, GTDB-forced}, 10,000 RELL; Holm across candidates. If the markers
-significantly reject the flagellar grouping, the flagellar genes and the genome
-backbone have different histories at that spot (non-vertical inheritance
-candidate); if not, the species tree is uncertain there.
-
-### M13. Single-gene screen (`prepare_single_gene_tests.py`, `katana/08–10_*.pbs`, `single_one.sh`, `summarise_single_gene.py`)
-Looks for genes that moved on their own. The 37 gene trees were re-screened
-(M9 logic) against the ML marker tree (M11), rooted on Desulfurellia like GTDB,
-instead of GTDB, since GTDB was shown to be wrong or uncertain at several
-spots. Cases kept: UFBoot ≥ 95; not in the concatenated tree and in ≤ 3 gene
-trees (recurring conflicts were covered by M10–M11); gene with ≥ 150
-parsimony-informative sites; enclosing marker-tree clade ≥ 3 genomes larger
-than the group. → 73 cases in 25 genes, 58 distinct groups (filters are
-screening choices, set before testing). Per case: (a) gene test — the gene
-alignment, unconstrained gene tree vs best tree forcing the marker-tree
-branch(es) the group contradicts; (b) marker test (per group) — the marker
-alignment, unconstrained marker tree vs best tree forcing the gene's grouping.
-3 seeds per constrained search, AU with 10,000 RELL, bp-RELL = 0 → p < 10⁻⁴;
-Benjamini–Hochberg across cases (gene tests) and groups (marker tests). A case
-is a candidate only if both q < 0.05; groups containing genomes that fail the
-composition test in ≥ 5 genes are labelled with a composition caveat.
-Each candidate was then checked for (i) search stability (3 replicates),
-(ii) how far the constrained trees differ from the free ones, (iii) whether the
-group's genomes had their gene copy resolved by orthogroup (paralogy risk), and
-(iv) pairwise protein identity within the group for that gene vs the same
-genome pairs across the other genes (trimmed alignments; a recent transfer
-would show anomalously high identity).
-
-### M14. Core-gene backbone test (`prepare_core_backbone.py`, `katana/11–14_*.pbs`, `summarise_marker_test.py core/`) — *running*
-A second, GTDB-independent genome backbone for the 8 candidates: the 148
-OrthoFinder single-copy orthologues (present exactly once in all 166 genomes;
-none flagellar or chemotaxis; 39 ribosomal proteins, the rest housekeeping),
-for the 149 tree genomes (~46,000 aa per genome, ≈ 9× the bac120 alignment).
-Members mapped to genomes through Orthogroups.tsv and read from each genome's
-own proteome; MAFFT L-INS-i + trimAl -automated1 per gene; partitioned IQ-TREE
-tree (ModelFinder per gene, 1000 UFBoot); then exactly the M11 test
-(flagellar grouping forced / GTDB branch(es) forced, 3 seeds, AU with 10,000
-RELL, Holm). Gene content overlaps partly with bac120 (both are mostly
-universal single-copy genes), but gene calls, alignment, trimming, gene
-number and inference are independent of GTDB.
-
-### M12. Software and computing
-| Tool | Version | Use |
-|---|---|---|
-| OrthoFinder | 3.1.5 | orthogroups (DIAMOND, FAMSA) |
-| eggNOG-mapper / eggNOG DB | emapper 6.0.17 (as recorded) / 5.0.2 | gene-call confirmation |
-| DIAMOND | 2.2.8 | flagellin seeding, verification |
-| RagTag / minimap2 | 2.1.0 / 2.31 | same-species scaffolding |
-| MAFFT | 7.526 | alignment |
-| trimAl | 1.5.0 | trimming |
-| IQ-TREE | 2.4.0 | ModelFinder, trees, UFBoot, gCF/sCFL, constrained searches, AU |
-| ete3 / Python | 3.1.3 / 3.9 (local), 3.11 (Katana) | tree handling, analysis scripts |
-| GTDB | R232 | reference tree, marker alignment |
-
-Tree inference ran on UNSW Katana (PBS Pro; conda environment
-`scripts/11_flagellar_trees/katana/env.yml`); gene calling, verification,
-comparisons and figures ran locally. Full rerun: `katana/submit.sh`, then
-`katana/submit_au.sh`, then `katana/submit_markers.sh`, then
-`katana/submit_single.sh` (after `prepare_single_gene_tests.py`), then
-`katana/submit_core.sh` (after `prepare_core_backbone.py`); locally
-`plot_results.py`, `verify_gene_calls.py`.
 
 # Results
 
@@ -441,7 +297,7 @@ primary candidates in the Holm correction, *Poseidonibacter* is p = 0.024.
   lineages, after they diverged but not recently.
 
 ### Single-gene screen (genes that moved on their own)
-M13. 73 single-gene conflicts with the ML marker tree tested; 58 not supported
+M12. 73 single-gene conflicts with the ML marker tree tested; 58 not supported
 (the gene cannot reject the marker arrangement), 1 half-supported, **14 with
 both tests significant** (BH q < 0.05). All 14 had stable constrained searches
 (replicate spread ≤ 1.0 logL) and marker-side constrained trees differing only
@@ -470,21 +326,26 @@ carry limited signal.
 
 ## 5. Next steps
 
-1. ~~Is GTDB wrong there?~~ Done (species-marker test, §4): 1 genuine
-   discordance (*P. lekithochrous* + *A. roscoffensis*), 4 GTDB problems,
-   3 unresolved.
-2. ~~Single-gene screen~~ Done (M13, §4): 5 clean single-gene cases, 9
-   caveated. FlgS/FlgR neighbourhoods checked: not co-located (§4).
-3. **Poseidonibacter/Arcobacter case**: characterised (§4: both loci, whole
-   gene set, identical gene order, no mobile elements, not recent, direction
-   unresolved → allelic replacement by recombination). Remaining option: a
-   whole-genome core-gene tree as a second backbone.
-3. **Thermophile artefact check**: site-heterogeneous model / recoding (§3).
-4. Donor search (DIAMOND vs RefSeq) only for candidates surviving 1.
-5. **Planned sensitivity analysis — motility-essential genes below the
-   100-genome cut-off:** motA (85 genomes) and motB (88) at a lower threshold;
-   flaA/flaB after re-detecting flagellin properly (§0) and a copy rule for the
-   tandem duplicates. Rerun trees + concordance and check the main results.
+Done: species-marker test (§4), single-gene screen (§4), characterisation of
+the Poseidonibacter/Arcobacter case (§4).
+
+1. **Core-gene backbone test** (M13) — *running on Katana*. A second genome
+   backbone, independent of GTDB's marker set, for the 8 candidates. Decides
+   how firmly the Poseidonibacter/Arcobacter result stands (currently Holm
+   p = 0.048 on the markers).
+2. **Thermophile artefact check** — combined flagellar tree under a
+   site-heterogeneous model (LG+C20+F+G via PMSF); §3 currently only says the
+   deep thermophile grouping *looks like* an artefact.
+3. **Motility-essential genes (planned sensitivity analysis)** — motA (85
+   genomes) and motB (88) at a lower threshold; flaA/flaB after re-detecting
+   flagellin (58 genomes missed, §0) and a rule for the tandem copies. Rerun
+   trees + concordance; check the main results hold.
+4. **Trimming sensitivity** (optional) — BMGE or ClipKIT instead of trimAl.
+5. **Thesis write-up** — link the Poseidonibacter gene-order result to the
+   Thesis B synteny chapter.
+
+Not planned: donor search outside the phylum (no deep candidate survived);
+ALE/GeneRax reconciliation (gene trees would need rerunning with `--wbtl`).
 
 ## Caveats
 
@@ -506,3 +367,202 @@ carry limited signal.
   optimal). Concatenated tests were stable.
 - Per-gene trees did not save UFBoot trees (`--wbtl`), so reconciliation with
   ALE would need the gene-tree step rerun.
+
+# Methods
+
+Scripts are in `scripts/` (numbered by step; `scripts/README.md`); run from the
+project root. Paths below are relative to it.
+
+### M1. Genomes and reference species tree
+- **Genome set.** GTDB species-representative genomes of phylum
+  Campylobacterota with a RefSeq (GCF_) accession, from a GTDB advanced search
+  (`campy_fetched/gtdb-adv-search.tsv`, `01_fetch/extract_tsv.py`): 166 genomes.
+  Genome sequences, RefSeq GFF annotations and proteomes were downloaded from
+  NCBI (`01_fetch/fetch.py`, `fetch_proteins.py`).
+- **Reference tree.** GTDB R232 bac120 tree (`bac120_r232.tree`; inferred by
+  GTDB with FastTree 2.1.10 under WAG from the concatenated, masked alignment of
+  120 bacterial marker genes; 189,801 genomes). Pruned to the study genomes by
+  exact accession with ete3 `prune(preserve_branch_length=True)`
+  (`02_species_tree/gtdb_tree.py`): all 166 found; checked against an
+  independent re-prune (RF = 0, pairwise distances preserved to < 10⁻⁶).
+  Rooting is GTDB's (Desulfurellia as outgroup); used only for figures — all
+  comparisons are unrooted.
+
+### M2. Flagellar and chemotaxis gene calling
+1. **Annotation names** (`03_gene_order/gene_order.py`): RefSeq GFF `gene`
+   features whose `gene=` tag exactly matches one of 73 flagellar, motor,
+   chemotaxis, regulatory and glycosylation gene names (fl*, mot*, che*, maf*,
+   pfl*). No pseudogenes were matched.
+2. **Orthology extension** (`06_orthology/orthology_crossref*.py`). OrthoFinder
+   3.1.5 on all 166 proteomes (DIAMOND search, FAMSA alignments, otherwise
+   default settings). For each gene name, the orthogroups containing its
+   name-matched proteins were taken as seeds, and every other member of those
+   orthogroups became a candidate call for that gene. Flagellin (flaA/flaB),
+   almost never named in RefSeq, was seeded externally: DIAMOND search of
+   C. jejuni NCTC 11168 FlaA (Cj1339c) and FlaB (Cj1338c) against all
+   proteomes, top hits (≥ 92 % identity, 100 % coverage) all in OG0000010.
+3. **eggNOG confirmation** (`06_orthology/orthology_eggnog_confirm*.py`).
+   Candidates annotated with eggNOG-mapper (emapper 6.0.17 as recorded in the
+   output headers; eggNOG DB 5.0.2; DIAMOND mode, one round in HMMER mode
+   against Bacteria, taxid 2). A candidate was **confirmed** if eggNOG's
+   Preferred_name matched the seed gene or the gene symbol appeared as a whole
+   word in its Description; "reclassified", "unconfirmed" and "no hit" calls
+   were excluded.
+4. **Combined gene set** (`06_orthology/build_combined_gene_order.py` →
+   `gene_order/gene_order_combined.json`): all name-matched calls plus
+   eggNOG-confirmed orthology calls (pflA and yuxG excluded entirely),
+   deduplicated by locus. 6,640 calls in 164 genomes.
+
+### M3. Gene order and RagTag scaffolding (synteny analyses)
+Draft assemblies that split the flagellar genes across contigs were scaffolded
+with RagTag 2.1.0 (`ragtag.py scaffold`, minimap2 2.31) against a
+**same-species** Complete Genome or Chromosome-level NCBI reference only
+(`05_ragtag/check_ragtag_feasibility.py`, `run_ragtag_scaffold.py`), so that no
+other species' gene order is imposed. Gene coordinates were lifted onto the
+scaffolds from RagTag's AGP (`lift_ragtag_coordinates.py`); no re-annotation.
+Adjacencies across RagTag joins are inferred from the reference, so scaffolded
+results are reported alongside unscaffolded ones as a sensitivity analysis.
+(Gene order is not used by the tree analyses below.)
+
+### M4. Gene selection for phylogenetics (`11_flagellar_trees/prepare_gene_sets.py`)
+- **Copy resolution with OrthoFinder.** Each gene's main orthogroup is the one
+  most of its proteins fall in. A genome with several same-named copies keeps
+  the single copy in the main orthogroup; 2+ copies in it = ambiguous. A
+  genome's only copy in another orthogroup is kept if that orthogroup never
+  occurs in the same genome as the main one (lineage-specific divergent copy),
+  dropped if it does (paralog family). (Added after run 1, following a check
+  of the gene calls — not in response to tree results; run 1 is superseded.)
+- **Selection rule** (thresholds set before any tree was inspected; modelled on GTDB's
+  marker criteria, Parks et al. 2017, loosened because flagellar genes are
+  absent from non-motile lineages): gene present in ≥ 100 of 164 genomes and
+  ambiguous in ≤ 10 % of them; genome kept if it carries ≥ 60 % of the selected
+  genes. → 37 genes × 149 genomes.
+- Protein sequences from the RefSeq proteomes (terminal `*` removed); one
+  FASTA per gene, header = genome accession.
+
+### M5. Verification of the tree inputs (`11_flagellar_trees/verify_gene_calls.py`)
+Every tree-input protein (4,964) was searched with DIAMOND 2.2.8 blastp
+(`--very-sensitive`, e ≤ 10⁻⁵, hit covering ≥ 50 % of the query) against the
+complete proteomes of five reference genomes spanning the phylum
+(C. jejuni, H. pylori, A. butzleri, S. denitrificans, N. profundicola). The
+best hit's own RefSeq gene name (gene tag or gene symbol in the product) was
+compared with the call; a protein was flagged if more named best hits disagreed
+than agreed. Flagged proteins were reviewed by pairwise sequence comparison
+(`verify/REVIEW.md`). Genes the references do not name (flgJ, flgR) rely on the
+M2 eggNOG confirmation.
+
+### M6. Alignment and tree inference (Katana; `katana/01_gene_trees.pbs`, `02_concat_concordance.pbs`)
+- Per gene: MAFFT 7.526 L-INS-i (`--localpair --maxiterate 1000`), trimAl 1.5.0
+  `-automated1`, IQ-TREE 2.4.0 with ModelFinder (`-m MFP`, BIC) and 1000
+  ultrafast bootstraps (`-B 1000`).
+- Concatenated tree: IQ-TREE on the directory of trimmed alignments
+  (`-p trimmed/`, edge-proportional partition model, ModelFinder per partition,
+  `-B 1000`): 149 taxa, 37 partitions, 9,927 sites, 10.8 % missing data.
+
+### M7. Concordance factors
+Gene concordance (gCF; `-t <tree> --gcf loci.treefile`) and likelihood-based
+site concordance (sCFL; `-te <tree> -p concat.best_model.nex --scfl 100`,
+Minh et al. 2020; Mo et al. 2022), computed separately (IQ-TREE 2.4 does not
+combine them) on (a) the concatenated flagellar tree and (b) the pruned GTDB
+tree, using the 37 per-gene ML trees.
+
+### M8. Comparing the flagellar and GTDB trees (`11_flagellar_trees/compare_to_gtdb.py`)
+On the shared taxa, unrooted: shared non-trivial bipartitions (also counting
+only flagellar branches with UFBoot ≥ 95); a null distribution from 1,000
+random relabellings of the flagellar tree's tips (topology kept); Robinson–
+Foulds distance, raw and normalised by 2(n − 3); Mantel test (Pearson, 9,999
+permutations) between patristic distance matrices; per-gene normalised RF to
+GTDB and to the flagellar tree (each pruned to the gene's taxa), related to
+parsimony-informative sites by Spearman correlation.
+
+### M9. HGT screen and shortlist (`11_flagellar_trees/screen_hgt_candidates.py`)
+A conflict is a branch in a gene tree or the concatenated tree with UFBoot ≥ 95
+that is **incompatible** with at least one GTDB bipartition (not merely absent
+from it). Conflicts were reduced to minimal groups (no smaller conflicting
+group nested inside) and annotated with the smallest GTDB clade containing the
+group, the gCF of the contradicted GTDB branches, alignment length and
+recurrence across trees. Shortlist rule (§4): ≥ 10 gene trees + the
+concatenated tree; favoured alternative gDF ≥ 50 % and ≥ 3× the other; GTDB
+branch ≥ 25th percentile length. Four further candidates were added as
+exploratory with stated reasons.
+
+### M10. AU topology tests (`prepare_au_tests.py`, `katana/03_au_tests.pbs`, `au_one.sh`, `summarise_au.py`)
+For each candidate, a constraint tree = the GTDB tree collapsed to only the
+branch(es) incompatible with the candidate grouping (everything else free).
+Constrained ML searches (`iqtree2 -g`, 3 seeds, best log-likelihood kept) on the
+concatenated alignment (models fixed from `concat.best_model.nex`) and on every
+gene alignment where the constraint remains informative (gene's best-fit
+model). AU test (Shimodaira 2002) on {unconstrained tree, best constrained
+tree} with 10,000 RELL replicates (`-z -n 0 -zb 10000 -au`). Where the
+constrained tree wins no RELL replicate, p is reported as < 10⁻⁴ (IQ-TREE's AU
+value is then an unstable extrapolation). Holm correction across candidates
+(concatenated), Benjamini–Hochberg across genes within a candidate.
+
+### M11. Species-marker test (`prepare_marker_test.py`, `katana/05–07_*.pbs`, `summarise_marker_test.py`)
+GTDB R232's masked concatenated bac120 marker alignment for representative
+genomes (`bac120_msa_reps_r232.faa.gz`), reduced to the 149 genomes (5,010
+sites; `markers/bac120_msa_r232.faa`). Unconstrained IQ-TREE tree (ModelFinder → Q.yeast+F+R7,
+1000 UFBoot); per candidate, best trees with (a) the flagellar grouping forced
+and (b) the GTDB branch(es) forced (3 seeds each); AU on {free, flagellar-
+forced, GTDB-forced}, 10,000 RELL; Holm across candidates. If the markers
+significantly reject the flagellar grouping, the flagellar genes and the genome
+backbone have different histories at that spot (non-vertical inheritance
+candidate); if not, the species tree is uncertain there.
+
+### M12. Single-gene screen (`prepare_single_gene_tests.py`, `katana/08–10_*.pbs`, `single_one.sh`, `summarise_single_gene.py`)
+Looks for genes that moved on their own. The 37 gene trees were re-screened
+(M9 logic) against the ML marker tree (M11), rooted on Desulfurellia like GTDB,
+instead of GTDB, since GTDB was shown to be wrong or uncertain at several
+spots. Cases kept: UFBoot ≥ 95; not in the concatenated tree and in ≤ 3 gene
+trees (recurring conflicts were covered by M10–M11); gene with ≥ 150
+parsimony-informative sites; enclosing marker-tree clade ≥ 3 genomes larger
+than the group. → 73 cases in 25 genes, 58 distinct groups (filters are
+screening choices, set before testing). Per case: (a) gene test — the gene
+alignment, unconstrained gene tree vs best tree forcing the marker-tree
+branch(es) the group contradicts; (b) marker test (per group) — the marker
+alignment, unconstrained marker tree vs best tree forcing the gene's grouping.
+3 seeds per constrained search, AU with 10,000 RELL, bp-RELL = 0 → p < 10⁻⁴;
+Benjamini–Hochberg across cases (gene tests) and groups (marker tests). A case
+is a candidate only if both q < 0.05; groups containing genomes that fail the
+composition test in ≥ 5 genes are labelled with a composition caveat.
+Each candidate was then checked for (i) search stability (3 replicates),
+(ii) how far the constrained trees differ from the free ones, (iii) whether the
+group's genomes had their gene copy resolved by orthogroup (paralogy risk), and
+(iv) pairwise protein identity within the group for that gene vs the same
+genome pairs across the other genes (trimmed alignments; a recent transfer
+would show anomalously high identity).
+
+### M13. Core-gene backbone test (`prepare_core_backbone.py`, `katana/11–14_*.pbs`, `summarise_marker_test.py core/`) — *running*
+A second, GTDB-independent genome backbone for the 8 candidates: the 148
+OrthoFinder single-copy orthologues (present exactly once in all 166 genomes;
+none flagellar or chemotaxis; 39 ribosomal proteins, the rest housekeeping),
+for the 149 tree genomes (~46,000 aa per genome, ≈ 9× the bac120 alignment).
+Members mapped to genomes through Orthogroups.tsv and read from each genome's
+own proteome; MAFFT L-INS-i + trimAl -automated1 per gene; partitioned IQ-TREE
+tree (ModelFinder per gene, 1000 UFBoot); then exactly the M11 test
+(flagellar grouping forced / GTDB branch(es) forced, 3 seeds, AU with 10,000
+RELL, Holm). Gene content overlaps partly with bac120 (both are mostly
+universal single-copy genes), but gene calls, alignment, trimming, gene
+number and inference are independent of GTDB.
+
+### M14. Software and computing
+| Tool | Version | Use |
+|---|---|---|
+| OrthoFinder | 3.1.5 | orthogroups (DIAMOND, FAMSA) |
+| eggNOG-mapper / eggNOG DB | emapper 6.0.17 (as recorded) / 5.0.2 | gene-call confirmation |
+| DIAMOND | 2.2.8 | flagellin seeding, verification |
+| RagTag / minimap2 | 2.1.0 / 2.31 | same-species scaffolding |
+| MAFFT | 7.526 | alignment |
+| trimAl | 1.5.0 | trimming |
+| IQ-TREE | 2.4.0 | ModelFinder, trees, UFBoot, gCF/sCFL, constrained searches, AU |
+| ete3 / Python | 3.1.3 / 3.9 (local), 3.11 (Katana) | tree handling, analysis scripts |
+| GTDB | R232 | reference tree, marker alignment |
+
+Tree inference ran on UNSW Katana (PBS Pro; conda environment
+`scripts/11_flagellar_trees/katana/env.yml`); gene calling, verification,
+comparisons and figures ran locally. Full rerun: `katana/submit.sh`, then
+`katana/submit_au.sh`, then `katana/submit_markers.sh`, then
+`katana/submit_single.sh` (after `prepare_single_gene_tests.py`), then
+`katana/submit_core.sh` (after `prepare_core_backbone.py`); locally
+`plot_results.py`, `verify_gene_calls.py`.
+

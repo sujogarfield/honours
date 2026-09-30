@@ -18,7 +18,7 @@ branch(es) and/or the flagellar grouping, with its UFBoot support.
 p-values use the same bp-RELL = 0 rule as summarise_au.py (reported < 1e-4).
 
 Run from the project root:  python scripts/11_flagellar_trees/summarise_marker_test.py
-Also used for the core-gene backbone (M14): pass its folder as an argument,
+Also used for the core-gene backbone (M13): pass its folder as an argument,
   python scripts/11_flagellar_trees/summarise_marker_test.py gene_order/flagellar_trees/core
 Output: <folder>/marker_test.tsv (default folder gene_order/flagellar_trees/markers)
 """
