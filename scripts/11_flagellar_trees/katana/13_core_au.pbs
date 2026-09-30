@@ -1,0 +1,35 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=8:mem=32gb
+#PBS -l walltime=36:00:00
+#PBS -j oe
+#PBS -N flag_core_au
+
+# PBS array, one element per candidate in core/candidates.txt. On the core
+# alignment (models fixed from core.best_model.nex): best tree with the
+# flagellar grouping forced and with the GTDB branch(es) forced (3 seeds each),
+# then AU on {1 free core tree, 2 flagellar-forced, 3 GTDB-forced}.
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
+C=gene_order/flagellar_trees/core
+CAND=$(sed -n "${PBS_ARRAY_INDEX}p" "$C/candidates.txt")
+W=$C/$CAND/run
+mkdir -p "$W"
+DATA=(-p "$C/free/core.best_model.nex")
+for KIND in flag gtdb; do
+    for SEED in 1 2 3; do
+        P=$W/${KIND}_s$SEED
+        [ -s "$P.treefile" ] || \
+            iqtree2 "${DATA[@]}" -g "$C/$CAND/${KIND}_constraint.nwk" -T "$NCPUS" --seed "$SEED" \
+                --prefix "$P" --quiet
+    done
+    TOP=$(for SEED in 1 2 3; do
+            printf '%s %s\n' "$(awk '/^Log-likelihood of the tree:/{print $5; exit}' "$W/${KIND}_s$SEED.iqtree")" "$SEED"
+          done | sort -g -r | head -1 | cut -d' ' -f2)
+    echo "$TOP" > "$W/${KIND}_best_seed.txt"
+done
+cat "$C/free/core.treefile" "$W/flag_s$(cat "$W/flag_best_seed.txt").treefile" \
+    "$W/gtdb_s$(cat "$W/gtdb_best_seed.txt").treefile" > "$W/trees.nwk"
+[ -s "$W/au.iqtree" ] || \
+    iqtree2 "${DATA[@]}" -z "$W/trees.nwk" -n 0 -zb 10000 -au -T "$NCPUS" --prefix "$W/au" --quiet
+echo "=== done $CAND ==="

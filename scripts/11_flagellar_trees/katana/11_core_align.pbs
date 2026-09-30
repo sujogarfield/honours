@@ -1,0 +1,18 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=16:mem=16gb
+#PBS -l walltime=04:00:00
+#PBS -j oe
+#PBS -N flag_core_align
+
+# Align (MAFFT L-INS-i) and trim (trimAl -automated1) the 148 core single-copy
+# genes, 16 at a time. Same settings as the flagellar genes.
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
+C=gene_order/flagellar_trees/core
+mkdir -p "$C/aligned" "$C/trimmed"
+ls "$C/genes" | sed 's/\.faa$//' | xargs -P "$NCPUS" -I{} sh -c '
+    [ -s '"$C"'/trimmed/{}.faa ] && exit 0
+    mafft --localpair --maxiterate 1000 --thread 1 --quiet '"$C"'/genes/{}.faa > '"$C"'/aligned/{}.faa
+    trimal -in '"$C"'/aligned/{}.faa -out '"$C"'/trimmed/{}.faa -automated1'
+echo "trimmed: $(ls "$C/trimmed" | wc -l) of $(ls "$C/genes" | wc -l)"

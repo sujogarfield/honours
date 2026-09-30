@@ -191,6 +191,19 @@ group's genomes had their gene copy resolved by orthogroup (paralogy risk), and
 genome pairs across the other genes (trimmed alignments; a recent transfer
 would show anomalously high identity).
 
+### M14. Core-gene backbone test (`prepare_core_backbone.py`, `katana/11–14_*.pbs`, `summarise_marker_test.py core/`) — *running*
+A second, GTDB-independent genome backbone for the 8 candidates: the 148
+OrthoFinder single-copy orthologues (present exactly once in all 166 genomes;
+none flagellar or chemotaxis; 39 ribosomal proteins, the rest housekeeping),
+for the 149 tree genomes (~46,000 aa per genome, ≈ 9× the bac120 alignment).
+Members mapped to genomes through Orthogroups.tsv and read from each genome's
+own proteome; MAFFT L-INS-i + trimAl -automated1 per gene; partitioned IQ-TREE
+tree (ModelFinder per gene, 1000 UFBoot); then exactly the M11 test
+(flagellar grouping forced / GTDB branch(es) forced, 3 seeds, AU with 10,000
+RELL, Holm). Gene content overlaps partly with bac120 (both are mostly
+universal single-copy genes), but gene calls, alignment, trimming, gene
+number and inference are independent of GTDB.
+
 ### M12. Software and computing
 | Tool | Version | Use |
 |---|---|---|
@@ -208,7 +221,8 @@ Tree inference ran on UNSW Katana (PBS Pro; conda environment
 `scripts/11_flagellar_trees/katana/env.yml`); gene calling, verification,
 comparisons and figures ran locally. Full rerun: `katana/submit.sh`, then
 `katana/submit_au.sh`, then `katana/submit_markers.sh`, then
-`katana/submit_single.sh` (after `prepare_single_gene_tests.py`); locally
+`katana/submit_single.sh` (after `prepare_single_gene_tests.py`), then
+`katana/submit_core.sh` (after `prepare_core_backbone.py`); locally
 `plot_results.py`, `verify_gene_calls.py`.
 
 # Results

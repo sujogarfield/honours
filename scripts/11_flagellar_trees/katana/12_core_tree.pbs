@@ -1,0 +1,15 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=16:mem=64gb
+#PBS -l walltime=36:00:00
+#PBS -j oe
+#PBS -N flag_core_tree
+
+# Partitioned ML tree of the 148 core genes (ModelFinder per gene, 1000 UFBoot).
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
+C=gene_order/flagellar_trees/core
+mkdir -p "$C/free"
+[ -s "$C/free/core.treefile" ] || \
+    iqtree2 -p "$C/trimmed" -m MFP -B 1000 -T "$NCPUS" --prefix "$C/free/core"
+echo "=== done ==="

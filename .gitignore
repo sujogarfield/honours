@@ -42,3 +42,8 @@ gene_order/flagellar_trees/markers/*/run/
 gene_order/flagellar_trees/markers/marker_test.tsv
 gene_order/flagellar_trees/single/run/
 gene_order/flagellar_trees/single/single_gene_results.tsv
+gene_order/flagellar_trees/core/aligned/
+gene_order/flagellar_trees/core/trimmed/
+gene_order/flagellar_trees/core/free/
+gene_order/flagellar_trees/core/*/run/
+gene_order/flagellar_trees/core/marker_test.tsv

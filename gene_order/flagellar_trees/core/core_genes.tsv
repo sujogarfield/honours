@@ -1,0 +1,149 @@
+orthogroup	status	commonest_product
+OG0000131	kept	3-oxoacyl-ACP reductase FabG
+OG0000132	kept	ATP-dependent zinc metalloprotease FtsH
+OG0000133	kept	isoleucine--tRNA ligase
+OG0000134	kept	valine--tRNA ligase
+OG0000136	kept	DNA-directed RNA polymerase subunit beta'
+OG0000137	kept	3-deoxy-manno-octulosonate cytidylyltransferase
+OG0000138	kept	ATP-dependent helicase
+OG0000140	kept	50S ribosomal protein L11 methyltransferase
+OG0000141	kept	pyridoxal phosphate-dependent aminotransferase
+OG0000142	kept	M23 family metallopeptidase
+OG0000143	kept	KdsC family phosphatase
+OG0000144	kept	30S ribosomal protein S11
+OG0000145	kept	tRNA 2-thiouridine(34) synthase MnmA
+OG0000146	kept	tyrosine--tRNA ligase
+OG0000149	kept	NAD(+)/NADH kinase
+OG0000150	kept	50S ribosomal protein L9
+OG0000152	kept	endonuclease III
+OG0000153	kept	translation initiation factor IF-1
+OG0000154	kept	DNA topoisomerase (ATP-hydrolyzing) subunit B
+OG0000155	kept	PD-(D/E)XK nuclease family protein
+OG0000157	kept	NFACT RNA binding domain-containing protein
+OG0000158	kept	tRNA (adenosine(37)-N6)-threonylcarbamoyltransferase complex transferase subunit TsaD
+OG0000160	kept	50S ribosomal protein L35
+OG0000161	kept	50S ribosomal protein L20
+OG0000162	kept	50S ribosomal protein L3
+OG0000163	kept	50S ribosomal protein L4
+OG0000164	kept	50S ribosomal protein L23
+OG0000165	kept	50S ribosomal protein L2
+OG0000166	kept	50S ribosomal protein L16
+OG0000167	kept	50S ribosomal protein L29
+OG0000168	kept	30S ribosomal protein S17
+OG0000169	kept	50S ribosomal protein L14
+OG0000170	kept	50S ribosomal protein L24
+OG0000171	kept	type Z 30S ribosomal protein S14
+OG0000172	kept	30S ribosomal protein S8
+OG0000173	kept	50S ribosomal protein L6
+OG0000174	kept	50S ribosomal protein L18
+OG0000175	kept	30S ribosomal protein S5
+OG0000176	kept	preprotein translocase subunit SecY
+OG0000177	kept	50S ribosomal protein L36
+OG0000178	kept	30S ribosomal protein S13
+OG0000179	kept	30S ribosomal protein S4
+OG0000180	kept	DNA-directed RNA polymerase subunit alpha
+OG0000181	kept	50S ribosomal protein L17
+OG0000182	kept	UDP-N-acetylmuramoyl-L-alanyl-D-glutamate--2%2C6-diaminopimelate ligase
+OG0000183	kept	50S ribosomal protein L33
+OG0000184	kept	preprotein translocase subunit SecE
+OG0000185	kept	transcription termination/antitermination protein NusG
+OG0000186	kept	50S ribosomal protein L11
+OG0000187	kept	50S ribosomal protein L1
+OG0000188	kept	50S ribosomal protein L10
+OG0000189	kept	50S ribosomal protein L7/L12
+OG0000190	kept	30S ribosomal protein S12
+OG0000191	kept	30S ribosomal protein S7
+OG0000192	kept	peptide chain release factor 2
+OG0000194	kept	porphobilinogen synthase
+OG0000195	kept	tryptophan--tRNA ligase
+OG0000196	kept	outer membrane protein assembly factor BamD
+OG0000198	kept	Nif3-like dinuclear metal center hexameric protein
+OG0000199	kept	signal recognition particle protein
+OG0000200	kept	30S ribosomal protein S16
+OG0000201	kept	KH domain-containing protein
+OG0000202	kept	50S ribosomal protein L19
+OG0000204	kept	heat shock protein transcriptional repressor HspR
+OG0000205	kept	UDP-N-acetylglucosamine 1-carboxyvinyltransferase
+OG0000206	kept	chaperonin GroEL
+OG0000207	kept	uroporphyrinogen decarboxylase
+OG0000208	kept	aspartate-semialdehyde dehydrogenase
+OG0000209	kept	DNA gyrase subunit A
+OG0000210	kept	outer membrane protein assembly factor BamA
+OG0000211	kept	UDP-3-O-acyl-N-acetylglucosamine deacetylase
+OG0000212	kept	30S ribosome-binding factor RbfA
+OG0000213	kept	ribosome maturation factor RimP
+OG0000214	kept	type II 3-dehydroquinate dehydratase
+OG0000215	kept	DNA-directed RNA polymerase subunit omega
+OG0000216	kept	RelA/SpoT family protein
+OG0000217	kept	nitronate monooxygenase
+OG0000218	kept	30S ribosomal protein S15
+OG0000220	kept	UDP-N-acetylmuramate--L-alanine ligase
+OG0000221	kept	Asp-tRNA(Asn)/Glu-tRNA(Gln) amidotransferase subunit GatA
+OG0000222	kept	threonine synthase
+OG0000223	kept	16S rRNA (cytosine(1402)-N(4))-methyltransferase RsmH
+OG0000225	kept	NAD+ synthase
+OG0000226	kept	polyprenyl synthetase family protein
+OG0000227	kept	glutamyl-tRNA reductase
+OG0000228	kept	hydroxymethylbilane synthase
+OG0000229	kept	histidine triad nucleotide-binding protein
+OG0000230	kept	phenylalanine--tRNA ligase subunit beta
+OG0000231	kept	3-phosphoshikimate 1-carboxyvinyltransferase
+OG0000232	kept	4-hydroxy-3-methylbut-2-enyl diphosphate reductase
+OG0000233	kept	tRNA guanosine(34) transglycosylase Tgt
+OG0000234	kept	elongation factor P
+OG0000235	kept	bifunctional phosphopantothenoylcysteine decarboxylase/phosphopantothenate--cysteine ligase CoaBC
+OG0000236	kept	ABC transporter permease
+OG0000237	kept	rRNA maturation RNase YbeY
+OG0000238	kept	penicillin-binding protein 2
+OG0000239	kept	lipopolysaccharide transport periplasmic protein LptA
+OG0000240	kept	AAA family ATPase
+OG0000241	kept	bifunctional methylenetetrahydrofolate dehydrogenase/methenyltetrahydrofolate cyclohydrolase FolD
+OG0000242	kept	redox-regulated ATPase YchF
+OG0000243	kept	dTMP kinase
+OG0000244	kept	RNA-binding S4 domain-containing protein
+OG0000245	kept	tRNA dihydrouridine synthase
+OG0000246	kept	acetyl-CoA carboxylase%2C carboxyltransferase subunit beta
+OG0000248	kept	Holliday junction branch migration protein RuvA
+OG0000249	kept	cysteine--tRNA ligase
+OG0000250	kept	CDP-diacylglycerol--glycerol-3-phosphate 3-phosphatidyltransferase
+OG0000251	kept	YggS family pyridoxal phosphate-dependent enzyme
+OG0000252	kept	Asp-tRNA(Asn)/Glu-tRNA(Gln) amidotransferase subunit GatC
+OG0000253	kept	CvpA family protein
+OG0000254	kept	lysine--tRNA ligase
+OG0000255	kept	molecular chaperone DnaJ
+OG0000256	kept	peptidylprolyl isomerase
+OG0000257	kept	peptide chain release factor N(5)-glutamine methyltransferase
+OG0000258	kept	NAD(P)H-dependent glycerol-3-phosphate dehydrogenase
+OG0000259	kept	Asp-tRNA(Asn)/Glu-tRNA(Gln) amidotransferase subunit GatB
+OG0000260	kept	F0F1 ATP synthase subunit A
+OG0000261	kept	bifunctional riboflavin kinase/FAD synthetase
+OG0000262	kept	NAD-dependent DNA ligase LigA
+OG0000263	kept	ATP-dependent protease subunit HslV
+OG0000265	kept	ACP S-malonyltransferase
+OG0000266	kept	Tol-Pal system protein TolB
+OG0000267	kept	ATP synthase F1 subunit epsilon
+OG0000268	kept	F0F1 ATP synthase subunit B family protein
+OG0000269	kept	biotin--[acetyl-CoA-carboxylase] ligase
+OG0000270	kept	50S ribosomal protein L21
+OG0000272	kept	transcription termination factor Rho
+OG0000273	kept	bifunctional folylpolyglutamate synthase/dihydrofolate synthase
+OG0000274	kept	leucine--tRNA ligase
+OG0000276	kept	ribose-phosphate pyrophosphokinase
+OG0000277	kept	dihydropteroate synthase
+OG0000278	kept	DNA polymerase III subunit delta'
+OG0000279	kept	aspartate kinase
+OG0000280	kept	tRNA preQ1(34) S-adenosylmethionine ribosyltransferase-isomerase QueA
+OG0000281	kept	30S ribosomal protein S18
+OG0000283	kept	Holliday junction branch migration DNA helicase RuvB
+OG0000285	kept	triose-phosphate isomerase
+OG0000286	kept	FtsW/RodA/SpoVE family cell cycle protein
+OG0000288	kept	4-hydroxy-tetrahydrodipicolinate reductase
+OG0000290	kept	16S rRNA (cytidine(1402)-2'-O)-methyltransferase
+OG0000291	kept	50S ribosomal protein L31
+OG0000293	kept	recombinase RecA
+OG0000295	kept	chorismate synthase
+OG0000297	kept	ribosome recycling factor
+OG0000298	kept	ribonucleoside-diphosphate reductase subunit alpha
+OG0000301	kept	tetraacyldisaccharide 4'-kinase
+OG0000302	kept	pantetheine-phosphate adenylyltransferase
+OG0000303	kept	type III pantothenate kinase

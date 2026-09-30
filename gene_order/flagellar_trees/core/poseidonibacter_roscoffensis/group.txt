@@ -1,0 +1,2 @@
+GCF_013283835.1	Poseidonibacter lekithochrous
+GCF_024267655.1	Arcobacter roscoffensis

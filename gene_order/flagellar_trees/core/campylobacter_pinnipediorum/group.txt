@@ -1,0 +1,3 @@
+GCF_002021925.1	Campylobacter pinnipediorum
+GCF_030249845.1	Campylobacter gastrosuis
+GCF_905120465.1	Campylobacter majalis

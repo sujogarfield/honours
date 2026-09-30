@@ -18,9 +18,12 @@ branch(es) and/or the flagellar grouping, with its UFBoot support.
 p-values use the same bp-RELL = 0 rule as summarise_au.py (reported < 1e-4).
 
 Run from the project root:  python scripts/11_flagellar_trees/summarise_marker_test.py
-Output: gene_order/flagellar_trees/markers/marker_test.tsv
+Also used for the core-gene backbone (M14): pass its folder as an argument,
+  python scripts/11_flagellar_trees/summarise_marker_test.py gene_order/flagellar_trees/core
+Output: <folder>/marker_test.tsv (default folder gene_order/flagellar_trees/markers)
 """
 
+import glob
 import os
 import sys
 
@@ -58,7 +61,10 @@ def splits_with_support(tree, index):
 
 
 def main():
-    free = Tree(f"{M}/free/markers.treefile", format=0)
+    global M
+    if len(sys.argv) > 1:
+        M = sys.argv[1].rstrip("/")
+    free = Tree(glob.glob(f"{M}/free/*.treefile")[0], format=0)
     taxa = sorted(free.get_leaf_names())
     index = {t: i for i, t in enumerate(taxa)}
     full = (1 << len(taxa)) - 1
@@ -87,11 +93,11 @@ def main():
     for r, adj in zip(done, holm([r[6] for r in done])):
         r[6] = round(adj, 5)
         if adj < ALPHA:
-            r[8] = "markers reject flagellar grouping -> non-vertical inheritance candidate"
+            r[8] = "backbone rejects flagellar grouping -> non-vertical inheritance candidate"
         elif r[3]:
-            r[8] = "marker tree itself has the flagellar grouping -> species tree uncertain"
+            r[8] = "backbone tree itself has the flagellar grouping -> species tree uncertain"
         else:
-            r[8] = "markers cannot reject flagellar grouping -> species tree uncertain"
+            r[8] = "backbone cannot reject flagellar grouping -> species tree uncertain"
 
     prim = [r for r in done if r[0] in PRIMARY]
     hp = dict(zip([r[0] for r in prim], holm([float(r[4].lstrip("<")) for r in prim])))
@@ -104,7 +110,7 @@ def main():
         for r in rows:
             f.write("\t".join("" if x is None else str(x) for x in r) + "\n")
 
-    print(f"{'candidate':30s} {'GTDB br in marker tree':>22s} {'flag grp':>8s} {'p_flag':>8s} {'Holm':>8s}  verdict")
+    print(f"{'candidate':30s} {'GTDB br in backbone tree':>22s} {'flag grp':>8s} {'p_flag':>8s} {'Holm':>8s}  verdict")
     for r in rows:
         g = f"{'yes' if r[1] else 'no'}" + (f" (UFB {r[2]:.0f})" if r[2] is not None else "")
         h = f"{r[6]:.4f}" if isinstance(r[6], float) else "NA"
