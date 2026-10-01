@@ -543,6 +543,16 @@ permutations) between patristic distance matrices; per-gene normalised RF to
 GTDB and to the flagellar tree (each pruned to the gene's taxa), related to
 parsimony-informative sites by Spearman correlation.
 
+### M8b. Branch-length and identity comparisons (§4b, §4 identity check; `plot_results.py` fig 6)
+Patristic distances for every genome pair from the concatenated flagellar
+tree and the bac120 marker ML tree (M11), compared on a log-log scale with a
+least-squares power-law fit; outliers as |z| > 3 of the log residual, and
+flagellar/genome distance ratios summarised per genus for within-genus pairs
+(genome distance < 0.15). Tree-free checks use pooled pairwise protein
+identity over shared non-gap columns of the trimmed flagellar alignments and
+the bac120 alignment, and Biopython global alignments (BLOSUM62, gap open
+−11, extend −1) for the core genes.
+
 ### M9. HGT screen and shortlist (`11_flagellar_trees/screen_hgt_candidates.py`)
 A conflict is a branch in a gene tree or the concatenated tree with UFBoot ≥ 95
 that is **incompatible** with at least one GTDB bipartition (not merely absent
