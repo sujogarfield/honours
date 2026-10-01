@@ -12,6 +12,7 @@ Output (gene_order/flagellar_trees/figures/):
   fig3_concordance_gtdb.png    gCF vs sCF on every GTDB branch
   fig4_recurrent_conflicts.png groups placed differently from GTDB in many gene trees
   fig5_poseidonibacter.png     zoom on the Poseidonibacter/Arcobacter candidate
+  fig6_branch_lengths.png      flagellar vs genome distance for every genome pair
 """
 
 import glob
@@ -546,6 +547,59 @@ def fig5_case(org):
     plt.close(fig)
 
 
+def _patristic(path):
+    t = Tree(path, format=0)
+    depth = {}
+    for nd in t.traverse("preorder"):
+        depth[nd] = 0.0 if nd.is_root() else depth[nd.up] + nd.dist
+    leaves = {l.name: l for l in t.iter_leaves()}
+    names = sorted(leaves)
+    anc = {x: set(leaves[x].get_ancestors()) for x in names}
+    out = {}
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            nd = leaves[b]
+            while nd not in anc[a]:
+                nd = nd.up
+            out[(a, b)] = depth[leaves[a]] + depth[leaves[b]] - 2 * depth[nd]
+    return out
+
+
+def fig6_branch_lengths(org):
+    """Flagellar vs genome (bac120 marker ML tree) patristic distance for every
+    genome pair, log-log, with the power-law fit; pairs involving
+    Nitrosophilus/Nitratiruptor highlighted."""
+    F = _patristic(f"{D}/concat/concat.treefile")
+    G = _patristic(f"{D}/markers/free/markers.treefile")
+    pairs = sorted(F)
+    f = np.array([F[p] for p in pairs])
+    g = np.array([G[p] for p in pairs])
+    b, a = np.polyfit(np.log(g), np.log(f), 1)
+    therm = {t for t in org if org[t].split()[0] in ("Nitrosophilus", "Nitratiruptor")}
+    hit = np.array([bool(set(p) & therm) for p in pairs])
+    fig, ax = plt.subplots(figsize=(7.5, 5.5))
+    ax.grid(True, color=GRID, lw=0.6)
+    ax.set_axisbelow(True)
+    ax.scatter(g[~hit], f[~hit], s=6, color="#2a78d6", alpha=0.35, lw=0, label="genome pair")
+    ax.scatter(g[hit], f[hit], s=10, color="#eb6834", alpha=0.8, lw=0,
+               label="pair involving Nitrosophilus / Nitratiruptor")
+    xs = np.linspace(g.min(), g.max(), 100)
+    ax.plot(xs, np.exp(a) * xs ** b, color=TEXT, lw=1.2, label=f"fit: flagellar = {np.exp(a):.1f} × genome$^{{{b:.2f}}}$")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel("Genome distance (bac120 marker tree, subst./site)")
+    ax.set_ylabel("Flagellar distance (concatenated tree, subst./site)")
+    ax.set_title("Flagellar vs genome divergence for every pair of genomes", loc="left",
+                 fontsize=11, color=TEXT, weight="bold")
+    r = np.corrcoef(np.log(f), np.log(g))[0, 1]
+    ax.text(0.99, 0.03, f"{len(pairs):,} pairs, log-log r = {r:.2f}", transform=ax.transAxes,
+            ha="right", fontsize=8.5, color=TEXT2)
+    ax.legend(loc="upper left", frameon=False, fontsize=8)
+    fig.tight_layout()
+    fig.savefig(f"{OUT}/fig6_branch_lengths.png", dpi=220, facecolor="white")
+    plt.close(fig)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     org = load_taxa()
@@ -555,6 +609,7 @@ def main():
     fig3_concordance(org)
     fig4_recurrent()
     fig5_case(org)
+    fig6_branch_lengths(org)
     print(f"Spearman rho (informative sites vs RF to GTDB): {rho:.3f}")
     print(f"Wrote {OUT}/")
 

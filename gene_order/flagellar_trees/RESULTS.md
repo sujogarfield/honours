@@ -28,9 +28,16 @@ flagellar genes or the species tree that is out of step.
    genome-wide pattern.
 4. Genes moving on their own are also rare: 5 plausible cases out of 73
    tested (§4, single-gene screen).
-5. Conclusion: flagellar genes in this phylum are inherited largely
-   vertically; non-vertical inheritance is rare at most — at most one
-   whole-system case (pending) and a few single genes, none recent.
+5. Branch lengths add one striking anomaly (§4b): the flagellar genes of
+   *Nitrosophilus*/*Nitratiruptor* (deep-sea-vent thermophiles) are about as
+   different from their own family's as from anything else in the phylum —
+   either extremely fast evolution or a flagellar system acquired from outside
+   Campylobacterota (testable with a donor search).
+6. Conclusion: flagellar genes in this phylum are inherited largely
+   vertically; non-vertical inheritance is rare — at most one whole-system
+   case within the phylum (pending), a few single genes, and one lineage
+   (*Nitrosophilus*/*Nitratiruptor*) whose flagellar system may come from
+   outside it.
 
 ## Glossary
 
@@ -160,11 +167,15 @@ internal Sulfurimonas branches.
 
 The deep thermophile grouping (*Hippea*/*Desulfurella*, the GTDB root, attaching
 next to *Nitrosophilus*/*Nitratiruptor* rather than Nautiliales; 6 gene trees)
-looks like a composition/long-branch artefact: these are exactly the genomes
-failing IQ-TREE's amino-acid composition test most often (*Nitrosophilus* ×3,
+is most likely long-branch attraction: these are exactly the genomes failing
+IQ-TREE's amino-acid composition test most often (*Nitrosophilus* ×3,
 *Nitratiruptor* 7 genes each; *Hippea*, *Desulfurella* 6; *Lebetimonas* 5; 171
-of 4,964 sequence-gene tests overall). To test: site-heterogeneous model
-(LG+C20+F+G / PMSF) or Dayhoff-6 recoding.
+of 4,964 sequence-gene tests overall), and raw identity shows *Nitrosophilus*/
+*Nitratiruptor* flagellar proteins are no closer to *Hippea*/*Desulfurella*
+(38 %) than to anything else (34–37 %). The real anomaly underneath it is the
+extreme divergence of the *Nitrosophilus*/*Nitratiruptor* flagellar genes —
+see §4b. To test the tree part: site-heterogeneous model (LG+C20+F+G / PMSF)
+or Dayhoff-6 recoding.
 
 ## 4. HGT candidates
 
@@ -343,6 +354,40 @@ every genome, so they are independent signals rather than one co-transfer. Cavea
 from the same gene trees (post-selection p-values), and 150–600-site genes
 carry limited signal.
 
+## 4b. Branch lengths: flagellar vs genome divergence
+
+`fig6_branch_lengths.png`. For all 11,026 genome pairs, patristic distance in
+the concatenated flagellar tree vs the bac120 marker ML tree (M11): log-log
+r = 0.78; flagellar genes diverge ≈ 3× as fast (fit flagellar = 3.1 ×
+genome^0.83). Anomalies:
+
+- **Rates differ by lineage.** Within-genus pairs (genome distance < 0.15)
+  have median flagellar/genome ratios of 2.0 in *Helicobacter*, 3.6
+  *Campylobacter*, 4.2 *Sulfurimonas*, 5–6 *Arcobacter*/*Aliarcobacter*, up to
+  ~9 in *Hydrogenimonas*. The 15 *Helicobacter* pairs with flagellar genes
+  "closer than predicted" (z < −3) are the tail of this genus-wide slow rate,
+  not transfers.
+- ***Arcobacteraceae* as a family** (upper blue band): their flagellar genes
+  are more divergent from the other Campylobacterales (*Helicobacter*,
+  *Campylobacter*, *Sulfurimonas*) than the genomes predict (3,248 pairs) — a
+  family-level shift (ancient change or faster evolution in the family), not
+  an individual transfer.
+- ***Nitrosophilus* / *Nitratiruptor* (orange): an exceptionally divergent
+  flagellar system.** Their flagellar distances to everything are ≈ 3 subst./
+  site, far above all other pairs, including to their own family:
+  *Hydrogenimonas* is 87 % identical to them in the markers but only 36 % in
+  the flagellar genes. Their flagellar proteins are 34–38 % identical to every
+  other group (no group stands out, so not a transfer *from* Hippea or
+  Hydrogenimonas), whereas *Hydrogenimonas*'s flagellar proteins are a typical
+  56–61 % identical to *Sulfurimonas*, Nautiliales, *Campylobacter* and
+  *Helicobacter*. *Hydrogenimonas* therefore has an ordinary flagellar system
+  and sits next to *Sulfurimonas* in the flagellar tree only because its real
+  relatives' flagellar genes are too divergent to pull it in. Either the
+  *Nitrosophilus*/*Nitratiruptor* flagellar genes evolved exceptionally fast,
+  or they were replaced from a donor **outside Campylobacterota**, which no
+  analysis here could see. A donor search (DIAMOND of these proteins against
+  RefSeq/NR, excluding Campylobacterota) would decide.
+
 ## 5. Next steps
 
 Done: species-marker test (§4), single-gene screen (§4), characterisation of
@@ -352,19 +397,23 @@ the Poseidonibacter/Arcobacter case (§4) — now qualified by the identity chec
    backbone, independent of GTDB's marker set, for the 8 candidates. Decides
    how firmly the Poseidonibacter/Arcobacter result stands (currently Holm
    p = 0.048 on the markers).
-2. **Thermophile artefact check** — combined flagellar tree under a
-   site-heterogeneous model (LG+C20+F+G via PMSF); §3 currently only says the
-   deep thermophile grouping *looks like* an artefact.
-3. **Motility-essential genes (planned sensitivity analysis)** — motA (85
+2. **Donor search for the *Nitrosophilus*/*Nitratiruptor* flagellar genes**
+   (§4b) — DIAMOND against RefSeq/NR excluding Campylobacterota. Best hits
+   outside the phylum (e.g. other vent thermophiles) would make this a
+   cross-phylum replacement of the flagellar system; best hits inside the
+   phylum would mean fast evolution.
+3. **Thermophile tree check** — combined flagellar tree under a
+   site-heterogeneous model (LG+C20+F+G via PMSF), to confirm the
+   Hippea/Nitrosophilus grouping is long-branch attraction (§3).
+4. **Motility-essential genes (planned sensitivity analysis)** — motA (85
    genomes) and motB (88) at a lower threshold; flaA/flaB after re-detecting
    flagellin (58 genomes missed, §0) and a rule for the tandem copies. Rerun
    trees + concordance; check the main results hold.
-4. **Trimming sensitivity** (optional) — BMGE or ClipKIT instead of trimAl.
-5. **Thesis write-up** — link the Poseidonibacter gene-order result to the
+5. **Trimming sensitivity** (optional) — BMGE or ClipKIT instead of trimAl.
+6. **Thesis write-up** — link the Poseidonibacter gene-order result to the
    Thesis B synteny chapter.
 
-Not planned: donor search outside the phylum (no deep candidate survived);
-ALE/GeneRax reconciliation (gene trees would need rerunning with `--wbtl`).
+Not planned: ALE/GeneRax reconciliation (gene trees would need rerunning with `--wbtl`).
 
 ## Caveats
 
