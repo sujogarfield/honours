@@ -17,7 +17,8 @@ cd "$PBS_O_WORKDIR"
 # env binaries on PATH directly -- no conda activation, so CONDA_BASE isn't needed
 export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
 
-D=gene_order/flagellar_trees
+D=${FLAG_DIR:-gene_order/flagellar_trees}
+export FLAG_DIR=$D
 C=$D/concordance
 mkdir -p "$D/concat" "$C"
 

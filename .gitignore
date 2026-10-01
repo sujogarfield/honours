@@ -47,3 +47,16 @@ gene_order/flagellar_trees/core/trimmed/
 gene_order/flagellar_trees/core/free/
 gene_order/flagellar_trees/core/*/run/
 gene_order/flagellar_trees/core/marker_test.tsv
+# Extended (sensitivity) run outputs
+gene_order/flagellar_trees_ext/aligned/
+gene_order/flagellar_trees_ext/trimmed/
+gene_order/flagellar_trees_ext/gene_trees/
+gene_order/flagellar_trees_ext/concat/
+gene_order/flagellar_trees_ext/concordance/
+gene_order/flagellar_trees_ext/comparison.json
+gene_order/flagellar_trees_ext/hgt_candidates.tsv
+gene_order/flagellar_trees_ext/hgt_screen.json
+gene_order/flagellar_trees_ext/figures/
+gene_order/flagellar_trees_ext/verify/*.dmnd
+gene_order/flagellar_trees_ext/verify/hits_*.tsv
+gene_order/flagellar_trees_ext/verify/queries.faa

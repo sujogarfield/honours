@@ -1,14 +1,16 @@
 #!/bin/bash
 # Submit the whole flagellar tree pipeline on Katana, from anywhere in the repo:
 #   bash scripts/11_flagellar_trees/katana/submit.sh
+# Sensitivity runs: FLAG_DIR=gene_order/flagellar_trees_ext bash .../submit.sh
 # Chains: [env setup, only if missing] -> per-gene array -> concat + concordance + comparison.
 # Override the conda install with CONDA_BASE=/path/to/miniforge3 if needed.
 
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 K=scripts/11_flagellar_trees/katana
-N=$(grep -c . gene_order/flagellar_trees/genes.txt)
-QV=(-v "CONDA_BASE=${CONDA_BASE:-/srv/scratch/baker/miniforge3}")
+FLAG_DIR=${FLAG_DIR:-gene_order/flagellar_trees}
+N=$(grep -c . "$FLAG_DIR/genes.txt")
+QV=(-v "CONDA_BASE=${CONDA_BASE:-/srv/scratch/baker/miniforge3},FLAG_DIR=$FLAG_DIR")
 
 DEP=()
 if [ ! -x .katana_env/bin/iqtree2 ]; then

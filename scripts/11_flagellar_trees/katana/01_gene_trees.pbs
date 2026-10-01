@@ -13,7 +13,8 @@ set -euo pipefail
 cd "$PBS_O_WORKDIR"
 export PATH="$PBS_O_WORKDIR/.katana_env/bin:$PATH"
 
-D=gene_order/flagellar_trees
+D=${FLAG_DIR:-gene_order/flagellar_trees}
+export FLAG_DIR=$D
 GENE=$(sed -n "${PBS_ARRAY_INDEX}p" "$D/genes.txt")
 mkdir -p "$D/aligned" "$D/trimmed" "$D/gene_trees"
 echo "=== $GENE (array index $PBS_ARRAY_INDEX) on $(hostname) ==="

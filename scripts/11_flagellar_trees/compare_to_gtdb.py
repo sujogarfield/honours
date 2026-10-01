@@ -33,7 +33,7 @@ from ete3 import Tree
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "04_synteny"))
 from synteny_analysis import mantel_test
 
-D = "gene_order/flagellar_trees"
+D = os.environ.get("FLAG_DIR", "gene_order/flagellar_trees")
 FLAG_TREE = f"{D}/concat/concat.treefile"
 GTDB_TREE = f"{D}/gtdb_ref_pruned.nwk"
 GENE_TREES = f"{D}/gene_trees/*.treefile"

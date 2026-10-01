@@ -49,7 +49,7 @@ from collections import defaultdict
 
 from ete3 import Tree
 
-D = "gene_order/flagellar_trees"
+D = os.environ.get("FLAG_DIR", "gene_order/flagellar_trees")
 GTDB_TREE = f"{D}/gtdb_ref_pruned.nwk"
 FLAG_TREE = f"{D}/concat/concat.treefile"
 GENE_TREES = f"{D}/gene_trees/*.treefile"

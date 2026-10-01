@@ -405,10 +405,11 @@ the Poseidonibacter/Arcobacter case (§4) — now qualified by the identity chec
 3. **Thermophile tree check** — combined flagellar tree under a
    site-heterogeneous model (LG+C20+F+G via PMSF), to confirm the
    Hippea/Nitrosophilus grouping is long-branch attraction (§3).
-4. **Motility-essential genes (planned sensitivity analysis)** — motA (85
-   genomes) and motB (88) at a lower threshold; flaA/flaB after re-detecting
-   flagellin (58 genomes missed, §0) and a rule for the tandem copies. Rerun
-   trees + concordance; check the main results hold.
+4. **Motility-essential genes (sensitivity analysis)** — *stage 1 running*:
+   42 genes (the 37 + cheW, flgM, flgP, motA, motB; gene threshold ≥ 80
+   genomes; same 149 genomes) in `gene_order/flagellar_trees_ext/` (M15).
+   Stage 2: flaA/flaB after re-detecting flagellin (58 genomes missed, §0) and
+   a rule for the tandem copies.
 5. **Trimming sensitivity** (optional) — BMGE or ClipKIT instead of trimAl.
 6. **Thesis write-up** — link the Poseidonibacter gene-order result to the
    Thesis B synteny chapter.
@@ -622,6 +623,18 @@ tree (ModelFinder per gene, 1000 UFBoot); then exactly the M11 test
 RELL, Holm). Gene content overlaps partly with bac120 (both are mostly
 universal single-copy genes), but gene calls, alignment, trimming, gene
 number and inference are independent of GTDB.
+
+### M15. Extended gene set (sensitivity analysis) — *running*
+Same pipeline (M4–M9) with the gene threshold lowered to ≥ 80 genomes and the
+genome set fixed to the main run's 149 (`FLAG_DIR=gene_order/flagellar_trees_ext
+MIN_GENOME_COVERAGE=80 KEEP_TAXA=gene_order/flagellar_trees/taxa.tsv`), adding
+cheW (93 genomes), motB (88), motA (85), flgM (82) and flgP (81). flaB and
+maf_2356 still fail (ambiguous copies). motA's main orthogroup holds 32 genomes;
+53 more are single copies in lineage-specific orthogroups (kept under M4).
+Verification (M5) of all 5,385 proteins: every motA (82), motB (85) and cheW
+(93) protein's best reference hit is the same gene, none contradicted; flgM and
+flgP have no contradictions (32 and 20 hit unnamed reference proteins); the
+only flags are the 6 already reviewed.
 
 ### M14. Software and computing
 | Tool | Version | Use |

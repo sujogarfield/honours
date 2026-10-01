@@ -31,7 +31,8 @@ from ete3 import Tree
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from screen_hgt_candidates import bitmask_splits, smaller_side
 
-D = "gene_order/flagellar_trees"
+D = os.environ.get("FLAG_DIR", "gene_order/flagellar_trees")
+MAIN = "gene_order/flagellar_trees"  # markers/ and core/ live in the main run (same genomes)
 OUT = f"{D}/figures"
 N_GENES = len(open(f"{D}/genes.txt").read().split())
 
@@ -436,7 +437,7 @@ def fig5_case(org):
 
     fig = plt.figure(figsize=(11, 7.4))
     gs = fig.add_gridspec(2, 2, height_ratios=[1.3, 1], hspace=0.22, wspace=0.35)
-    for k, (path, title) in enumerate([(f"{D}/markers/free/markers.treefile", "Genome: GTDB bac120 markers"),
+    for k, (path, title) in enumerate([(f"{MAIN}/markers/free/markers.treefile", "Genome: GTDB bac120 markers"),
                                        (f"{D}/concat/concat.treefile", f"Flagellar genes ({N_GENES}, concatenated)")]):
         t = Tree(path, format=0)
         t.prune(keep, preserve_branch_length=True)
@@ -521,13 +522,13 @@ def fig5_case(org):
                 T += t2
         return 100 * M / T
     flag_alns = [_read_fasta(p2) for p2 in glob.glob(f"{D}/trimmed/*.faa")]
-    mark = [_read_fasta(f"{D}/markers/bac120_msa_r232.faa")]
+    mark = [_read_fasta(f"{MAIN}/markers/bac120_msa_r232.faa")]
     al = Align.PairwiseAligner(mode="global", open_gap_score=-11, extend_gap_score=-1, end_gap_score=0)
     al.substitution_matrix = substitution_matrices.load("BLOSUM62")
     core = {}
     for x in (R, P):
         M = T = 0
-        for p2 in glob.glob(f"{D}/core/genes/*.faa"):
+        for p2 in glob.glob(f"{MAIN}/core/genes/*.faa"):
             sq = _read_fasta(p2)
             a2 = al.align(sq[L], sq[x])[0]
             for (s1, e1), (s2, e2) in zip(*a2.aligned):
@@ -570,7 +571,7 @@ def fig6_branch_lengths(org):
     genome pair, log-log, with the power-law fit; pairs involving
     Nitrosophilus/Nitratiruptor highlighted."""
     F = _patristic(f"{D}/concat/concat.treefile")
-    G = _patristic(f"{D}/markers/free/markers.treefile")
+    G = _patristic(f"{MAIN}/markers/free/markers.treefile")
     pairs = sorted(F)
     f = np.array([F[p] for p in pairs])
     g = np.array([G[p] for p in pairs])

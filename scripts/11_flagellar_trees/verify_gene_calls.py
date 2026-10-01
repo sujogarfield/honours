@@ -41,7 +41,7 @@ from collections import Counter, defaultdict
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "06_orthology"))
 from orthology_eggnog_confirm import classify, load_annotations
 
-D = "gene_order/flagellar_trees"
+D = os.environ.get("FLAG_DIR", "gene_order/flagellar_trees")
 OUT = f"{D}/verify"
 PROT_DIR = "campy_fetched/campy_prot"
 GFF_DIR = "campy_fetched/campy_ann"

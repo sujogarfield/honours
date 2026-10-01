@@ -63,9 +63,12 @@ GENE_ORDER_JSON = "gene_order/gene_order_combined.json"
 PROT_DIR = "campy_fetched/campy_prot"
 ORTHOGROUPS_TSV = "campy_orthologs/orthofinder_results/Results_Sep23/Orthogroups/Orthogroups.tsv"
 GTDB_TREE = "images_and_newick/thesis_b/gtdb_ref_tree_og.nwk"
-OUTPUT_DIR = "gene_order/flagellar_trees"
+OUTPUT_DIR = os.environ.get("FLAG_DIR", "gene_order/flagellar_trees")
 
-MIN_GENOME_COVERAGE = 100   # of 164 genomes with flagellar genes
+MIN_GENOME_COVERAGE = int(os.environ.get("MIN_GENOME_COVERAGE", 100))  # of 164 genomes
+# Optional: a taxa.tsv whose genomes are used as-is (sensitivity runs keep the
+# main run's genomes so only the gene set differs)
+KEEP_TAXA = os.environ.get("KEEP_TAXA")
 MAX_MULTICOPY_FRAC = 0.10   # excludes flik, fliw, flge (25-94% multi-copy)
 MIN_GENE_FRAC = 0.60        # genome must carry >= 60% of the selected genes
 
@@ -188,8 +191,12 @@ def main():
         leaf.name = leaf.name.replace("RS_", "", 1).replace("GB_", "", 1)
     gtdb_taxa = set(gtdb.get_leaf_names())
 
-    included = sorted(gn for gn, n in genes_per_genome.items()
-                      if n >= min_genes and accession(gn) in gtdb_taxa)
+    if KEEP_TAXA:
+        keep = {l.split("\t")[0] for l in open(KEEP_TAXA).read().splitlines()[1:]}
+        included = sorted(gn for gn in combined if accession(gn) in keep)
+    else:
+        included = sorted(gn for gn, n in genes_per_genome.items()
+                          if n >= min_genes and accession(gn) in gtdb_taxa)
     dropped = sorted(set(combined) - set(included))
     print(f"Keeping {len(included)} genomes with >= {min_genes}/{len(selected)} genes; dropping {len(dropped)}")
 
