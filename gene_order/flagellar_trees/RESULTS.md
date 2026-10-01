@@ -19,14 +19,18 @@ flagellar genes or the species tree that is out of step.
    not "contradicts" (§3).
 3. 8 local disagreements are statistically real (§4, AU tests). Testing them
    against the rest of the genome shows 4 are errors/uncertainty in the
-   species tree, 3 are unresolved, and **1 is a genuine case**: in
-   *Poseidonibacter lekithochrous* / *Arcobacter roscoffensis* the whole
-   flagellar gene set has a different history from the genome — most likely
-   the flagellar genes were swapped by homologous recombination.
+   species tree, 3 are unresolved, and **1 is a candidate genuine case**:
+   *Poseidonibacter lekithochrous* / *Arcobacter roscoffensis*, where nearly
+   the whole flagellar gene set groups the two together against GTDB's marker
+   genes. **Not yet secure:** a tree-free identity check shows the genomes
+   themselves lean the same way, more weakly; a core-gene backbone test
+   (running) decides whether this is a flagellar-specific swap or a
+   genome-wide pattern.
 4. Genes moving on their own are also rare: 5 plausible cases out of 73
    tested (§4, single-gene screen).
 5. Conclusion: flagellar genes in this phylum are inherited largely
-   vertically; non-vertical inheritance is rare and, where found, not recent.
+   vertically; non-vertical inheritance is rare at most — at most one
+   whole-system case (pending) and a few single genes, none recent.
 
 ## Glossary
 
@@ -68,11 +72,14 @@ these genomes within the full tree, not a tree re-inferred from them alone.
 conflicts are unresolved rather than contradicted — the flagellar system is
 inherited largely vertically, as a unit. Of 8 local spots where the flagellar
 genes significantly reject the GTDB tree (AU p < 10⁻⁴), GTDB's own marker
-genes show 4 to be species-tree problems, 3 remain unresolved, and **1 is a
-genuine discordance: *Poseidonibacter lekithochrous* + *Arcobacter
-roscoffensis***, where the genome backbone rejects the grouping the flagellar
-genes support (p = 0.006; Holm 0.048) — non-vertical inheritance of the
-flagellar genes, involving both of its flagellar loci. A single-gene screen
+genes show 4 to be species-tree problems, 3 remain unresolved, and 1 is a
+**candidate** discordance: *Poseidonibacter lekithochrous* + *Arcobacter
+roscoffensis*, where the marker tree rejects the grouping the flagellar genes
+support (p = 0.006; Holm 0.048), across both flagellar loci — but raw protein
+identity shows a weaker genome-wide lean in the same direction (core genes:
+*lekithochrous* closer to *roscoffensis* in 62 % of genes vs 80 % of flagellar
+genes; difference not significant, Fisher p = 0.06), so it is not yet
+established as flagellar-specific (core-gene backbone test pending). A single-gene screen
 (73 cases) adds 5 clean cases of individual genes with a history different
 from the genome (fliG, flgD, flgR, flgS ×2), none recent.
 
@@ -254,13 +261,11 @@ primary candidates in the Holm correction, *Poseidonibacter* is p = 0.024.
   keep Sulfurospirillum monophyletic). GTDB's tree is built with FastTree
   across ~190,000 genomes, so short, local branches can differ from a focused
   ML analysis. At these spots the flagellar genes follow the genome.
-- **1 is a genuine discordance:** *P. lekithochrous* + *A. roscoffensis*. The
-  genome backbone firmly supports the GTDB arrangement (UFBoot 100) and
-  significantly rejects the grouping the flagellar genes support (13 gene
-  trees + concatenated tree; AU p < 10⁻⁴ on the flagellar data). The flagellar
-  gene set of one of these genomes has a history different from its genome —
-  non-vertical inheritance (HGT or homologous recombination) of the flagellar
-  system. Borderline after correcting across all 8 (Holm 0.048).
+- **1 is a candidate discordance:** *P. lekithochrous* + *A. roscoffensis*.
+  The marker tree supports the GTDB arrangement (UFBoot 100) and rejects the
+  grouping the flagellar genes support (13 gene trees + concatenated tree;
+  AU p < 10⁻⁴ on the flagellar data). Borderline after correcting across all
+  8 (Holm 0.048), and qualified by the identity check below.
 - **3 are unresolved:** the *Campylobacter mucosalis/suis/pinnipediorum* group
   (one conflict; markers lean against the flagellar grouping, p ≈ 0.05, not
   significant after correction) and *Nitrosophilus* (p = 0.10).
@@ -291,10 +296,23 @@ primary candidates in the Holm correction, *Poseidonibacter* is p = 0.024.
   transposase, integrase, phage or conjugation genes within 15 kb of either
   locus in any of the four (the only keyword hit, RuvX, is a housekeeping
   Holliday-junction resolvase).
-- **Interpretation.** Not the insertion of a foreign flagellar system: the
-  alleles at the existing loci were replaced, most plausibly by homologous
-  recombination between the *P. lekithochrous* and *A. roscoffensis*
-  lineages, after they diverged but not recently.
+- **Tree-free identity check (does the genome agree?).** Pooled pairwise
+  protein identity, *lekithochrous*–*roscoffensis* vs *lekithochrous*–*parvus*:
+  flagellar genes 85.3 vs 81.5 %; GTDB markers 96.1 vs 96.0 %; 148 core genes
+  86.4 vs 85.3 %. *P. lekithochrous* is closer to *A. roscoffensis* in 20/25
+  flagellar genes and in 92/148 core genes (80 vs 62 %; Fisher one-sided
+  p = 0.06). Both genomes are complete single-chromosome assemblies, so this is
+  not assembly contamination. The marker *tree* (which models rate
+  differences) still places *lekithochrous* with *Poseidonibacter*, but the raw
+  genome-wide signal is close to a tie.
+- **Interpretation (provisional).** If the flagellar signal is specific: not
+  the insertion of a foreign system, but replacement of the alleles at the
+  existing loci, most plausibly by homologous recombination between the two
+  lineages, not recently. Alternatively the two genomes share a weaker
+  genome-wide affinity (recombination or uneven rates) that the flagellar
+  genes show most strongly. The core-gene backbone test (M13) decides: if the
+  core tree also firmly rejects the flagellar grouping, the case stands; if
+  not, it joins the "species-tree uncertain" group.
 
 ### Single-gene screen (genes that moved on their own)
 M12. 73 single-gene conflicts with the ML marker tree tested; 58 not supported
@@ -327,7 +345,7 @@ carry limited signal.
 ## 5. Next steps
 
 Done: species-marker test (§4), single-gene screen (§4), characterisation of
-the Poseidonibacter/Arcobacter case (§4).
+the Poseidonibacter/Arcobacter case (§4) — now qualified by the identity check.
 
 1. **Core-gene backbone test** (M13) — *running on Katana*. A second genome
    backbone, independent of GTDB's marker set, for the 8 candidates. Decides
