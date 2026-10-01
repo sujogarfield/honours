@@ -37,7 +37,6 @@ N_GENES = len(open(f"{D}/genes.txt").read().split())
 TEXT, TEXT2, GRID = "#0b0b0b", "#52514e", "#e4e3df"
 SEQ = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"]
 ACCENT = "#e34948"
-CASE = {"Poseidonibacter lekithochrous", "Arcobacter roscoffensis"}
 # clade groups -> categorical slots in fixed order (reference palette, light mode)
 GROUPS = [
     ("Campylobacter", "#2a78d6", {"Campylobacter"}),
@@ -120,17 +119,48 @@ def fig1_tanglegram(org):
     full = (1 << len(taxa)) - 1
     canon = lambda m: m ^ full if m & 1 else m
 
-    gtdb.ladderize()
-    y_gtdb = {name: -i for i, name in enumerate(gtdb.get_leaf_names())}
-
-    # root the flagellar tree like GTDB where possible, then rotate to minimise crossings
+    # root the flagellar tree like GTDB (Desulfurellia) where possible
     outgroup = [t for t in taxa if org[t].split()[0] in {"Hippea", "Desulfurella"}]
     anc = flag.get_common_ancestor(outgroup)
     flag.set_outgroup(anc if anc is not flag else flag.get_midpoint_outgroup())
-    for n in flag.traverse("postorder"):
-        if not n.is_leaf():
-            n.children.sort(key=lambda c: -np.mean([y_gtdb[l] for l in c.get_leaf_names()]))
-    y_flag = {name: -i for i, name in enumerate(flag.get_leaf_names())}
+
+    # Rotate child order (never topology) to minimise crossing lines: alternately
+    # order each tree's children by the mean row of their tips in the other tree,
+    # and keep the arrangement with the fewest crossings.
+    def rows(tree):
+        return {name: -i for i, name in enumerate(tree.get_leaf_names())}
+
+    def rotate_to(tree, target):
+        for nd in tree.traverse("postorder"):
+            if not nd.is_leaf():
+                nd.children.sort(key=lambda c: -np.mean([target[l] for l in c.get_leaf_names()]))
+
+    def crossings(a, b):
+        order = sorted(taxa, key=lambda t: -a[t])
+        seq = [-b[t] for t in order]
+        return sum(1 for i in range(len(seq)) for j in range(i + 1, len(seq)) if seq[i] > seq[j])
+
+    gtdb.ladderize()
+    best = None
+    for _ in range(8):
+        rotate_to(flag, rows(gtdb))
+        c = crossings(rows(gtdb), rows(flag))
+        if best is None or c < best[0]:
+            best = (c, gtdb.write(format=1), flag.write(format=0))
+        rotate_to(gtdb, rows(flag))
+        c = crossings(rows(gtdb), rows(flag))
+        if c < best[0]:
+            best = (c, gtdb.write(format=1), flag.write(format=0))
+    gtdb, flag = Tree(best[1], format=1), Tree(best[2], format=0)
+    print(f"tanglegram: {best[0]} crossing line pairs after rotation")
+
+    # Faithfulness check: the drawn trees must have exactly the source trees' branches
+    src_g = Tree(f"{D}/gtdb_ref_pruned.nwk", format=1)
+    src_f = Tree(f"{D}/concat/concat.treefile", format=0)
+    for drawn, src, name in ((gtdb, src_g, "GTDB"), (flag, src_f, "flagellar")):
+        if set(bitmask_splits(drawn, index)) != set(bitmask_splits(src, index)):
+            raise SystemExit(f"{name} tree drawn with a different topology from its source file")
+    y_gtdb, y_flag = rows(gtdb), rows(flag)
 
     bitmask_splits(gtdb, index)  # annotates node.mask
     pos_g, top_g = phylogram_layout(gtdb, y_gtdb)
@@ -169,27 +199,11 @@ def fig1_tanglegram(org):
         if x < 0.995:
             ax.plot([xr_tip, xr_tip + (1 - x) * tree_w], [y, y], color=GRID, lw=0.5, ls=(0, (1, 1.5)))
 
-    case = {t for t in taxa if org[t] in CASE}
     for t in taxa:
-        c = group_color(org[t])
         yl, yr = y_gtdb[t], y_flag[t]
-        hl = t in case
-        kw = dict(va="center", fontsize=5.6, color=ACCENT if hl else TEXT, weight="bold" if hl else "normal")
-        ax.text(xl_tip + 0.06, yl, org[t], ha="left", **kw)
-        ax.text(xr_tip - 0.06, yr, org[t], ha="right", **kw)
-        moved = abs(yl - yr) > 3
-        if hl:
-            ax.plot([xl_tip + lab_w, xr_tip - lab_w], [yl, yr], color=ACCENT, lw=2.4, zorder=4)
-        else:
-            ax.plot([xl_tip + lab_w, xr_tip - lab_w], [yl, yr], color=c,
-                    lw=1.1 if moved else 0.6, alpha=0.95 if moved else 0.45)
-    ys = [y_gtdb[t] for t in case]
-    ax.annotate("candidate (§4, fig 5): the flagellar genes\ngroup P. lekithochrous with A. roscoffensis;\n"
-                "the genome places it with Poseidonibacter",
-                xy=(xl_tip + lab_w + gap / 2, np.mean(ys)), xytext=(xl_tip + lab_w + 0.1, np.mean(ys) + 9),
-                fontsize=7, color=ACCENT, ha="left", zorder=6,
-                bbox=dict(boxstyle="round,pad=0.3", fc="white", ec=ACCENT, lw=0.6, alpha=0.95),
-                arrowprops=dict(arrowstyle="-", color=ACCENT, lw=0.8))
+        ax.text(xl_tip + 0.06, yl, org[t], va="center", ha="left", fontsize=5.6, color=TEXT)
+        ax.text(xr_tip - 0.06, yr, org[t], va="center", ha="right", fontsize=5.6, color=TEXT)
+        ax.plot([xl_tip + lab_w, xr_tip - lab_w], [yl, yr], color=group_color(org[t]), lw=0.8, alpha=0.75)
 
     n = len(taxa)
     ax.text(tree_w / 2, 2.2, "GTDB species tree", ha="center", fontsize=12, weight="bold", color=TEXT)
@@ -218,8 +232,8 @@ def fig1_tanglegram(org):
         y = ly - (i // 4) * 2.0
         ax.plot([x, x + 0.3], [y, y], color=c, lw=3, solid_capstyle="butt")
         ax.text(x + 0.4, y, name, fontsize=7.5, color=TEXT, va="center")
-    ax.text(gx, ly - 4.3, "Lines join each genome in the two trees; bold lines = genome sits in a different "
-            "place (>3 rows apart); red lines = the Poseidonibacter/Arcobacter candidate (fig 5).",
+    ax.text(gx, ly - 4.3, "Lines join each genome in the two trees. Branch order is rotated only to reduce "
+            "crossings (topology unchanged); remaining crossings are real differences.",
             fontsize=7.5, color=TEXT2)
 
     ax.set_xlim(-0.1, xr_tip + tree_w + 0.1)
