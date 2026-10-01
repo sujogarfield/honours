@@ -284,9 +284,10 @@ primary candidates in the Holm correction, *Poseidonibacter* is p = 0.024.
   flagellar genes share a more recent ancestor than their genomes.
 - **It is the whole flagellar gene set.** *P. lekithochrous* has two flagellar
   loci (≈ 2.94–2.97 Mb and 3.24–3.25 Mb on NZ_CP054052.1). In both, nearly
-  every gene tree groups it with *A. roscoffensis* (19 of 22 resolvable genes;
+  every gene tree groups it with *A. roscoffensis* (18 of 21 resolvable genes;
   13 at UFBoot ≥ 95); only flgD, flgB and flgH follow the genome, weakly
-  (UFBoot 71–94).
+  (UFBoot 71–94); 4 are unresolved and fliW is missing from one of the four
+  genomes (`fig5_poseidonibacter.png`).
 - **Direction unresolved.** Either genome could be the recipient (both give
   the same topology), and base composition cannot tell: genome GC 28.5 % vs
   28.7 %, flagellar genes 29.4 % vs 29.9 %.

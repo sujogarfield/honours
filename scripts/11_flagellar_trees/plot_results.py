@@ -11,9 +11,12 @@ Output (gene_order/flagellar_trees/figures/):
   fig2_signal_vs_length.png    per-gene discordance with GTDB vs informative sites
   fig3_concordance_gtdb.png    gCF vs sCF on every GTDB branch
   fig4_recurrent_conflicts.png groups placed differently from GTDB in many gene trees
+  fig5_poseidonibacter.png     zoom on the Poseidonibacter/Arcobacter candidate
 """
 
+import glob
 import json
+from collections import Counter
 import os
 import re
 import sys
@@ -34,6 +37,7 @@ N_GENES = len(open(f"{D}/genes.txt").read().split())
 TEXT, TEXT2, GRID = "#0b0b0b", "#52514e", "#e4e3df"
 SEQ = ["#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95", "#0d366b"]
 ACCENT = "#e34948"
+CASE = {"Poseidonibacter lekithochrous", "Arcobacter roscoffensis"}
 # clade groups -> categorical slots in fixed order (reference palette, light mode)
 GROUPS = [
     ("Campylobacter", "#2a78d6", {"Campylobacter"}),
@@ -64,17 +68,29 @@ def group_color(organism):
     return TEXT2
 
 
-def cladogram_layout(tree, y_of_leaf):
-    """x: leaves aligned at 1, internal nodes at 1 - height/max_height; y: mean of children."""
-    height = {}
-    for n in tree.traverse("postorder"):
-        height[n] = 0 if n.is_leaf() else 1 + max(height[c] for c in n.children)
-    top = height[tree]
+def phylogram_layout(tree, y_of_leaf):
+    """x: root-to-node path length / maximum root-to-tip length (true branch
+    lengths); y: leaves from y_of_leaf, internal nodes at the mean of children."""
+    depth = {}
+    for n in tree.traverse("preorder"):
+        depth[n] = 0.0 if n.is_root() else depth[n.up] + n.dist
+    top = max(depth[l] for l in tree.iter_leaves())
     pos = {}
     for n in tree.traverse("postorder"):
         y = y_of_leaf[n.name] if n.is_leaf() else np.mean([pos[c][1] for c in n.children])
-        pos[n] = (1 - height[n] / top, y)
-    return pos
+        pos[n] = (depth[n] / top, y)
+    return pos, top
+
+
+def scale_bar(ax, x0, y, width, top, mirror, label_len=None):
+    """Scale bar for a tree drawn `width` wide whose deepest tip is `top`
+    substitutions from the root; length is a round number near top/8."""
+    if label_len is None:
+        label_len = min((0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0, 2.0), key=lambda v: abs(v - top / 8))
+    L = width * label_len / top
+    xs = [x0, x0 + L] if not mirror else [x0 - L, x0]
+    ax.plot(xs, [y, y], color=TEXT, lw=1.2)
+    ax.text(np.mean(xs), y - 1.3, f"{label_len} subst./site", ha="center", fontsize=7, color=TEXT2)
 
 
 def draw_tree(ax, tree, pos, x0, width, mirror, branch_style):
@@ -117,8 +133,8 @@ def fig1_tanglegram(org):
     y_flag = {name: -i for i, name in enumerate(flag.get_leaf_names())}
 
     bitmask_splits(gtdb, index)  # annotates node.mask
-    pos_g = cladogram_layout(gtdb, y_gtdb)
-    pos_f = cladogram_layout(flag, y_flag)
+    pos_g, top_g = phylogram_layout(gtdb, y_gtdb)
+    pos_f, top_f = phylogram_layout(flag, y_flag)
 
     fig, ax = plt.subplots(figsize=(15, 21))
     tree_w, lab_w, gap = 3.0, 2.6, 2.2
@@ -135,21 +151,45 @@ def fig1_tanglegram(org):
         return (ACCENT, 2.2, "-") if g <= 5 else (step, 1.6, "-")
 
     def flag_style(n):
-        if n.is_leaf():
-            return TEXT2, 0.7, "-"
-        return (TEXT, 1.0, "-") if n.support >= 95 else ("#9a9893", 0.9, (0, (2, 1.5)))
+        return (TEXT2, 0.7, "-") if n.is_leaf() else (TEXT, 1.0, "-")
 
     draw_tree(ax, gtdb, pos_g, 0, tree_w, False, gtdb_style)
     draw_tree(ax, flag, pos_f, xr_tip, tree_w, True, flag_style)
+    for nd in flag.traverse():
+        if not nd.is_leaf() and not nd.is_root() and nd.support < 95:
+            x, y = pos_f[nd]
+            ax.plot(xr_tip + (1 - x) * tree_w, y, "o", ms=3.2, mfc="white", mec=TEXT, mew=0.8, zorder=5)
+    # dotted leaders from each tip to the aligned labels
+    for leaf in gtdb.iter_leaves():
+        x, y = pos_g[leaf]
+        if x < 0.995:
+            ax.plot([x * tree_w, xl_tip], [y, y], color=GRID, lw=0.5, ls=(0, (1, 1.5)))
+    for leaf in flag.iter_leaves():
+        x, y = pos_f[leaf]
+        if x < 0.995:
+            ax.plot([xr_tip, xr_tip + (1 - x) * tree_w], [y, y], color=GRID, lw=0.5, ls=(0, (1, 1.5)))
 
+    case = {t for t in taxa if org[t] in CASE}
     for t in taxa:
         c = group_color(org[t])
         yl, yr = y_gtdb[t], y_flag[t]
-        ax.text(xl_tip + 0.06, yl, org[t], va="center", ha="left", fontsize=5.6, color=TEXT)
-        ax.text(xr_tip - 0.06, yr, org[t], va="center", ha="right", fontsize=5.6, color=TEXT)
+        hl = t in case
+        kw = dict(va="center", fontsize=5.6, color=ACCENT if hl else TEXT, weight="bold" if hl else "normal")
+        ax.text(xl_tip + 0.06, yl, org[t], ha="left", **kw)
+        ax.text(xr_tip - 0.06, yr, org[t], ha="right", **kw)
         moved = abs(yl - yr) > 3
-        ax.plot([xl_tip + lab_w, xr_tip - lab_w], [yl, yr], color=c,
-                lw=1.1 if moved else 0.6, alpha=0.95 if moved else 0.45)
+        if hl:
+            ax.plot([xl_tip + lab_w, xr_tip - lab_w], [yl, yr], color=ACCENT, lw=2.4, zorder=4)
+        else:
+            ax.plot([xl_tip + lab_w, xr_tip - lab_w], [yl, yr], color=c,
+                    lw=1.1 if moved else 0.6, alpha=0.95 if moved else 0.45)
+    ys = [y_gtdb[t] for t in case]
+    ax.annotate("candidate (§4, fig 5): the flagellar genes\ngroup P. lekithochrous with A. roscoffensis;\n"
+                "the genome places it with Poseidonibacter",
+                xy=(xl_tip + lab_w + gap / 2, np.mean(ys)), xytext=(xl_tip + lab_w + 0.1, np.mean(ys) + 9),
+                fontsize=7, color=ACCENT, ha="left", zorder=6,
+                bbox=dict(boxstyle="round,pad=0.3", fc="white", ec=ACCENT, lw=0.6, alpha=0.95),
+                arrowprops=dict(arrowstyle="-", color=ACCENT, lw=0.8))
 
     n = len(taxa)
     ax.text(tree_w / 2, 2.2, "GTDB species tree", ha="center", fontsize=12, weight="bold", color=TEXT)
@@ -157,11 +197,14 @@ def fig1_tanglegram(org):
             ha="center", fontsize=7.5, color=TEXT2)
     ax.text(xr_tip + tree_w / 2, 2.2, f"Concatenated flagellar tree ({N_GENES} genes)", ha="center",
             fontsize=12, weight="bold", color=TEXT)
-    ax.text(xr_tip + tree_w / 2, 0.9, "solid = UFBoot ≥ 95, dashed = UFBoot < 95; rooted on Desulfurellia",
+    ax.text(xr_tip + tree_w / 2, 0.9, "branch lengths to scale; ○ = node with UFBoot < 95; rooted on Desulfurellia",
             ha="center", fontsize=7.5, color=TEXT2)
 
+    scale_bar(ax, 0.05, -n - 0.5, tree_w, top_g, False)
+    scale_bar(ax, xr_tip + tree_w - 0.05, -n - 0.5, tree_w, top_f, True)
+
     # legends: gCF ramp + clade groups
-    lx, ly = 0.05, -n - 3
+    lx, ly = 0.05, -n - 4.5
     ax.text(lx, ly, "gCF", fontsize=8, color=TEXT, weight="bold", va="center")
     for i, c in enumerate(SEQ):
         ax.plot([lx + 0.35 + i * 0.28, lx + 0.6 + i * 0.28], [ly, ly], color=c, lw=5, solid_capstyle="butt")
@@ -176,10 +219,11 @@ def fig1_tanglegram(org):
         ax.plot([x, x + 0.3], [y, y], color=c, lw=3, solid_capstyle="butt")
         ax.text(x + 0.4, y, name, fontsize=7.5, color=TEXT, va="center")
     ax.text(gx, ly - 4.3, "Lines join each genome in the two trees; bold lines = genome sits in a different "
-            "place (>3 rows apart).", fontsize=7.5, color=TEXT2)
+            "place (>3 rows apart); red lines = the Poseidonibacter/Arcobacter candidate (fig 5).",
+            fontsize=7.5, color=TEXT2)
 
     ax.set_xlim(-0.1, xr_tip + tree_w + 0.1)
-    ax.set_ylim(-n - 8.5, 3)
+    ax.set_ylim(-n - 10, 3)
     ax.axis("off")
     fig.savefig(f"{OUT}/fig1_tanglegram.png", dpi=220, bbox_inches="tight", facecolor="white")
     plt.close(fig)
@@ -329,6 +373,165 @@ def fig4_recurrent(n_show=12):
     plt.close(fig)
 
 
+def _clade_support(t, members):
+    """UFBoot of the branch separating `members` from the rest (unrooted), else None."""
+    ms, allx = set(members), set(t.get_leaf_names())
+    for nd in t.traverse():
+        if nd.is_leaf() or nd.is_root():
+            continue
+        side = set(nd.get_leaf_names())
+        if side == ms or allx - side == ms:
+            return nd.support
+    return None
+
+
+def _pair_identity(a, b):
+    m = t = 0
+    for x, y in zip(a, b):
+        if x != "-" and y != "-":
+            t += 1
+            m += x == y
+    return m, t
+
+
+def _read_fasta(path):
+    seqs, name = {}, None
+    for line in open(path):
+        line = line.strip()
+        if line.startswith(">"):
+            name = line[1:]
+            seqs[name] = []
+        elif name:
+            seqs[name].append(line)
+    return {k: "".join(v) for k, v in seqs.items()}
+
+
+def fig5_case(org):
+    """Zoom on the Poseidonibacter/Arcobacter candidate: marker vs flagellar
+    tree (true branch lengths), per-gene support along P. lekithochrous's
+    flagellar loci, and the raw-identity check."""
+    from Bio import Align
+    from Bio.Align import substitution_matrices
+    inv = {v: k for k, v in org.items()}
+    L, R, P, A = (inv[x] for x in ("Poseidonibacter lekithochrous", "Arcobacter roscoffensis",
+                                   "Poseidonibacter parvus", "Poseidonibacter antarcticus"))
+    outg = [inv[x] for x in ("Aliarcobacter butzleri", "Aliarcobacter skirrowii", "Aliarcobacter cryaerophilus")]
+    keep = [L, R, P, A] + outg
+    short = lambda a: org[a].replace("Poseidonibacter", "P.").replace("Aliarcobacter", "Al.").replace("Arcobacter", "A.")
+
+    fig = plt.figure(figsize=(11, 7.4))
+    gs = fig.add_gridspec(2, 2, height_ratios=[1.3, 1], hspace=0.22, wspace=0.35)
+    for k, (path, title) in enumerate([(f"{D}/markers/free/markers.treefile", "Genome: GTDB bac120 markers"),
+                                       (f"{D}/concat/concat.treefile", f"Flagellar genes ({N_GENES}, concatenated)")]):
+        t = Tree(path, format=0)
+        t.prune(keep, preserve_branch_length=True)
+        og = t.get_common_ancestor(outg)
+        t.set_outgroup(og if og is not t else outg[0])
+        t.ladderize()
+        y = {n: -i for i, n in enumerate(t.get_leaf_names())}
+        pos, top = phylogram_layout(t, y)
+        ax = fig.add_subplot(gs[0, k])
+        for nd in t.traverse():
+            if nd.is_root():
+                continue
+            (xp, yp), (x, yy) = pos[nd.up], pos[nd]
+            ax.plot([xp, x], [yy, yy], color=TEXT, lw=1.3)
+            ax.plot([xp, xp], [yp, yy], color=TEXT, lw=1.3)
+            if not nd.is_leaf():
+                ax.text(x - 0.01, yy + 0.12, f"{nd.support:.0f}", fontsize=7, color=TEXT2, ha="right")
+        for leaf in t.iter_leaves():
+            x, yy = pos[leaf]
+            hl = leaf.name in (L, R)
+            ax.text(x + 0.02, yy, short(leaf.name), va="center", fontsize=8.5,
+                    color=ACCENT if hl else TEXT, weight="bold" if hl else "normal")
+        bar = 0.02 if "markers" in path else 0.1
+        ax.plot([0, bar / top], [-len(keep) + 0.2] * 2, color=TEXT, lw=1.2)
+        ax.text(bar / top / 2, -len(keep) - 0.35, f"{bar} subst./site", ha="center", fontsize=7, color=TEXT2)
+        ax.set_xlim(-0.02, 1.75)
+        ax.set_ylim(-len(keep) - 0.8, 0.8)
+        ax.axis("off")
+        ax.set_title(title, loc="left", fontsize=10.5, weight="bold", color=TEXT)
+
+    # per-gene support strip in P. lekithochrous genome order
+    comb = json.load(open("gene_order/gene_order_combined.json"))
+    gk = next(k for k in comb if k.startswith(L))
+    pos_l = {}
+    for x in comb[gk]["genes"]:
+        pos_l.setdefault(x["gene"], (x["contig"], x["start"]))
+    genes = [g for g in open(f"{D}/genes.txt").read().split() if g in pos_l]
+    genes.sort(key=lambda g: pos_l[g])
+    ax = fig.add_subplot(gs[1, :])
+    cols = {"flag": ACCENT, "genome": "#2a78d6", "neither": "#c9c8c3", "missing": "white"}
+    counts = Counter()
+    for i, g in enumerate(genes):
+        t = Tree(f"{D}/gene_trees/{g}.treefile", format=0)
+        if not {L, R, P, A} <= set(t.get_leaf_names()):
+            kind, sup = "missing", None
+        elif (sup := _clade_support(t, [L, R])) is not None:
+            kind = "flag"
+        elif (sup := _clade_support(t, [L, P, A])) is not None:
+            kind = "genome"
+        else:
+            kind, sup = "neither", None
+        counts[kind] += 1
+        ax.add_patch(plt.Rectangle((i, 0), 0.9, 1, facecolor=cols[kind], edgecolor=TEXT2, lw=0.6))
+        ax.text(i + 0.45, -0.15, g[:3] + g[3:].upper(), rotation=90, ha="center", va="top", fontsize=7.5, color=TEXT)
+        if sup is not None:
+            ax.text(i + 0.45, 1.12, f"{sup:.0f}", ha="center", fontsize=6.5, color=TEXT2)
+    starts = [pos_l[g][1] for g in genes]
+    for lo, hi, lab in [(2.9e6, 3.0e6, "locus 1 (≈2.94–2.97 Mb)"), (3.2e6, 3.3e6, "locus 2 (≈3.24–3.25 Mb)")]:
+        idx = [i for i, s0 in enumerate(starts) if lo <= s0 <= hi]
+        if idx:
+            ax.plot([idx[0], idx[-1] + 0.9], [1.55, 1.55], color=TEXT2, lw=1)
+            ax.text((idx[0] + idx[-1] + 0.9) / 2, 1.65, lab, ha="center", fontsize=8, color=TEXT2)
+    handles = [plt.Rectangle((0, 0), 1, 1, facecolor=cols[k], edgecolor=TEXT2, lw=0.6) for k in ("flag", "genome", "neither", "missing")]
+    ax.legend(handles, [f"groups P. lekithochrous with A. roscoffensis ({counts['flag']})",
+                        f"groups P. lekithochrous with Poseidonibacter ({counts['genome']})",
+                        f"neither / unresolved ({counts['neither']})",
+                        f"gene missing in one of the four ({counts['missing']})"],
+              loc="upper center", bbox_to_anchor=(0.5, -0.05), ncol=2, frameon=False, fontsize=8)
+    ax.set_xlim(-0.3, len(genes) + 0.2)
+    ax.set_ylim(-1.0, 1.9)
+    ax.axis("off")
+    ax.set_title("Each flagellar gene tree, in P. lekithochrous genome order (numbers = UFBoot)",
+                 loc="left", fontsize=10.5, weight="bold", color=TEXT)
+
+    # raw identity check (tree-free)
+    def pooled(alns, x, y):
+        M = T = 0
+        for al in alns:
+            if x in al and y in al:
+                m, t2 = _pair_identity(al[x], al[y])
+                M += m
+                T += t2
+        return 100 * M / T
+    flag_alns = [_read_fasta(p2) for p2 in glob.glob(f"{D}/trimmed/*.faa")]
+    mark = [_read_fasta(f"{D}/markers/bac120_msa_r232.faa")]
+    al = Align.PairwiseAligner(mode="global", open_gap_score=-11, extend_gap_score=-1, end_gap_score=0)
+    al.substitution_matrix = substitution_matrices.load("BLOSUM62")
+    core = {}
+    for x in (R, P):
+        M = T = 0
+        for p2 in glob.glob(f"{D}/core/genes/*.faa"):
+            sq = _read_fasta(p2)
+            a2 = al.align(sq[L], sq[x])[0]
+            for (s1, e1), (s2, e2) in zip(*a2.aligned):
+                for i, j in zip(range(s1, e1), range(s2, e2)):
+                    T += 1
+                    M += sq[L][i] == sq[x][j]
+        core[x] = 100 * M / T
+    txt = ("% protein identity of P. lekithochrous to A. roscoffensis vs to P. parvus:   "
+           f"flagellar genes {pooled(flag_alns, L, R):.1f} vs {pooled(flag_alns, L, P):.1f}   ·   "
+           f"core genes {core[R]:.1f} vs {core[P]:.1f}   ·   "
+           f"GTDB markers {pooled(mark, L, R):.1f} vs {pooled(mark, L, P):.1f}\n"
+           "The genome leans the same way more weakly, so this is a candidate pending the core-gene backbone test.")
+    fig.text(0.06, -0.04, txt, fontsize=8, color=TEXT2)
+    fig.suptitle("Candidate non-vertical inheritance: Poseidonibacter lekithochrous / Arcobacter roscoffensis",
+                 x=0.06, ha="left", fontsize=12, weight="bold", color=TEXT)
+    fig.savefig(f"{OUT}/fig5_poseidonibacter.png", dpi=220, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     org = load_taxa()
@@ -337,6 +540,7 @@ def main():
     rho = fig2_signal_vs_length(rows)
     fig3_concordance(org)
     fig4_recurrent()
+    fig5_case(org)
     print(f"Spearman rho (informative sites vs RF to GTDB): {rho:.3f}")
     print(f"Wrote {OUT}/")
 
