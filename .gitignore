@@ -56,7 +56,6 @@ gene_order/flagellar_trees_ext/concordance/
 gene_order/flagellar_trees_ext/comparison.json
 gene_order/flagellar_trees_ext/hgt_candidates.tsv
 gene_order/flagellar_trees_ext/hgt_screen.json
-gene_order/flagellar_trees_ext/figures/
 gene_order/flagellar_trees_ext/verify/*.dmnd
 gene_order/flagellar_trees_ext/verify/hits_*.tsv
 gene_order/flagellar_trees_ext/verify/queries.faa

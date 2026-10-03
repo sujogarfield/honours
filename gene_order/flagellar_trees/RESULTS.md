@@ -388,12 +388,41 @@ genome^0.83). Anomalies:
   analysis here could see. A donor search (DIAMOND of these proteins against
   RefSeq/NR, excluding Campylobacterota) would decide.
 
+## 4c. Sensitivity: adding motor and chemotaxis genes (42 genes)
+
+M15. Same 149 genomes, gene threshold lowered to ≥ 80 genomes: the 37 genes
+plus cheW, flgM, flgP, motA, motB (11,055 sites, 13.1 % missing). Figures in
+`gene_order/flagellar_trees_ext/figures/`.
+
+| | 37 genes | 42 genes |
+|---|---|---|
+| GTDB branches recovered | 108/146 (74.0 %) | **111/146 (76.0 %)** |
+| …with flagellar UFBoot ≥ 95 | 101 | 103 |
+| Robinson–Foulds (normalised) | 0.26 | 0.24 |
+| Mantel r | 0.574 | 0.576 |
+| gCF on GTDB tree: mean / at 0 % / below 10 % | 55.1 / 6 / 15 | 54.9 / 6 / 13 |
+| Tanglegram crossing pairs | 1,068 | 1,067 |
+
+- **Conclusions unchanged.** No conflict group recurring in ≥ 5 gene trees is
+  new with 42 genes; all shortlist candidates persist with the same or nearly
+  the same support (e.g. *Poseidonibacter* 13 → 14 gene trees, *H. saguini*
+  16 → 18, *Hydrogenimonas* 20 → 20).
+- **The new genes share the flagellar history.** Where they conflict with
+  GTDB they join conflicts already present (cheW: *H. saguini/didelphidarum*;
+  motB: *S. diekertiae/oryzae*, *C. iguaniorum/hyointestinalis*).
+- motB is among the most species-tree-like genes (normalised RF to GTDB 0.27;
+  193 sites); flgM is only 32 sites and is the most discordant.
+- None of the five new genes was detected in *P. lekithochrous*,
+  *A. roscoffensis*, *P. parvus* or *P. antarcticus*, so they do not bear on
+  that case.
+
 ## 5. Next steps
 
 Done: species-marker test (§4), single-gene screen (§4), characterisation of
 the Poseidonibacter/Arcobacter case (§4) — now qualified by the identity check.
 
-1. **Core-gene backbone test** (M13) — *running on Katana*. A second genome
+1. **Core-gene backbone test** (M13) — *stopped at the 36 h walltime limit;
+   needs resubmitting with a longer limit*. A second genome
    backbone, independent of GTDB's marker set, for the 8 candidates. Decides
    how firmly the Poseidonibacter/Arcobacter result stands (currently Holm
    p = 0.048 on the markers).
@@ -405,11 +434,9 @@ the Poseidonibacter/Arcobacter case (§4) — now qualified by the identity chec
 3. **Thermophile tree check** — combined flagellar tree under a
    site-heterogeneous model (LG+C20+F+G via PMSF), to confirm the
    Hippea/Nitrosophilus grouping is long-branch attraction (§3).
-4. **Motility-essential genes (sensitivity analysis)** — *stage 1 running*:
-   42 genes (the 37 + cheW, flgM, flgP, motA, motB; gene threshold ≥ 80
-   genomes; same 149 genomes) in `gene_order/flagellar_trees_ext/` (M15).
-   Stage 2: flaA/flaB after re-detecting flagellin (58 genomes missed, §0) and
-   a rule for the tandem copies.
+4. **Motility-essential genes** — stage 1 done (§4c: 42 genes, conclusions
+   unchanged). Stage 2: flaA/flaB after re-detecting flagellin (58 genomes
+   missed, §0) and a rule for the tandem copies.
 5. **Trimming sensitivity** (optional) — BMGE or ClipKIT instead of trimAl.
 6. **Thesis write-up** — link the Poseidonibacter gene-order result to the
    Thesis B synteny chapter.
@@ -624,7 +651,7 @@ RELL, Holm). Gene content overlaps partly with bac120 (both are mostly
 universal single-copy genes), but gene calls, alignment, trimming, gene
 number and inference are independent of GTDB.
 
-### M15. Extended gene set (sensitivity analysis) — *running*
+### M15. Extended gene set (sensitivity analysis)
 Same pipeline (M4–M9) with the gene threshold lowered to ≥ 80 genomes and the
 genome set fixed to the main run's 149 (`FLAG_DIR=gene_order/flagellar_trees_ext
 MIN_GENOME_COVERAGE=80 KEEP_TAXA=gene_order/flagellar_trees/taxa.tsv`), adding
