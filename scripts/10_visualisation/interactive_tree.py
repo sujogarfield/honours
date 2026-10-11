@@ -100,52 +100,179 @@ def load_motility(path: str) -> dict:
         return json.load(f)
 
 
-def order_records_for_display(records: list[dict]) -> list[dict]:
-    """Order gene records for genome-order display: contigs sorted by
-    flagellar-gene count (most first, i.e. the primary contig leads), genes
-    within a contig sorted by position. A {'separator': True} entry marks
-    the boundary between contigs, since their relative order is unknown in
-    draft assemblies (mirrors the '//' convention in gene_order_overlay.py).
-    Genes duplicated anywhere in the genome are flagged for a dot marker."""
+FASTA_DIR = Path("campy_fetched/campy_fas")
+RAGTAG_DIR = Path("campy_fetched/ragtag_scaffolding/output")
+SCAFFOLDED_GENE_ORDER = Path("gene_order/gene_order_combined_scaffolded.json")
+
+
+def _sequence_lengths(path: Path, keep) -> dict:
+    """{seq_id: length} for the FASTA records whose header line passes keep()."""
+    lengths = {}
+    current = None
+    with open(path) as f:
+        for line in f:
+            if line.startswith(">"):
+                current = line[1:].split()[0] if keep(line) else None
+                if current:
+                    lengths[current] = 0
+            elif current:
+                lengths[current] += len(line.strip())
+    return lengths
+
+
+def load_complete_chromosomes(fasta_dir: Path, ragtag_dir: Path) -> dict:
+    """{contig_id: length} for every chromosome whose flagellar gene order is
+    fully known:
+    - natively closed: the FASTA header calls it a complete genome/sequence
+      (and not a plasmid). Single-sequence WGS scaffolds ("whole genome
+      shotgun sequence") are deliberately excluded: one piece, but not
+      confirmed closed.
+    - RagTag scaffolds (*_RagTag): draft contigs ordered against a closed
+      same-species reference, so they span the reference chromosome. Only
+      reliable for a genome if all its flagellar genes landed on one of them
+      (see is_reliable); flagged ⚡ in the tree."""
+    lengths = {}
+    if not fasta_dir.exists():
+        print(f"Warning: {fasta_dir} not found — no genome will count as reliable")
+        return lengths
+
+    def native(header):
+        h = header.lower()
+        return ("complete genome" in h or "complete sequence" in h) and "plasmid" not in h
+
+    for path in sorted(fasta_dir.glob("*.fna")):
+        lengths.update(_sequence_lengths(path, native))
+    for path in sorted(ragtag_dir.glob("*/ragtag_out/ragtag.scaffold.fasta")):
+        lengths.update(_sequence_lengths(path, lambda h: h.split()[0].endswith("_RagTag")))
+    return lengths
+
+
+def apply_ragtag(gene_order: dict, path: Path) -> set:
+    """Swap in the RagTag-scaffolded gene records for the genomes RagTag was
+    run on, in place. Returns the set of organisms swapped."""
+    if not path.exists():
+        print(f"Warning: {path} not found — RagTag-scaffolded gene order omitted")
+        return set()
+    with open(path) as f:
+        raw = json.load(f)
+    swapped = set()
+    for data in raw.values():
+        if data.get("scaffolded") and data["genes"]:
+            gene_order[data["organism"]] = data["genes"]
+            swapped.add(data["organism"])
+    return swapped
+
+
+def is_reliable(records: list[dict], complete: dict) -> bool:
+    """Gene order is fully known only if every flagellar gene sits on one
+    closed chromosome: natively assembled, or a RagTag scaffold against a
+    same-species reference (see load_complete_chromosomes)."""
+    contigs = {r["contig"] for r in records}
+    return len(contigs) == 1 and next(iter(contigs)) in complete
+
+
+def rank_anchor_genes(gene_order: dict, complete: dict) -> list[str]:
+    """Genes ranked by how many reliable genomes carry exactly one copy. The
+    first is the anchor every circular chromosome is rotated to start at."""
+    single_copy = Counter()
+    for records in gene_order.values():
+        if records and is_reliable(records, complete):
+            counts = Counter(r["gene"].lower() for r in records)
+            single_copy.update(g for g, n in counts.items() if n == 1)
+    return [g for g, _ in single_copy.most_common()]
+
+
+def rotate_circular(records: list[dict], anchors: list[str], chrom_len: int):
+    """Rotate one closed chromosome's genes so the display starts at the
+    anchor gene (the highest-ranked gene present once in this genome), keeping
+    the assembly's own orientation (not reversed when the anchor is on the
+    minus strand). Returns (records, anchor_gene, offsets), where offsets[k]
+    is the k-th gene's (start, end) in bp from the anchor's start, measured
+    around the circle, so a gap that wraps past the assembly's coordinate
+    origin is still a real distance rather than a negative one."""
+    ordered = sorted(records, key=lambda r: r["start"])
+    counts = Counter(r["gene"].lower() for r in ordered)
+    anchor = next((g for g in anchors if counts.get(g) == 1), None)
+    if anchor is None:
+        return ordered, None, None
+    i = next(k for k, r in enumerate(ordered) if r["gene"].lower() == anchor)
+    ordered = ordered[i:] + ordered[:i]
+    a0 = ordered[0]["start"]
+    offsets = []
+    for r in ordered:
+        d0 = (r["start"] - a0) % chrom_len
+        offsets.append((d0, d0 + r["end"] - r["start"]))
+    return ordered, anchor, offsets
+
+
+def order_records_for_display(records: list[dict], complete: dict, anchors: list[str]) -> dict:
+    """Order gene records for genome-order display. Returns
+    {'genes': [...], 'anchor': gene or None, 'chrom_len': bp or None}.
+
+    Reliable genomes (one closed circular chromosome) are rotated to start at
+    the anchor gene, see rotate_circular(). Everything else: contigs sorted
+    by flagellar-gene count (most first, i.e. the primary contig leads),
+    genes within a contig sorted by position, and a {'separator': True}
+    entry marks the boundary between contigs, since their relative order is
+    unknown in draft assemblies (mirrors the '//' convention in
+    gene_order_overlay.py). Genes duplicated anywhere in the genome are
+    flagged for a dot marker."""
     if not records:
-        return []
+        return {"genes": [], "anchor": None, "chrom_len": None}
+
+    gene_counts = Counter(r["gene"].lower() for r in records)
+
+    def entry(r, offset=None):
+        gene = r["gene"].lower()
+        e = {
+            "gene": gene,
+            "start": r["start"],
+            "end": r["end"],
+            "strand": r.get("strand", "+"),
+            "contig": r["contig"],
+            "duplicated": gene_counts[gene] > 1,
+        }
+        if offset is not None:
+            e["dstart"], e["dend"] = offset
+        return e
+
+    if is_reliable(records, complete):
+        chrom_len = complete[records[0]["contig"]]
+        ordered, anchor, offsets = rotate_circular(records, anchors, chrom_len)
+        if anchor is not None:
+            return {"genes": [entry(r, off) for r, off in zip(ordered, offsets)],
+                    "anchor": anchor, "chrom_len": chrom_len}
 
     by_contig: dict[str, list[dict]] = {}
     for r in records:
         by_contig.setdefault(r["contig"], []).append(r)
-
     contig_groups = sorted(by_contig.values(), key=len, reverse=True)
-    gene_counts = Counter(r["gene"].lower() for r in records)
 
     flat = []
     for gi, group in enumerate(contig_groups):
         if gi > 0:
             flat.append({"separator": True})
         for r in sorted(group, key=lambda r: r["start"]):
-            gene = r["gene"].lower()
-            flat.append({
-                "gene": gene,
-                "start": r["start"],
-                "end": r["end"],
-                "strand": r.get("strand", "+"),
-                "contig": r["contig"],
-                "duplicated": gene_counts[gene] > 1,
-            })
-    return flat
+            flat.append(entry(r))
+    return {"genes": flat, "anchor": None, "chrom_len": None}
 
 
-def tree_to_dict(node, gcf_map, gene_order, synteny, motility):
+def tree_to_dict(node, gcf_map, gene_order, synteny, motility, complete, anchors):
     d = {
         "name": node.name or "",
         "length": round(node.dist, 6),
     }
     if node.is_leaf():
         d["gcf"] = gcf_map.get(node.name, "")
-        d["genes"] = order_records_for_display(gene_order.get(node.name, []))
+        records = gene_order.get(node.name, [])
+        display = order_records_for_display(records, complete, anchors)
+        d["genes"] = display["genes"]
+        d["anchor"] = display["anchor"]
+        d["chrom_len"] = display["chrom_len"]
         syn = synteny.get(node.name)
         d["agreement"] = syn["agreement_score"] if syn else None
         d["coverage"] = syn["coverage"] if syn else None
-        d["reliable"] = bool(syn["reliable"]) if syn and "reliable" in syn else None
+        d["reliable"] = bool(records) and is_reliable(records, complete)
         d["scaffolded"] = bool(syn["scaffolded"]) if syn and "scaffolded" in syn else False
         mot = motility.get(node.name)
         d["motility"] = mot["motility"] if mot else None
@@ -153,7 +280,8 @@ def tree_to_dict(node, gcf_map, gene_order, synteny, motility):
         d["motility_madin"] = mot.get("motility_madin") if mot else None
         d["predicted_motility"] = mot.get("predicted_motility") if mot else None
     if node.children:
-        d["children"] = [tree_to_dict(c, gcf_map, gene_order, synteny, motility) for c in node.children]
+        d["children"] = [tree_to_dict(c, gcf_map, gene_order, synteny, motility, complete, anchors)
+                         for c in node.children]
     return d
 
 
@@ -166,7 +294,7 @@ def build_gcf_map(t_named, t_og):
     return {l.name: r.name for l, r in zip(named_leaves, og_leaves)}
 
 
-def generate_html(tree_json, leaf_count, output_path):
+def generate_html(tree_json, leaf_count, output_path, anchor_gene="—"):
     LEAF_SPACING = 26
     tree_data_js = json.dumps(tree_json)
     gene_colors_js = json.dumps(GENE_COLORS)
@@ -249,7 +377,7 @@ def generate_html(tree_json, leaf_count, output_path):
   /* flex-shrink: 0 -- without it, a swatch/icon inside the flex-row .swatch
      or .legend-head squashes out of its aspect ratio (an oval instead of a
      circle) whenever the row runs tight on width, e.g. next to a long label
-     like the cluster-break description -- the text should wrap, not the icon. */
+     like the adjacency description -- the text should wrap, not the icon. */
   #legend .chip {{ width: 12px; height: 12px; border: 1px solid #333; display: inline-block; flex-shrink: 0; }}
   #legend .motility-icon {{ width: 16px; height: 16px; border-radius: 50%; vertical-align: middle; flex-shrink: 0; }}
   #legend .agreement-scale .bar {{ width: 140px; height: 10px; border: 1px solid #c3c2b7;
@@ -271,13 +399,12 @@ def generate_html(tree_json, leaf_count, output_path):
   <label><input type="checkbox" id="showBranchLen"> Show branch lengths</label>
   <label><input type="checkbox" id="showAgreement" checked> Show agreement dot</label>
   <label><input type="checkbox" id="showMotility" checked> Show motility dot</label>
-  <label title="Keep only genomes whose flagellar genes are entirely on one contig (directly assembled, or recovered by RagTag scaffolding against a real same-species reference — see the ⚡ marker). Drops every genome where gene order is still ambiguous.">
+  <label title="Keep only genomes whose flagellar genes all sit on one closed chromosome: natively assembled (FASTA header says complete genome/sequence), or a RagTag scaffold against a same-species reference (⚡). Drops draft assemblies and single-scaffold WGS assemblies. Reliable genomes are drawn as circular chromosomes rotated to start at the anchor gene.">
     <input type="checkbox" id="reliableOnly"> Reliable gene order only (<span id="reliableCount"></span>)
   </label>
-  <label title="Draws a cluster break (|) between two consecutive genes on the same contig whenever the genomic distance between them is at least this many bp — a rough way to see which genes plausibly share one operon vs. sit at separate loci. Purely visual: doesn't affect coverage, agreement scores, or any other computed statistic. Set to 0 to disable.">
-    Cluster gap ≥
-    <input type="range" id="gapThreshold" min="0" max="5000" step="50" value="100" style="vertical-align: middle;">
-    <span id="gapThresholdValue">100 bp</span>
+  <label title="Underlines two consecutive genes on the same contig when they overlap (black) or the second starts within this many bp of the first ending (grey), so runs of tightly packed genes (likely co-transcribed) read as one continuous line. Rectangular view only. Hover a line for the exact distance. Press Enter or click away to apply.">
+    Adjacent ≤
+    <input type="number" id="adjThreshold" min="0" step="1" value="20" style="width: 5em;"> bp
   </label>
   <span class="hint">Scroll to zoom, drag to pan. Hover a leaf for its GCF accession, a gene mark for position/strand, the agreement dot for its score, or the motility dot for its BacDive phenotype.</span>
 </div>
@@ -308,9 +435,11 @@ def generate_html(tree_json, leaf_count, output_path):
   <div class="legend-head" style="margin-top: 8px;">
     <b>Gene track markers</b>
     <span class="swatch">// contig break (genes on either side are on separate contigs/scaffolds — true order unknown)</span>
-    <span class="swatch" style="color:#c17a2a;">| cluster break (same contig, but genomic gap ≥ the slider threshold — hover it for the exact distance)</span>
+    <span class="swatch"><svg width="22" height="6"><line x1="2" x2="20" y1="3" y2="3" stroke="#0b0b0b" stroke-width="3" stroke-linecap="round"/></svg>genes overlap</span>
+    <span class="swatch"><svg width="22" height="6"><line x1="2" x2="20" y1="3" y2="3" stroke="#898781" stroke-width="2" stroke-linecap="round"/></svg>next gene starts within the "Adjacent ≤" distance (rectangular view). On circular chromosomes, a bar running off the end of a track continues in at its start: the last gene sits next to the first.</span>
     <span class="swatch"><span class="chip" style="background:#FF0000; border-radius:50%;"></span>gene also appears elsewhere in this genome (duplicated)</span>
-    <span class="swatch">⚡ gene order includes contigs joined by RagTag scaffolding against a real same-species reference (not directly assembled — hover the leaf name for details)</span>
+    <span class="swatch">⚡ gene order includes contigs joined by RagTag scaffolding against a real same-species reference (not directly assembled, so their order partly follows the reference — hover the leaf name for details)</span>
+    <span class="swatch">Reliable genomes are circular chromosomes, so each track is rotated to start at the anchor gene (<b><span id="anchorGene"></span></b>, single-copy in the most of them; the next most shared gene where it is missing or duplicated), keeping the assembly's own orientation. Hover a leaf name for details.</span>
   </div>
 </div>
 
@@ -359,15 +488,14 @@ let showLen = false;
 let showAgreement = true;
 let showMotility = true;
 let reliableOnly = false;
-let gapThreshold = 100; // bp; genes this far apart (same contig) are drawn as separate clusters
+let adjThreshold = 20; // bp; consecutive genes this close (or overlapping) get a linking underline
 let layoutMode = "circular";
 let activeGenes = new Set();
 
 // Recursively drops any leaf whose flagellar gene order isn't fully known
-// (see synteny_analysis_full_contigs.py / build_merged_synteny.py — a
-// leaf is "reliable" if its genes are entirely on one contig, either as
-// directly assembled or after RagTag-recovering a real same-species
-// reference; see the ⚡ marker for which). Internal nodes left with no
+// (a leaf is "reliable" if its genes all sit on one closed chromosome,
+// either natively assembled or a RagTag scaffold against a same-species
+// reference; see is_reliable() and the ⚡ marker). Internal nodes left with no
 // surviving children are dropped too, so pruning never leaves an empty stub.
 // A node left with exactly ONE surviving child (its other side was entirely
 // pruned away) is collapsed by returning that child directly, rather than
@@ -402,12 +530,6 @@ const zoomBehavior = d3.zoom().scaleExtent([0.02, 8]).on("zoom", (event) => {{
   currentTransform = event.transform;
   d3.select("#chart svg g.zoom-layer").attr("transform", event.transform);
 }});
-
-function fmtPos(bp) {{
-  if (bp >= 1000000) return (bp / 1000000).toFixed(1) + "M";
-  if (bp >= 1000) return Math.floor(bp / 1000) + "k";
-  return String(bp);
-}}
 
 function agreementColor(v) {{
   if (v === null || v === undefined) return "#bbb";
@@ -501,14 +623,10 @@ function motilityTooltipText(d) {{
 
 // Drop genes the checklist has unticked, then collapse any contig separator
 // left with nothing next to it (leading, trailing, or back-to-back) so
-// hiding every gene on a contig doesn't leave a stray "//". Then, if the gap
-// slider is above zero, insert an additional "cluster break" between any two
-// consecutive (same-contig, still-visible) genes whose genomic distance is
-// at least gapThreshold -- distinct from a "//" contig break (order unknown)
-// since this is a real, measured distance on one ordered contig, just a
-// candidate operon/cluster boundary rather than an assembly limitation.
-// Computed on the already-checklist-filtered list, so hiding a gene here
-// correctly merges its neighbours' gap rather than using stale distances.
+// hiding every gene on a contig doesn't leave a stray "//". Neighbour
+// distances (for the adjacency underline) are computed on the
+// already-checklist-filtered list, so hiding a gene correctly merges its
+// neighbours' gap rather than using stale distances.
 function filterGenes(genes) {{
   if (!genes || !genes.length) return [];
   const kept = genes.filter(g => g.separator || activeGenes.has(g.gene));
@@ -523,21 +641,23 @@ function filterGenes(genes) {{
   }});
   while (cleaned.length && cleaned[cleaned.length - 1].separator) cleaned.pop();
 
-  if (gapThreshold <= 0) return cleaned;
-  const withGaps = [];
-  cleaned.forEach((g, i) => {{
-    if (i > 0 && !g.separator) {{
-      const prev = cleaned[i - 1];
-      if (!prev.separator && prev.contig === g.contig) {{
-        const gapSize = g.start - prev.end;
-        if (gapSize >= gapThreshold) {{
-          withGaps.push({{ separator: true, gapBreak: true, gapSize }});
-        }}
-      }}
-    }}
-    withGaps.push(g);
-  }});
-  return withGaps;
+  // Annotate each gene with its distance to the previous visible gene when
+  // both sit on the same contig with nothing between them in the track
+  // (negative = the two genes overlap). Copies, so RAW is never mutated.
+  for (let i = 1; i < cleaned.length; i++) {{
+    const g = cleaned[i], prev = cleaned[i - 1];
+    if (g.separator || prev.separator || prev.contig !== g.contig) continue;
+    cleaned[i] = {{ ...g, prevGene: prev.gene, prevGap: geneGap(prev, g) }};
+  }}
+  return cleaned;
+}}
+
+// bp between the end of gene a and the start of the next gene b on the same
+// contig (negative = overlap). dstart/dend: position along a rotated circular
+// chromosome (see rotate_circular), so this stays correct across the origin.
+// GFF coordinates are inclusive, so directly abutting genes give 0.
+function geneGap(a, b) {{
+  return (b.dstart ?? b.start) - (a.dend ?? a.end) - 1;
 }}
 
 function trackWidth(genes) {{
@@ -562,28 +682,50 @@ function leafLabelTooltip(d) {{
             `against a real same-species reference genome. Inferred, not ` +
             `directly assembled from this genome's own reads.`;
   }}
+  if (d.data.anchor) {{
+    html += `<br>Circular chromosome: track starts at ${{d.data.anchor}}.`;
+  }}
   return html;
 }}
 
-function drawGeneTrack(sel, genes) {{
+const ADJ_Y = BLOCK_H + 2;
+function drawAdjacencyLink(sel, g, xPrevMid, xMid, note = "") {{
+  const overlap = g.prevGap < 0;
+  sel.append("line")
+    .attr("class", "adj-link")
+    .attr("x1", xPrevMid).attr("x2", xMid).attr("y1", ADJ_Y).attr("y2", ADJ_Y)
+    .attr("stroke", overlap ? "#0b0b0b" : "#898781")
+    .attr("stroke-width", overlap ? 3 : 2)
+    .attr("stroke-linecap", "round")
+    .style("cursor", "default")
+    .on("mousemove", (event) => showTooltip(event, overlap
+      ? `<b>${{g.prevGene}}</b> and <b>${{g.gene}}</b> overlap by ${{-g.prevGap}} bp${{note}}`
+      : `<b>${{g.gene}}</b> starts ${{g.prevGap}} bp after <b>${{g.prevGene}}</b> ends${{note}}`))
+    .on("mouseleave", hideTooltip);
+}}
+
+// chromLen: set only for closed circular chromosomes (rotated to the
+// anchor), where the last gene in the track is followed by the first one.
+const WRAP_STUB = 8;
+function drawGeneTrack(sel, genes, chromLen) {{
   let x = GAP;
-  filterGenes(genes).forEach(g => {{
+  let prevMid = null;
+  const shown = filterGenes(genes);
+  shown.forEach(g => {{
     if (g.separator) {{
-      const txt = sel.append("text")
+      sel.append("text")
         .attr("x", x + 1).attr("y", BLOCK_H / 2 + 4)
         .attr("font-size", 11)
-        .attr("fill", g.gapBreak ? "#c17a2a" : "#898781")
-        .text(g.gapBreak ? "|" : "//");
-      if (g.gapBreak) {{
-        txt.style("cursor", "default")
-           .on("mousemove", (event) => showTooltip(event,
-             `Cluster break: ${{fmtPos(g.gapSize)}} gap to next gene ` +
-             `(≥ ${{fmtPos(gapThreshold)}} threshold)`))
-           .on("mouseleave", hideTooltip);
-      }}
+        .attr("fill", "#898781")
+        .text("//");
       x += SEP_W + GAP;
+      prevMid = null;
       return;
     }}
+    if (prevMid !== null && g.prevGap !== undefined && g.prevGap <= adjThreshold) {{
+      drawAdjacencyLink(sel, g, prevMid, x + BLOCK_W / 2);
+    }}
+    prevMid = x + BLOCK_W / 2;
     const color = GENE_COLORS[g.gene] || "#AAAAAA";
     const x0 = x, x1 = x + BLOCK_W, midY = BLOCK_H / 2;
     const pts = g.strand === "-"
@@ -610,6 +752,20 @@ function drawGeneTrack(sel, genes) {{
 
     x += BLOCK_W + GAP;
   }});
+
+  // Circular wrap: the last visible gene sits just before the first one on
+  // the chromosome. If they overlap or are within adjThreshold, draw the bar
+  // running off the right end of the track and back in from the left.
+  if (chromLen && shown.length > 1 && !shown.some(g => g.separator)) {{
+    const first = shown[0], last = shown[shown.length - 1];
+    const wrap = {{ gene: first.gene, prevGene: last.gene,
+                   prevGap: first.dstart + chromLen - last.dend - 1 }};
+    if (wrap.prevGap <= adjThreshold) {{
+      const note = " (across the end of the track: the chromosome is circular)";
+      drawAdjacencyLink(sel, wrap, prevMid, x + WRAP_STUB, note);
+      drawAdjacencyLink(sel, wrap, -WRAP_STUB, GAP + BLOCK_W / 2, note);
+    }}
+  }}
 }}
 
 function layoutTree() {{
@@ -716,7 +872,10 @@ function renderRect(zoomLayer) {{
     .data(root.links())
     .join("path")
     .attr("class", "link")
-    .attr("d", d => `M${{d.source.y}},${{d.source.x}} H${{d.target.y}} V${{d.target.x}}`);
+    // Vertical first (along the parent's depth), then horizontal out to the
+    // child: each clade's vertical bar sits at its own branch point, so no
+    // connector runs through a neighbouring clade's rows.
+    .attr("d", d => `M${{d.source.y}},${{d.source.x}} V${{d.target.x}} H${{d.target.y}}`);
 
   const node = treeLayer.selectAll(".node")
     .data(root.descendants())
@@ -790,7 +949,7 @@ function renderRect(zoomLayer) {{
     if (!d.data.genes || !d.data.genes.length) return;
     const g = geneLayer.append("g")
       .attr("transform", `translate(${{geneTrackX}},${{d.x - BLOCK_H / 2}})`);
-    drawGeneTrack(g, d.data.genes);
+    drawGeneTrack(g, d.data.genes, d.data.chrom_len);
   }});
 }}
 
@@ -1119,8 +1278,9 @@ function buildLegendSVG(g, x0, y0, width) {{
 
   heading("Gene track markers");
   g.append("text").attr("x", x0).attr("y", y).attr("font-size", 10).attr("fill", "#0b0b0b")
-    .text("// contig break (order unknown)     | cluster break (gap ≥ slider threshold)     " +
-          "⚡ RagTag-scaffolded gene order     ● red = duplicated gene");
+    .text(`// contig break (order unknown)     ` +
+          "⚡ RagTag-scaffolded gene order     ● red = duplicated gene     " +
+          `▬ black = overlapping genes, grey = next gene within ${{adjThreshold}} bp`);
   y += 6;
 
   return y;
@@ -1186,6 +1346,7 @@ function saveTreeImage() {{
 
 buildLegend();
 fitToScreen();
+document.getElementById("anchorGene").textContent = {json.dumps(anchor_gene)};
 document.getElementById("reliableCount").textContent =
   `${{countLeaves(filterReliable(RAW) || {{children: []}})}} / ${{countLeaves(RAW)}}`;
 
@@ -1241,13 +1402,20 @@ document.getElementById("showMotility").addEventListener("change", e => {{
 }});
 document.getElementById("reliableOnly").addEventListener("change", e => {{
   reliableOnly = e.target.checked;
-  fitToScreen(); // leaf count changes a lot (155 -> 108) so re-fit, not just re-render
+  fitToScreen(); // leaf count changes a lot, so re-fit, not just re-render
 }});
-document.getElementById("gapThreshold").addEventListener("input", e => {{
-  gapThreshold = +e.target.value;
-  document.getElementById("gapThresholdValue").textContent =
-    gapThreshold === 0 ? "off" : `${{gapThreshold}} bp`;
-  render(); // gene tracks change width when clusters split, but leaf count doesn't -> no re-fit needed
+// Typed rather than a slider: applied on Enter / blur ("change"), not per
+// keystroke, so typing "150" doesn't re-render at 1 and 15 on the way.
+// Anything that isn't a non-negative number is reset to the current value.
+document.getElementById("adjThreshold").addEventListener("change", e => {{
+  const v = Number(e.target.value);
+  if (e.target.value.trim() === "" || !Number.isFinite(v) || v < 0) {{
+    e.target.value = adjThreshold;
+    return;
+  }}
+  adjThreshold = Math.round(v);
+  e.target.value = adjThreshold;
+  render();
 }});
 </script>
 </body>
@@ -1287,8 +1455,16 @@ def main():
     GENE_COLORS.update(generate_gene_colors(all_genes))
     print(f"Generated {len(GENE_COLORS)} distinct gene colours (min-distance randomised)")
 
-    tree_json = tree_to_dict(t_named, gcf_map, gene_order, synteny, motility)
-    generate_html(tree_json, leaf_count, output)
+    scaffolded = apply_ragtag(gene_order, SCAFFOLDED_GENE_ORDER)
+    complete = load_complete_chromosomes(FASTA_DIR, RAGTAG_DIR)
+    anchors = rank_anchor_genes(gene_order, complete)
+    reliable = {o for o, recs in gene_order.items() if recs and is_reliable(recs, complete)}
+    print(f"{len(reliable)} genomes with all flagellar genes on one closed chromosome "
+          f"({len(reliable - scaffolded)} native, {len(reliable & scaffolded)} RagTag); "
+          f"anchor gene: {anchors[0] if anchors else '—'}")
+
+    tree_json = tree_to_dict(t_named, gcf_map, gene_order, synteny, motility, complete, anchors)
+    generate_html(tree_json, leaf_count, output, anchors[0] if anchors else "—")
     print(f"Open in browser: open {output}")
 
 
