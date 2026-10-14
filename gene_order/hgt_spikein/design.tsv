@@ -1,0 +1,19 @@
+test_id	gene	length_class	transfer_distance	condition	recipient_acc	recipient	donor_acc	donor	n_seqs
+flie_within_genus_spike	flie	short (67 sites)	within_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	147
+flie_within_genus_control	flie	short (67 sites)	within_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	147
+flie_close_genus_spike	flie	short (67 sites)	close_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	147
+flie_close_genus_control	flie	short (67 sites)	close_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	147
+flie_distant_genus_spike	flie	short (67 sites)	distant_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	147
+flie_distant_genus_control	flie	short (67 sites)	distant_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	147
+flhb_within_genus_spike	flhb	medium (297 sites)	within_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	147
+flhb_within_genus_control	flhb	medium (297 sites)	within_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	147
+flhb_close_genus_spike	flhb	medium (297 sites)	close_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	147
+flhb_close_genus_control	flhb	medium (297 sites)	close_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	147
+flhb_distant_genus_spike	flhb	medium (297 sites)	distant_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	147
+flhb_distant_genus_control	flhb	medium (297 sites)	distant_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	147
+flha_within_genus_spike	flha	long (556 sites)	within_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	146
+flha_within_genus_control	flha	long (556 sites)	within_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	146
+flha_close_genus_spike	flha	long (556 sites)	close_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	146
+flha_close_genus_control	flha	long (556 sites)	close_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	146
+flha_distant_genus_spike	flha	long (556 sites)	distant_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	146
+flha_distant_genus_control	flha	long (556 sites)	distant_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	146

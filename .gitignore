@@ -68,3 +68,9 @@ gene_order/flagellar_trees_*/concordance/
 gene_order/flagellar_trees_*/comparison.json
 gene_order/flagellar_trees_*/hgt_candidates.tsv
 gene_order/flagellar_trees_*/hgt_screen.json
+# Planted-transfer positive control outputs (Katana / local screen)
+gene_order/hgt_spikein/aligned/
+gene_order/hgt_spikein/trimmed/
+gene_order/hgt_spikein/gene_trees/
+gene_order/hgt_spikein/hgt_candidates.tsv
+gene_order/hgt_spikein/hgt_screen.json

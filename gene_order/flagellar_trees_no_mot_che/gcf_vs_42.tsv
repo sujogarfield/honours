@@ -1,0 +1,146 @@
+ID	gCF_42	gCF_37nomotche	delta	gN_42	gN_37	clade
+152	0.0	0.0	+0.00	23	23	141 taxa: Campylobacter×40, Helicobacter×40, Sulfurimonas×14 …
+153	0.0	0.0	+0.00	25	25	112 taxa: Campylobacter×40, Helicobacter×40, Sulfurimonas×14 …
+154	2.86	3.03	+0.17	35	33	97 taxa: Campylobacter×40, Helicobacter×40, Sulfurospirillum×9 …
+155	16.22	14.29	-1.93	37	35	90 taxa: Campylobacter×40, Helicobacter×40, Sulfurospirillum×9 …
+156	68.29	69.44	+1.15	41	36	49 taxa: Campylobacter×40, Sulfurospirillum×9
+157	13.51	11.76	-1.75	37	34	41 taxa: Campylobacter×40, Sulfurospirillum
+158	68.42	65.71	-2.71	38	35	40 taxa: Campylobacter×40
+159	34.15	35.14	+0.99	41	37	20 taxa: Campylobacter×20
+160	20.0	13.89	-6.11	40	36	9 taxa: Campylobacter×9
+161	78.05	75.0	-3.05	41	36	8 taxa: Campylobacter×8
+162	59.52	56.76	-2.76	42	37	7 taxa: Campylobacter×7
+163	97.56	97.22	-0.34	41	36	4 taxa: Campylobacter×4
+164	22.5	22.86	+0.36	40	35	3 taxa: Campylobacter×3
+165	31.71	27.78	-3.93	41	36	Campylobacter vicugnae + Campylobacter devanensis
+166	38.1	32.43	-5.67	42	37	3 taxa: Campylobacter×3
+167	4.76	5.41	+0.65	42	37	Campylobacter iguaniorum + Campylobacter fetus
+168	74.36	72.22	-2.14	39	36	11 taxa: Campylobacter×11
+169	82.05	80.56	-1.49	39	36	8 taxa: Campylobacter×8
+170	55.26	54.29	-0.97	38	35	Campylobacter concisus + Campylobacter curvus
+171	12.82	11.11	-1.71	39	36	6 taxa: Campylobacter×6
+172	48.72	50.0	+1.28	39	36	5 taxa: Campylobacter×5
+173	12.82	13.89	+1.07	39	36	4 taxa: Campylobacter×4
+174	25.0	27.03	+2.03	40	37	Campylobacter majalis + Campylobacter pinnipediorum
+175	10.53	8.57	-1.96	38	35	Campylobacter mucosalis + Campylobacter gastrosuis
+176	100.0	100.0	+0.00	37	34	3 taxa: Campylobacter×3
+177	45.95	47.06	+1.11	37	34	Campylobacter rectus + Campylobacter massiliensis
+178	60.0	60.0	+0.00	40	35	20 taxa: Campylobacter×20
+179	84.62	85.29	+0.67	39	34	19 taxa: Campylobacter×19
+180	92.5	91.43	-1.07	40	35	7 taxa: Campylobacter×7
+181	25.0	22.86	-2.14	40	35	5 taxa: Campylobacter×5
+182	17.5	14.29	-3.21	40	35	4 taxa: Campylobacter×4
+183	10.26	8.82	-1.44	39	34	3 taxa: Campylobacter×3
+184	15.38	17.65	+2.27	39	34	Campylobacter ornithocola + Campylobacter subantarcticus
+185	40.0	40.0	+0.00	40	35	Campylobacter insulaenigrae + Campylobacter volucris
+186	65.0	62.86	-2.14	40	35	12 taxa: Campylobacter×12
+187	64.29	64.86	+0.57	42	37	10 taxa: Campylobacter×10
+188	17.07	13.89	-3.18	41	36	8 taxa: Campylobacter×8
+189	21.95	22.22	+0.27	41	36	7 taxa: Campylobacter×7
+190	50.0	51.35	+1.35	42	37	6 taxa: Campylobacter×6
+191	21.43	21.62	+0.19	42	37	3 taxa: Campylobacter×3
+192	68.29	66.67	-1.62	41	36	Campylobacter aviculae + Campylobacter taeniopygiae
+193	50.0	45.95	-4.05	42	37	3 taxa: Campylobacter×3
+194	71.79	73.53	+1.74	39	34	Campylobacter hepaticus + Campylobacter bilis
+195	92.86	91.89	-0.97	42	37	Campylobacter helveticus + Campylobacter upsaliensis
+196	82.5	82.86	+0.36	40	35	Campylobacter troglodytis + Campylobacter avium
+197	75.68	76.47	+0.79	37	34	8 taxa: Sulfurospirillum×8
+198	94.59	94.12	-0.47	37	34	7 taxa: Sulfurospirillum×7
+199	42.11	36.36	-5.75	38	33	4 taxa: Sulfurospirillum×4
+200	8.11	9.38	+1.27	37	32	3 taxa: Sulfurospirillum×3
+201	94.74	93.94	-0.80	38	33	Sulfurospirillum multivorans + Sulfurospirillum halorespirans
+202	12.5	14.29	+1.79	40	35	3 taxa: Sulfurospirillum×3
+203	74.36	70.59	-3.77	39	34	Sulfurospirillum deleyianum + Sulfurospirillum barnesii
+204	87.8	91.89	+4.09	41	37	41 taxa: Helicobacter×40, Wolinella
+205	61.54	58.33	-3.21	39	36	9 taxa: Helicobacter×8, Wolinella
+206	100.0	100.0	+0.00	39	36	8 taxa: Helicobacter×8
+207	10.26	11.11	+0.85	39	36	7 taxa: Helicobacter×7
+208	23.08	25.0	+1.92	39	36	6 taxa: Helicobacter×6
+209	57.5	62.16	+4.66	40	37	3 taxa: Helicobacter×3
+210	87.5	86.49	-1.01	40	37	Helicobacter turcicus + Helicobacter winghamensis
+211	73.68	74.29	+0.61	38	35	3 taxa: Helicobacter×3
+212	92.11	91.43	-0.68	38	35	Helicobacter canadensis + Helicobacter colisuis
+213	71.79	72.22	+0.43	39	36	32 taxa: Helicobacter×32
+214	27.5	27.78	+0.28	40	36	27 taxa: Helicobacter×27
+215	48.78	47.22	-1.56	41	36	21 taxa: Helicobacter×21
+216	48.72	52.94	+4.22	39	34	16 taxa: Helicobacter×16
+217	28.21	25.71	-2.50	39	35	14 taxa: Helicobacter×14
+218	87.8	86.49	-1.31	41	37	11 taxa: Helicobacter×11
+219	95.24	94.59	-0.65	42	37	8 taxa: Helicobacter×8
+220	23.08	20.0	-3.08	39	35	5 taxa: Helicobacter×5
+221	79.49	77.14	-2.35	39	35	4 taxa: Helicobacter×4
+222	44.74	47.06	+2.32	38	34	3 taxa: Helicobacter×3
+223	67.57	66.67	-0.90	37	33	Helicobacter labacensis + Helicobacter vulpis
+224	40.54	42.42	+1.88	37	33	3 taxa: Helicobacter×3
+225	81.08	84.85	+3.77	37	33	Helicobacter ailurogastricus + Helicobacter heilmannii
+226	100.0	100.0	+0.00	41	36	3 taxa: Helicobacter×3
+227	86.49	87.5	+1.01	37	32	Helicobacter pylori + Helicobacter acinonychis
+228	89.47	88.24	-1.23	38	34	3 taxa: Helicobacter×3
+229	81.58	79.41	-2.17	38	34	Helicobacter anatolicus + Helicobacter mustelae
+230	100.0	100.0	+0.00	40	35	Helicobacter canis + Helicobacter macacae
+231	100.0	100.0	+0.00	40	36	5 taxa: Helicobacter×5
+232	40.0	36.11	-3.89	40	36	4 taxa: Helicobacter×4
+233	7.32	5.56	-1.76	41	36	3 taxa: Helicobacter×3
+234	95.0	94.29	-0.71	40	35	Helicobacter trogontum + Helicobacter bilis
+235	95.0	94.29	-0.71	40	35	6 taxa: Helicobacter×6
+236	92.5	91.43	-1.07	40	35	5 taxa: Helicobacter×5
+237	43.9	47.22	+3.32	41	36	3 taxa: Helicobacter×3
+238	85.0	88.57	+3.57	40	35	Helicobacter cinaedi + Helicobacter labetoulli
+239	55.0	54.29	-0.71	40	35	Helicobacter japonicus + Helicobacter marmotae
+240	100.0	100.0	+0.00	39	35	5 taxa: Helicobacter×5
+241	17.95	20.0	+2.05	39	35	3 taxa: Helicobacter×3
+242	92.5	91.67	-0.83	40	36	Helicobacter pametensis + Helicobacter kayseriensis
+243	81.08	78.79	-2.29	37	33	Helicobacter brantae + Helicobacter cholecystus
+244	0.0	0.0	+0.00	26	25	7 taxa: Nitrosophilus×3, Hydrogenimonas×3, Nitratiruptor
+245	100.0	100.0	+0.00	23	23	4 taxa: Nitrosophilus×3, Nitratiruptor
+246	17.39	17.39	+0.00	23	23	3 taxa: Nitrosophilus×2, Nitratiruptor
+247	64.0	62.5	-1.50	25	24	Nitrosophilus kaiyonis + Nitrosophilus labii
+248	84.62	84.0	-0.62	26	25	3 taxa: Hydrogenimonas×3
+249	21.62	23.53	+1.91	37	34	Hydrogenimonas thermophila + Hydrogenimonas cancrithermarum
+250	94.12	93.75	-0.37	34	32	15 taxa: Sulfurimonas×14, Sulfuricurvum
+251	88.57	87.88	-0.69	35	33	14 taxa: Sulfurimonas×14
+252	5.41	5.71	+0.30	37	35	12 taxa: Sulfurimonas×12
+253	0.0	0.0	+0.00	38	36	6 taxa: Sulfurimonas×6
+254	0.0	0.0	+0.00	38	36	5 taxa: Sulfurimonas×5
+255	0.0	0.0	+0.00	38	36	3 taxa: Sulfurimonas×3
+256	63.16	61.11	-2.05	38	36	Sulfurimonas gotlandica + Sulfurimonas hongkongensis
+257	91.89	91.43	-0.46	37	35	Sulfurimonas baltica + Sulfurimonas marisnigri
+258	24.32	22.86	-1.46	37	35	6 taxa: Sulfurimonas×6
+259	35.14	34.29	-0.85	37	35	5 taxa: Sulfurimonas×5
+260	84.21	83.33	-0.88	38	36	3 taxa: Sulfurimonas×3
+261	91.67	91.18	-0.49	36	34	Sulfurimonas hydrogeniphila + Sulfurimonas sediminis
+262	84.21	83.33	-0.88	38	36	Sulfurimonas indica + Sulfurimonas paralvinellae
+263	64.86	62.86	-2.00	37	35	Sulfurimonas denitrificans + Sulfurimonas crateris
+264	100.0	100.0	+0.00	24	24	29 taxa: Arcobacter×9, Aliarcobacter×9, Malaciobacter×5 …
+265	83.33	83.33	+0.00	24	24	4 taxa: Malaciobacter×4
+266	25.0	25.0	+0.00	24	24	3 taxa: Malaciobacter×3
+267	87.5	87.5	+0.00	24	24	Malaciobacter halophilus + Malaciobacter marinus
+268	4.17	4.17	+0.00	24	24	25 taxa: Arcobacter×9, Aliarcobacter×9, Poseidonibacter×3 …
+269	16.67	16.67	+0.00	24	24	24 taxa: Aliarcobacter×9, Arcobacter×8, Poseidonibacter×3 …
+270	32.0	32.0	+0.00	25	25	21 taxa: Aliarcobacter×9, Arcobacter×8, Poseidonibacter×3 …
+271	16.0	16.0	+0.00	25	25	17 taxa: Aliarcobacter×9, Arcobacter×7, Malaciobacter
+272	36.0	36.0	+0.00	25	25	16 taxa: Aliarcobacter×9, Arcobacter×7
+273	22.22	24.0	+1.78	27	25	4 taxa: Arcobacter×4
+274	4.0	4.0	+0.00	25	25	3 taxa: Arcobacter×3
+275	92.0	92.0	+0.00	25	25	Arcobacter aquimarinus + Arcobacter cloacae
+276	48.15	44.0	-4.15	27	25	12 taxa: Aliarcobacter×9, Arcobacter×3
+277	14.81	12.0	-2.81	27	25	10 taxa: Aliarcobacter×8, Arcobacter×2
+278	77.78	76.0	-1.78	27	25	7 taxa: Aliarcobacter×6, Arcobacter
+279	46.43	42.31	-4.12	28	26	5 taxa: Aliarcobacter×4, Arcobacter
+280	82.14	80.77	-1.37	28	26	Aliarcobacter trophiarum + Aliarcobacter cryaerophilus
+281	78.57	76.92	-1.65	28	26	3 taxa: Aliarcobacter×2, Arcobacter
+282	96.43	96.15	-0.28	28	26	Aliarcobacter thereius + Arcobacter porcinus
+283	89.29	88.46	-0.83	28	26	Aliarcobacter vitoriensis + Aliarcobacter lanthieri
+284	96.3	100.0	+3.70	27	25	3 taxa: Aliarcobacter×2, Arcobacter
+285	33.33	36.0	+2.67	27	25	Aliarcobacter faecis + Aliarcobacter cibarius
+286	89.29	88.46	-0.83	28	26	Arcobacter lacus + Aliarcobacter butzleri
+287	40.0	40.0	+0.00	25	25	4 taxa: Poseidonibacter×3, Arcobacter
+288	12.0	12.0	+0.00	25	25	3 taxa: Poseidonibacter×3
+289	96.0	96.0	+0.00	25	25	Poseidonibacter antarcticus + Poseidonibacter parvus
+290	41.67	41.67	+0.00	24	24	3 taxa: Halarcobacter×3
+291	83.33	83.33	+0.00	24	24	Halarcobacter anaerophilus + Halarcobacter ebronensis
+292	92.0	92.0	+0.00	25	25	4 taxa: Caminibacter×2, Nautilia, Lebetimonas
+293	36.36	35.48	-0.88	33	31	3 taxa: Caminibacter×2, Nautilia
+294	68.75	70.0	+1.25	32	30	Caminibacter pacificus + Caminibacter mediatlanticus
+296	92.59	92.59	+0.00	27	27	3 taxa: Hippea×3
+297	38.46	38.46	+0.00	26	26	Hippea alviniae + Hippea maritima

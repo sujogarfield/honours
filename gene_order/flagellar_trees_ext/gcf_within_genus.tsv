@@ -1,0 +1,77 @@
+genus	clade_size	gCF_full	gN_full	gCF_genus_only	gN_genus	delta	clade
+Campylobacter	20	34.1	41	69.2	39	+35.1	20 taxa: C. anatolicus … C. vicugnae
+Campylobacter	20	60.0	40	69.2	39	+9.2	20 taxa: C. armoricus … C. volucris
+Campylobacter	19	84.6	39	89.7	39	+5.1	19 taxa: C. armoricus … C. volucris
+Campylobacter	12	65.0	40	65.0	40	+0.0	12 taxa: C. aviculae … C. upsaliensis
+Campylobacter	11	74.4	39	74.4	39	+0.0	11 taxa: C. anatolicus … C. suis
+Campylobacter	10	64.3	42	66.7	42	+2.4	10 taxa: C. aviculae … C. upsaliensis
+Campylobacter	9	20.0	40	22.5	40	+2.5	9 taxa: C. devanensis … C. vicugnae
+Campylobacter	8	78.0	41	78.0	41	+0.0	8 taxa: C. devanensis … C. vicugnae
+Campylobacter	8	82.1	39	82.1	39	+0.0	8 taxa: C. anatolicus … C. suis
+Campylobacter	8	17.1	41	17.1	41	+0.0	8 taxa: C. aviculae … C. taeniopygiae
+Campylobacter	7	92.5	40	92.5	40	+0.0	7 taxa: C. armoricus … C. volucris
+Campylobacter	7	59.5	42	61.9	42	+2.4	7 taxa: C. devanensis … C. vicugnae
+Campylobacter	7	22.0	41	22.0	41	+0.0	7 taxa: C. aviculae … C. taeniopygiae
+Campylobacter	6	12.8	39	12.8	39	+0.0	6 taxa: C. anatolicus … C. suis
+Campylobacter	6	50.0	42	50.0	42	+0.0	6 taxa: C. aviculae … C. taeniopygiae
+Campylobacter	5	25.0	40	25.0	40	+0.0	5 taxa: C. armoricus … C. subantarcticus
+Campylobacter	5	48.7	39	48.7	39	+0.0	5 taxa: C. gastrosuis … C. suis
+Campylobacter	4	97.6	41	100.0	41	+2.4	4 taxa: C. devanensis … C. vicugnae
+Campylobacter	4	17.5	40	17.5	40	+0.0	4 taxa: C. armoricus … C. subantarcticus
+Campylobacter	4	12.8	39	12.8	39	+0.0	4 taxa: C. gastrosuis … C. pinnipediorum
+Campylobacter	3	100.0	37	100.0	37	+0.0	C. massiliensis, C. rectus, C. showae
+Campylobacter	3	38.1	42	38.1	42	+0.0	C. fetus, C. hyointestinalis, C. iguaniorum
+Campylobacter	3	22.5	40	22.5	40	+0.0	C. devanensis, C. porcelli, C. vicugnae
+Campylobacter	3	10.3	39	10.3	39	+0.0	C. lari, C. ornithocola, C. subantarcticus
+Campylobacter	3	21.4	42	21.4	42	+0.0	C. aviculae, C. coli, C. taeniopygiae
+Campylobacter	3	50.0	42	50.0	42	+0.0	C. bilis, C. hepaticus, C. jejuni
+Campylobacter	2	55.3	38	55.3	38	+0.0	C. concisus, C. curvus
+Campylobacter	2	45.9	37	45.9	37	+0.0	C. massiliensis, C. rectus
+Campylobacter	2	40.0	40	40.0	40	+0.0	C. insulaenigrae, C. volucris
+Campylobacter	2	82.5	40	82.5	40	+0.0	C. avium, C. troglodytis
+Campylobacter	2	92.9	42	92.9	42	+0.0	C. helveticus, C. upsaliensis
+Campylobacter	2	4.8	42	4.8	42	+0.0	C. fetus, C. iguaniorum
+Campylobacter	2	31.7	41	31.7	41	+0.0	C. devanensis, C. vicugnae
+Campylobacter	2	25.0	40	25.0	40	+0.0	C. majalis, C. pinnipediorum
+Campylobacter	2	10.5	38	10.5	38	+0.0	C. gastrosuis, C. mucosalis
+Campylobacter	2	15.4	39	15.4	39	+0.0	C. ornithocola, C. subantarcticus
+Campylobacter	2	68.3	41	68.3	41	+0.0	C. aviculae, C. taeniopygiae
+Campylobacter	2	71.8	39	74.4	39	+2.6	C. bilis, C. hepaticus
+Helicobacter	32	71.8	39	100.0	37	+28.2	32 taxa: H. acinonychis … H. vulpis
+Helicobacter	27	27.5	40	25.6	39	-1.9	27 taxa: H. acinonychis … H. vulpis
+Helicobacter	21	48.8	41	51.2	41	+2.4	21 taxa: H. acinonychis … H. vulpis
+Helicobacter	16	48.7	39	51.3	39	+2.6	16 taxa: H. acinonychis … H. vulpis
+Helicobacter	14	28.2	39	28.2	39	+0.0	14 taxa: H. acinonychis … H. vulpis
+Helicobacter	11	87.8	41	87.8	41	+0.0	11 taxa: H. acinonychis … H. vulpis
+Helicobacter	8	100.0	39	100.0	37	+0.0	8 taxa: H. canadensis … H. winghamensis
+Helicobacter	8	95.2	42	95.2	42	+0.0	8 taxa: H. ailurogastricus … H. vulpis
+Helicobacter	7	10.3	39	10.3	39	+0.0	7 taxa: H. canadensis … H. winghamensis
+Helicobacter	6	95.0	40	95.0	40	+0.0	6 taxa: H. cinaedi … H. marmotae
+Helicobacter	6	23.1	39	23.1	39	+0.0	6 taxa: H. canadensis … H. winghamensis
+Helicobacter	5	100.0	39	100.0	38	+0.0	5 taxa: H. brantae … H. pametensis
+Helicobacter	5	100.0	40	100.0	40	+0.0	5 taxa: H. bilis … H. trogontum
+Helicobacter	5	92.5	40	92.5	40	+0.0	5 taxa: H. cinaedi … H. marmotae
+Helicobacter	5	23.1	39	23.1	39	+0.0	5 taxa: H. felis … H. vulpis
+Helicobacter	4	40.0	40	40.0	40	+0.0	4 taxa: H. bilis … H. trogontum
+Helicobacter	4	79.5	39	79.5	39	+0.0	4 taxa: H. felis … H. vulpis
+Helicobacter	3	17.9	39	17.9	39	+0.0	H. enhydrae, H. kayseriensis, H. pametensis
+Helicobacter	3	57.5	40	57.5	40	+0.0	H. rodentium, H. turcicus, H. winghamensis
+Helicobacter	3	73.7	38	73.7	38	+0.0	H. canadensis, H. colisuis, H. pullorum
+Helicobacter	3	43.9	41	43.9	41	+0.0	H. cinaedi, H. jaachi, H. labetoulli
+Helicobacter	3	89.5	38	89.5	38	+0.0	H. anatolicus, H. anseris, H. mustelae
+Helicobacter	3	7.3	41	7.3	41	+0.0	H. bilis, H. didelphidarum, H. trogontum
+Helicobacter	3	100.0	41	100.0	41	+0.0	H. acinonychis, H. cetorum, H. pylori
+Helicobacter	3	40.5	37	40.5	37	+0.0	H. ailurogastricus, H. heilmannii, H. suis
+Helicobacter	3	44.7	38	44.7	38	+0.0	H. labacensis, H. salomonis, H. vulpis
+Helicobacter	2	81.1	37	81.1	37	+0.0	H. brantae, H. cholecystus
+Helicobacter	2	92.5	40	92.5	40	+0.0	H. kayseriensis, H. pametensis
+Helicobacter	2	100.0	40	100.0	40	+0.0	H. canis, H. macacae
+Helicobacter	2	55.0	40	55.0	40	+0.0	H. japonicus, H. marmotae
+Helicobacter	2	87.5	40	87.5	40	+0.0	H. turcicus, H. winghamensis
+Helicobacter	2	92.1	38	92.1	38	+0.0	H. canadensis, H. colisuis
+Helicobacter	2	85.0	40	85.0	40	+0.0	H. cinaedi, H. labetoulli
+Helicobacter	2	81.6	38	81.6	38	+0.0	H. anatolicus, H. mustelae
+Helicobacter	2	95.0	40	95.0	40	+0.0	H. bilis, H. trogontum
+Helicobacter	2	86.5	37	86.5	37	+0.0	H. acinonychis, H. pylori
+Helicobacter	2	81.1	37	81.1	37	+0.0	H. ailurogastricus, H. heilmannii
+Helicobacter	2	67.6	37	67.6	37	+0.0	H. labacensis, H. vulpis
