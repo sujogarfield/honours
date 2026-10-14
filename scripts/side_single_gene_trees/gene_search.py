@@ -10,8 +10,8 @@ import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "common"))
 from helpers import get_organism_from_fasta
 
-gff_dir = "campy_fetched/campy_ann"
-fasta_dir = "campy_fetched/campy_fas"
+gff_dir = "../../campy_fetched/campy_ann"
+fasta_dir = "../../campy_fetched/campy_fas"
 
 if len(sys.argv) == 1:
     print("please enter at least one gene to search")
