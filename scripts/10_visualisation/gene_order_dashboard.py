@@ -63,7 +63,6 @@ def generate_html(
     tree_order_all: list[str], tree_order_reliable: list[str],
     phylo_subtree_all: dict, phylo_subtree_reliable: dict,
     motility_data=None,
-    tanglegram_data=None,
 ) -> str:
     data_all_js = json.dumps(data_all)
     data_reliable_js = json.dumps(data_reliable)
@@ -73,7 +72,6 @@ def generate_html(
     phylo_subtree_all_js = json.dumps(phylo_subtree_all)
     phylo_subtree_reliable_js = json.dumps(phylo_subtree_reliable)
     motility_data_js = json.dumps(motility_data or {})
-    tanglegram_data_js = json.dumps(tanglegram_data or {})
     n_all = len(data_all["matrix"]["organisms"])
     n_reliable = len(data_reliable["matrix"]["organisms"])
 
@@ -115,7 +113,6 @@ def generate_html(
   .motility-gene-label {{ font-size: 10px; fill: #0b0b0b; cursor: default; }}
   .motility-group-label {{ font-size: 11px; font-weight: 600; }}
   .motility-toggle {{ font-size: 12px; color: #52514e; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }}
-  #hgtWrap {{ overflow: auto; max-height: calc(100vh - 220px); border: 1px solid #e1e0d9; border-radius: 6px; }}
   #dotPlotModal {{
     display: none; position: fixed; inset: 0; background: rgba(11,11,11,0.45);
     z-index: 200; align-items: center; justify-content: center;
@@ -135,7 +132,6 @@ def generate_html(
   <button class="tab-btn" data-tab="tanglegram">Tanglegram (phylogeny vs. gene order)</button>
   <button class="tab-btn" data-tab="mds">MDS (gene order only)</button>
   <button class="tab-btn" data-tab="motility">Gene content vs. motility</button>
-  <button class="tab-btn" data-tab="hgt">HGT tanglegram (gene tree vs. species tree)</button>
   <label id="reliableToggleLabel" style="margin-left: 16px; font-size: 13px; color: #52514e; align-self: center;"
     title="Switch every panel to the genomes whose flagellar genes all sit on one closed, circular chromosome: a natively complete assembly, or a RagTag scaffold against a same-species reference (same set as the interactive tree, minus genomes with < 4 flagellar genes). Gene order is compared as circular, so the last and first genes count as neighbours. Drops every genome where gene order is still ambiguous. This is a precomputed dataset, not a client-side filter — the Mantel test, UPGMA tree, and MDS coordinates are all recomputed on just this set, not just visually hidden.">
     <input type="checkbox" id="reliableOnly"> Reliable gene order only ({n_reliable} / {n_all})
@@ -178,17 +174,6 @@ def generate_html(
   <div id="motilityWrap"><svg id="motilitySvg"></svg></div>
 </div>
 
-<div id="panel-hgt" class="panel">
-  <div class="hint">Left: GTDB phylogeny (pruned to genomes with a member of the selected orthogroup). Right: that orthogroup's own OrthoFinder gene tree (built from the actual protein sequences, not gene order). A straight, uncrossed connector means a genome's placement by this gene agrees with its placement genome-wide; long diagonal/crossing connectors mean the gene's evolutionary history disagrees with the species tree — the classic horizontal-gene-transfer signature. Genomes with more than one copy (paralogs) get one connector per copy, each labelled by its protein ID. Each leaf has a genus-coloured dot (same palette as the rest of this dashboard) — a dot sitting inside a differently-coloured cluster on the gene-tree side is the visual tell for HGT, faster to spot than reading every label.</div>
-  <div style="margin-bottom:10px;">
-    <label style="font-size:13px; color:#52514e;">Gene / orthogroup:
-      <select id="hgtSelect"></select>
-    </label>
-    <span id="hgtMeta" style="font-size:12px; color:#898781; margin-left:12px;"></span>
-  </div>
-  <div id="hgtWrap"><svg id="hgtSvg"></svg></div>
-</div>
-
 <div id="dotPlotModal">
   <div id="dotPlotCard">
     <div id="dotPlotHead">
@@ -210,7 +195,6 @@ const PHYLO_SUBTREE_ALL = {phylo_subtree_all_js};
 const PHYLO_SUBTREE_RELIABLE = {phylo_subtree_reliable_js};
 const GENUS_COLORS = {genus_colors_js};
 const MOTILITY_DATA = {motility_data_js};
-const TANGLEGRAM_DATA = {tanglegram_data_js};
 
 // Mutable "active dataset" pointers -- every render function below reads
 // these, never DATA_ALL/DATA_RELIABLE directly, so toggling just swaps
@@ -971,162 +955,8 @@ function renderMotility() {{
 
 document.getElementById("includePredicted").addEventListener("change", renderMotility);
 
-// ---------------------------------------------------------------------------
-// HGT tanglegram: GTDB species tree vs. a specific orthogroup's own gene
-// tree (OrthoFinder's Resolved_Gene_Trees), connected by genome. Crossing
-// connectors = phylogenetic incongruence = HGT signature. Reuses
-// clusterLayout() (defined above, in the synteny tanglegram section).
-// ---------------------------------------------------------------------------
-const hgtSelect = document.getElementById("hgtSelect");
-(function populateHgtSelect() {{
-  const ogs = Object.keys(TANGLEGRAM_DATA).sort();
-  hgtSelect.innerHTML = ogs.map(og => {{
-    const d = TANGLEGRAM_DATA[og];
-    const label = d.n_leaves === d.n_genomes
-      ? `${{og}} (${{d.n_genomes}} genomes, single-copy)`
-      : `${{og}} (${{d.n_leaves}} copies / ${{d.n_genomes}} genomes, has paralogs)`;
-    return `<option value="${{og}}">${{label}}</option>`;
-  }}).join("");
-}})();
-hgtSelect.addEventListener("change", renderHGT);
-
-function renderHGT() {{
-  const og = hgtSelect.value;
-  if (!og || !TANGLEGRAM_DATA[og]) {{
-    document.getElementById("hgtMeta").textContent = "No orthogroups available -- run build_gene_tanglegram_data.py.";
-    return;
-  }}
-  const data = TANGLEGRAM_DATA[og];
-  document.getElementById("hgtMeta").textContent =
-    `${{data.n_leaves}} gene-tree leaves across ${{data.n_genomes}} genomes` +
-    (data.n_leaves !== data.n_genomes ? " (includes paralogs -- one connector per copy)" : "");
-
-  const LEAF_SPACING = 16, LEVEL_SPACING = 24;
-  const CONNECTOR_W = 140, LABEL_MARGIN = 205;
-  const margin = {{ top: 30, right: 20, bottom: 20, left: 20 }};
-
-  const left = clusterLayout(data.species_tree, LEAF_SPACING);
-
-  // Rotate the gene tree's branches (children order at every internal node
-  // can be swapped without changing what the tree means) to minimise
-  // crossings against the species tree's fixed leaf order -- otherwise
-  // even two topologically IDENTICAL trees can render looking maximally
-  // tangled purely from arbitrary left/right choices at each branch
-  // point. Standard barycenter heuristic: each leaf's "position" is its
-  // matching left-tree x; each internal node's position is the mean of
-  // its children's; sort children by that mean, bottom-up. Crossings that
-  // remain after this are the real, unavoidable discordance signal.
-  const leftPosForReorder = new Map(left.leaves.map(d => [d.data.match, d.x]));
-  function reorderByBarycenter(node) {{
-    if (!node.children || node.children.length === 0) {{
-      const pos = leftPosForReorder.get(node.match);
-      return pos !== undefined ? pos : 0;
-    }}
-    const barys = node.children.map(reorderByBarycenter);
-    const order = node.children.map((c, i) => i).sort((a, b) => barys[a] - barys[b]);
-    node.children = order.map(i => node.children[i]);
-    return d3.mean(order.map(i => barys[i]));
-  }}
-  reorderByBarycenter(data.gene_tree);
-
-  const right = clusterLayout(data.gene_tree, LEAF_SPACING);
-  const TREE_W = Math.max(left.maxDepth, right.maxDepth, 1) * LEVEL_SPACING;
-  const contentHeight = Math.max(left.contentHeight, right.contentHeight);
-  const width = margin.left + TREE_W + LABEL_MARGIN + CONNECTOR_W + LABEL_MARGIN + TREE_W + margin.right;
-  const height = margin.top + contentHeight + margin.bottom;
-
-  const svg = d3.select("#hgtSvg").attr("width", width).attr("height", height);
-  svg.selectAll("*").remove();
-  const g = svg.append("g").attr("transform", `translate(${{margin.left}},${{margin.top}})`);
-
-  const leftX0 = 0, leftX1 = TREE_W;
-  const leftConnX = leftX1 + LABEL_MARGIN;
-  const rightConnX = leftConnX + CONNECTOR_W;
-  const rightX0 = rightConnX + LABEL_MARGIN, rightX1 = rightX0 + TREE_W;
-
-  function drawTree(layout, x0, x1, mirrored) {{
-    const xOf = d => x0 + (mirrored ? (1 - d.y) : d.y) * (x1 - x0);
-    g.append("g").selectAll("path").data(layout.root.links()).join("path")
-      .attr("d", d => {{
-        const sx = xOf(d.source), tx = xOf(d.target);
-        const mid = (sx + tx) / 2;
-        return `M${{sx}},${{d.source.x}} H${{mid}} V${{d.target.x}} H${{tx}}`;
-      }})
-      .attr("fill", "none").attr("stroke", "#c3c2b7").attr("stroke-width", 1);
-  }}
-  drawTree(left, leftX0, leftX1, false);
-  drawTree(right, rightX0, rightX1, true);
-
-  // Small genus-coloured dot before each label (same palette used
-  // elsewhere in this dashboard/interactive_tree.py) -- lets a mismatched
-  // genus jump out visually in the gene tree without reading every label:
-  // a dot sitting in the "wrong" coloured neighbourhood is the HGT tell.
-  const DOT_R = 3;
-  // GENUS_COLORS is a pale/pastel palette (designed for large background
-  // fills elsewhere in this dashboard) -- too washed out as small point
-  // markers, so darken it specifically for the dots. Hue/identity stays
-  // the same, just more visible against the light page background.
-  const dotColourOf = name => d3.color(GENUS_COLORS[genusOf(name)] || "#ccc").darker(1.4);
-  g.selectAll(".hgt-dot-left").data(left.leaves).join("circle")
-    .attr("cx", leftX1 + 4 + DOT_R).attr("cy", d => d.x).attr("r", DOT_R)
-    .attr("fill", d => dotColourOf(d.data.name))
-    .attr("stroke", "#333").attr("stroke-width", 0.4);
-  g.selectAll(".hgt-label-left").data(left.leaves).join("text")
-    .attr("x", leftX1 + 4 + DOT_R * 2 + 4).attr("y", d => d.x)
-    .attr("dy", "0.31em").attr("font-size", 9).style("font-style", "italic")
-    .attr("fill", "#0b0b0b").text(d => d.data.name);
-  g.selectAll(".hgt-dot-right").data(right.leaves).join("circle")
-    .attr("cx", rightX0 - 4 - DOT_R).attr("cy", d => d.x).attr("r", DOT_R)
-    .attr("fill", d => dotColourOf(d.data.name))
-    .attr("stroke", "#333").attr("stroke-width", 0.4);
-  g.selectAll(".hgt-label-right").data(right.leaves).join("text")
-    .attr("x", rightX0 - 4 - DOT_R * 2 - 4).attr("y", d => d.x)
-    .attr("dy", "0.31em").attr("text-anchor", "end")
-    .attr("font-size", 9).style("font-style", "italic")
-    .attr("fill", "#0b0b0b").text(d => d.data.name);
-
-  // Match by the "match" key (unique per gene copy), not "name" -- a
-  // paralog-duplicated genome has several same-organism leaves that would
-  // otherwise collide onto one ambiguous connector. See
-  // build_gene_tanglegram_data.py for how this pairing is constructed.
-  const leftPos = new Map(left.leaves.map(d => [d.data.match, d.x]));
-  const rightPos = new Map(right.leaves.map(d => [d.data.match, d.x]));
-  const keys = [...leftPos.keys()].filter(k => k && rightPos.has(k));
-  // Line colour = same genus colour as its dots, so one lineage reads as
-  // one consistent colour through the tangle instead of a flat grey mass
-  // -- darkened the same way as the dots (see dotColourOf above), since
-  // GENUS_COLORS is a pale palette meant for large background fills.
-  const matchGenus = new Map(left.leaves.map(d => [d.data.match, genusOf(d.data.name)]));
-  const colourOf = k => d3.color(GENUS_COLORS[matchGenus.get(k)] || "#898781").darker(1.7);
-
-  // Horizontal-diagonal-horizontal ("stub" at each end, straight run in
-  // the middle) instead of a single edge-to-edge diagonal -- the stub
-  // makes the line leave/arrive perpendicular to its leaf tip, which
-  // reads more cleanly than a diagonal starting right at the tip.
-  const STUB_W = 24;
-  function connectorPath(y0, y1) {{
-    return `M${{leftConnX}},${{y0}} H${{leftConnX + STUB_W}} L${{rightConnX - STUB_W}},${{y1}} H${{rightConnX}}`;
-  }}
-
-  g.append("g").selectAll("path").data(keys).join("path")
-    .attr("d", k => connectorPath(leftPos.get(k), rightPos.get(k)))
-    .attr("fill", "none")
-    .attr("stroke", colourOf).attr("stroke-width", 1.5).attr("stroke-opacity", 0.85)
-    .on("mousemove", (event, k) => {{
-      d3.select(event.currentTarget).attr("stroke-width", 3).attr("stroke-opacity", 1);
-      showTooltip(event, `<b>${{k}}</b>`);
-    }})
-    .on("mouseleave", (event, k) => {{
-      d3.select(event.currentTarget).attr("stroke-width", 1.5).attr("stroke-opacity", 0.85);
-      hideTooltip();
-    }});
-
-  g.append("text").attr("class", "axis-label").attr("x", leftX1).attr("y", -10).attr("text-anchor", "end").text("Species tree (GTDB)");
-  g.append("text").attr("class", "axis-label").attr("x", rightX0).attr("y", -10).text("Gene tree (this orthogroup)");
-}}
-
 function renderAll() {{
-  renderScatter(); renderHeatmap(); renderRanking(); renderTanglegram(); renderMDS(); renderMotility(); renderHGT();
+  renderScatter(); renderHeatmap(); renderRanking(); renderTanglegram(); renderMDS(); renderMotility();
 }}
 
 document.getElementById("reliableOnly").addEventListener("change", e => {{
@@ -1180,19 +1010,6 @@ def main():
               f"(run motility_clustering.py first)")
         motility_data = None
 
-    tanglegram_data = {}
-    try:
-        with open("gene_order/tanglegram_index.json") as f:
-            tg_index = json.load(f)
-        for entry in tg_index:
-            og = entry["orthogroup"]
-            with open(f"gene_order/tanglegram_{og}.json") as f:
-                tanglegram_data[og] = json.load(f)
-        print(f"Loaded {len(tanglegram_data)} HGT tanglegram orthogroup(s)")
-    except FileNotFoundError:
-        print("Note: gene_order/tanglegram_index.json not found -- 'HGT tanglegram' tab will be empty "
-              "(run build_gene_tanglegram_data.py first)")
-
     print(f"Loading {NAMED_NWK} ...")
     tree = Tree(NAMED_NWK, format=1, quoted_node_names=True)
 
@@ -1207,7 +1024,6 @@ def main():
         tree_order_all, tree_order_reliable,
         phylo_subtree_all, phylo_subtree_reliable,
         motility_data,
-        tanglegram_data,
     )
     output_path = Path(output_html)
     output_path.write_text(html)
