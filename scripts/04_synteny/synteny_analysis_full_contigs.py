@@ -36,11 +36,24 @@ Defaults to gene_order/gene_order.json -> gene_order/synteny_analysis_full_conti
 Pass gene_order/gene_order_scaffolded.json (see lift_ragtag_coordinates.py)
 as gene_order_json to also credit the RagTag-recovered genomes.
 
+--closed: use the stricter reliable set shared with interactive_tree.py
+(scripts/common/reliability.py) -- every flagellar gene on one CLOSED
+chromosome, natively complete or a RagTag scaffold -- instead of
+coverage == 1.0 (which also admits single-scaffold draft assemblies), and
+treat each gene order as circular: the last and first genes on the
+chromosome are neighbours too (circular_breakpoint_distance). Pass
+gene_order/gene_order_combined_scaffolded.json as gene_order_json so the
+RagTag genomes are in scaffold coordinates. With --closed the distance is
+the strand- and overlap-aware signed-adjacency distance
+(scripts/common/synteny_distance.py, circular); add --breakpoint for the
+unsigned circular breakpoint distance instead.
+
 Run AFTER gene_order.py, gtdb_tree.py, and synteny_analysis.py.
 """
 
 import itertools
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -61,12 +74,45 @@ from synteny_analysis import (
     upgma_tree,
 )
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "common"))
+from reliability import FASTA_DIR, RAGTAG_DIR, load_complete_chromosomes, is_reliable
+from synteny_distance import primary_contig_records, signed_overlap_distance
+
+
+def circular_breakpoint_distance(order_a: list[str], order_b: list[str]):
+    """breakpoint_distance() for circular chromosomes: same normalised,
+    direction-agnostic adjacency comparison, but the last and first shared
+    genes are adjacent too, so there are len(shared) possible adjacencies
+    rather than len(shared) - 1. Rotation-invariant: where the assembly's
+    coordinate origin falls no longer matters."""
+    shared = set(order_a) & set(order_b)
+    if len(shared) < MIN_SHARED_GENES:
+        return None, len(shared)
+
+    sub_a = [g for g in order_a if g in shared]
+    sub_b = [g for g in order_b if g in shared]
+    n = len(shared)
+    adj_a = {frozenset((sub_a[i], sub_a[(i + 1) % n])) for i in range(n)}
+    adj_b = {frozenset((sub_b[i], sub_b[(i + 1) % n])) for i in range(n)}
+    return 1 - len(adj_a & adj_b) / n, n
+
 DEFAULT_OUTPUT_JSON = "campy_orthologs/archive_json/synteny_analysis_full_contigs.json"
 
 
 def main():
-    GENE_ORDER_JSON = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_GENE_ORDER_JSON
-    OUTPUT_JSON = sys.argv[2] if len(sys.argv) > 2 else DEFAULT_OUTPUT_JSON
+    closed = "--closed" in sys.argv
+    use_breakpoint = "--breakpoint" in sys.argv
+    args = [a for a in sys.argv[1:] if a not in ("--closed", "--breakpoint")]
+    GENE_ORDER_JSON = args[0] if len(args) > 0 else DEFAULT_GENE_ORDER_JSON
+    OUTPUT_JSON = args[1] if len(args) > 1 else DEFAULT_OUTPUT_JSON
+    signed_mode = closed and not use_breakpoint
+    if not closed:
+        distance = breakpoint_distance
+    elif use_breakpoint:
+        distance = circular_breakpoint_distance
+    else:
+        distance = lambda a, b: signed_overlap_distance(a, b, circular=True,
+                                                        min_shared=MIN_SHARED_GENES)
 
     Path("gene_order").mkdir(exist_ok=True)
 
@@ -82,11 +128,13 @@ def main():
 
     # Compute primary-contig order/coverage for every organism first (same as
     # synteny_analysis.py), then filter to coverage == 1.0.
-    orders, primary_sizes, total_genes = {}, {}, {}
+    orders, signed, primary_sizes, total_genes = {}, {}, {}, {}
     for name in all_organisms:
         recs = gene_order[name]
         ordered, psize = primary_contig_order(recs)
         orders[name] = ordered
+        if signed_mode:
+            signed[name] = primary_contig_records(recs)[0]
         primary_sizes[name] = psize
         total_genes[name] = len(recs)
 
@@ -95,14 +143,22 @@ def main():
     # a valid pair in the Mantel test, so they'd inflate n_organisms without
     # contributing anything -- drop them too.
     too_few = [name for name in all_organisms if total_genes[name] < MIN_SHARED_GENES]
+    if closed:
+        complete = load_complete_chromosomes(FASTA_DIR, RAGTAG_DIR)
+        keep = lambda name: is_reliable(gene_order[name], complete)
+        why = "not all on one closed chromosome"
+    else:
+        keep = lambda name: primary_sizes[name] == total_genes[name]
+        why = "genes split across >1 contig"
     organisms = [
         name for name in all_organisms
-        if total_genes[name] >= MIN_SHARED_GENES and primary_sizes[name] == total_genes[name]
+        if total_genes[name] >= MIN_SHARED_GENES and keep(name)
     ]
     n_dropped_too_few = len(too_few)
     n_dropped = len(all_organisms) - len(organisms) - n_dropped_too_few
-    print(f"{len(organisms)} organisms with full flagellar-gene coverage (coverage == 1.0) kept, "
-          f"{n_dropped} dropped (genes split across >1 contig), "
+    print(f"{len(organisms)} organisms kept "
+          f"({'closed chromosome, circular distance' if closed else 'coverage == 1.0'}), "
+          f"{n_dropped} dropped ({why}), "
           f"{n_dropped_too_few} dropped (< {MIN_SHARED_GENES} genes)")
 
     n = len(organisms)
@@ -110,7 +166,8 @@ def main():
     valid = np.zeros((n, n), dtype=bool)
 
     for i, j in itertools.combinations(range(n), 2):
-        d, _ = breakpoint_distance(orders[organisms[i]], orders[organisms[j]])
+        pair = signed if signed_mode else orders
+        d, _ = distance(pair[organisms[i]], pair[organisms[j]])
         if d is not None:
             dist_synt[i, j] = dist_synt[j, i] = d
             valid[i, j] = valid[j, i] = True
@@ -176,8 +233,11 @@ def main():
     phylogenetic_distance = [[round(dist_phylo[i, j], 6) for j in range(n)] for i in range(n)]
 
     output = {
-        "filter": (f"full_flagellar_coverage_only (coverage == 1.0, not raw contig count), "
-                   f">= {MIN_SHARED_GENES} genes"),
+        "filter": ((f"closed_chromosome_only (native complete assembly or RagTag scaffold; "
+                    f"circular {'signed-adjacency + overlap' if signed_mode else 'breakpoint'} "
+                    f"distance), >= {MIN_SHARED_GENES} genes") if closed else
+                   (f"full_flagellar_coverage_only (coverage == 1.0, not raw contig count), "
+                    f">= {MIN_SHARED_GENES} genes")),
         "mantel": {
             "r": r,
             "p_value": p,

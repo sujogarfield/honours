@@ -20,56 +20,56 @@
     "chew",
     "flab",
     "maf_2356",
-    "flil",
-    "fliy",
-    "flga",
-    "flge",
     "pflb",
-    "chev",
-    "flag",
-    "flia",
-    "chea",
     "flgr",
     "flgs",
+    "chev",
+    "flge",
+    "flga",
+    "flag",
+    "flia",
+    "flil",
+    "chea",
+    "fliy",
     "mota",
     "motb",
-    "flgd",
-    "flgj",
-    "flgi",
-    "flii",
-    "flik",
     "fliw",
     "flhf",
+    "flgd",
+    "flgj",
+    "flik",
     "flgl",
+    "flgh",
     "flip",
+    "fliq",
     "flim",
+    "flih",
+    "flii",
+    "flir",
+    "flis",
+    "flgb",
+    "flgc",
+    "flgg",
+    "flgi",
+    "flgk",
+    "flha",
     "flhb",
     "flid",
     "flie",
     "flif",
     "flig",
-    "flis",
-    "flgb",
-    "flgc",
-    "flgg",
-    "flha",
-    "flih",
-    "fliq",
-    "flgh",
-    "flir",
-    "flgk",
     "flin"
   ],
   "gene_stats": {
     "chea": {
       "curated": {
-        "pct_motile": 52.94117647058823,
+        "pct_motile": 66.17647058823529,
         "pct_nonmotile": 22.22222222222222,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 51.08695652173913,
+        "pct_motile": 63.04347826086956,
         "pct_nonmotile": 18.181818181818183,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -77,13 +77,13 @@
     },
     "cheb": {
       "curated": {
-        "pct_motile": 38.23529411764706,
+        "pct_motile": 47.05882352941177,
         "pct_nonmotile": 55.55555555555556,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 46.73913043478261,
+        "pct_motile": 53.26086956521739,
         "pct_nonmotile": 45.45454545454545,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -119,13 +119,13 @@
     },
     "cher": {
       "curated": {
-        "pct_motile": 33.8235294117647,
+        "pct_motile": 36.76470588235294,
         "pct_nonmotile": 11.11111111111111,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 28.26086956521739,
+        "pct_motile": 32.608695652173914,
         "pct_nonmotile": 9.090909090909092,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -133,13 +133,13 @@
     },
     "chev": {
       "curated": {
-        "pct_motile": 52.94117647058823,
+        "pct_motile": 64.70588235294117,
         "pct_nonmotile": 33.333333333333336,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 51.08695652173913,
+        "pct_motile": 61.95652173913044,
         "pct_nonmotile": 27.272727272727273,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -147,13 +147,13 @@
     },
     "chew": {
       "curated": {
-        "pct_motile": 47.05882352941177,
+        "pct_motile": 60.294117647058826,
         "pct_nonmotile": 11.11111111111111,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 43.47826086956522,
+        "pct_motile": 55.43478260869565,
         "pct_nonmotile": 9.090909090909092,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -189,13 +189,13 @@
     },
     "flaa": {
       "curated": {
-        "pct_motile": 14.705882352941176,
+        "pct_motile": 23.529411764705884,
         "pct_nonmotile": 0.0,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 15.217391304347826,
+        "pct_motile": 21.73913043478261,
         "pct_nonmotile": 0.0,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -203,13 +203,13 @@
     },
     "flab": {
       "curated": {
-        "pct_motile": 50.0,
+        "pct_motile": 61.76470588235294,
         "pct_nonmotile": 11.11111111111111,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 44.56521739130435,
+        "pct_motile": 55.43478260869565,
         "pct_nonmotile": 9.090909090909092,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -217,13 +217,13 @@
     },
     "flac": {
       "curated": {
-        "pct_motile": 36.76470588235294,
+        "pct_motile": 41.1764705882353,
         "pct_nonmotile": 11.11111111111111,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 32.608695652173914,
+        "pct_motile": 38.04347826086956,
         "pct_nonmotile": 9.090909090909092,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -231,13 +231,13 @@
     },
     "flag": {
       "curated": {
-        "pct_motile": 57.35294117647059,
+        "pct_motile": 70.58823529411765,
         "pct_nonmotile": 55.55555555555556,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 54.34782608695652,
+        "pct_motile": 66.30434782608695,
         "pct_nonmotile": 45.45454545454545,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -287,13 +287,13 @@
     },
     "flgd": {
       "curated": {
-        "pct_motile": 83.82352941176471,
+        "pct_motile": 91.17647058823529,
         "pct_nonmotile": 55.55555555555556,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 84.78260869565217,
+        "pct_motile": 92.3913043478261,
         "pct_nonmotile": 45.45454545454545,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -343,13 +343,13 @@
     },
     "flgh": {
       "curated": {
-        "pct_motile": 92.6470588235294,
+        "pct_motile": 95.58823529411765,
         "pct_nonmotile": 66.66666666666667,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 94.56521739130434,
+        "pct_motile": 96.73913043478261,
         "pct_nonmotile": 54.54545454545455,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -357,13 +357,13 @@
     },
     "flgi": {
       "curated": {
-        "pct_motile": 80.88235294117646,
+        "pct_motile": 97.05882352941177,
         "pct_nonmotile": 66.66666666666667,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 83.69565217391305,
+        "pct_motile": 97.82608695652173,
         "pct_nonmotile": 54.54545454545455,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -371,19 +371,33 @@
     },
     "flgj": {
       "curated": {
-        "pct_motile": 79.41176470588235,
+        "pct_motile": 95.58823529411765,
         "pct_nonmotile": 33.333333333333336,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 81.52173913043478,
+        "pct_motile": 95.65217391304348,
         "pct_nonmotile": 27.272727272727273,
         "n_motile": 92,
         "n_nonmotile": 11
       }
     },
     "flgk": {
+      "curated": {
+        "pct_motile": 97.05882352941177,
+        "pct_nonmotile": 66.66666666666667,
+        "n_motile": 68,
+        "n_nonmotile": 9
+      },
+      "extended": {
+        "pct_motile": 97.82608695652173,
+        "pct_nonmotile": 54.54545454545455,
+        "n_motile": 92,
+        "n_nonmotile": 11
+      }
+    },
+    "flgl": {
       "curated": {
         "pct_motile": 94.11764705882354,
         "pct_nonmotile": 66.66666666666667,
@@ -397,29 +411,15 @@
         "n_nonmotile": 11
       }
     },
-    "flgl": {
-      "curated": {
-        "pct_motile": 89.70588235294117,
-        "pct_nonmotile": 66.66666666666667,
-        "n_motile": 68,
-        "n_nonmotile": 9
-      },
-      "extended": {
-        "pct_motile": 92.3913043478261,
-        "pct_nonmotile": 54.54545454545455,
-        "n_motile": 92,
-        "n_nonmotile": 11
-      }
-    },
     "flgm": {
       "curated": {
-        "pct_motile": 38.23529411764706,
+        "pct_motile": 48.529411764705884,
         "pct_nonmotile": 33.333333333333336,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 36.95652173913044,
+        "pct_motile": 46.73913043478261,
         "pct_nonmotile": 27.272727272727273,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -427,13 +427,13 @@
     },
     "flgn": {
       "curated": {
-        "pct_motile": 44.11764705882353,
+        "pct_motile": 52.94117647058823,
         "pct_nonmotile": 44.44444444444444,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 45.65217391304348,
+        "pct_motile": 54.34782608695652,
         "pct_nonmotile": 36.36363636363637,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -441,13 +441,13 @@
     },
     "flgp": {
       "curated": {
-        "pct_motile": 41.1764705882353,
+        "pct_motile": 51.470588235294116,
         "pct_nonmotile": 11.11111111111111,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 41.30434782608695,
+        "pct_motile": 48.91304347826087,
         "pct_nonmotile": 9.090909090909092,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -455,13 +455,13 @@
     },
     "flgq": {
       "curated": {
-        "pct_motile": 33.8235294117647,
+        "pct_motile": 36.76470588235294,
         "pct_nonmotile": 11.11111111111111,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 29.347826086956523,
+        "pct_motile": 32.608695652173914,
         "pct_nonmotile": 9.090909090909092,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -469,13 +469,13 @@
     },
     "flgr": {
       "curated": {
-        "pct_motile": 51.470588235294116,
+        "pct_motile": 63.23529411764706,
         "pct_nonmotile": 22.22222222222222,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 50.0,
+        "pct_motile": 60.869565217391305,
         "pct_nonmotile": 18.181818181818183,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -483,13 +483,13 @@
     },
     "flgs": {
       "curated": {
-        "pct_motile": 48.529411764705884,
+        "pct_motile": 61.76470588235294,
         "pct_nonmotile": 22.22222222222222,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 47.82608695652174,
+        "pct_motile": 59.78260869565217,
         "pct_nonmotile": 18.181818181818183,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -553,13 +553,13 @@
     },
     "flia": {
       "curated": {
-        "pct_motile": 57.35294117647059,
+        "pct_motile": 70.58823529411765,
         "pct_nonmotile": 55.55555555555556,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 54.34782608695652,
+        "pct_motile": 66.30434782608695,
         "pct_nonmotile": 45.45454545454545,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -623,13 +623,13 @@
     },
     "flih": {
       "curated": {
-        "pct_motile": 92.6470588235294,
+        "pct_motile": 97.05882352941177,
         "pct_nonmotile": 55.55555555555556,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 93.47826086956522,
+        "pct_motile": 96.73913043478261,
         "pct_nonmotile": 54.54545454545455,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -637,13 +637,13 @@
     },
     "flii": {
       "curated": {
-        "pct_motile": 82.3529411764706,
+        "pct_motile": 98.52941176470588,
         "pct_nonmotile": 66.66666666666667,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 83.69565217391305,
+        "pct_motile": 97.82608695652173,
         "pct_nonmotile": 54.54545454545455,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -651,13 +651,13 @@
     },
     "flik": {
       "curated": {
-        "pct_motile": 89.70588235294117,
+        "pct_motile": 94.11764705882354,
         "pct_nonmotile": 22.22222222222222,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 88.04347826086956,
+        "pct_motile": 93.47826086956522,
         "pct_nonmotile": 18.181818181818183,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -665,13 +665,13 @@
     },
     "flil": {
       "curated": {
-        "pct_motile": 63.23529411764706,
+        "pct_motile": 66.17647058823529,
         "pct_nonmotile": 22.22222222222222,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 60.869565217391305,
+        "pct_motile": 63.04347826086956,
         "pct_nonmotile": 18.181818181818183,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -693,13 +693,13 @@
     },
     "flin": {
       "curated": {
-        "pct_motile": 94.11764705882354,
+        "pct_motile": 97.05882352941177,
         "pct_nonmotile": 66.66666666666667,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 94.56521739130434,
+        "pct_motile": 96.73913043478261,
         "pct_nonmotile": 63.63636363636363,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -735,13 +735,13 @@
     },
     "fliq": {
       "curated": {
-        "pct_motile": 92.6470588235294,
+        "pct_motile": 95.58823529411765,
         "pct_nonmotile": 66.66666666666667,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 94.56521739130434,
+        "pct_motile": 96.73913043478261,
         "pct_nonmotile": 54.54545454545455,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -749,13 +749,13 @@
     },
     "flir": {
       "curated": {
-        "pct_motile": 94.11764705882354,
+        "pct_motile": 97.05882352941177,
         "pct_nonmotile": 66.66666666666667,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 94.56521739130434,
+        "pct_motile": 96.73913043478261,
         "pct_nonmotile": 54.54545454545455,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -819,13 +819,13 @@
     },
     "maf_2356": {
       "curated": {
-        "pct_motile": 48.529411764705884,
+        "pct_motile": 60.294117647058826,
         "pct_nonmotile": 11.11111111111111,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 43.47826086956522,
+        "pct_motile": 54.34782608695652,
         "pct_nonmotile": 9.090909090909092,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -875,13 +875,13 @@
     },
     "pflb": {
       "curated": {
-        "pct_motile": 63.23529411764706,
+        "pct_motile": 76.47058823529412,
         "pct_nonmotile": 22.22222222222222,
         "n_motile": 68,
         "n_nonmotile": 9
       },
       "extended": {
-        "pct_motile": 61.95652173913044,
+        "pct_motile": 72.82608695652173,
         "pct_nonmotile": 18.181818181818183,
         "n_motile": 92,
         "n_nonmotile": 11
@@ -1969,9 +1969,16 @@
       "pflb"
     ],
     "Aliarcobacter vitoriensis": [
+      "cheb",
       "flgb",
       "flgc",
+      "flgd",
       "flgg",
+      "flgh",
+      "flgi",
+      "flgj",
+      "flgk",
+      "flgl",
       "flha",
       "flhb",
       "flhf",
@@ -1979,13 +1986,19 @@
       "flie",
       "flif",
       "flig",
+      "flih",
+      "flii",
       "flik",
       "flim",
+      "flin",
       "flip",
+      "fliq",
+      "flir",
       "flis",
       "fliw",
       "mota",
-      "motb"
+      "motb",
+      "pflb"
     ],
     "Arcobacter acticola": [
       "cheb",
@@ -2439,20 +2452,32 @@
       "maf_2356"
     ],
     "Caminibacter pacificus": [
+      "chea",
+      "chev",
+      "flab",
+      "flag",
       "flga",
       "flgb",
       "flgc",
+      "flgd",
+      "flge",
       "flgg",
+      "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
+      "flik",
       "flil",
       "flim",
       "flin",
@@ -2461,7 +2486,8 @@
       "flir",
       "flis",
       "fliw",
-      "fliy"
+      "fliy",
+      "maf_2356"
     ],
     "Campylobacter anatolicus": [
       "chea",
@@ -2666,25 +2692,42 @@
       "pflb"
     ],
     "Campylobacter bilis": [
+      "chea",
       "chep",
       "cheq",
+      "cher",
+      "chev",
+      "chew",
+      "flab",
+      "flac",
+      "flag",
       "flga",
       "flgb",
       "flgc",
+      "flgd",
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgm",
+      "flgn",
       "flgp",
       "flgq",
+      "flgr",
+      "flgs",
       "flhb",
       "flhg",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
+      "flik",
       "flil",
       "flim",
       "flin",
@@ -2694,6 +2737,7 @@
       "flis",
       "fliw",
       "fliy",
+      "maf_2356",
       "mota",
       "motb",
       "pflb"
@@ -2747,27 +2791,43 @@
       "pflb"
     ],
     "Campylobacter coli": [
+      "chea",
       "chep",
       "cheq",
+      "cher",
+      "chev",
+      "chew",
+      "flab",
       "flac",
+      "flag",
       "flga",
       "flgb",
       "flgc",
+      "flgd",
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgm",
+      "flgn",
       "flgp",
+      "flgq",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
       "flhg",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
       "flik",
       "flil",
       "flim",
@@ -2778,6 +2838,7 @@
       "flis",
       "fliw",
       "fliy",
+      "maf_2356",
       "mota",
       "motb",
       "pflb"
@@ -3685,25 +3746,43 @@
       "pflb"
     ],
     "Campylobacter novaezeelandiae": [
+      "chea",
       "cheq",
+      "cher",
+      "chev",
+      "chew",
+      "flab",
+      "flac",
+      "flag",
       "flga",
       "flgb",
       "flgc",
+      "flgd",
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgm",
+      "flgn",
       "flgp",
+      "flgq",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
       "flhg",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
+      "flik",
       "flil",
       "flim",
       "flin",
@@ -3713,8 +3792,10 @@
       "flis",
       "fliw",
       "fliy",
+      "maf_2356",
       "mota",
-      "motb"
+      "motb",
+      "pflb"
     ],
     "Campylobacter ornithocola": [
       "chea",
@@ -4585,7 +4666,13 @@
       "pflb"
     ],
     "Helicobacter ailurogastricus": [
+      "chea",
+      "chev",
+      "chew",
       "chez",
+      "flaa",
+      "flab",
+      "flag",
       "flga",
       "flgb",
       "flgc",
@@ -4593,16 +4680,24 @@
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgm",
+      "flgp",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
       "flik",
       "flil",
       "flim",
@@ -4613,8 +4708,10 @@
       "flis",
       "fliw",
       "fliy",
+      "maf_2356",
       "mota",
-      "motb"
+      "motb",
+      "pflb"
     ],
     "Helicobacter anatolicus": [
       "chea",
@@ -4706,7 +4803,14 @@
       "pflb"
     ],
     "Helicobacter bilis": [
+      "chea",
+      "cheb",
       "chep",
+      "chev",
+      "chew",
+      "flaa",
+      "flab",
+      "flag",
       "flga",
       "flgb",
       "flgc",
@@ -4714,16 +4818,26 @@
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgm",
+      "flgn",
+      "flgp",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
+      "flik",
       "flim",
       "flin",
       "flip",
@@ -4732,8 +4846,10 @@
       "flis",
       "fliw",
       "fliy",
+      "maf_2356",
       "mota",
-      "motb"
+      "motb",
+      "pflb"
     ],
     "Helicobacter brantae": [
       "chea",
@@ -4829,22 +4945,40 @@
       "pflb"
     ],
     "Helicobacter canis": [
+      "chea",
+      "cheb",
+      "chev",
+      "chew",
+      "flaa",
+      "flab",
+      "flag",
       "flga",
       "flgb",
       "flgc",
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgm",
+      "flgn",
+      "flgp",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
+      "flik",
+      "flil",
       "flim",
       "flin",
       "flip",
@@ -4853,8 +4987,10 @@
       "flis",
       "fliw",
       "fliy",
+      "maf_2356",
       "mota",
-      "motb"
+      "motb",
+      "pflb"
     ],
     "Helicobacter cetorum": [
       "chea",
@@ -4904,22 +5040,36 @@
       "pflb"
     ],
     "Helicobacter cholecystus": [
+      "chea",
+      "chew",
+      "flaa",
+      "flab",
+      "flag",
       "flga",
       "flgb",
       "flgc",
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgp",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
+      "flih",
+      "flii",
       "flik",
+      "flil",
       "flim",
       "flin",
       "flip",
@@ -4928,10 +5078,19 @@
       "flis",
       "fliw",
       "fliy",
+      "maf_2356",
       "mota",
-      "motb"
+      "motb",
+      "pflb"
     ],
     "Helicobacter cinaedi": [
+      "chea",
+      "cheb",
+      "chev",
+      "chew",
+      "flaa",
+      "flab",
+      "flag",
       "flga",
       "flgb",
       "flgc",
@@ -4939,16 +5098,24 @@
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgn",
+      "flgp",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
       "flik",
       "flil",
       "flim",
@@ -4959,10 +5126,20 @@
       "flis",
       "fliw",
       "fliy",
+      "maf_2356",
       "mota",
-      "motb"
+      "motb",
+      "pflb"
     ],
     "Helicobacter colisuis": [
+      "chea",
+      "cheb",
+      "chev",
+      "chew",
+      "flaa",
+      "flab",
+      "flac",
+      "flag",
       "flga",
       "flgb",
       "flgc",
@@ -4970,16 +5147,25 @@
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgm",
+      "flgp",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
+      "flik",
       "flil",
       "flim",
       "flin",
@@ -4988,7 +5174,9 @@
       "flir",
       "flis",
       "fliw",
-      "fliy"
+      "fliy",
+      "maf_2356",
+      "pflb"
     ],
     "Helicobacter didelphidarum": [
       "chea",
@@ -5133,7 +5321,13 @@
       "pflb"
     ],
     "Helicobacter heilmannii": [
+      "chea",
+      "chev",
+      "chew",
       "chez",
+      "flaa",
+      "flab",
+      "flag",
       "flga",
       "flgb",
       "flgc",
@@ -5141,16 +5335,25 @@
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgm",
+      "flgp",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
+      "flik",
       "flil",
       "flim",
       "flin",
@@ -5160,8 +5363,10 @@
       "flis",
       "fliw",
       "fliy",
+      "maf_2356",
       "mota",
-      "motb"
+      "motb",
+      "pflb"
     ],
     "Helicobacter himalayensis": [
       "chea",
@@ -5781,23 +5986,38 @@
       "pflb"
     ],
     "Helicobacter pullorum": [
+      "chea",
+      "cheb",
       "chep",
+      "chev",
+      "chew",
+      "flaa",
+      "flab",
+      "flac",
+      "flag",
       "flgb",
       "flgc",
       "flgd",
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgm",
+      "flgp",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
       "flik",
       "flil",
       "flim",
@@ -5807,7 +6027,9 @@
       "flir",
       "flis",
       "fliw",
-      "fliy"
+      "fliy",
+      "maf_2356",
+      "pflb"
     ],
     "Helicobacter pylori": [
       "chea",
@@ -5904,7 +6126,14 @@
       "pflb"
     ],
     "Helicobacter saguini": [
+      "chea",
+      "cheb",
       "chep",
+      "chev",
+      "chew",
+      "flaa",
+      "flab",
+      "flag",
       "flga",
       "flgb",
       "flgc",
@@ -5912,16 +6141,25 @@
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
       "flgl",
+      "flgm",
+      "flgn",
+      "flgp",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
       "flik",
       "flim",
       "flin",
@@ -5931,8 +6169,10 @@
       "flis",
       "fliw",
       "fliy",
+      "maf_2356",
       "mota",
-      "motb"
+      "motb",
+      "pflb"
     ],
     "Helicobacter salomonis": [
       "chea",
@@ -6404,21 +6644,38 @@
       "pflb"
     ],
     "Hydrogenimonas thermophila": [
+      "chea",
+      "chev",
+      "chew",
+      "flab",
+      "flac",
+      "flag",
       "flga",
       "flgb",
       "flgc",
+      "flgd",
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
+      "flgl",
+      "flgm",
+      "flgn",
+      "flgp",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
       "flik",
       "flil",
       "flim",
@@ -6428,7 +6685,9 @@
       "flir",
       "flis",
       "fliw",
-      "fliy"
+      "fliy",
+      "maf_2356",
+      "pflb"
     ],
     "Hydrogenimonas urashimensis": [
       "chea",
@@ -6517,8 +6776,14 @@
       "cheb",
       "flgb",
       "flgc",
+      "flgd",
       "flgg",
+      "flgh",
+      "flgi",
+      "flgj",
+      "flgk",
       "flgl",
+      "flgn",
       "flha",
       "flhb",
       "flhf",
@@ -6526,8 +6791,13 @@
       "flie",
       "flif",
       "flig",
+      "flih",
+      "flii",
       "flim",
+      "flin",
       "flip",
+      "fliq",
+      "flir",
       "flis",
       "fliw"
     ],
@@ -7606,21 +7876,38 @@
       "pflb"
     ],
     "Sulfurospirillum cavolei": [
+      "chea",
+      "cheb",
+      "cher",
+      "chev",
+      "chew",
+      "flac",
+      "flag",
       "flga",
       "flgb",
       "flgc",
+      "flgd",
       "flge",
       "flgg",
       "flgh",
+      "flgi",
+      "flgj",
       "flgk",
+      "flgl",
+      "flgm",
+      "flgq",
+      "flgr",
+      "flgs",
       "flha",
       "flhb",
       "flhf",
+      "flia",
       "flid",
       "flie",
       "flif",
       "flig",
       "flih",
+      "flii",
       "flik",
       "flil",
       "flim",
@@ -7632,7 +7919,8 @@
       "fliw",
       "fliy",
       "mota",
-      "motb"
+      "motb",
+      "pflb"
     ],
     "Sulfurospirillum deleyianum": [
       "chea",

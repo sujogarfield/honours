@@ -57,6 +57,8 @@ def load_motility_icons() -> dict:
 import os, sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "common"))
 from gene_colors import generate_gene_colors
+from reliability import (FASTA_DIR, RAGTAG_DIR, SCAFFOLDED_GENE_ORDER,
+                         load_complete_chromosomes, apply_ragtag, is_reliable)
 
 # Populated in main() from whatever gene names actually appear in the loaded
 # gene_order data -- randomised (min-distance threshold, see gene_colors.py)
@@ -98,77 +100,6 @@ def load_motility(path: str) -> dict:
         return {}
     with open(path) as f:
         return json.load(f)
-
-
-FASTA_DIR = Path("campy_fetched/campy_fas")
-RAGTAG_DIR = Path("campy_fetched/ragtag_scaffolding/output")
-SCAFFOLDED_GENE_ORDER = Path("gene_order/gene_order_combined_scaffolded.json")
-
-
-def _sequence_lengths(path: Path, keep) -> dict:
-    """{seq_id: length} for the FASTA records whose header line passes keep()."""
-    lengths = {}
-    current = None
-    with open(path) as f:
-        for line in f:
-            if line.startswith(">"):
-                current = line[1:].split()[0] if keep(line) else None
-                if current:
-                    lengths[current] = 0
-            elif current:
-                lengths[current] += len(line.strip())
-    return lengths
-
-
-def load_complete_chromosomes(fasta_dir: Path, ragtag_dir: Path) -> dict:
-    """{contig_id: length} for every chromosome whose flagellar gene order is
-    fully known:
-    - natively closed: the FASTA header calls it a complete genome/sequence
-      (and not a plasmid). Single-sequence WGS scaffolds ("whole genome
-      shotgun sequence") are deliberately excluded: one piece, but not
-      confirmed closed.
-    - RagTag scaffolds (*_RagTag): draft contigs ordered against a closed
-      same-species reference, so they span the reference chromosome. Only
-      reliable for a genome if all its flagellar genes landed on one of them
-      (see is_reliable); flagged ⚡ in the tree."""
-    lengths = {}
-    if not fasta_dir.exists():
-        print(f"Warning: {fasta_dir} not found — no genome will count as reliable")
-        return lengths
-
-    def native(header):
-        h = header.lower()
-        return ("complete genome" in h or "complete sequence" in h) and "plasmid" not in h
-
-    for path in sorted(fasta_dir.glob("*.fna")):
-        lengths.update(_sequence_lengths(path, native))
-    for path in sorted(ragtag_dir.glob("*/ragtag_out/ragtag.scaffold.fasta")):
-        lengths.update(_sequence_lengths(path, lambda h: h.split()[0].endswith("_RagTag")))
-    return lengths
-
-
-def apply_ragtag(gene_order: dict, path: Path) -> set:
-    """Swap in the RagTag-scaffolded gene records for the genomes RagTag was
-    run on, in place. Returns the set of organisms swapped."""
-    if not path.exists():
-        print(f"Warning: {path} not found — RagTag-scaffolded gene order omitted")
-        return set()
-    with open(path) as f:
-        raw = json.load(f)
-    swapped = set()
-    for data in raw.values():
-        if data.get("scaffolded") and data["genes"]:
-            gene_order[data["organism"]] = data["genes"]
-            swapped.add(data["organism"])
-    return swapped
-
-
-def is_reliable(records: list[dict], complete: dict) -> bool:
-    """Gene order is fully known only if every flagellar gene sits on one
-    closed chromosome: natively assembled, or a RagTag scaffold against a
-    same-species reference (see load_complete_chromosomes)."""
-    contigs = {r["contig"] for r in records}
-    return len(contigs) == 1 and next(iter(contigs)) in complete
 
 
 def rank_anchor_genes(gene_order: dict, complete: dict) -> list[str]:
@@ -272,7 +203,9 @@ def tree_to_dict(node, gcf_map, gene_order, synteny, motility, complete, anchors
         syn = synteny.get(node.name)
         d["agreement"] = syn["agreement_score"] if syn else None
         d["coverage"] = syn["coverage"] if syn else None
-        d["reliable"] = bool(records) and is_reliable(records, complete)
+        # Same set as the synteny dashboard: taken from the reliable synteny
+        # analysis (closed chromosome AND >= 4 flagellar genes), not recomputed.
+        d["reliable"] = bool(syn and syn.get("reliable"))
         d["scaffolded"] = bool(syn["scaffolded"]) if syn and "scaffolded" in syn else False
         mot = motility.get(node.name)
         d["motility"] = mot["motility"] if mot else None
@@ -399,7 +332,7 @@ def generate_html(tree_json, leaf_count, output_path, anchor_gene="—"):
   <label><input type="checkbox" id="showBranchLen"> Show branch lengths</label>
   <label><input type="checkbox" id="showAgreement" checked> Show agreement dot</label>
   <label><input type="checkbox" id="showMotility" checked> Show motility dot</label>
-  <label title="Keep only genomes whose flagellar genes all sit on one closed chromosome: natively assembled (FASTA header says complete genome/sequence), or a RagTag scaffold against a same-species reference (⚡). Drops draft assemblies and single-scaffold WGS assemblies. Reliable genomes are drawn as circular chromosomes rotated to start at the anchor gene.">
+  <label title="Keep only genomes whose flagellar genes all sit on one closed chromosome: natively assembled (FASTA header says complete genome/sequence), or a RagTag scaffold against a same-species reference (⚡). Also needs at least 4 flagellar genes, the minimum the synteny comparison uses. Drops draft assemblies and single-scaffold WGS assemblies. Same set as the synteny dashboard's toggle. Closed chromosomes are drawn as circular, rotated to start at the anchor gene.">
     <input type="checkbox" id="reliableOnly"> Reliable gene order only (<span id="reliableCount"></span>)
   </label>
   <label title="Underlines two consecutive genes on the same contig when they overlap (black) or the second starts within this many bp of the first ending (grey), so runs of tightly packed genes (likely co-transcribed) read as one continuous line. Rectangular view only. Hover a line for the exact distance. Press Enter or click away to apply.">
@@ -1458,10 +1391,18 @@ def main():
     scaffolded = apply_ragtag(gene_order, SCAFFOLDED_GENE_ORDER)
     complete = load_complete_chromosomes(FASTA_DIR, RAGTAG_DIR)
     anchors = rank_anchor_genes(gene_order, complete)
-    reliable = {o for o, recs in gene_order.items() if recs and is_reliable(recs, complete)}
-    print(f"{len(reliable)} genomes with all flagellar genes on one closed chromosome "
+    closed = {o for o, recs in gene_order.items() if recs and is_reliable(recs, complete)}
+    reliable = {o for o, v in synteny.items() if v.get("reliable")}
+    print(f"{len(reliable)} reliable genomes from {synteny_json} "
           f"({len(reliable - scaffolded)} native, {len(reliable & scaffolded)} RagTag); "
           f"anchor gene: {anchors[0] if anchors else '—'}")
+    # The synteny file is a precomputed input: catch it going stale against
+    # the gene-order data (the only allowed difference is the < 4-gene rule).
+    unexplained = (reliable ^ closed) - {o for o in closed if len(gene_order[o]) < 4}
+    if unexplained:
+        print(f"WARNING: reliable set in {synteny_json} disagrees with the gene-order data for "
+              f"{sorted(unexplained)} -- rerun synteny_analysis_full_contigs.py --closed and "
+              f"build_merged_synteny_combined.py")
 
     tree_json = tree_to_dict(t_named, gcf_map, gene_order, synteny, motility, complete, anchors)
     generate_html(tree_json, leaf_count, output, anchors[0] if anchors else "—")

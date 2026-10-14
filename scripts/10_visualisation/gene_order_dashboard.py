@@ -137,7 +137,7 @@ def generate_html(
   <button class="tab-btn" data-tab="motility">Gene content vs. motility</button>
   <button class="tab-btn" data-tab="hgt">HGT tanglegram (gene tree vs. species tree)</button>
   <label id="reliableToggleLabel" style="margin-left: 16px; font-size: 13px; color: #52514e; align-self: center;"
-    title="Switch every panel to the genomes whose flagellar genes are entirely on one contig (directly assembled, or recovered by RagTag scaffolding against a real same-species reference). Drops every genome where gene order is still ambiguous. This is a precomputed dataset, not a client-side filter — the Mantel test, UPGMA tree, and MDS coordinates are all recomputed on just this set, not just visually hidden.">
+    title="Switch every panel to the genomes whose flagellar genes all sit on one closed, circular chromosome: a natively complete assembly, or a RagTag scaffold against a same-species reference (same set as the interactive tree, minus genomes with < 4 flagellar genes). Gene order is compared as circular, so the last and first genes count as neighbours. Drops every genome where gene order is still ambiguous. This is a precomputed dataset, not a client-side filter — the Mantel test, UPGMA tree, and MDS coordinates are all recomputed on just this set, not just visually hidden.">
     <input type="checkbox" id="reliableOnly"> Reliable gene order only ({n_reliable} / {n_all})
   </label>
   <button id="saveImage">Save Image</button>
@@ -145,17 +145,17 @@ def generate_html(
 <div id="tooltip"></div>
 
 <div id="panel-scatter" class="panel active">
-  <div class="hint">Each point is one genome pair. Hover for organism names and distances.</div>
+  <div class="hint">Each point is one genome pair. Hover for organism names and distances. Synteny distance = share of neighbouring-gene pairs not kept between the two genomes, counting strand (an inverted gene or block breaks the pairs at its ends; flipping a whole chromosome doesn't) and giving half credit when one genome's pair overlaps and the other's doesn't. Reliable set: circular, so the last and first genes are neighbours too.</div>
   <div id="scatterWrap"><canvas id="scatterCanvas"></canvas><svg id="scatterSvg"></svg></div>
 </div>
 
 <div id="panel-heatmap" class="panel">
-  <div class="hint">Rows/columns follow tree order, so conserved clades show as light blocks along the diagonal. Grey = no gene-order data. Click a cell to see the two genomes' gene-order dot plot.</div>
+  <div class="hint">Rows/columns follow tree order, so conserved clades show as light blocks along the diagonal. Grey = no gene-order data. Distance counts strand (inversions) and gene overlaps, as on the scatter tab. Click a cell to see the two genomes' gene-order dot plot.</div>
   <div id="heatmapWrap"><canvas id="heatmapCanvas"></canvas><svg id="heatmapSvg"></svg></div>
 </div>
 
 <div id="panel-ranking" class="panel">
-  <div class="hint">Agreement score: how well each genome's gene-order neighbours match its phylogenetic neighbours (-1 to +1). Sorted most concordant → most discordant.</div>
+  <div class="hint">Agreement score: how well each genome's gene-order neighbours match its phylogenetic neighbours (-1 to +1), using the strand- and overlap-aware synteny distance. Sorted most concordant → most discordant.</div>
   <div id="rankWrap"><svg id="rankSvg"></svg></div>
 </div>
 
@@ -309,7 +309,7 @@ function renderScatter() {{
     .attr("text-anchor", "middle").text("Phylogenetic (patristic) distance");
   svg.append("text").attr("class", "axis-label")
     .attr("transform", `translate(14,${{height / 2}}) rotate(-90)`).attr("text-anchor", "middle")
-    .text("Synteny (breakpoint) distance");
+    .text("Synteny distance (signed adjacency + overlap)");
 
   // Points on canvas (~9k+ — cheaper than one DOM node each)
   ctx.clearRect(0, 0, width, height);

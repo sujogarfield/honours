@@ -2,13 +2,16 @@
 """
 build_merged_synteny_combined.py
 Same as build_merged_synteny.py, but for the combined (string match +
-orthology) dataset: swaps in the reliable-population entry (coverage==1.0,
-108 genomes including RagTag-scaffolded) for organisms that reach it, flags
-every organism "reliable"/"scaffolded" -- this is what interactive_tree.py's
-"reliable only" toggle needs.
+orthology) dataset: swaps in the reliable-population entry (all flagellar
+genes on one closed chromosome, native or RagTag; >= 4 genes -- see
+scripts/common/reliability.py) for organisms that reach it, so their
+agreement score comes from the reliable analysis, and flags every organism
+"reliable"/"scaffolded". interactive_tree.py reads the agreement scores and
+the "scaffolded" flag; it recomputes reliability itself.
 
-Run AFTER orthology_synteny_preview.py and synteny_analysis_full_contigs.py
-have both been run against gene_order/gene_order_combined_scaffolded.json.
+Run AFTER orthology_synteny_preview.py and
+synteny_analysis_full_contigs.py --closed have both been run against
+gene_order/gene_order_combined_scaffolded.json.
 """
 import json
 

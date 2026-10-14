@@ -12,6 +12,11 @@ result stays independently reproducible. Compare its Mantel r/p and
 per-organism agreement scores against synteny_analysis.json's to see what
 the orthology-recovered genes changed.
 
+Distance: the strand- and overlap-aware signed-adjacency distance from
+scripts/common/synteny_distance.py (inversions and overlap changes count;
+the assembly's orientation doesn't). Pass --breakpoint for the original
+unsigned breakpoint distance below, e.g. to reproduce earlier numbers.
+
 Run AFTER build_combined_gene_order.py.
 """
 
@@ -21,8 +26,13 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+import os
+
 import numpy as np
 from ete3 import Tree
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "common"))
+from synteny_distance import primary_contig_records, signed_overlap_distance
 
 DEFAULT_GENE_ORDER_JSON = "gene_order/gene_order_combined.json"
 NAMED_NWK = "images_and_newick/thesis_b/gtdb_ref_tree.nwk"
@@ -206,8 +216,11 @@ def classical_mds(dist: np.ndarray, valid: np.ndarray) -> np.ndarray:
 
 
 def main():
-    GENE_ORDER_JSON = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_GENE_ORDER_JSON
-    OUTPUT_JSON = sys.argv[2] if len(sys.argv) > 2 else DEFAULT_OUTPUT_JSON
+    use_breakpoint = "--breakpoint" in sys.argv
+    args = [a for a in sys.argv[1:] if a != "--breakpoint"]
+    GENE_ORDER_JSON = args[0] if len(args) > 0 else DEFAULT_GENE_ORDER_JSON
+    OUTPUT_JSON = args[1] if len(args) > 1 else DEFAULT_OUTPUT_JSON
+    print(f"Distance: {'unsigned breakpoint' if use_breakpoint else 'signed adjacency + overlap'}")
 
     Path("gene_order").mkdir(exist_ok=True)
 
@@ -224,11 +237,12 @@ def main():
     if skipped:
         print(f"{len(skipped)} organisms with gene data skipped (not in pruned tree)")
 
-    orders, primary_sizes, total_genes = {}, {}, {}
+    orders, signed, primary_sizes, total_genes = {}, {}, {}, {}
     for name in organisms:
         recs = gene_order[name]
         ordered, psize = primary_contig_order(recs)
         orders[name] = ordered
+        signed[name] = primary_contig_records(recs)[0]
         primary_sizes[name] = psize
         total_genes[name] = len(recs)
 
@@ -237,7 +251,11 @@ def main():
     valid = np.zeros((n, n), dtype=bool)
 
     for i, j in itertools.combinations(range(n), 2):
-        d, _ = breakpoint_distance(orders[organisms[i]], orders[organisms[j]])
+        if use_breakpoint:
+            d, _ = breakpoint_distance(orders[organisms[i]], orders[organisms[j]])
+        else:
+            d, _ = signed_overlap_distance(signed[organisms[i]], signed[organisms[j]],
+                                           min_shared=MIN_SHARED_GENES)
         if d is not None:
             dist_synt[i, j] = dist_synt[j, i] = d
             valid[i, j] = valid[j, i] = True
