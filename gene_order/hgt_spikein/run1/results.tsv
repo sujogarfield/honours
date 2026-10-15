@@ -1,0 +1,19 @@
+test_id	gene	length_class	transfer_distance	condition	recipient_acc	recipient	donor_acc	donor	n_seqs	placement	sister_ufboot	sister	screen_hit	screen_hit_ufboot	detected
+flie_within_genus_spike	flie	short (67 sites)	within_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	147	donor	80.0	Campylobacter armoricus; Campylobacter subantarcticus	True	100.0	True
+flie_within_genus_control	flie	short (67 sites)	within_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	147	home	64.0	Campylobacter coli; Campylobacter helveticus; Campylobacter taeniopygiae; Campylobacter upsaliensis	False		
+flie_close_genus_spike	flie	short (67 sites)	close_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	147	donor	91.0	Helicobacter cetorum	True	99.0	True
+flie_close_genus_control	flie	short (67 sites)	close_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	147	home	47.0	Campylobacter coli; Campylobacter helveticus; Campylobacter taeniopygiae; Campylobacter upsaliensis	False		
+flie_distant_genus_spike	flie	short (67 sites)	distant_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	147	donor	99.0	13 genomes, e.g. Sulfurimonas aquatica; Sulfurimonas autotrophica; Sulfurimonas baltica	True	99.0	True
+flie_distant_genus_control	flie	short (67 sites)	distant_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	147	home	56.0	Campylobacter coli; Campylobacter helveticus; Campylobacter taeniopygiae; Campylobacter upsaliensis	False		
+flhb_within_genus_spike	flhb	medium (297 sites)	within_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	147	donor	92.0	Campylobacter ornithocola	True	100.0	True
+flhb_within_genus_control	flhb	medium (297 sites)	within_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	147	home	98.0	Campylobacter coli	False		
+flhb_close_genus_spike	flhb	medium (297 sites)	close_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	147	donor	100.0	Helicobacter acinonychis	True	100.0	True
+flhb_close_genus_control	flhb	medium (297 sites)	close_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	147	home	90.0	Campylobacter coli	False		
+flhb_distant_genus_spike	flhb	medium (297 sites)	distant_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	147	donor	58.0	Sulfurimonas crateris	True	100.0	True
+flhb_distant_genus_control	flhb	medium (297 sites)	distant_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	147	home	98.0	Campylobacter coli	False		
+flha_within_genus_spike	flha	long (556 sites)	within_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	146	donor	87.0	Campylobacter peloridis	True	100.0	True
+flha_within_genus_control	flha	long (556 sites)	within_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_013372185.1	Campylobacter lari	146	home	53.0	Campylobacter coli	False		
+flha_close_genus_spike	flha	long (556 sites)	close_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	146	donor	100.0	Helicobacter acinonychis	True	100.0	True
+flha_close_genus_control	flha	long (556 sites)	close_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_900478295.1	Helicobacter pylori	146	home	50.0	Campylobacter coli	False		
+flha_distant_genus_spike	flha	long (556 sites)	distant_genus	spike	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	146	donor	97.0	Sulfurimonas crateris	True	97.0	True
+flha_distant_genus_control	flha	long (556 sites)	distant_genus	control	GCF_001457695.1	Campylobacter jejuni	GCF_000012965.1	Sulfurimonas denitrificans	146	home	56.0	Campylobacter coli	False		
