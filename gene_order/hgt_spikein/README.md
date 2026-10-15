@@ -165,6 +165,74 @@ python scripts/11_flagellar_trees/plot_hgt_spikein.py        # writes figures/
 `aligned/`, `trimmed/`, `gene_trees/` and the screen outputs are gitignored.
 `results.tsv` is kept.
 
+## Run 2 results (2026-10-15): 36 planted transfers
+
+**Detected 22/36 (61%; exact 95% CI lower bound 43%). Controls flagged 1/36.**
+The planted copy was placed with the donor's relatives in 32/36 trees. A
+detected transfer was the deepest conflict in its tree in 18/22, so it would
+stand out without knowing where to look.
+
+Cell = detected (rank among the tree's conflicts) or the reason it was missed.
+
+| recipient | donor level (donor, GTDB dist) | *fliE* (67) | *flhB* (297) | *flhA* (556) |
+|---|---|---|---|---|
+| *C. jejuni* | very close (*C. coli*, 0.037) | missed, not with donor | missed, not with donor | missed, not with donor |
+| | within family (*C. fetus*, 0.247) | DET 1/11 | DET 2/14 | missed, UFBoot 85 |
+| | sister family (*S. deleyianum*, 0.332) | DET 1/10 | DET 2/17 | DET 1/17 |
+| | distant (*S. denitrificans*, 0.543) | missed, UFBoot 34 | DET 1/14 | DET 1/17 |
+| *H. felis* | very close (*H. salomonis*, 0.055) | missed, UFBoot 88 | control flagged | missed, no topological conflict |
+| | within family (*H. pullorum*, 0.447) | missed, UFBoot 93 | DET 1/14 | DET 1/15 |
+| | sister family (*S. deleyianum*, 0.590) | DET 1/9 | DET 1/15 | DET 1/17 |
+| | distant (*S. denitrificans*, 0.672) | missed, masked (UFBoot 99) | DET 1/14 | DET 1/17 |
+| *A. butzleri* | very close (*A. vitoriensis*, 0.061) | DET 2/10 | missed, UFBoot 47 | DET 1/16 |
+| | within family (*M. marinus*, 0.158) | missed, UFBoot 81 | DET 3/14 | DET 1/18 |
+| | sister family (*N. alvini*, 0.391) | DET 1/14 | DET 1/13 | DET 1/15 |
+| | distant (*C. fetus*, 0.569) | missed, UFBoot 55 | DET 1/14 | missed, UFBoot 89 |
+
+| | very close | within family | sister family | distant | all |
+|---|---|---|---|---|---|
+| detected | 2/9 | 6/9 | 9/9 | 5/9 | 22/36 |
+
+| gene (sites) | detected | detected, excluding very close |
+|---|---|---|
+| *fliE* (67) | 5/12 | 4/9 |
+| *flhB* (297) | 9/12 | 9/9 |
+| *flhA* (556) | 8/12 | 7/9 |
+
+**Why transfers were missed (14):**
+
+- **Very close donors (7).** For *C. jejuni* ← *C. coli*, the planted copy
+  stays inside *Campylobacter* next to other *C. jejuni*-group species and
+  never forms a group with *C. coli*'s relatives. For *H. felis* ←
+  *H. salomonis* in *flhA*, landing with the donor's relatives is not a
+  conflict once *H. salomonis* is removed, so there is nothing to detect. The
+  *flhB* *H. felis* control was already flagged: a pre-existing
+  *H. felis*/*H. labacensis* conflict, the same one seen in the dry run.
+- **Placed correctly but with UFBoot < 95 (6).** Four of these are in the
+  67-site *fliE*. The gene tree puts the copy in the right place but without
+  enough support to pass the screen.
+- **Masked by a nested conflict (1).** In *fliE* *H. felis* ← *Sulfurimonas*,
+  the copy groups with 13 *Sulfurimonas* at UFBoot 99. But the screen keeps
+  only minimal conflicting groups, and a smaller unrelated conflict inside
+  *Sulfurimonas* (UFBoot 96) is nested within it, so the outer group was
+  dropped. This is a limitation of the minimal-group rule, not of the tree.
+
+**Interpretation.**
+
+- **Above the very-close level, length decides.** Medium and long genes
+  detected 16/18 transfers from within-family or more distant donors (all 9
+  for *flhB*). The 67-site *fliE* detected 4/9.
+- **Distant is lower than sister family only because of short genes.** Three
+  of the four distant misses are in *fliE*, and the fourth is *flhA*
+  *A. butzleri* (UFBoot 89). It is not a trend with distance.
+- **Very close transfers (between sister species) are mostly not detectable**
+  by single-gene topology. That sets the lower resolution limit of the
+  "predominantly vertical" conclusion.
+- **False-positive rate:** 1/36 controls. That hit was a conflict already in
+  the real tree, not one created by removing the donor.
+- **Compared with the dry run (24/36):** the counts per level shifted,
+  because real re-inference changes support, but the pattern is the same.
+
 ## Run 1 (2026-10-15): *C. jejuni* only, 9 planted transfers
 
 These results are kept in `run1/` (its `design.tsv`, `results.tsv`, screen
