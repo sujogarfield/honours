@@ -1,0 +1,11 @@
+block	genes_signed	adjacency_support	lineages_holding_every_adjacency	n_intact	n_partial	n_dispersed	n_absent
+C1	fliF+ fliG+ fliH+	97,96	Campylobacter; Helicobacter + Wolinella; Sulfurospirillum; Arcobacteraceae; Sulfurimonas + Sulfuricurvum; Nautiliales	96	1	5	1
+C2	flgB+ flgC+ fliE+	72,73	Campylobacter; Helicobacter + Wolinella; Sulfurospirillum; Sulfurimonas + Sulfuricurvum; Nautiliales; Nitratiruptoraceae	72	1	28	2
+C3	flaG+ fliD+ fliS+	56,84	Campylobacter; Helicobacter + Wolinella; Sulfurospirillum; Nautiliales; Nitratiruptoraceae	56	28	15	4
+C4	fliA+ fliM+ fliY+	68,68	Campylobacter; Helicobacter + Wolinella; Sulfurospirillum; Sulfurimonas + Sulfuricurvum; Nautiliales	67	2	4	30
+C5	cheV+ cheA+ cheW+	64,53	Campylobacter; Helicobacter + Wolinella; Sulfurospirillum	50	17	1	35
+C6	flgI+ flgJ+ flgM+	67,34	Campylobacter; Sulfurospirillum; Sulfurimonas + Sulfuricurvum	34	33	30	6
+C7	motA+ motB+	56	Campylobacter; Helicobacter + Wolinella; Sulfurospirillum	56	0	1	46
+C8	fliK+ flgD+	39	Helicobacter + Wolinella; Sulfurospirillum; Sulfurimonas + Sulfuricurvum; Nautiliales	39	0	19	45
+C9	flgQ+ flgR+	24	Campylobacter; Sulfurospirillum	24	0	11	68
+C10	flaB+ maf_2356+	18	Helicobacter + Wolinella; Sulfurospirillum	18	0	7	78

@@ -1,0 +1,11 @@
+block	genes	Campylobacter	Helicobacter + Wolinella	Sulfurospirillum	Arcobacteraceae	Sulfurimonas + Sulfuricurvum	Nautiliales	Nitratiruptoraceae	Desulfurellia (GTDB root)
+C1	fliF fliG fliH	30/30	16/16	4/5	28/29	11/12	3/3	3/7	1/1
+C2	flgB flgC fliE	30/30	15/16	5/5	0/29	11/12	3/3	7/7	1/1
+C3	flaG fliD fliS	30/30	15/16	4/5	0/29	0/12	3/3	4/7	0/1
+C4	fliA fliM fliY	30/30	15/16	5/5	0/29	11/12	3/3	3/7	0/1
+C5	cheV cheA cheW	30/30	12/16	5/5	0/29	0/12	0/3	3/7	0/1
+C6	flgI flgJ flgM	16/30	0/16	4/5	0/29	11/12	0/3	3/7	0/1
+C7	motA motB	25/30	11/16	5/5	14/29	1/12	0/3	0/7	0/1
+C8	fliK flgD	12/30	8/16	4/5	0/29	9/12	3/3	3/7	0/1
+C9	flgQ flgR	19/30	0/16	5/5	0/29	0/12	0/3	0/7	0/1
+C10	flaB maf_2356	0/30	14/16	4/5	0/29	0/12	0/3	0/7	0/1

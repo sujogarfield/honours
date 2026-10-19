@@ -1,0 +1,24 @@
+adjacency	lineage	n_in_lineage	lineage_size	n_total	joins_core_blocks
+flhB(t)–fliR(h)	Arcobacteraceae	28	29	31	-–-
+flgI(h)–fliM(t)	Arcobacteraceae	29	29	29	C4–C6
+flgC(t)–fliE(h)	Arcobacteraceae	28	29	28	C2–C2
+fliH(h)–fliN(t)	Arcobacteraceae	28	29	28	C1–-
+flgB(h)–fliF(t)	Arcobacteraceae	28	29	28	C1–C2
+flgK(h)–fliD(t)	Arcobacteraceae	25	29	25	-–C3
+flgH(h)–flgK(t)	Arcobacteraceae	23	29	23	-–-
+flgL(h)–flhA(t)	Arcobacteraceae	23	29	23	-–-
+flgL(t)–fliI(h)	Arcobacteraceae	23	29	23	-–-
+flgJ(h)–flgN(t)	Arcobacteraceae	18	29	23	C6–-
+flgD(t)–fliN(h)	Arcobacteraceae	23	29	23	-–C8
+flgK(t)–flgN(h)	Campylobacter	29	30	32	-–-
+flgP(h)–flgQ(t)	Campylobacter	30	30	30	-–C9
+flgM(h)–flgN(t)	Campylobacter	16	30	20	C6–-
+flgJ(h)–flgS(t)	Helicobacter + Wolinella	13	16	13	C6–-
+flgH(h)–flgI(t)	Nitratiruptoraceae	4	7	5	C6–-
+flhA(h)–flhF(t)	Nitratiruptoraceae	4	7	5	-–-
+flgA(t)–flgG(h)	Nitratiruptoraceae	4	7	5	-–-
+fliP(h)–fliQ(t)	Nitratiruptoraceae	4	7	5	-–-
+fliQ(h)–fliR(t)	Nitratiruptoraceae	4	7	5	-–-
+fliE(h)–fliF(t)	Nitratiruptoraceae	4	7	5	C1–C2
+flgK(h)–flgL(t)	Nitratiruptoraceae	4	7	4	-–-
+flgA(h)–flgH(t)	Nitratiruptoraceae	4	7	4	-–-

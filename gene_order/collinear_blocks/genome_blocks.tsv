@@ -1,0 +1,104 @@
+organism	group	C1	C2	C3	C4	C5	C6	C7	C8	C9	C10	flhB(t)–fliR(h)	flgI(h)–fliM(t)	flgC(t)–fliE(h)	fliH(h)–fliN(t)	flgB(h)–fliF(t)	flgK(h)–fliD(t)	flgH(h)–flgK(t)	flgL(h)–flhA(t)	flgL(t)–fliI(h)	flgJ(h)–flgN(t)	flgD(t)–fliN(h)	flgK(t)–flgN(h)	flgP(h)–flgQ(t)	flgM(h)–flgN(t)	flgJ(h)–flgS(t)	flgH(h)–flgI(t)	flhA(h)–flhF(t)	flgA(t)–flgG(h)	fliP(h)–fliQ(t)	fliQ(h)–fliR(t)	fliE(h)–fliF(t)	flgK(h)–flgL(t)	flgA(h)–flgH(t)
+Hippea maritima	Desulfurellia (GTDB root)	intact	intact	dispersed	absent	absent	dispersed	absent	absent	absent	absent	yes	no	no	no	no	no	no	no	no	no	no	yes	no	yes	no	yes	yes	yes	yes	yes	yes	no	no
+Nautilia profundicola	Nautiliales	intact	intact	intact	intact	partial	partial	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Caminibacter pacificus	Nautiliales	intact	intact	intact	intact	partial	partial	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Caminibacter mediatlanticus	Nautiliales	intact	intact	intact	intact	partial	partial	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Malaciobacter mytili	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Malaciobacter molluscorum	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Malaciobacter halophilus	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	absent	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Malaciobacter marinus	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Arcobacter nitrofigilis	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Halarcobacter bivalviorum	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Halarcobacter anaerophilus	Arcobacteraceae	intact	dispersed	dispersed	absent	absent	dispersed	absent	absent	absent	absent	yes	yes	yes	yes	yes	yes	no	no	no	yes	no	no	no	no	no	no	no	no	no	no	no	no	no
+Halarcobacter ebronensis	Arcobacteraceae	intact	dispersed	dispersed	absent	absent	dispersed	absent	absent	absent	absent	yes	yes	yes	yes	yes	yes	no	no	no	yes	no	no	no	no	no	no	no	no	no	no	no	no	no
+Arcobacter roscoffensis	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Poseidonibacter lekithochrous	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Poseidonibacter parvus	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Malaciobacter pacificus	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	absent	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Arcobacter defluvii	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Arcobacter ellisii	Arcobacteraceae	intact	dispersed	absent	absent	absent	dispersed	intact	absent	absent	absent	yes	yes	yes	yes	yes	no	no	no	no	yes	no	no	no	no	no	no	no	no	no	no	no	no	no
+Arcobacter aquimarinus	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Arcobacter cloacae	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	absent	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Arcobacter acticola	Arcobacteraceae	absent	absent	dispersed	absent	absent	absent	absent	absent	absent	absent	no	yes	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Arcobacter venerupis	Arcobacteraceae	intact	dispersed	absent	absent	absent	dispersed	intact	absent	absent	absent	yes	yes	yes	yes	yes	no	no	no	no	yes	no	no	no	no	no	no	no	no	no	no	no	no	no
+Arcobacter suis	Arcobacteraceae	intact	dispersed	absent	absent	absent	dispersed	intact	absent	absent	absent	yes	yes	yes	yes	yes	no	no	no	no	yes	no	no	no	no	no	no	no	no	no	no	no	no	no
+Aliarcobacter butzleri	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	absent	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Aliarcobacter faecis	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Aliarcobacter cibarius	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Aliarcobacter vitoriensis	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	absent	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Aliarcobacter lanthieri	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	absent	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Aliarcobacter trophiarum	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Aliarcobacter cryaerophilus	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	absent	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Aliarcobacter skirrowii	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	absent	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Aliarcobacter thereius	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	absent	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Arcobacter porcinus	Arcobacteraceae	intact	dispersed	partial	absent	absent	dispersed	intact	dispersed	absent	absent	yes	yes	yes	yes	yes	yes	yes	yes	yes	no	yes	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfuricurvum kujiense	Sulfurimonas + Sulfuricurvum	dispersed	intact	dispersed	intact	partial	intact	intact	absent	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas denitrificans	Sulfurimonas + Sulfuricurvum	intact	intact	dispersed	intact	partial	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas xiamenensis	Sulfurimonas + Sulfuricurvum	intact	absent	absent	partial	absent	absent	absent	absent	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas lithotrophica	Sulfurimonas + Sulfuricurvum	intact	intact	dispersed	intact	partial	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas aquatica	Sulfurimonas + Sulfuricurvum	intact	intact	partial	intact	partial	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas baltica	Sulfurimonas + Sulfuricurvum	intact	intact	partial	intact	partial	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas marisnigri	Sulfurimonas + Sulfuricurvum	intact	intact	partial	intact	partial	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas marina	Sulfurimonas + Sulfuricurvum	intact	intact	partial	intact	partial	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas paralvinellae	Sulfurimonas + Sulfuricurvum	intact	intact	partial	intact	partial	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas autotrophica	Sulfurimonas + Sulfuricurvum	intact	intact	dispersed	intact	partial	intact	absent	absent	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas hydrogeniphila	Sulfurimonas + Sulfuricurvum	intact	intact	dispersed	intact	partial	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurimonas sediminis	Sulfurimonas + Sulfuricurvum	intact	intact	dispersed	intact	partial	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Hydrogenimonas urashimensis	Nitratiruptoraceae	intact	intact	dispersed	intact	intact	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Hydrogenimonas thermophila	Nitratiruptoraceae	intact	intact	dispersed	intact	intact	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	yes	no	yes	no	no	no	no	no	no	no	no	no
+Hydrogenimonas cancrithermarum	Nitratiruptoraceae	intact	intact	dispersed	intact	intact	intact	absent	intact	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Nitrosophilus alvini	Nitratiruptoraceae	dispersed	intact	intact	dispersed	absent	absent	absent	absent	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	yes	yes	yes	yes	yes
+Nitratiruptor tergarcus	Nitratiruptoraceae	dispersed	intact	intact	dispersed	absent	absent	absent	absent	absent	absent	yes	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	yes	yes	yes	yes	yes
+Nitrosophilus kaiyonis	Nitratiruptoraceae	dispersed	intact	intact	dispersed	absent	absent	absent	absent	absent	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	yes	yes	yes	yes	yes
+Nitrosophilus labii	Nitratiruptoraceae	dispersed	intact	intact	dispersed	absent	absent	absent	absent	absent	absent	yes	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	yes	yes	yes	yes	yes
+Wolinella succinogenes	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	absent	intact	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter winghamensis	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	absent	intact	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter pullorum	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	absent	intact	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter colisuis	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	absent	intact	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter enhydrae	Helicobacter + Wolinella	intact	intact	intact	intact	partial	partial	intact	intact	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter cholecystus	Helicobacter + Wolinella	intact	intact	intact	intact	partial	partial	intact	absent	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter himalayensis	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	intact	absent	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter saguini	Helicobacter + Wolinella	intact	partial	dispersed	partial	intact	dispersed	dispersed	dispersed	absent	dispersed	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no	no
+Helicobacter canis	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	intact	absent	absent	dispersed	no	no	no	no	no	no	no	no	no	no	no	yes	no	yes	no	no	no	no	no	no	no	no	no
+Helicobacter mustelae	Helicobacter + Wolinella	intact	intact	intact	intact	partial	partial	intact	intact	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter cetorum	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	intact	absent	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter pylori	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	intact	intact	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter felis	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	intact	intact	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter suis	Helicobacter + Wolinella	intact	intact	intact	intact	dispersed	partial	intact	absent	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Helicobacter ailurogastricus	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	intact	dispersed	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Helicobacter heilmannii	Helicobacter + Wolinella	intact	intact	intact	intact	intact	partial	intact	dispersed	absent	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no
+Sulfurospirillum deleyianum	Sulfurospirillum	intact	intact	intact	intact	intact	partial	intact	intact	intact	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurospirillum barnesii	Sulfurospirillum	intact	intact	intact	intact	intact	intact	intact	intact	intact	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurospirillum diekertiae	Sulfurospirillum	intact	intact	dispersed	intact	intact	intact	intact	absent	intact	absent	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurospirillum multivorans	Sulfurospirillum	intact	intact	intact	intact	intact	intact	intact	intact	intact	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Sulfurospirillum halorespirans	Sulfurospirillum	partial	intact	intact	intact	intact	intact	intact	intact	intact	intact	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no	no
+Campylobacter showae	Campylobacter	intact	intact	intact	intact	intact	partial	absent	absent	intact	dispersed	no	no	no	no	no	no	no	no	no	yes	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter rectus	Campylobacter	intact	intact	intact	intact	intact	partial	absent	absent	intact	dispersed	no	no	no	no	no	no	no	no	no	yes	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter concisus	Campylobacter	intact	intact	intact	intact	intact	partial	absent	absent	intact	dispersed	no	no	no	no	no	no	no	no	no	yes	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter curvus	Campylobacter	intact	intact	intact	intact	intact	partial	intact	intact	intact	dispersed	no	no	no	no	no	no	no	no	no	yes	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter pinnipediorum	Campylobacter	intact	intact	intact	intact	intact	intact	absent	intact	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter mucosalis	Campylobacter	intact	intact	intact	intact	intact	intact	absent	absent	intact	dispersed	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter sputorum	Campylobacter	intact	intact	intact	intact	intact	partial	intact	intact	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter hyointestinalis	Campylobacter	intact	intact	intact	intact	intact	intact	intact	intact	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter iguaniorum	Campylobacter	intact	intact	intact	intact	intact	intact	intact	intact	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter fetus	Campylobacter	intact	intact	intact	intact	intact	intact	intact	intact	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter lanienae	Campylobacter	intact	intact	intact	intact	intact	partial	intact	absent	intact	absent	no	no	no	no	no	no	no	no	no	yes	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter porcelli	Campylobacter	intact	intact	intact	intact	intact	intact	intact	dispersed	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter vicugnae	Campylobacter	intact	intact	intact	intact	intact	intact	intact	intact	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter devanensis	Campylobacter	intact	intact	intact	intact	intact	intact	intact	intact	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter canadensis	Campylobacter	intact	intact	intact	intact	intact	partial	intact	absent	intact	absent	no	no	no	no	no	no	no	no	no	no	no	no	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter insulaenigrae	Campylobacter	intact	intact	intact	intact	intact	partial	intact	absent	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter volucris	Campylobacter	intact	intact	intact	intact	intact	partial	intact	absent	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter peloridis	Campylobacter	intact	intact	intact	intact	intact	partial	intact	absent	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter armoricus	Campylobacter	intact	intact	intact	intact	intact	partial	intact	absent	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter lari	Campylobacter	intact	intact	intact	intact	intact	partial	intact	absent	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter ornithocola	Campylobacter	intact	intact	intact	intact	intact	partial	intact	absent	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter subantarcticus	Campylobacter	intact	intact	intact	intact	intact	partial	intact	absent	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	no	no	no	no	no	no	no	no	no	no
+Campylobacter avium	Campylobacter	intact	intact	intact	intact	intact	intact	intact	absent	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter helveticus	Campylobacter	intact	intact	intact	intact	intact	intact	intact	absent	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter upsaliensis	Campylobacter	intact	intact	intact	intact	intact	intact	intact	intact	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter cuniculorum	Campylobacter	intact	intact	intact	intact	intact	intact	intact	absent	dispersed	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter novaezeelandiae	Campylobacter	intact	intact	intact	intact	intact	intact	intact	intact	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter jejuni	Campylobacter	intact	intact	intact	intact	intact	intact	intact	intact	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter hepaticus	Campylobacter	intact	intact	intact	intact	intact	intact	intact	absent	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no
+Campylobacter bilis	Campylobacter	intact	intact	intact	intact	intact	intact	intact	intact	intact	absent	no	no	no	no	no	no	no	no	no	no	no	yes	yes	yes	no	no	no	no	no	no	no	no	no

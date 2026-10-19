@@ -1,0 +1,54 @@
+lineage	locus	genes_signed	adjacency_support	lineage_size
+Campylobacter	L1	flgI+ flgJ+ flgM+ flgN+ flgK+	30,16,16,29	30
+Campylobacter	L2	cheV+ cheA+ cheW+	30,30	30
+Campylobacter	L3	flaG+ fliD+ fliS+	30,30	30
+Campylobacter	L4	flgB+ flgC+ fliE+	30,30	30
+Campylobacter	L5	fliA+ fliM+ fliY+	30,30	30
+Campylobacter	L6	fliF+ fliG+ fliH+	30,30	30
+Campylobacter	L7	flgP+ flgQ+ flgR+	30,19	30
+Campylobacter	L8	motA+ motB+	25	30
+Helicobacter + Wolinella	L1	fliF+ fliG+ fliH+	16,16	16
+Helicobacter + Wolinella	L2	flgB+ flgC+ fliE+	15,16	16
+Helicobacter + Wolinella	L3	fliA+ fliM+ fliY+	16,15	16
+Helicobacter + Wolinella	L4	flaG+ fliD+ fliS+	15,15	16
+Helicobacter + Wolinella	L5	flgI+ flgJ+ flgS+	15,13	16
+Helicobacter + Wolinella	L6	cheV+ cheA+ cheW+	12,15	16
+Helicobacter + Wolinella	L7	flaB+ maf_2356+	14	16
+Helicobacter + Wolinella	L8	motA+ motB+	11	16
+Helicobacter + Wolinella	L9	fliK+ flgD+	8	16
+Sulfurospirillum	L1	cheV+ cheA+ cheW+	5,5	5
+Sulfurospirillum	L2	flgB+ flgC+ fliE+	5,5	5
+Sulfurospirillum	L3	fliA+ fliM+ fliY+	5,5	5
+Sulfurospirillum	L4	flgI+ flgJ+ flgM+	5,4	5
+Sulfurospirillum	L5	fliF+ fliG+ fliH+	5,4	5
+Sulfurospirillum	L6	flaG+ fliD+ fliS+	4,4	5
+Sulfurospirillum	L7	flgQ+ flgR+	5	5
+Sulfurospirillum	L8	motA+ motB+	5	5
+Sulfurospirillum	L9	flaB+ maf_2356+	4	5
+Sulfurospirillum	L10	fliK+ flgD+	4	5
+Arcobacteraceae	L1	flgB+ fliF+ fliG+ fliH+ fliN+ flgD+	28,28,28,28,23	29
+Arcobacteraceae	L2	flgH+ flgK+ fliD+ fliS+	23,25,23	29
+Arcobacteraceae	L3	fliI+ flgL+ flhA+	23,23	29
+Arcobacteraceae	L4	flgI+ fliM+	29	29
+Arcobacteraceae	L5	fliE+ flgC+	28	29
+Arcobacteraceae	L6	fliR+ flhB+	28	29
+Arcobacteraceae	L7	flgJ+ flgN+	18	29
+Sulfurimonas + Sulfuricurvum	L1	fliA+ fliM+ fliY+	11,12	12
+Sulfurimonas + Sulfuricurvum	L2	flgB+ flgC+ fliE+	11,11	12
+Sulfurimonas + Sulfuricurvum	L3	flgI+ flgJ+ flgM+	11,11	12
+Sulfurimonas + Sulfuricurvum	L4	fliF+ fliG+ fliH+	11,11	12
+Sulfurimonas + Sulfuricurvum	L5	cheV+ cheA+	11	12
+Sulfurimonas + Sulfuricurvum	L6	fliK+ flgD+	9	12
+Nautiliales	L1	flaG+ fliD+ fliS+	3,3	3
+Nautiliales	L2	flgB+ flgC+ fliE+	3,3	3
+Nautiliales	L3	fliA+ fliM+ fliY+	3,3	3
+Nautiliales	L4	fliF+ fliG+ fliH+	3,3	3
+Nautiliales	L5	cheV+ cheA+	3	3
+Nautiliales	L6	fliK+ flgD+	3	3
+Nautiliales	L7	flgI+ flgJ+	3	3
+Nitratiruptoraceae	L1	flgB+ flgC+ fliE+ fliF+	7,7,4	7
+Nitratiruptoraceae	L2	flgG+ flgA+ flgH+ flgI+	4,4,4	7
+Nitratiruptoraceae	L3	flaG+ fliD+ fliS+	4,4	7
+Nitratiruptoraceae	L4	fliP+ fliQ+ fliR+	4,4	7
+Nitratiruptoraceae	L5	flgK+ flgL+	4	7
+Nitratiruptoraceae	L6	flhA+ flhF+	4	7
