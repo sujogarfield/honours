@@ -1,0 +1,41 @@
+# Core flagellar structural, export and motor genes shared across most
+# flagellated bacteria (no chemotaxis, no lineage-specific genes).
+# Add lineage names after `flagpipe.py check` (e.g. hag = flagellin in Bacillus).
+flie
+flif
+flig
+flih
+flii
+flij
+flik
+flil
+flim
+flin
+flio
+flip
+fliq
+flir
+flis
+flid
+flic
+flha
+flhb
+flhf
+flhg
+flga
+flgb
+flgc
+flgd
+flge
+flgf
+flgg
+flgh
+flgi
+flgk
+flgl
+flgm
+flgn
+mota
+motb
+fliw
+hag

@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=4:mem=8gb
+#PBS -l walltime=06:00:00
+#PBS -j oe
+#PBS -N fp_gene_trees
+
+# Stage 2a: PBS array, one element per gene in $RUN/trees/genes.txt.
+# MAFFT L-INS-i -> trimAl -automated1 -> IQ-TREE ModelFinder + 1000 UFBoot
+# (as scripts/11_flagellar_trees/katana/01_gene_trees.pbs, plus a fixed seed).
+
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+source flagpipe/katana/common.sh
+: "${RUN:?set RUN=<run dir>}"
+D=$RUN/trees
+GENE=$(sed -n "${PBS_ARRAY_INDEX}p" "$D/genes.txt")
+mkdir -p "$D/aligned" "$D/trimmed" "$D/gene_trees"
+mafft --localpair --maxiterate 1000 --thread "$NCPUS" --quiet "$D/genes/$GENE.faa" > "$D/aligned/$GENE.faa"
+trimal -in "$D/aligned/$GENE.faa" -out "$D/trimmed/$GENE.faa" -automated1
+iqtree2 -s "$D/trimmed/$GENE.faa" -m MFP -B 1000 -T "$NCPUS" --seed 1 --prefix "$D/gene_trees/$GENE"

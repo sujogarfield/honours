@@ -1,0 +1,37 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=16:mem=64gb
+#PBS -l walltime=24:00:00
+#PBS -j oe
+#PBS -N fp_orthology
+
+# Stage 1: OrthoFinder -> crossref -> eggNOG-mapper -> confirm -> select ->
+# synteny -> report (interactive tree + synteny scatter). Submitted by submit.sh.
+# Each step is skipped if its output exists, so a failed job can be resubmitted.
+
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+source flagpipe/katana/common.sh
+: "${RUN:?set RUN=<run dir>}"
+EGGNOG_DATA_DIR=$(python -c "import json; print(json.load(open('$RUN/config.json'))['eggnog_data_dir'])")
+
+[ -s "$RUN/orthology/string_match.json" ] || $FP string-match "$RUN"
+
+if ! ls "$RUN"/orthology/orthofinder/Results_*/Orthogroups/Orthogroups.tsv >/dev/null 2>&1; then
+    rm -rf "$RUN/orthology/orthofinder"          # leftovers of a killed run
+    orthofinder -f "$RUN/genomes/faa" -t "$NCPUS" -a 4 -o "$RUN/orthology/orthofinder"
+fi
+
+[ -s "$RUN/orthology/candidates.faa" ] || $FP crossref "$RUN"
+
+if [ ! -s "$RUN/orthology/eggnog/candidates.emapper.annotations" ]; then
+    mkdir -p "$RUN/orthology/eggnog"
+    emapper.py -i "$RUN/orthology/candidates.faa" --itype proteins -m diamond \
+        --data_dir "$EGGNOG_DATA_DIR" --cpu "$NCPUS" --override \
+        --output candidates --output_dir "$RUN/orthology/eggnog" --temp_dir "${TMPDIR:-/tmp}"
+fi
+
+$FP confirm "$RUN"
+$FP select "$RUN"
+$FP synteny "$RUN"
+$FP report "$RUN"
+echo "=== stage 1 done: check $RUN/trees/gene_selection.json, then submit.sh $RUN trees ==="
