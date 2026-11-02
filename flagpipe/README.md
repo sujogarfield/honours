@@ -23,27 +23,38 @@ from `scripts/11_flagellar_trees/plot_results.py`.
 
 ---
 
-## On Katana: one-off setup (once per group)
+## On Katana: one-off setup
+
+Everything goes in your own scratch (`/srv/scratch/$USER`).
 
 ```bash
 cd /srv/scratch/$USER
 git clone https://github.com/sujogarfield/honours.git
 cd honours
 
-# 1. conda environment (OrthoFinder, eggNOG-mapper 2.1.13, DIAMOND, MAFFT, trimAl, IQ-TREE 2.4.0)
-qsub flagpipe/katana/setup_env.pbs              # -> /srv/scratch/baker/flagpipe_env
+# 0. conda, only if `conda` is not already available (check: which conda)
+wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+bash Miniforge3-Linux-x86_64.sh -b -p /srv/scratch/$USER/miniforge3
 
-# 2. eggNOG database, ~50 GB, shared by everyone
-qsub -v EGGNOG_DATA_DIR=/srv/scratch/baker/eggnog_data flagpipe/katana/download_eggnog.pbs
+# 1. conda environment (OrthoFinder, eggNOG-mapper 2.1.13, DIAMOND, MAFFT, trimAl, IQ-TREE 2.4.0)
+qsub flagpipe/katana/setup_env.pbs              # -> /srv/scratch/$USER/flagpipe_env
+#    wait for it to finish (qstat -u $USER); fp_env.o* should end with "python deps OK"
+
+# 2. eggNOG database, ~50 GB (needs step 1 finished)
+qsub flagpipe/katana/download_eggnog.pbs        # -> /srv/scratch/$USER/eggnog_data
 ```
 
-The defaults are `FLAGPIPE_ENV=/srv/scratch/baker/flagpipe_env` and
-`CONDA_BASE=/srv/scratch/baker/miniforge3`, set in `katana/common.sh`.
-Anyone in the group with read access to those folders can skip both steps.
+The defaults are set in `katana/common.sh`:
+- `FLAGPIPE_ENV=/srv/scratch/$USER/flagpipe_env`;
+- `CONDA_BASE`: the `conda` on your PATH, otherwise `/srv/scratch/$USER/miniforge3`.
+
+To use an env or database someone else already built, pass its path with
+`qsub -v FLAGPIPE_ENV=...` / `EGGNOG_DATA_DIR=...` and give that eggNOG folder
+to `init`.
 
 If Katana compute nodes have no internet, the eggNOG download job will fail.
-In that case run `download_eggnog_data.py -y --data_dir <dir>` on the login
-node inside `screen`.
+In that case run `download_eggnog_data.py -y --data_dir /srv/scratch/$USER/eggnog_data`
+on the login node inside `screen`, with the env on your PATH.
 
 ## A run
 
@@ -51,7 +62,7 @@ Every step takes a **run directory**. Put it in scratch, e.g.
 `/srv/scratch/$USER/flagpipe_runs/listeriaceae`.
 
 ```bash
-export PATH=/srv/scratch/baker/flagpipe_env/bin:$PATH
+export PATH=/srv/scratch/$USER/flagpipe_env/bin:$PATH
 RUN=/srv/scratch/$USER/flagpipe_runs/listeriaceae
 
 # Login node (light work, needs internet)

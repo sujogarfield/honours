@@ -11,6 +11,7 @@ Steps that run on the login node (they need internet):
 import csv
 import gzip
 import json
+import os
 import shutil
 import sys
 import time
@@ -92,8 +93,8 @@ def init(run_dir):
         "exclude_genes": [],
         "seed_reference": None,
         "email": ask("Email for NCBI Entrez (required by NCBI)"),
-        "eggnog_data_dir": ask("eggNOG data directory (shared, ~50 GB)",
-                               "/srv/scratch/baker/eggnog_data"),
+        "eggnog_data_dir": ask("eggNOG data directory (~50 GB, from download_eggnog.pbs)",
+                               f"/srv/scratch/{os.environ.get('USER', '$USER')}/eggnog_data"),
         "eggnog_mode": "diamond",
         "dominance": 0.80,
         "selection": {"min_genome_frac": 0.60, "max_multicopy_frac": 0.10, "min_gene_frac": 0.60},

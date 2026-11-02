@@ -10,6 +10,7 @@
 set -euo pipefail
 cd "$PBS_O_WORKDIR"
 source flagpipe/katana/common.sh
+[ -f "$CONDA_BASE/etc/profile.d/conda.sh" ] || { echo "No conda at $CONDA_BASE -- install Miniforge there first (see flagpipe/README.md)"; exit 1; }
 source "$CONDA_BASE/etc/profile.d/conda.sh"
 conda env create -p "$FLAGPIPE_ENV" -f flagpipe/katana/env.yml \
   || conda env update -p "$FLAGPIPE_ENV" -f flagpipe/katana/env.yml
