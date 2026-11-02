@@ -48,13 +48,17 @@ def choose_genes():
         print(f"  {i}. {p.stem} ({len(read_gene_list(p))} names)")
     print(f"  {len(presets) + 1}. my own file (one gene name per line)")
     print(f"  {len(presets) + 2}. type names now")
+    print(f"  {len(presets) + 3}. none: find genes by product description only (next question)")
     choice = int(ask("Choose", "1"))
+    if choice == len(presets) + 3:
+        print("No gene names: genes will come only from the description-matched reference proteins.")
+        return []
     if choice <= len(presets):
         genes = read_gene_list(presets[choice - 1])
     elif choice == len(presets) + 1:
         genes = read_gene_list(ask("Path to gene list"))
     else:
-        genes = [g.strip().lower() for g in ask("Gene names, comma-separated").split(",") if g.strip()]
+        genes = [g.strip().lower() for g in (ask("Gene names, comma-separated") or "").split(",") if g.strip()]
     extra = ask("Extra names to add (comma-separated, blank for none)", "")
     genes += [g.strip().lower() for g in extra.split(",") if g.strip()]
     remove = ask("Names to remove (comma-separated, blank for none)", "")
@@ -97,12 +101,16 @@ def init(run_dir):
         "hgt": {"min_gene_trees": "auto", "one_sided_min_frac": 0.50, "one_sided_ratio": 3.0,
                 "min_branch_percentile": 25},
     }
-    if ask_yes("\nUse an external seed reference genome (e.g. B. subtilis 168, C. jejuni NCTC 11168)? "
-               "Its proteins whose product matches flagellar/chemotaxis keywords seed extra orthogroups",
-               True):
+    print("\nDescription matching: proteins of a well-annotated reference genome whose product "
+          "description contains a keyword (e.g. 'flagellar hook protein FlgE') seed extra orthogroups, "
+          "named by eggNOG. This finds genes that have no gene= tag.")
+    if not cfg["genes"]:
+        print("No gene names were given, so description matching is required.")
+    if not cfg["genes"] or ask_yes("Use description matching?", True):
         cfg["seed_reference"] = {
-            "accession": ask("Reference GCF accession", "GCF_000009045.1"),
-            "keywords": [k.strip() for k in ask("Product keywords", ",".join(DEFAULT_KEYWORDS)).split(",")],
+            "accession": ask("Reference GCF accession (pick one inside your taxon)", "GCF_000009045.1"),
+            "keywords": [k.strip() for k in ask("Description keywords", ",".join(DEFAULT_KEYWORDS)).split(",")
+                         if k.strip()],
         }
     run.root.mkdir(parents=True, exist_ok=True)
     write_json(run.config_path, cfg)

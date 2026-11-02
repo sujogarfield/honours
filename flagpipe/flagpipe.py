@@ -20,8 +20,7 @@ Katana jobs (katana/submit.sh runs these for you):
     synteny       gene order vs phylogeny, Mantel tests
     report        interactive tree, synteny scatter, tanglegram
     hgt-screen    gene-tree branches (UFBoot >= 95) that contradict GTDB
-    hgt-shortlist thesis shortlist rule -> AU-test inputs (trees/au/)
-    hgt-summary   AU results -> trees/au/au_summary.tsv
+    hgt-shortlist thesis shortlist rule -> trees/hgt_shortlist.tsv
 
 See flagpipe/README.md for the full walkthrough.
 """
@@ -44,7 +43,6 @@ STEPS = {
     "report": ("fp.report", "report"),
     "hgt-screen": ("fp.hgt", "screen"),
     "hgt-shortlist": ("fp.hgt", "shortlist"),
-    "hgt-summary": ("fp.hgt", "summary"),
 }
 
 

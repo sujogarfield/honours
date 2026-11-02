@@ -27,6 +27,7 @@ for REF in flagellar:"$D/concat/concat.treefile" gtdb:"$D/gtdb_ref_pruned.nwk"; 
 done
 FLAG_DIR="$D" python scripts/11_flagellar_trees/compare_to_gtdb.py
 $FP hgt-screen "$RUN"       # gene-tree branches that contradict GTDB
-$FP hgt-shortlist "$RUN"    # thesis shortlist rule -> AU inputs
+$FP hgt-shortlist "$RUN"    # thesis shortlist rule -> hgt_shortlist.tsv
+cp "$D/hgt_shortlist.tsv" "$RUN/report/" 2>/dev/null || true
 $FP report "$RUN"
-echo "=== stage 2 done: $RUN/report/ and $RUN/trees/hgt_shortlist.tsv; then submit.sh $RUN hgt ==="
+echo "=== stage 2 done: $RUN/report/ ==="

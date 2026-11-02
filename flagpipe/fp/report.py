@@ -1,16 +1,21 @@
 """
 report.py
-The three outputs, written to report/:
+One page, report/report.html, with three tabs:
 
-  interactive_tree.html  pruned GTDB tree + gene tracks per genome
-                         (scripts/10_visualisation/interactive_tree.py, pointed at this run)
-  synteny_scatter.html   synteny vs phylogenetic distance, one point per genome
-                         pair, all genomes / reliable toggle, Mantel r
-  tanglegram.png         GTDB tree (branches shaded by gCF) vs concatenated tree
-                         (needs the Katana tree stage)
+  Tree                    pruned GTDB tree, gene track and synteny agreement dot
+                          per genome (scripts/10_visualisation/interactive_tree.py,
+                          pointed at this run)
+  Synteny vs phylogeny    synteny vs patristic distance, one point per genome pair,
+                          all genomes / reliable toggle, Mantel r
+  Flagellar vs GTDB       tanglegram (GTDB tree shaded by gCF vs concatenated tree),
+                          comparison numbers and the HGT candidate shortlist
+                          (filled in once the Katana tree stage has finished)
 
-`report` builds whichever of these its inputs exist for.
+The tanglegram is also saved as report/tanglegram.png (for figures). `report`
+builds whatever its inputs exist for, so it is run after each stage.
 """
+import base64
+import html as html_lib
 import json
 import os
 import sys
@@ -28,7 +33,7 @@ def interactive_tree(run):
     it.RAGTAG_DIR = run.root / "_no_ragtag"
     it.SCAFFOLDED_GENE_ORDER = run.root / "_no_ragtag.json"
     it.MOTILITY_ICON_DIR = REPO / "frontend" / "motility_icons"
-    out = run.report / "interactive_tree.html"
+    out = run.report / "_tree.html"
     argv = sys.argv
     sys.argv = ["interactive_tree.py", str(run.tree / "gtdb_named.nwk"), str(run.tree / "gtdb_acc.nwk"),
                 str(out), str(run.root / "gene_order_combined.json"),
@@ -37,6 +42,9 @@ def interactive_tree(run):
         it.main()
     finally:
         sys.argv = argv
+    page = out.read_text()
+    out.unlink()
+    return page
 
 
 # ── synteny scatter ─────────────────────────────────────────────────────────
@@ -47,10 +55,8 @@ SCATTER_HTML = r"""<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Synteny vs Phylogeny</title>
 <style>
-  :root { --bg:#fafafa; --panel:#fff; --text:#0b0b0b; --muted:#52514e; --grid:#e1e0d9; --dot:rgba(42,120,214,0.35); --trend:#eb6834; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-    --bg:#161616; --panel:#1f1f1f; --text:#f2f2f0; --muted:#b5b3ad; --grid:#33322f; --dot:rgba(110,170,240,0.45); --trend:#f08a5d; } }
-  :root[data-theme="dark"] { --bg:#161616; --panel:#1f1f1f; --text:#f2f2f0; --muted:#b5b3ad; --grid:#33322f; --dot:rgba(110,170,240,0.45); --trend:#f08a5d; }
+  /* always white, like the tree and tanglegram, so the panels match */
+  :root { color-scheme:light; --bg:#fff; --panel:#fff; --text:#0b0b0b; --muted:#52514e; --grid:#e1e0d9; --dot:rgba(42,120,214,0.35); --trend:#eb6834; }
   body { margin:0; font-family:system-ui,sans-serif; background:var(--bg); color:var(--text); }
   header { padding:12px 16px; background:var(--panel); border-bottom:1px solid var(--grid); display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
   h1 { font-size:16px; margin:0; }
@@ -65,11 +71,11 @@ SCATTER_HTML = r"""<!DOCTYPE html>
 </head>
 <body>
 <header>
-  <h1>__TITLE__: flagellar gene order vs phylogeny</h1>
-  <label><input type="checkbox" id="reliable"> Reliable gene order only (<span id="nrel"></span> / <span id="nall"></span> genomes)</label>
+  <h1>__TITLE__: flagellar gene order vs Phylogeny</h1>
+  <label><input type="checkbox" id="reliable" __RELIABLE_CHECKED__> Reliable gene order only (<span id="nrel"></span> / <span id="nall"></span> genomes)</label>
   <span id="stats"></span>
 </header>
-<div class="hint">Each point is one genome pair. x = patristic distance on the GTDB tree; y = synteny distance (share of neighbouring flagellar-gene pairs not conserved, counting strand, half credit for an overlap mismatch). Reliable = every flagellar gene on one natively closed chromosome, compared as circular. Hover for names.</div>
+<div class="hint">Each point is one genome pair. x = patristic distance on the GTDB tree; y = synteny distance (share of neighbouring flagellar-gene pairs not conserved, counting strand, half credit for an overlap mismatch). __RELIABLE_NOTE__ Hover for names.</div>
 <div id="wrap"><canvas id="c"></canvas><svg id="s"></svg></div>
 <div id="tip"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
@@ -131,15 +137,21 @@ render();
 """
 
 
+RELIABLE_NOTE = "Reliable = every flagellar gene on one natively closed chromosome, compared as circular."
+
+
+def scatter_page(all_data, reliable_data, title, reliable_note=RELIABLE_NOTE):
+    """Scatter page from two synteny results ({matrix, mantel}): all genomes and reliable."""
+    slim = lambda d: {"matrix": d["matrix"], "mantel": d["mantel"]}  # all the page needs
+    has_reliable = len(reliable_data["matrix"]["organisms"]) >= 3
+    return (SCATTER_HTML.replace("__TITLE__", title).replace("__RELIABLE_NOTE__", reliable_note)
+            .replace("__RELIABLE_CHECKED__", "checked" if has_reliable else "")
+            .replace("__ALL__", json.dumps(slim(all_data))).replace("__RELIABLE__", json.dumps(slim(reliable_data))))
+
+
 def synteny_scatter(run, title):
     data = {k: json.loads((run.synteny / f"synteny_{k}.json").read_text()) for k in ("all", "reliable")}
-    for d in data.values():
-        d.pop("organisms", None)  # matrix + mantel are all the page needs
-    html = (SCATTER_HTML.replace("__TITLE__", title)
-            .replace("__ALL__", json.dumps(data["all"])).replace("__RELIABLE__", json.dumps(data["reliable"])))
-    out = run.report / "synteny_scatter.html"
-    out.write_text(html)
-    print(f"Wrote {out}")
+    return scatter_page(data["all"], data["reliable"], title)
 
 
 # ── tanglegram ──────────────────────────────────────────────────────────────
@@ -282,17 +294,196 @@ def tanglegram(run):
     fig.savefig(out, dpi=200, bbox_inches="tight", facecolor="white")
     plt.close(fig)
     print(f"tanglegram: {best[0]} crossing line pairs after rotation -> {out}")
+    return out
+
+
+def tanglegram_html(png_bytes, note):
+    img = base64.b64encode(png_bytes).decode()
+    return (f'<h2>Tanglegram</h2><p class="note">{note}</p>'
+            f'<img alt="Tanglegram" src="data:image/png;base64,{img}">')
+
+
+TANGLE_NOTE = ("Left: GTDB tree, branches shaded by gCF (share of decisive flagellar gene trees that "
+               "contain the branch). Right: concatenated flagellar tree. Lines join the same genome, "
+               "coloured by GTDB family.")
+
+
+def comparison_html(comp_path, sl_path=None):
+    """Numbers from compare_to_gtdb.py (comparison.json) and, if given, the
+    HGT shortlist (hgt_shortlist.json), as HTML."""
+    e = html_lib.escape
+    parts = []
+    if comp_path and comp_path.exists():
+        c = json.loads(comp_path.read_text())
+        gt = c.get("concordance", {}).get("gtdb_tree", {}).get("gCF", {})
+        rows = [("Genomes in both trees", c.get("n_taxa")),
+                ("GTDB branches also in the flagellar tree",
+                 f"{c['shared_branches']} of {c['branches']['gtdb']} ({c['shared_branches_frac_of_gtdb']:.0%})"),
+                ("Shared branches expected by chance (shuffled labels, mean)", c.get("shuffle_null", {}).get("mean")),
+                ("Normalised Robinson-Foulds distance", c.get("robinson_foulds", {}).get("normalised")),
+                ("Mantel r, patristic distances", c.get("mantel", {}).get("r")),
+                ("Mean gCF on GTDB branches", gt.get("mean")),
+                ("GTDB branches with gCF < 10", gt.get("branches_below_10"))]
+        parts.append("<h2>Flagellar tree vs GTDB</h2><table class=\"kv\">" + "".join(
+            f"<tr><th>{e(k)}</th><td>{e(str(v))}</td></tr>" for k, v in rows if v is not None) + "</table>")
+    if sl_path and sl_path.exists():
+        sl = json.loads(sl_path.read_text())
+        st, groups = sl["settings"], sl["groups"]
+        passing = [g for g in groups if g["passes"]]
+        near = [g for g in groups if not g["passes"] and g["n_gene_trees"] >= 3][:10]
+        parts.append(
+            "<h2>HGT candidates</h2><p class=\"note\">Groups of genomes that the flagellar genes place "
+            "together against GTDB (UFBoot &ge; 95). A candidate passes if the group is in "
+            f"&ge; {st['min_gene_trees']} gene trees and the concatenated tree; at the GTDB branch it "
+            f"contradicts, &ge; {st['one_sided_min_frac']:.0%} of decisive gene trees support it and "
+            f"&ge; {st['one_sided_ratio']:g}&times; the other alternative; and that branch is "
+            f"&ge; {sl['min_branch_length']:.4f} substitutions/site (25th percentile). "
+            "Candidates are not tested for significance (no AU tests).</p>")
+
+        def table(rows_, caption):
+            if not rows_:
+                return f"<p class=\"note\">{caption}: none.</p>"
+            head = ("<tr><th>Genomes</th><th>Gene trees</th><th>In concat</th>"
+                    "<th>Support at GTDB branch</th><th>GTDB branch length</th></tr>")
+            body = "".join(
+                f"<tr><td>{e('; '.join(g['organisms']))}</td><td>{g['n_gene_trees']}</td>"
+                f"<td>{'yes' if g['in_concat'] else 'no'}</td>"
+                f"<td>{g.get('favoured', '')}/{g.get('decisive', '')} "
+                f"({g.get('favoured_frac', 0):.0%}; other alt. {g.get('other_alt', '')})</td>"
+                f"<td>{g.get('branch_length', '')}</td></tr>" for g in rows_)
+            return f"<h3>{caption} ({len(rows_)})</h3><table class=\"grid\">{head}{body}</table>"
+        parts.append(table(passing, "Candidates passing the rule"))
+        parts.append(table(near, "Closest groups that did not pass"))
+    return "".join(parts)
+
+
+PAGE = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__ flagellar report</title>
+<style>
+  :root { --bg:#fafafa; --panel:#fff; --text:#0b0b0b; --muted:#52514e; --line:#e1e0d9; --accent:#2a78d6; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg:#161616; --panel:#1f1f1f; --text:#f2f2f0; --muted:#b5b3ad; --line:#33322f; --accent:#6eaaf0; } }
+  :root[data-theme="dark"] { --bg:#161616; --panel:#1f1f1f; --text:#f2f2f0; --muted:#b5b3ad; --line:#33322f; --accent:#6eaaf0; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--text); font-family:system-ui,sans-serif; }
+  body { display:flex; flex-direction:column; }
+  header { display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; padding:10px 16px;
+           background:var(--panel); border-bottom:1px solid var(--line); }
+  h1 { font-size:16px; margin:0; }
+  nav { display:flex; gap:4px; flex-wrap:wrap; }
+  nav button { font:inherit; font-size:13px; padding:6px 12px; border:1px solid var(--line); border-radius:6px;
+               background:transparent; color:var(--text); cursor:pointer; }
+  nav button[aria-selected="true"] { background:var(--accent); border-color:var(--accent); color:#fff; }
+  nav button:disabled { opacity:.45; cursor:not-allowed; }
+  .tab { flex:1; min-height:0; display:none; }
+  .tab.on { display:flex; }
+  iframe { flex:1; border:0; width:100%; background:#fff; }
+  #cmp { overflow:auto; padding:8px 16px 24px; flex-direction:column; }
+  #cmp img { max-width:100%; height:auto; background:#fff; border:1px solid var(--line); border-radius:6px; }
+  h2 { font-size:15px; margin:20px 0 8px; } h3 { font-size:13px; margin:16px 0 6px; }
+  .note { color:var(--muted); font-size:12px; max-width:900px; }
+  table { border-collapse:collapse; font-size:12px; margin-bottom:8px; }
+  th, td { text-align:left; padding:4px 10px 4px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  .kv th { font-weight:normal; color:var(--muted); }
+  .grid { width:100%; max-width:1100px; }
+  .wait { padding:24px 16px; color:var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1>__TITLE__</h1>
+  <nav role="tablist">
+    <button data-tab="tree" __TREE_STATE__>Tree</button>
+    <button data-tab="scatter" __SCATTER_STATE__>Synteny vs Phylogeny</button>
+    <button data-tab="cmp" __CMP_STATE__>Flagellar vs GTDB</button>
+  </nav>
+</header>
+<div id="tree" class="tab"><iframe title="Interactive tree"></iframe></div>
+<div id="scatter" class="tab"><iframe title="Synteny vs phylogeny"></iframe></div>
+<div id="cmp" class="tab">__CMP__</div>
+<script type="application/json" id="page-tree">__TREE_PAGE__</script>
+<script type="application/json" id="page-scatter">__SCATTER_PAGE__</script>
+<script>
+// Each embedded page is loaded into its iframe the first time its tab is shown,
+// so it lays itself out at the visible size.
+const loaded = {};
+function show(id) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.id === id));
+  document.querySelectorAll("nav button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === id));
+  const src = document.getElementById("page-" + id);
+  if (src && !loaded[id]) { document.querySelector("#" + id + " iframe").srcdoc = JSON.parse(src.textContent); loaded[id] = true; }
+  try { localStorage.setItem("fp-tab", id); } catch (e) {}
+}
+document.querySelectorAll("nav button").forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
+let start = null;
+try { start = localStorage.getItem("fp-tab"); } catch (e) {}
+const usable = [...document.querySelectorAll("nav button:not([disabled])")].map(b => b.dataset.tab);
+show(usable.includes(start) ? start : usable[0] || "cmp");
+</script>
+</body>
+</html>
+"""
+
+
+def _embed(page):
+    """An HTML page as a JSON string that is safe inside <script>."""
+    return json.dumps(page).replace("</", "<\\/") if page else "null"
+
+
+def tree_defaults(page, reliable_only=True, adjacent_bp=0):
+    """Start the interactive tree with 'Reliable gene order only' ticked and
+    'Adjacent <=' at adjacent_bp (interactive_tree.py itself defaults to off / 20 bp)."""
+    swaps = [('<input type="number" id="adjThreshold" min="0" step="1" value="20"',
+              f'<input type="number" id="adjThreshold" min="0" step="1" value="{adjacent_bp}"'),
+             ("let adjThreshold = 20;", f"let adjThreshold = {adjacent_bp};")]
+    if reliable_only:
+        swaps += [('<input type="checkbox" id="reliableOnly">', '<input type="checkbox" id="reliableOnly" checked>'),
+                  ("let reliableOnly = false;", "let reliableOnly = true;")]
+    for old, new in swaps:
+        if old not in page:
+            raise ValueError(f"interactive tree page changed; can't set default: {old}")
+        page = page.replace(old, new, 1)
+    return page
+
+
+def build_page(title, tree_page, scatter_page_html, cmp_html):
+    """The one-page report: Tree | Synteny vs phylogeny | Flagellar vs GTDB."""
+    state = lambda x: "" if x else "disabled"
+    return (PAGE.replace("__TITLE__", html_lib.escape(title))
+            .replace("__TREE_STATE__", state(tree_page)).replace("__SCATTER_STATE__", state(scatter_page_html))
+            .replace("__CMP_STATE__", "")
+            .replace("__TREE_PAGE__", _embed(tree_page)).replace("__SCATTER_PAGE__", _embed(scatter_page_html))
+            .replace("__CMP__", cmp_html))
 
 
 def report(run_dir):
     run = Run(run_dir)
     cfg = run.config()
+    title = cfg.get("name", run.root.name)
     run.report.mkdir(parents=True, exist_ok=True)
+
+    tree_page = scatter_html = None
     if (run.root / "gene_order_combined.json").exists():
-        interactive_tree(run)
+        tree_vals = run.synteny / "synteny_tree.json"
+        n_rel = sum(v.get("reliable", False) for v in json.loads(tree_vals.read_text())["organisms"].values()) \
+            if tree_vals.exists() else 0
+        tree_page = tree_defaults(interactive_tree(run), reliable_only=n_rel >= 3)
     if (run.synteny / "synteny_all.json").exists():
-        synteny_scatter(run, cfg.get("name", run.root.name))
+        scatter_html = synteny_scatter(run, title)
+
     if (run.trees / "concordance" / "gtdb_gcf.cf.stat").exists() and (run.trees / "concat" / "concat.treefile").exists():
-        tanglegram(run)
+        png = tanglegram(run)
+        cmp_html = tanglegram_html(png.read_bytes(), TANGLE_NOTE) + comparison_html(
+            run.trees / "comparison.json", run.trees / "hgt_shortlist.json")
     else:
-        print("Tanglegram skipped: the tree stage (katana/submit.sh RUN trees) hasn't finished yet.")
+        print("Flagellar vs GTDB tab empty: the tree stage (katana/submit.sh RUN trees) hasn't finished yet.")
+        cmp_html = '<p class="wait">Available after the tree stage (katana/submit.sh RUN trees).</p>'
+
+    for old in ("interactive_tree.html", "synteny_scatter.html"):   # replaced by report.html
+        (run.report / old).unlink(missing_ok=True)
+    out = run.report / "report.html"
+    out.write_text(build_page(title, tree_page, scatter_html, cmp_html))
+    print(f"Wrote {out} ({out.stat().st_size / 1e6:.1f} MB)")

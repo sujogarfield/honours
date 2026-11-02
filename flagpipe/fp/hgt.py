@@ -1,9 +1,10 @@
 """
 hgt.py
-HGT screen -> shortlist -> AU-test inputs -> AU summary: the thesis method
-(scripts/11_flagellar_trees/screen_hgt_candidates.py, prepare_au_tests.py,
-summarise_au.py) with the shortlist rule of gene_order/flagellar_trees/RESULTS.md
-section 4, which the thesis applied by hand, written as code so it runs on any taxon.
+HGT screen -> shortlist: the thesis method (scripts/11_flagellar_trees/
+screen_hgt_candidates.py) with the shortlist rule of
+gene_order/flagellar_trees/RESULTS.md section 4, which the thesis applied by
+hand, written as code so it runs on any taxon. AU tests are not run here: the
+shortlist says which conflicts would be worth testing.
 
   hgt-screen     every gene/concatenated-tree branch with UFBoot >= 95 that is
                  incompatible with GTDB -> trees/hgt_candidates.tsv, hgt_screen.json
@@ -15,9 +16,7 @@ section 4, which the thesis applied by hand, written as code so it runs on any t
                       arrangement, and >= 3x as many as the other alternative;
                    3. that GTDB branch is not unusually short (>= 25th percentile
                       of GTDB internal branch lengths).
-                 -> trees/hgt_shortlist.tsv (every group, with the numbers) and
-                    trees/au/ (constraint trees for the passing groups)
-  hgt-summary    AU results -> trees/au/au_summary.tsv, au_results.tsv
+                 -> trees/hgt_shortlist.tsv (every group, with the numbers)
 
 Criterion 2 is counted directly from the gene trees, as IQ-TREE's gCF/gDF are:
 the GTDB branch splits the genomes into four subtrees A,B | C,D; a gene tree is
@@ -145,7 +144,6 @@ def _slug(organisms):
 def shortlist(run_dir):
     from ete3 import Tree
     from screen_hgt_candidates import compatible
-    import prepare_au_tests as pau
     run = Run(run_dir)
     s = _settings(run)
     D = run.trees
@@ -217,47 +215,8 @@ def shortlist(run_dir):
     write_json(D / "hgt_shortlist.json", {"settings": s, "min_branch_length": min_len, "groups": rows})
 
     passing = [r for r in rows if r["passes"]]
-    out = D / "au"
-    out.mkdir(exist_ok=True)
-    concat = Tree(str(D / "concat" / "concat.treefile"), format=0)
-    genes = (D / "genes.txt").read_text().split()
-    names = []
-    for r in passing:
-        cand, group = r["name"], r["group"]
-        gdir = out / cand / "genes"
-        gdir.mkdir(parents=True, exist_ok=True)
-        nwk, forced = pau.constraint_tree(gtdb, concat.get_leaf_names(), group)
-        (out / cand / "constraint.nwk").write_text(nwk + "\n")
-        (out / cand / "group.txt").write_text("".join(f"{a}\t{org.get(a, a)}\n" for a in group))
-        info = []
-        for gene in genes:
-            taxa = pau.aln_taxa(str(D / "trimmed" / f"{gene}.faa"))
-            present = [a for a in group if a in taxa]
-            if len(present) < 2:
-                continue
-            gnwk, gforced = pau.constraint_tree(gtdb, taxa, present)
-            if gforced == 0:
-                continue
-            model = re.search(r"Best-fit model according to BIC: (\S+)",
-                              (D / "gene_trees" / f"{gene}.iqtree").read_text()).group(1)
-            (gdir / f"{gene}.constraint.nwk").write_text(gnwk + "\n")
-            info.append(f"{gene}\t{model}\n")
-        (out / cand / "genes.tsv").write_text("".join(info))
-        names.append(cand)
-        print(f"  {cand}: {len(group)} genomes, {forced} GTDB branch(es) forced, {len(info)} informative genes")
-    (out / "candidates.txt").write_text("".join(f"{n}\n" for n in names))
-
     print(f"{len(groups)} distinct conflicting groups; {len(passing)} pass the shortlist rule "
           f"(>= {s['min_gene_trees']} gene trees + concat, one-sided >= {s['one_sided_min_frac']:.0%} "
           f"and {s['one_sided_ratio']:g}x, GTDB branch >= {min_len:.4f})")
-    print(f"Wrote {D}/hgt_shortlist.tsv and {out}/")
+    print(f"Wrote {D}/hgt_shortlist.tsv")
 
-
-def summary(run_dir):
-    """summarise_au.py on this run; every shortlisted candidate counts as primary."""
-    run = Run(run_dir)
-    au = run.trees / "au"
-    import summarise_au
-    summarise_au.A = str(au)
-    summarise_au.PRIMARY = set((au / "candidates.txt").read_text().split())
-    summarise_au.main()

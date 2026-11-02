@@ -11,9 +11,9 @@ GTDB TSV ─► genomes ─► string match (gene= tags)
                          ├─► eggNOG-mapper confirmation ─► combined gene set
                          ├─► copy rules ─► per-gene trees + concatenated tree (IQ-TREE 2)
                          │                 ├─► gCF / sCF, comparison with GTDB
-                         │                 └─► HGT screen ─► shortlist rule ─► AU tests
+                         │                 └─► HGT screen ─► shortlist rule (no AU tests)
                          └─► synteny distance vs GTDB distance (Mantel)
-Outputs: interactive tree, synteny scatter, tanglegram
+Output: one page, report/report.html (interactive tree | synteny scatter | tanglegram + HGT candidates)
 ```
 
 The thesis scripts in `scripts/` are not changed. flagpipe reuses
@@ -65,8 +65,6 @@ python flagpipe/flagpipe.py check   $RUN   # which gene names are found -> edit 
 bash flagpipe/katana/submit.sh $RUN orthology  # OrthoFinder, eggNOG, gene sets, synteny, report
 #   ...check $RUN/trees/gene_selection.json and $RUN/report/ ...
 bash flagpipe/katana/submit.sh $RUN trees      # gene trees, concatenated tree, gCF/sCF, HGT screen, tanglegram
-#   ...check $RUN/trees/hgt_shortlist.tsv ...
-bash flagpipe/katana/submit.sh $RUN hgt        # AU tests on the shortlisted HGT candidates
 ```
 
 **Getting the GTDB TSV:** on gtdb.ecogenomic.org, open Advanced Search, search
@@ -74,7 +72,13 @@ for the taxon (e.g. GTDB Taxonomy contains `f__Listeriaceae`) and download the
 results as TSV. It needs the default columns: Accession, Organism Name, GTDB
 Taxonomy, GTDB Representative of Species, GTDB Type Material.
 
-**Choosing genes (`init` + `check`):**
+**Choosing genes (`init` + `check`):** give gene names, description
+keywords, or both.
+- **Gene names** are matched to GFF `gene=` tags in every genome.
+- **Description keywords** (e.g. `flagell`, `chemotax`) select proteins of a
+  reference genome by their product description. Their orthogroups are added,
+  named by eggNOG. This finds genes with no `gene=` tag. Choose "none" at the
+  gene-list question to use descriptions only.
 - `init` offers the presets in `presets/`:
   - `flagellar_motility`: the thesis list;
   - `flagellar_structural`: core flagellar genes found in most flagellated bacteria.
@@ -106,18 +110,28 @@ Taxonomy, GTDB Representative of Species, GTDB Type Material.
   are on your list. The `flagellar_motility` preset is Campylobacterota-specific;
   use `flagellar_structural` for other taxa.
 
-### Outputs (`$RUN/report/`)
+### Output: `$RUN/report/report.html`
 
-| File | After | What it shows |
+One self-contained page with three tabs. Copy it to a laptop (`rsync`/FileZilla)
+and open it in a browser.
+
+| Tab | Ready after | What it shows |
 |---|---|---|
-| `interactive_tree.html` | stage 1 | pruned GTDB tree with each genome's gene track |
-| `synteny_scatter.html` | stage 1 | synteny vs phylogenetic distance per genome pair, Mantel r; all genomes / reliable toggle |
-| `tanglegram.png` | stage 2 | GTDB tree (branches shaded by gCF) vs the concatenated tree |
-| `hgt_shortlist.tsv` | stage 3 | every conflicting group of genomes and whether it passed the shortlist rule (also in `trees/`) |
-| `au_summary.tsv` | stage 3 | AU test per shortlisted candidate: does the flagellar alignment reject the GTDB arrangement? |
+| **Tree** | stage 1 | pruned GTDB tree with each genome's flagellar gene track and its **agreement dot** |
+| **Synteny vs phylogeny** | stage 1 | one point per genome pair: synteny distance vs GTDB patristic distance, Mantel r; all genomes / reliable toggle |
+| **Flagellar vs GTDB** | stage 2 | tanglegram (GTDB tree shaded by gCF vs concatenated tree), comparison numbers, HGT candidate table |
 
-The HTML files are self-contained. Copy them to a laptop (`rsync`/FileZilla)
-and open them in a browser.
+**Agreement score** (the dot on each leaf): the Spearman correlation between
+one genome's synteny distances and its GTDB patristic distances to every other
+genome it can be compared with (≥ 4 shared genes; at least 3 such genomes).
++1 means genomes that are closer in the tree also have more similar flagellar
+gene order. The synteny distance is the signed adjacency + overlap distance
+(`scripts/common/synteny_distance.py`). The value comes from the reliable set
+(circular, compared only with other reliable genomes) if the genome is in it,
+otherwise from the all-genomes set (linear).
+
+`report/tanglegram.png` is saved separately for figures, and
+`report/hgt_shortlist.tsv` has the full candidate table.
 
 Other results:
 - `gene_order_combined.json`
@@ -125,7 +139,6 @@ Other results:
 - `trees/gene_selection.json` (why each gene and genome was kept or dropped)
 - `trees/comparison.json` (RF, shared branches, Mantel and gCF/sCF summaries)
 - `trees/hgt_candidates.tsv` (every gene-tree branch with UFBoot ≥ 95 that contradicts GTDB)
-- `trees/au/au_results.tsv` (AU result per candidate × alignment)
 - `synteny/*.json`
 
 ### Config (`config.json`)
@@ -146,41 +159,30 @@ Other results:
 
 ---
 
-## HGT candidates (stages 2 and 3)
+## HGT candidates (end of stage 2)
 
-The thesis method (`scripts/11_flagellar_trees`, RESULTS.md section 4), automated:
+The thesis screen and shortlist (`scripts/11_flagellar_trees`, RESULTS.md
+section 4), automated. **AU tests are not run**: the pipeline stops at the
+concatenated tree, the tanglegram and this shortlist.
 
-1. **Screen** (`hgt-screen`, end of stage 2): `screen_hgt_candidates.py`. Every
-   branch with UFBoot ≥ 95 in a gene tree or the concatenated tree that is
-   incompatible with GTDB, reduced to minimal groups of genomes.
-2. **Shortlist** (`hgt-shortlist`, end of stage 2). The thesis rule, which the
-   thesis applied by hand, now in `fp/hgt.py`. A group passes if:
+1. **Screen** (`hgt-screen`): `screen_hgt_candidates.py`. Every branch with
+   UFBoot ≥ 95 in a gene tree or the concatenated tree that is incompatible
+   with GTDB, reduced to minimal groups of genomes.
+2. **Shortlist** (`hgt-shortlist`). The thesis rule, which the thesis applied
+   by hand, now in `fp/hgt.py`. A group passes if:
    1. it is a branch in ≥ `min_gene_trees` gene trees **and** the concatenated tree;
    2. it is one-sided: at the GTDB branch it contradicts, ≥ 50% of the gene
       trees that can resolve that branch support the group's alternative, and
       ≥ 3× as many as the other alternative;
    3. that GTDB branch is not unusually short (≥ 25th percentile).
-   `trees/hgt_shortlist.tsv` lists every group with these numbers, so groups
-   that just fail can be added by hand, as the thesis did for its four
-   exploratory candidates.
-3. **AU tests** (`submit.sh $RUN hgt`, stage 3): for each shortlisted group,
-   constrained searches forcing only the GTDB branch(es) it contradicts
-   (3 seeds, best kept), then AU (10,000 RELL) on the concatenated alignment
-   and every informative gene (`prepare_au_tests.py`, `au_one.sh`). Summarised
-   by `summarise_au.py`: Holm across candidates, BH across genes.
 
-**Adding a candidate by hand:** add its name to `trees/au/candidates.txt` and
-create `trees/au/<name>/` the same way `hgt-shortlist` does. The simplest way
-is to copy the code for one candidate from `fp/hgt.py:shortlist`.
+   `trees/hgt_shortlist.tsv` lists every group with these numbers.
 
-**Not included:** the species-marker test and the core-gene backbone test
-(thesis M11/M12). They need the GTDB bac120 marker alignment for the genomes
-and are run separately.
-
-**Reading the result:** rejecting GTDB means the flagellar genes share a
-history at that spot that differs from the species tree. That is consistent
-with HGT, but also with GTDB being wrong there. The candidates are picked from
-the same trees they are tested on, so the p-values are post-selection.
+**Reading the result:** a passing group is a strong, recurrent conflict between
+the flagellar genes and GTDB, i.e. a candidate. Without AU tests it is not shown
+to be statistically significant. If it is real, it is consistent with HGT, but
+also with GTDB being wrong at that spot. To test candidates, use the thesis AU
+scripts (`scripts/11_flagellar_trees/prepare_au_tests.py`, `katana/03_au_tests.pbs`).
 
 ## Differences from the thesis run
 
@@ -235,7 +237,7 @@ So 6 gene FASTA files differ: *cheV*, *flgD*, *flgE*, *flgL*, *fliK*, *fliY*.
 altered by ete3 when written to newick, which broke their link to the tree.
 Labels are now cleaned, and the `tree` step checks they survive a round trip.
 
-## Test of the HGT stage on the thesis trees (2026-11-02)
+## Test of the HGT screen and shortlist on the thesis trees (2026-11-02)
 
 The thesis gene trees, concatenated tree and gCF output were copied into a
 scratch run (the thesis folder was not touched).
@@ -246,11 +248,6 @@ scratch run (the thesis folder was not touched).
 | 25th-percentile GTDB branch length | 0.0086, as in RESULTS.md |
 | groups passing the rule | exactly the 4 thesis primary candidates |
 | 4 exploratory candidates | fail for the reasons in RESULTS.md: *Hydrogenimonas* branch 0.0079; *Sulfurimonas* not one-sided (14%); *Nitrosophilus* 7 genes; *Sulfurospirillum* 5 genes |
-| AU constraint trees (concatenated and per gene) | byte-identical to the thesis files |
-| `hgt-summary` on the thesis AU outputs | same p, ΔlogL and gene counts as the thesis `au_summary.tsv` |
-| `au_one.sh` run locally on one gene (*fliK*) | completes; values differ slightly from the thesis because the laptop has IQ-TREE 3.1.3 (Katana env: 2.4.0, as the thesis) |
-
-Not yet run: the AU array job on Katana.
 
 ## Test of the download steps (2 *Listeria* species + auto outgroup)
 
@@ -265,7 +262,7 @@ Not yet run: the AU array job on Katana.
 
 **Not yet tested on Katana:**
 - `setup_env.pbs` and `download_eggnog.pbs`;
-- the PBS job chain (including the new HGT stage);
+- the PBS job chain (including the HGT screen at the end of stage 2);
 - eggNOG-mapper on a new taxon.
 
 Run a small family first (e.g. `f__Listeriaceae`) to check these.
