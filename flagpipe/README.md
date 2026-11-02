@@ -52,9 +52,13 @@ To use an env or database someone else already built, pass its path with
 `qsub -v FLAGPIPE_ENV=...` / `EGGNOG_DATA_DIR=...` and give that eggNOG folder
 to `init`.
 
-If Katana compute nodes have no internet, the eggNOG download job will fail.
-In that case run `download_eggnog_data.py -y --data_dir /srv/scratch/$USER/eggnog_data`
-on the login node inside `screen`, with the env on your PATH.
+The job downloads with wget from `eggnog5.embl.de`. eggNOG-mapper's own
+`download_eggnog_data.py` still uses `eggnogdb.embl.de`, which no longer resolves,
+and it prints "Finished." even when every download failed. The job stops with
+"FAILED" if a file is missing or empty. If compute nodes have no internet, run
+the same script on the login node inside `screen`:
+`bash flagpipe/katana/download_eggnog.pbs`. Check with
+`emapper.py --data_dir /srv/scratch/$USER/eggnog_data --version` (should say DB version 5.0.2).
 
 ## A run
 
