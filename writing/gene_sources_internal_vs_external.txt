@@ -1,0 +1,128 @@
+FLAGELLAR GENE SOURCES: INTERNAL vs EXTERNAL SEEDS
+============================================================
+Source data: gene_order/gene_order_combined.json (final merged gene set,
+eggNOG-confirmed orthology calls only), curated list from
+scripts/03_gene_order/gene_order.py, merge rules from
+scripts/06_orthology/build_combined_gene_order.py.
+Counts are GENOMES (of 166) carrying the gene, not gene copies.
+
+Definitions
+  String match     gene= tag in the GFF matches a curated name (73 names)
+  Internal seed    a string-matched protein; its OrthoFinder orthogroup is
+                   expanded and eggNOG-confirmed members are added
+  External seed    a C. jejuni NCTC 11168 reference protein; its best
+                   DIAMOND hit's orthogroup is expanded the same way
+
+------------------------------------------------------------
+1. CURATED LIST: 73 names; 52 found by string match, 21 not
+------------------------------------------------------------
+
+1a. Found by string match (internal seeds) -> genomes
+  gene     string match  + internal   total
+  flgI                1         153     154
+  flgK              127          27     154
+  fliD              154           0     154
+  fliF              154           0     154
+  fliG              154           0     154
+  fliM              154           0     154
+  fliN              121          33     154
+  fliS              153           1     154
+  flgB              153           0     153
+  flgC              153           0     153
+  flgG              153           0     153
+  flgH              106          47     153
+  fliQ              119          34     153
+  fliR              114          39     153
+  flgL              101          51     152
+  flhA              151           1     152
+  flhB              152           0     152
+  fliE              152           0     152
+  fliP              152           0     152
+  flhF              143           8     151
+  fliH              103          46     149
+  flgD               34         108     142
+  fliK               89          52     141
+  fliW              138           2     140
+  flgA              116           3     119
+  pflB               10         107     117
+  flgE              100          16     116
+  fliY              113           0     113
+  cheA                1         109     110
+  cheV                1         105     106
+  flgR                2         103     105
+  fliL              100           5     105
+  flgS                4          99     103
+  cheW                4          89      93
+  motA               88           0      88
+  motB               88           0      88
+  flgM                5          77      82
+  flgN               22          59      81
+  flgP               10          71      81
+  cheB               11          67      78
+  flaC                7          53      60
+  flgQ                3          46      49
+  cheR                1          47      48
+  cheQ               33           0      33
+  cheP               21           0      21
+  flhG               15           0      15
+  cheZ               11           0      11
+  flgF                2           4       6
+  fliO                3           1       4
+  pflA                2           0       2
+  cheY                1           0       1
+  fliT                1           0       1
+
+  '+ internal' = extra genomes gained by internal-seed orthology
+  (eggNOG-confirmed only). Genes with 0 gained nothing: either the
+  string match already covered their orthogroup, or the extra
+  members were not confirmed by eggNOG.
+  pflA: all orthology calls excluded on purpose (orthogroup OG0000627
+  holds unrelated proteins; build_combined_gene_order.py).
+
+1b. On the curated list but NOT found by string match (21):
+  fliJ, flhE, flgJ, flgO, flgT, motX, motY, fliC, motC, motD, fliZ, maf1, maf2, maf3, maf4, maf5, maf6, maf7, maf9, flaA, flaB
+  Of these, recovered by external seeds: flgJ, flaA, flaB
+  maf2/3/5/6 recovered together as one family (maf_2356, see 2).
+  Not recovered: fliJ, flhE, flgO, flgT, motX, motY, fliC, motC, motD,
+  fliZ, maf1, maf4, maf7, maf9
+
+------------------------------------------------------------
+2. EXTERNAL SEEDS (C. jejuni NCTC 11168, GCF_000009085.1)
+------------------------------------------------------------
+
+Genes that entered the final set ONLY through external seeds:
+  gene                     genomes  on 73 list? seed script
+  fliI                         154  no          orthology_crossref_regulon.py
+  flgJ                         145  yes         orthology_crossref_regulon.py
+  flaG                         120  no          orthology_crossref_regulon.py
+  fliA                         120  no          orthology_crossref_regulon.py
+  flaB                          92  yes         orthology_crossref_flagellin.py
+  maf2/3/5/6 (maf_2356)         90  yes*        orthology_crossref_maf.py
+  flaA                          42  yes         orthology_crossref_flagellin.py
+
+  * maf2/3/5/6 are on the list as separate names; none had a gene= tag
+  flaA/flaB: 2 reference proteins (Cj1339c, Cj1338c), flagellin script
+  maf_2356:  maf2/3/5/6 reference proteins share one orthogroup
+             (OG0000011) and cannot be separated; maf7's orthogroup had
+             no eggNOG support and was excluded
+  flaG, fliA, fliI: named in NCTC 11168 but missing from the 73 list
+  flgJ: on the list but no genome had a gene=flgJ tag
+
+The 50-protein regulon sweep (orthology_crossref_regulon.py) also
+re-found many genes already present from string match / internal
+seeds. Those were removed as duplicates by locus (same contig, start,
+end, strand), so they add no genomes here.
+
+------------------------------------------------------------
+3. SUMMARY
+------------------------------------------------------------
+  Genes in final combined set:                 59
+  Found by string match:                       52
+    ...of which gained genomes via internal seeds: 32
+  Added only via external seeds:               7
+
+  Gene records in combined set (all copies):
+    string match              3895
+    internal-seed orthology   1826
+    external-seed orthology   919
+    total                     6640

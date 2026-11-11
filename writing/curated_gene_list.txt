@@ -1,0 +1,263 @@
+Curated flagellar and chemotaxis gene list (73 gene names)
+Source: scripts/03_gene_order/gene_order.py (genes list, lines 14-47)
+Matched case-insensitively against the exact gene= tag in each genome's GFF.
+Grouping follows the comments in the script.
+
+Flagellar structural, export and motor genes (flg/flh/fli/mot) [46]
+  fliE
+  fliF
+  fliG
+  fliH
+  fliJ
+  fliK
+  fliL
+  fliM
+  fliN
+  fliO
+  fliP
+  fliQ
+  fliR
+  flhE
+  flhA
+  flhB
+  flgA
+  flgB
+  flgC
+  flgD
+  flgE
+  flgF
+  flgG
+  flgH
+  flgI
+  flgJ
+  flgK
+  flgL
+  flgO
+  flgP
+  flgQ
+  flgT
+  motX
+  motY
+  fliC
+  fliD
+  fliS
+  fliT
+  motA
+  motB
+  motC
+  motD
+  flgM
+  flgN
+  fliY
+  fliZ
+
+flg two-component regulators (FlgR/FlgS) and Campylobacterota motor-disc proteins (PflA/PflB) [4]
+  flgR
+  flgS
+  pflA
+  pflB
+
+Flagellin glycosylation island (maf) [8]
+  maf1
+  maf2
+  maf3
+  maf4
+  maf5
+  maf6
+  maf7
+  maf9
+
+Flagellum placement and number (FlhF/FlhG) [2]
+  flhF
+  flhG
+
+Flagellin translation control (FliW) [1]
+  fliW
+
+Flagellins used in Campylobacter/Helicobacter annotations [3]
+  flaA
+  flaB
+  flaC
+
+Chemotaxis (che) [9]
+  cheA
+  cheB
+  cheP
+  cheQ
+  cheR
+  cheV
+  cheW
+  cheY
+  cheZ
+
+====================================================================
+AFTER ORTHOLOGY INFERENCE: FINAL COMBINED GENE SET (59 genes)
+====================================================================
+Source: gene_order/gene_order_combined.json (string match + eggNOG-confirmed
+orthology calls). Genomes = number of the 166 genomes carrying the gene.
+Details per gene: writing/gene_sources_internal_vs_external.txt
+
+  52 from the curated list, found by string match (32 of these gained
+     extra genomes via internal-seed orthology)
+   7 added only via external seeds (C. jejuni NCTC 11168):
+     fliI, flgJ, flaG, fliA, flaB, flaA, maf_2356 (maf2/3/5/6 as one family)
+     fliI, flaG, fliA are not on the 73-name list
+  21 curated names not found by string match; of these flgJ, flaA, flaB and
+     maf2/3/5/6 (as maf_2356) were recovered by external seeds; not recovered:
+     fliJ, flhE, flgO, flgT, motX, motY, fliC, motC, motD, fliZ,
+     maf1, maf4, maf7, maf9
+
+  gene       genomes  source
+  flgI           154  string match
+  flgK           154  string match
+  fliD           154  string match
+  fliF           154  string match
+  fliG           154  string match
+  fliI           154  external seed
+  fliM           154  string match
+  fliN           154  string match
+  fliS           154  string match
+  flgB           153  string match
+  flgC           153  string match
+  flgG           153  string match
+  flgH           153  string match
+  fliQ           153  string match
+  fliR           153  string match
+  flgL           152  string match
+  flhA           152  string match
+  flhB           152  string match
+  fliE           152  string match
+  fliP           152  string match
+  flhF           151  string match
+  fliH           149  string match
+  flgJ           145  external seed
+  flgD           142  string match
+  fliK           141  string match
+  fliW           140  string match
+  flaG           120  external seed
+  fliA           120  external seed
+  flgA           119  string match
+  pflB           117  string match
+  flgE           116  string match
+  fliY           113  string match
+  cheA           110  string match
+  cheV           106  string match
+  flgR           105  string match
+  fliL           105  string match
+  flgS           103  string match
+  cheW            93  string match
+  flaB            92  external seed
+  maf_2356        90  external seed
+  motA            88  string match
+  motB            88  string match
+  flgM            82  string match
+  flgN            81  string match
+  flgP            81  string match
+  cheB            78  string match
+  flaC            60  string match
+  flgQ            49  string match
+  cheR            48  string match
+  flaA            42  external seed
+  cheQ            33  string match
+  cheP            21  string match
+  flhG            15  string match
+  cheZ            11  string match
+  flgF             6  string match
+  fliO             4  string match
+  pflA             2  string match
+  cheY             1  string match
+  fliT             1  string match
+
+====================================================================
+GENES KEPT FOR THE 42-GENE CONCATENATED TREE
+====================================================================
+Source: gene_order/flagellar_trees_ext/gene_selection.json
+Script: scripts/11_flagellar_trees/prepare_gene_sets.py
+Run:    MIN_GENOME_COVERAGE=80, genomes fixed to the 149 of the 37-gene run
+
+Rule (a gene is kept only if both hold):
+  1. present in >= 80 genomes, counted after paralog copies are dropped
+  2. ambiguous (2+ copies in the gene's main orthogroup) in <= 10%
+     of the genomes that carry it
+
+Before counting, each genome's copies are resolved (per gene):
+  1 copy in main orthogroup                -> kept
+  2+ copies in main orthogroup              -> ambiguous, left out for that genome
+  1 copy in a lineage-specific orthogroup   -> kept (orthogroup never co-occurs
+                                               with the main one)
+  1 copy in a paralog orthogroup            -> dropped (co-occurs with main one)
+  2+ copies, none in main orthogroup        -> ambiguous, left out
+
+Kept: 42 genes
+  gene     main OG     genomes  ambiguous  sequences in the 149
+  cheA     OG0000879       110          2                   108
+  cheV     OG0000863       106          0                   106
+  cheW     OG0001042        93          0                    93
+  flaG     OG0000794       120          1                   119
+  flgA     OG0000820       119          0                   119
+  flgB     OG0000593       153          0                   149
+  flgC     OG0000592       153          0                   149
+  flgD     OG0000643       142          4                   137
+  flgE     OG0000814       114          0                   114
+  flgG     OG0000662       153          0                   148
+  flgH     OG0000582       153          1                   147
+  flgI     OG0000580       154          0                   149
+  flgJ     OG0000671       145          0                   141
+  flgK     OG0000504       154          6                   148
+  flgL     OG0000539       152          4                   147
+  flgM     OG0000842        82          0                    82
+  flgP     OG0000894        81          2                    79
+  flgR     OG0000773       105          1                   104
+  flgS     OG0000833       103          0                   103
+  flhA     OG0000609       152          0                   147
+  flhB     OG0000608       152          0                   148
+  flhF     OG0000603       151          0                   143
+  fliA     OG0000780       120          4                   116
+  fliD     OG0000514       154          5                   148
+  fliE     OG0000607       152          0                   148
+  fliF     OG0000579       154          0                   149
+  fliG     OG0000564       154          1                   148
+  fliH     OG0000624       149          1                   143
+  fliI     OG0000549       154          3                   146
+  fliK     OG0000081       136          9                   124
+  fliL     OG0000933       105          0                   105
+  fliM     OG0000581       154          0                   148
+  fliN     OG0000572       154          0                   149
+  fliP     OG0000610       152          0                   147
+  fliQ     OG0000599       153          0                   148
+  fliR     OG0000597       153          0                   149
+  fliS     OG0000586       154          0                   149
+  fliW     OG0001035       100          6                    94
+  fliY     OG0000573       113          0                   112
+  motA     OG0002757        85          0                    82
+  motB     OG0001092        88          0                    85
+  pflB     OG0000644       117          2                   115
+
+Not kept: 17 genes
+  gene       genomes  ambiguous  reason
+  flaB            92         35  too often ambiguous (35/92 = 38%)
+  maf_2356        90         24  too often ambiguous (24/90 = 27%)
+  cheB            78          2  too few genomes (78 < 80)
+  flgN            78          1  too few genomes (78 < 80)
+  flaC            60          0  too few genomes (60 < 80)
+  flgQ            49          0  too few genomes (49 < 80)
+  cheR            48          1  too few genomes (48 < 80)
+  flaA            42          6  too few genomes (42 < 80); too often ambiguous (6/42 = 14%)
+  cheQ            33          0  too few genomes (33 < 80)
+  cheP            21          0  too few genomes (21 < 80)
+  flhG            15          0  too few genomes (15 < 80)
+  cheZ            11          0  too few genomes (11 < 80)
+  flgF             6          0  too few genomes (6 < 80)
+  fliO             4          0  too few genomes (4 < 80)
+  cheY             1          0  too few genomes (1 < 80)
+  fliT             1          0  too few genomes (1 < 80)
+  pflA             1          0  too few genomes (1 < 80)
+
+Summary of exclusions:
+  too few genomes only:            14
+  too often ambiguous only:        2 (flaB, maf_2356)
+  both:                            1 (flaA)
+
+Note: genome counts here can be lower than in the combined-set table above
+because paralog copies are removed before counting (e.g. fliW 140 -> 100,
+flgN 81 -> 78).

@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -l select=1:ncpus=4:mem=16gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+#PBS -N fp_env
+
+# One-off: builds the shared synphy conda env from env.yml. Too slow for the
+# login node. Run from the repo root:  qsub synphy/katana/setup_env.pbs
+
+set -euo pipefail
+cd "$PBS_O_WORKDIR"
+source synphy/katana/common.sh
+[ -f "$CONDA_BASE/etc/profile.d/conda.sh" ] || { echo "No conda at $CONDA_BASE -- install Miniforge there first (see synphy/README.md)"; exit 1; }
+source "$CONDA_BASE/etc/profile.d/conda.sh"
+conda env create -p "$SYNPHY_ENV" -f synphy/katana/env.yml \
+  || conda env update -p "$SYNPHY_ENV" -f synphy/katana/env.yml
+orthofinder -h | head -3 || true
+emapper.py --version
+iqtree2 --version | head -1
+python -c "import ete3, numpy, Bio, matplotlib; print('python deps OK')"

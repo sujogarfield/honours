@@ -1,4 +1,4 @@
-# flagpipe
+# SynPhy
 
 The thesis flagellar-gene pipeline for **any GTDB taxon and gene list**. It
 uses the same logic as the *Campylobacterota* analysis:
@@ -16,7 +16,7 @@ GTDB TSV ─► genomes ─► string match (gene= tags)
 Output: one page, report/report.html (interactive tree | synteny scatter | tanglegram + HGT candidates)
 ```
 
-The thesis scripts in `scripts/` are not changed. flagpipe reuses
+The thesis scripts in `scripts/` are not changed. SynPhy reuses
 `scripts/common/` (synteny distance, reliability, gene colours),
 `scripts/10_visualisation/interactive_tree.py` and the tree-drawing helpers
 from `scripts/11_flagellar_trees/plot_results.py`.
@@ -37,19 +37,19 @@ wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge
 bash Miniforge3-Linux-x86_64.sh -b -p /srv/scratch/$USER/miniforge3
 
 # 1. conda environment (OrthoFinder, eggNOG-mapper 2.1.13, DIAMOND, MAFFT, trimAl, IQ-TREE 2.4.0)
-qsub flagpipe/katana/setup_env.pbs              # -> /srv/scratch/$USER/flagpipe_env
+qsub synphy/katana/setup_env.pbs              # -> /srv/scratch/$USER/flagpipe_env
 #    wait for it to finish (qstat -u $USER); fp_env.o* should end with "python deps OK"
 
 # 2. eggNOG database, ~50 GB (needs step 1 finished)
-qsub flagpipe/katana/download_eggnog.pbs        # -> /srv/scratch/$USER/eggnog_data
+qsub synphy/katana/download_eggnog.pbs        # -> /srv/scratch/$USER/eggnog_data
 ```
 
 The defaults are set in `katana/common.sh`:
-- `FLAGPIPE_ENV=/srv/scratch/$USER/flagpipe_env`;
+- `SYNPHY_ENV=/srv/scratch/$USER/flagpipe_env`;
 - `CONDA_BASE`: the `conda` on your PATH, otherwise `/srv/scratch/$USER/miniforge3`.
 
 To use an env or database someone else already built, pass its path with
-`qsub -v FLAGPIPE_ENV=...` / `EGGNOG_DATA_DIR=...` and give that eggNOG folder
+`qsub -v SYNPHY_ENV=...` / `EGGNOG_DATA_DIR=...` and give that eggNOG folder
 to `init`.
 
 The job downloads with wget from `eggnog5.embl.de`. eggNOG-mapper's own
@@ -57,7 +57,7 @@ The job downloads with wget from `eggnog5.embl.de`. eggNOG-mapper's own
 and it prints "Finished." even when every download failed. The job stops with
 "FAILED" if a file is missing or empty. If compute nodes have no internet, run
 the same script on the login node inside `screen`:
-`bash flagpipe/katana/download_eggnog.pbs`. Check with
+`bash synphy/katana/download_eggnog.pbs`. Check with
 `emapper.py --data_dir /srv/scratch/$USER/eggnog_data --version` (should say DB version 5.0.2).
 
 ## A run
@@ -70,16 +70,16 @@ export PATH=/srv/scratch/$USER/flagpipe_env/bin:$PATH
 RUN=/srv/scratch/$USER/flagpipe_runs/listeriaceae
 
 # Login node (light work, needs internet)
-python flagpipe/flagpipe.py init    $RUN   # questions -> config.json
-python flagpipe/flagpipe.py genomes $RUN   # filter + cap the TSV, pick the outgroup
-python flagpipe/flagpipe.py fetch   $RUN   # NCBI FASTA + GFF + proteome
-python flagpipe/flagpipe.py tree    $RUN   # GTDB tree pruned to the genomes
-python flagpipe/flagpipe.py check   $RUN   # which gene names are found -> edit config.json "genes"
+python synphy/synphy.py init    $RUN   # questions -> config.json
+python synphy/synphy.py genomes $RUN   # filter + cap the TSV, pick the outgroup
+python synphy/synphy.py fetch   $RUN   # NCBI FASTA + GFF + proteome
+python synphy/synphy.py tree    $RUN   # GTDB tree pruned to the genomes
+python synphy/synphy.py check   $RUN   # which gene names are found -> edit config.json "genes"
 
 # Katana jobs
-bash flagpipe/katana/submit.sh $RUN orthology  # OrthoFinder, eggNOG, gene sets, synteny, report
+bash synphy/katana/submit.sh $RUN orthology  # OrthoFinder, eggNOG, gene sets, synteny, report
 #   ...check $RUN/trees/gene_selection.json and $RUN/report/ ...
-bash flagpipe/katana/submit.sh $RUN trees      # gene trees, concatenated tree, gCF/sCF, HGT screen, tanglegram
+bash synphy/katana/submit.sh $RUN trees      # gene trees, concatenated tree, gCF/sCF, HGT screen, tanglegram
 ```
 
 **Getting the GTDB TSV:** on gtdb.ecogenomic.org, open Advanced Search, search
@@ -163,7 +163,7 @@ Other results:
 | `taxon_filter` | — | keep TSV rows whose GTDB taxonomy contains this |
 | `representatives_only` | true | one genome per GTDB species |
 | `max_genomes`, `max_per_genus` | 300, 40 | caps (OrthoFinder is all-vs-all); type material is kept first |
-| `outgroup` | auto | `auto` = 3 RefSeq genomes spread across the sister clade in the GTDB tree; or a list of accessions; or `none` |
+| `outgroup` | auto | `auto` = 3 RefSeq genomes spread across the sister clade in the GTDB tree (one level further up if the sister clade has no RefSeq genome); or a list of accessions, which may be genomes already in the set (they are then marked as outgroup); or `none`. For Campylobacterota use the *Hippea*/*Desulfurella* genomes, as the thesis did: in GTDB R232 *Desulfurellia* is a separate clade (`p__Campylobacterota_A`), so `auto` finds a distant phylum (Acidobacteriota) |
 | `genes` | preset | gene names to string-match |
 | `exclude_genes` | [] | names never taken from orthology (string matches are kept, as in the thesis) |
 | `seed_reference` | — | `{accession, keywords}` |
@@ -223,7 +223,7 @@ scripts (`scripts/11_flagellar_trees/prepare_au_tests.py`, `katana/03_au_tests.p
 Run locally on the 166 *Campylobacterota* genomes, using the thesis OrthoFinder
 results and eggNOG annotations (no Katana).
 
-| Step | flagpipe | thesis |
+| Step | SynPhy | thesis |
 |---|---|---|
 | genomes after filters | 166 | 166 |
 | string-matched genes | 3,895 | 3,895 |
@@ -236,7 +236,7 @@ results and eggNOG annotations (no Katana).
 | synteny, all genomes, on the thesis gene set | r = 0.471, 164 genomes, 10,749 pairs | r = 0.471, 164 genomes, 10,749 pairs |
 
 **Why the external-seed counts differ:**
-- **+145 *flgG2*:** flagpipe confirms OG0000613 as *flgG2*. The thesis never did,
+- **+145 *flgG2*:** SynPhy confirms OG0000613 as *flgG2*. The thesis never did,
   because those proteins were already annotated in an earlier batch.
 - **+34 *flgM*, +33 *fliY* and a few others:** the same batch effect.
 - **−166 *maf_2356*:** the thesis special case (difference 4).

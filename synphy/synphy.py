@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-flagpipe.py
+synphy.py
 The thesis flagellar-gene pipeline for any GTDB taxon and gene list.
 
-    python flagpipe/flagpipe.py <step> <run_dir>
+    python synphy/synphy.py <step> <run_dir>
 
 Login node (needs internet):
     init          interactive setup -> run_dir/config.json
@@ -22,7 +22,7 @@ Katana jobs (katana/submit.sh runs these for you):
     hgt-screen    gene-tree branches (UFBoot >= 95) that contradict GTDB
     hgt-shortlist thesis shortlist rule -> trees/hgt_shortlist.tsv
 
-See flagpipe/README.md for the full walkthrough.
+See synphy/README.md for the full walkthrough.
 """
 import sys
 from pathlib import Path

@@ -10,7 +10,7 @@
 
 set -euo pipefail
 cd "$PBS_O_WORKDIR"
-source flagpipe/katana/common.sh
+source synphy/katana/common.sh
 : "${RUN:?set RUN=<run dir>}"
 EGGNOG_DATA_DIR=$(python -c "import json; print(json.load(open('$RUN/config.json'))['eggnog_data_dir'])")
 

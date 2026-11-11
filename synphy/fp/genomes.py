@@ -19,7 +19,7 @@ import urllib.request
 from collections import defaultdict
 from pathlib import Path
 
-from fp.common import FLAGPIPE, Run, accession, clean_label, gtdb_tree_path, write_json
+from fp.common import SYNPHY, Run, accession, clean_label, gtdb_tree_path, write_json
 
 DEFAULT_KEYWORDS = ["flagell", "chemotax", "chemorecept", "methyl-accepting", "motility"]
 
@@ -43,7 +43,7 @@ def read_gene_list(path):
 
 
 def choose_genes():
-    presets = sorted((FLAGPIPE / "presets").glob("*.txt"))
+    presets = sorted((SYNPHY / "presets").glob("*.txt"))
     print("\nGene list. Presets:")
     for i, p in enumerate(presets, 1):
         print(f"  {i}. {p.stem} ({len(read_gene_list(p))} names)")
@@ -66,7 +66,7 @@ def choose_genes():
     genes = [g for g in genes if g not in {x.strip().lower() for x in remove.split(",")}]
     genes = list(dict.fromkeys(genes))
     print(f"{len(genes)} gene names: {', '.join(genes)}")
-    print("(After `fetch`, `flagpipe.py check` shows how many genomes each name is found in.)")
+    print("(After `fetch`, `synphy.py check` shows how many genomes each name is found in.)")
     return genes
 
 
@@ -74,7 +74,7 @@ def init(run_dir):
     run = Run(run_dir)
     if run.config_path.exists() and not ask_yes(f"{run.config_path} exists. Overwrite?", False):
         return
-    print("flagpipe setup -- press Enter to accept the [default].\n")
+    print("synphy setup -- press Enter to accept the [default].\n")
     tsv = ask("GTDB advanced-search TSV (downloaded from gtdb.ecogenomic.org)")
     if not tsv or not Path(tsv).exists():
         sys.exit(f"TSV not found: {tsv}")
@@ -87,7 +87,7 @@ def init(run_dir):
         "max_genomes": int(ask("Maximum genomes (OrthoFinder is all-vs-all; ~300 is practical)", "300")),
         "max_per_genus": int(ask("Maximum genomes per genus", "40")),
         "outgroup": ask("Outgroup: 'auto' (sister clade in the GTDB tree), 'none', or "
-                        "comma-separated GCF accessions", "auto"),
+                        "comma-separated GCF accessions (may be genomes already in your set)", "auto"),
         "n_outgroup": 3,
         "genes": choose_genes(),
         "exclude_genes": [],
@@ -116,7 +116,7 @@ def init(run_dir):
     run.root.mkdir(parents=True, exist_ok=True)
     write_json(run.config_path, cfg)
     print(f"\nWrote {run.config_path}. Edit it directly to change anything later.")
-    print(f"Next: python flagpipe/flagpipe.py genomes {run.root}")
+    print(f"Next: python synphy/synphy.py genomes {run.root}")
 
 
 # ── genomes ─────────────────────────────────────────────────────────────────
@@ -171,8 +171,21 @@ def genomes(run_dir):
             sys.exit("No chosen genome is in the GTDB tree, so the outgroup can't be found: "
                      "use GTDB species representatives, or set \"outgroup\" to accessions or \"none\".")
         mrca = tree.get_common_ancestor(ingroup) if len(ingroup) > 1 else ingroup[0]
-        sisters = [c for c in mrca.up.children if c is not mrca] if mrca.up else []
-        pool = [l.name[3:] for s in sisters for l in s.iter_leaves() if l.name.startswith("RS_GCF_")]
+        # Your genomes' smallest GTDB clade can be far bigger than the taxon when
+        # the taxon isn't one clade in the tree (Campylobacterota: Desulfurellia
+        # sits apart, as p__Campylobacterota_A, so the clade has ~58,800 genomes).
+        print(f"Smallest GTDB clade holding the {len(ingroup)} genomes: {len(mrca)} genomes in the GTDB tree")
+        if len(mrca) > 20 * len(ingroup):
+            print("  Warning: much bigger than your genome set -- they may not form one clade in GTDB, "
+                  "so the auto outgroup may be distant. Consider setting \"outgroup\" to accessions.")
+        # Sister clade; if it has no RefSeq genome (e.g. only GenBank MAGs), go one level up.
+        node, pool = mrca, []
+        while node.up and not pool:
+            sisters = [c for c in node.up.children if c is not node]
+            pool = [l.name[3:] for s in sisters for l in s.iter_leaves() if l.name.startswith("RS_GCF_")]
+            if not pool:
+                print(f"  Sister clade {[s.name for s in sisters]} has no RefSeq genome; trying one level up")
+            node = node.up
         n = min(cfg.get("n_outgroup", 3), len(pool))
         picks = [pool[round(k * (len(pool) - 1) / max(n - 1, 1))] for k in range(n)] if n else []
         print(f"Outgroup (auto, sister clade of {len(pool)} RefSeq genomes): {picks}")
@@ -180,15 +193,21 @@ def genomes(run_dir):
         picks = []
     else:
         picks = [a.strip() for a in (og if isinstance(og, list) else og.split(",")) if a.strip()]
+    # An outgroup accession already in your genome set (e.g. Hippea/Desulfurella,
+    # as the thesis rooted Campylobacterota) is kept, marked as outgroup.
+    for r in out:
+        if r["accession"] in picks:
+            r["role"] = "outgroup"
     chosen_acc = {r["accession"] for r in out}
     out += [{"accession": a, "label": "", "taxonomy": "", "role": "outgroup"}
             for a in dict.fromkeys(picks) if a not in chosen_acc]
+    print(f"{sum(r['role'] == 'outgroup' for r in out)} outgroup genomes")
 
     with open(run.genomes_tsv, "w") as f:
         f.write("accession\tbase\tlabel\ttaxonomy\trole\n")
         for r in out:
             f.write(f"{r['accession']}\t\t{r['label']}\t{r['taxonomy']}\t{r['role']}\n")
-    print(f"Wrote {run.genomes_tsv}. Next: python flagpipe/flagpipe.py fetch {run.root}")
+    print(f"Wrote {run.genomes_tsv}. Next: python synphy/synphy.py fetch {run.root}")
 
 
 # ── fetch ───────────────────────────────────────────────────────────────────
@@ -285,7 +304,7 @@ def fetch(run_dir):
             failed.append(ref["accession"])
     print(f"\nDone: {len(rows) - len([r for r in rows if r['role'] == 'failed'])} genomes downloaded, "
           f"{len(failed)} failed {failed if failed else ''}")
-    print(f"Next: python flagpipe/flagpipe.py tree {run.root}  and  flagpipe.py check {run.root}")
+    print(f"Next: python synphy/synphy.py tree {run.root}  and  synphy.py check {run.root}")
 
 
 # ── tree ────────────────────────────────────────────────────────────────────

@@ -5,9 +5,9 @@
 #PBS -N fp_eggnog_db
 
 # One-off: downloads the eggNOG 5.0.2 database (~50 GB) for eggNOG-mapper 2.1.13.
-#   qsub flagpipe/katana/download_eggnog.pbs              # -> /srv/scratch/$USER/eggnog_data
+#   qsub synphy/katana/download_eggnog.pbs              # -> /srv/scratch/$USER/eggnog_data
 # or, if compute nodes have no internet, on the login node inside `screen`:
-#   bash flagpipe/katana/download_eggnog.pbs
+#   bash synphy/katana/download_eggnog.pbs
 # The files are fetched with wget from eggnog5.embl.de: download_eggnog_data.py
 # in 2.1.13 still points at eggnogdb.embl.de, which no longer resolves
 # (checked on Katana, 2026-11-02), and it reports "Finished." even when every

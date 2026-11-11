@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 build_report.py
-The thesis frontend as one page, in the same format as the flagpipe report
-(flagpipe/fp/report.py), built from the thesis results:
+The thesis frontend as one page, in the same format as the SynPhy report
+(synphy/fp/report.py), built from the thesis results:
 
   Tree                  interactive_tree.py with its thesis inputs (RagTag
                         scaffolds, merged agreement scores, motility dots)
@@ -23,7 +23,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "flagpipe"))
+sys.path.insert(0, str(ROOT / "synphy"))
 sys.path.insert(0, str(ROOT / "scripts" / "10_visualisation"))
 sys.path.insert(0, str(ROOT / "scripts" / "common"))
 from fp import report as fpr  # noqa: E402

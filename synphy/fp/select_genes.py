@@ -97,7 +97,7 @@ def select(run_dir):
           f"<= {rules['max_multicopy_frac']:.0%} ambiguous): {selected}")
     if len(selected) < 4:
         print("WARNING: fewer than 4 genes selected -- the concatenated tree and gCF will be weak. "
-              "Check `flagpipe.py check` and the seed reference.")
+              "Check `synphy.py check` and the seed reference.")
 
     calls = {gene: {gn: pid for gn, pid in resolved[gene][1].items() if pid} for gene in selected}
     per_genome = Counter(gn for gene in selected for gn in calls[gene])

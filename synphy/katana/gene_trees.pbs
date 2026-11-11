@@ -10,7 +10,7 @@
 
 set -euo pipefail
 cd "$PBS_O_WORKDIR"
-source flagpipe/katana/common.sh
+source synphy/katana/common.sh
 : "${RUN:?set RUN=<run dir>}"
 D=$RUN/trees
 GENE=$(sed -n "${PBS_ARRAY_INDEX}p" "$D/genes.txt")

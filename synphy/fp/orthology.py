@@ -138,7 +138,7 @@ def _reference_queries(run, keywords):
 def _diamond_best_hits(run, queries, genomes):
     """Best DIAMOND hit of each query among all genomes' proteins."""
     if not shutil.which("diamond"):
-        sys.exit("diamond not on PATH (it is in the flagpipe conda env).")
+        sys.exit("diamond not on PATH (it is in the synphy conda env).")
     work = run.orthology / "diamond"
     work.mkdir(parents=True, exist_ok=True)
     db_faa, seen = work / "all_proteins.faa", set()

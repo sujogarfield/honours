@@ -1,0 +1,150 @@
+accession	organism	n_genes_of_42	missing_genes
+GCF_015100395.1	Nitrosophilus alvini	23	cheA, cheV, cheW, flgD, flgE, flgJ, flgM, flgP, flgR, flgS, fliH, fliI, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_000092245.1	Arcobacter nitrofigilis	24	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_006459125.1	Halarcobacter anaerophilus	24	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_013201825.1	Halarcobacter ebronensis	24	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_002837275.1	Malaciobacter halophilus	24	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_003544855.1	Malaciobacter marinus	24	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_003544935.1	Malaciobacter molluscorum	24	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_003346775.1	Malaciobacter mytili	24	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_013177635.1	Arcobacter aquimarinus	25	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, motA, motB, pflB
+GCF_013201935.1	Arcobacter cloacae	25	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, motA, motB, pflB
+GCF_024267655.1	Arcobacter roscoffensis	25	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, motA, motB, pflB
+GCF_003346815.1	Halarcobacter bivalviorum	25	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, motA, motB, pflB
+GCF_004214795.1	Malaciobacter pacificus	25	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, motA, motB, pflB
+GCF_027946175.1	Nitratiruptor tergarcus	25	cheA, cheW, flgD, flgE, flgJ, flgM, flgP, flgR, flgS, fliH, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_003667345.1	Poseidonibacter antarcticus	25	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, motA, motB, pflB
+GCF_013283835.1	Poseidonibacter lekithochrous	25	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, motA, motB, pflB
+GCF_001956695.1	Poseidonibacter parvus	25	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, motA, motB, pflB
+GCF_000194135.1	Hippea maritima	26	cheA, cheV, cheW, flgJ, flgL, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_027943725.1	Nitrosophilus kaiyonis	26	cheA, cheW, flgE, flgJ, flgM, flgP, flgR, flgS, fliH, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_014466985.1	Nitrosophilus labii	26	cheA, cheW, flgE, flgJ, flgM, flgP, flgR, flgS, fliH, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_013372265.1	Aliarcobacter cibarius	27	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, pflB
+GCF_013201705.1	Aliarcobacter faecis	27	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, pflB
+GCF_003063245.1	Arcobacter caeni	27	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, pflB
+GCF_013201725.1	Arcobacter defluvii	27	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, pflB
+GCF_016106035.1	Arcobacter vandammei	27	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY, pflB
+GCF_002119425.1	Desulfurella amilsii	27	cheA, cheV, cheW, flgJ, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_000420385.1	Hippea alviniae	27	cheA, cheV, cheW, flgJ, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_000744435.1	Hippea jasoniae	27	cheA, cheV, cheW, flgJ, flgP, flgR, flgS, fliA, fliK, fliL, fliW, fliY, motA, motB, pflB
+GCF_900187115.1	Aliarcobacter butzleri	28	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY
+GCF_003660105.1	Aliarcobacter cryaerophilus	28	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY
+GCF_013201625.1	Aliarcobacter lanthieri	28	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY
+GCF_003544835.1	Aliarcobacter skirrowii	28	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY
+GCF_004214815.1	Aliarcobacter thereius	28	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY
+GCF_003355515.1	Aliarcobacter trophiarum	28	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY
+GCF_003316695.1	Aliarcobacter vitoriensis	28	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY
+GCF_003063295.1	Arcobacter lacus	28	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY
+GCF_004299785.2	Arcobacter porcinus	28	cheA, cheV, cheW, flaG, flgA, flgE, flgM, flgP, flgR, flgS, fliA, fliL, fliW, fliY
+GCF_005843985.1	Caminibacter mediatlanticus	33	cheW, flgM, flgP, flgR, flgS, fliQ, motA, motB, pflB
+GCF_002335445.1	Lebetimonas natsushimae	33	cheW, flgM, flgP, flgR, flgS, fliI, motA, motB, pflB
+GCF_000021725.1	Nautilia profundicola	33	cheW, flgM, flgP, flgR, flgS, fliI, motA, motB, pflB
+GCF_003752135.1	Caminibacter pacificus	34	cheW, flgM, flgP, flgR, flgS, motA, motB, pflB
+GCF_004803815.1	Campylobacter showae	37	flgM, flgS, flhF, motA, motB
+GCF_026000295.1	Helicobacter suis	37	cheA, flgS, flhF, fliK, pflB
+GCF_030296055.1	Hydrogenimonas cancrithermarum	37	flgP, flgS, fliW, motA, motB
+GCF_000183725.1	Sulfuricurvum kujiense	37	cheW, flaG, flgP, fliG, motA
+GCF_015265455.1	Sulfurimonas baltica	37	cheW, flgP, flgR, motA, motB
+GCF_005217605.1	Sulfurimonas crateris	37	cheW, flgP, fliW, motA, motB
+GCF_000012965.1	Sulfurimonas denitrificans	37	cheW, flgP, fliW, motA, motB
+GCF_009068765.1	Sulfurimonas hydrogeniphila	37	cheW, flgE, flgP, motA, motB
+GCF_014905095.1	Sulfurimonas marina	37	cheW, flgP, flhF, motA, motB
+GCF_014905115.1	Sulfurimonas sediminis	37	cheW, flgP, flhA, motA, motB
+GCF_030249845.1	Campylobacter gastrosuis	38	flgM, flgS, motA, motB
+GCF_003364335.1	Helicobacter anseris	38	cheV, flgD, flgM, fliL
+GCF_003364205.1	Helicobacter brantae	38	cheV, flgM, fliE, fliW
+GCF_003364215.1	Helicobacter cholecystus	38	cheV, flgD, flgM, fliW
+GCF_017979475.1	Helicobacter pullorum	38	flgA, flgR, motA, motB
+GCF_017357825.1	Sulfurimonas aquatica	38	cheW, flgP, motA, motB
+GCF_000147355.1	Sulfurimonas autotrophica	38	cheW, flgP, motA, motB
+GCF_000242915.1	Sulfurimonas gotlandica	38	cheW, flgP, motA, motB
+GCF_000445475.1	Sulfurimonas hongkongensis	38	cheW, flgP, motA, motB
+GCF_009192995.1	Sulfurimonas indica	38	cheW, flgP, motA, motB
+GCF_009258225.1	Sulfurimonas lithotrophica	38	cheW, flgP, motA, motB
+GCF_015265475.1	Sulfurimonas marisnigri	38	cheW, flgP, motA, motB
+GCF_014905135.1	Sulfurimonas paralvinellae	38	cheW, flgP, motA, motB
+GCF_000597725.1	Sulfurospirillum arcachonense	38	flgM, fliW, motA, motB
+GCF_011769985.2	Sulfurospirillum diekertiae	38	flgP, fliD, fliK, fliW
+GCF_016937535.1	Sulfurospirillum tamanense	38	flgH, flgM, motA, motB
+GCF_001298465.1	Campylobacter concisus	39	flgM, motA, motB
+GCF_013372125.1	Campylobacter curvus	39	flgM, flhF, motA
+GCF_013372185.1	Campylobacter lari	39	flgM, fliK, pflB
+GCF_014253065.1	Campylobacter massiliensis	39	flgM, motA, motB
+GCF_004803795.1	Campylobacter rectus	39	flgM, motA, motB
+GCF_905120475.1	Campylobacter suis	39	flgM, motA, motB
+GCF_027859255.1	Helicobacter ibis	39	flgP, motA, motB
+GCF_003660265.1	Helicobacter mehlei	39	cheV, flhB, fliH
+GCF_017979425.1	Helicobacter salomonis	39	flgE, flgH, fliP
+GCF_003660395.1	Helicobacter vulpis	39	cheA, flgG, fliP
+GCF_900115615.1	Hydrogenimonas thermophila	39	fliW, motA, motB
+GCF_016593255.1	Hydrogenimonas urashimensis	39	fliW, motA, motB
+GCF_000024885.1	Sulfurospirillum deleyianum	39	flgM, flgP, fliW
+GCF_001723605.1	Sulfurospirillum halorespirans	39	flgP, fliH, fliW
+GCF_025770725.1	Sulfurospirillum oryzae	39	flgM, flgP, fliW
+GCF_000196135.1	Wolinella succinogenes	39	flgP, motA, motB
+GCF_018145655.1	Campylobacter anatolicus	40	motA, motB
+GCF_013372105.1	Campylobacter armoricus	40	flgM, fliK
+GCF_016806695.1	Campylobacter bilis	40	flhA, flhF
+GCF_013177655.1	Campylobacter canadensis	40	flgM, flgS
+GCF_000816185.1	Campylobacter insulaenigrae	40	flgM, fliK
+GCF_905120465.1	Campylobacter majalis	40	motA, motB
+GCF_013372205.1	Campylobacter mucosalis	40	motA, motB
+GCF_013201605.1	Campylobacter ornithocola	40	flgM, fliK
+GCF_000816785.1	Campylobacter peloridis	40	flgM, fliK
+GCF_002021925.1	Campylobacter pinnipediorum	40	motA, motB
+GCF_000816305.1	Campylobacter subantarcticus	40	flgM, fliK
+GCF_008245045.1	Campylobacter volucris	40	flgM, fliK
+GCF_900461455.1	Helicobacter acinonychis	40	flgM, fliM
+GCF_021300615.1	Helicobacter anatolicus	40	cheV, flgD
+GCF_000162575.1	Helicobacter canadensis	40	motA, motB
+GCF_008693005.1	Helicobacter canis	40	flgD, flgP
+GCF_000155475.1	Helicobacter cinaedi	40	flgM, flgR
+GCF_023646285.1	Helicobacter colisuis	40	motA, motB
+GCF_001693335.1	Helicobacter enhydrae	40	cheV, fliW
+GCF_001602095.1	Helicobacter himalayensis	40	flgD, flgM
+GCF_021300655.1	Helicobacter kayseriensis	40	cheV, fliW
+GCF_000507845.1	Helicobacter macacae	40	flgD, flgP
+GCF_000765805.2	Helicobacter muridarum	40	cheA, fliL
+GCF_000518225.1	Helicobacter pametensis	40	cheV, fliW
+GCF_900478295.1	Helicobacter pylori	40	flgL, flgR
+GCF_000687535.1	Helicobacter rodentium	40	motA, motB
+GCF_000765905.2	Helicobacter trogontum	40	flgP, fliL
+GCF_019711685.1	Helicobacter turcicus	40	motA, motB
+GCF_003245365.1	Helicobacter valdiviensis	40	flgP, motA
+GCF_028751035.1	Helicobacter winghamensis	40	motA, motB
+GCF_000265295.1	Sulfurospirillum barnesii	40	flgP, fliW
+GCF_000813325.1	Sulfurospirillum cavolei	40	flgP, fliW
+GCF_000568815.1	Sulfurospirillum multivorans	40	flgP, fliW
+GCF_002238335.1	Campylobacter avium	41	flhF
+GCF_002104335.1	Campylobacter cuniculorum	41	flgD
+GCF_001687475.2	Campylobacter hepaticus	41	flgD
+GCF_002139935.1	Campylobacter lanienae	41	flgM
+GCF_002139855.1	Campylobacter porcelli	41	fliK
+GCF_008245005.1	Campylobacter sputorum	41	flgM
+GCF_005406225.1	Campylobacter taeniopygiae	41	flgK
+GCF_006864425.1	Campylobacter troglodytis	41	fliL
+GCF_000686565.1	Helicobacter bilis	41	fliL
+GCF_000259275.1	Helicobacter cetorum	41	flgD
+GCF_003364195.1	Helicobacter didelphidarum	41	fliL
+GCF_000763135.2	Helicobacter jaachi	41	flgM
+GCF_000762845.2	Helicobacter japonicus	41	flgD
+GCF_003660285.1	Helicobacter labacensis	41	cheA
+GCF_003670275.1	Helicobacter labetoulli	41	flgM
+GCF_003364255.1	Helicobacter marmotae	41	flgM
+GCF_900476215.1	Helicobacter mustelae	41	cheV
+GCF_000762875.2	Helicobacter saguini	41	fliL
+GCF_005406215.1	Campylobacter aviculae	42	
+GCF_000254135.1	Campylobacter coli	42	
+GCF_002139915.1	Campylobacter devanensis	42	
+GCF_900475935.1	Campylobacter fetus	42	
+GCF_002080395.1	Campylobacter helveticus	42	
+GCF_013372145.1	Campylobacter hyointestinalis	42	
+GCF_000736415.1	Campylobacter iguaniorum	42	
+GCF_001457695.1	Campylobacter jejuni	42	
+GCF_028649595.1	Campylobacter magnus	42	
+GCF_004323845.1	Campylobacter novaezeelandiae	42	
+GCF_900637395.1	Campylobacter upsaliensis	42	
+GCF_002139875.1	Campylobacter vicugnae	42	
+GCF_001282945.1	Helicobacter ailurogastricus	42	
+GCF_000200595.1	Helicobacter felis	42	
+GCF_001283065.1	Helicobacter heilmannii	42	

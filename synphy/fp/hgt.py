@@ -149,7 +149,7 @@ def shortlist(run_dir):
     D = run.trees
     screen_json = D / "hgt_screen.json"
     if not screen_json.exists():
-        sys.exit(f"No {screen_json} -- run `flagpipe.py hgt-screen {run.root}` first.")
+        sys.exit(f"No {screen_json} -- run `synphy.py hgt-screen {run.root}` first.")
     cands = json.loads(screen_json.read_text())["candidates"]
     org = {l.split("\t")[0]: l.split("\t")[1] for l in (D / "taxa.tsv").read_text().splitlines()[1:]}
 

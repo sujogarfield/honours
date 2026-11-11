@@ -1,6 +1,6 @@
 """
 common.py
-Shared helpers for every flagpipe step: the run directory layout, config
+Shared helpers for every synphy step: the run directory layout, config
 loading, FASTA/GFF readers and the GFF CDS <-> protein_id index used to link
 string-matched genes (GFF coordinates) to OrthoFinder (protein IDs).
 
@@ -15,7 +15,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]          # honours repo root
 SCRIPTS = REPO / "scripts"
-FLAGPIPE = Path(__file__).resolve().parents[1]
+SYNPHY = Path(__file__).resolve().parents[1]
 
 # GTDB release the thesis used. The tree is downloaded once into a shared cache.
 GTDB_RELEASE = 232
@@ -41,13 +41,13 @@ class Run:
 
     def config(self):
         if not self.config_path.exists():
-            sys.exit(f"No config at {self.config_path} -- run `flagpipe.py init {self.root}` first.")
+            sys.exit(f"No config at {self.config_path} -- run `synphy.py init {self.root}` first.")
         return json.loads(self.config_path.read_text())
 
     def genomes(self, roles=("ingroup", "outgroup")):
         """[{accession, base, label, taxonomy, role}] from genomes.tsv."""
         if not self.genomes_tsv.exists():
-            sys.exit(f"No {self.genomes_tsv} -- run `flagpipe.py genomes` first.")
+            sys.exit(f"No {self.genomes_tsv} -- run `synphy.py genomes` first.")
         lines = self.genomes_tsv.read_text().splitlines()
         header = lines[0].split("\t")
         rows = [dict(zip(header, l.split("\t"))) for l in lines[1:] if l.strip()]
@@ -169,7 +169,7 @@ def gtdb_tree_path(cfg):
     thesis_copy = SCRIPTS / "02_species_tree" / "bac120.tree"
     if thesis_copy.exists():
         return thesis_copy
-    cache = FLAGPIPE / "cache" / "bac120_r232.tree"
+    cache = SYNPHY / "cache" / "bac120_r232.tree"
     if not cache.exists():
         import urllib.request
         cache.parent.mkdir(parents=True, exist_ok=True)

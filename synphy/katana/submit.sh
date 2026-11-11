@@ -1,16 +1,16 @@
 #!/bin/bash
-# Submit a flagpipe stage on Katana, from anywhere in the repo:
-#   bash flagpipe/katana/submit.sh <run_dir> orthology   # stage 1
-#   bash flagpipe/katana/submit.sh <run_dir> trees       # stage 2, after checking stage 1
+# Submit a synphy stage on Katana, from anywhere in the repo:
+#   bash synphy/katana/submit.sh <run_dir> orthology   # stage 1
+#   bash synphy/katana/submit.sh <run_dir> trees       # stage 2, after checking stage 1
 # Watch with: qstat -u $USER -t
 
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 RUN=$(cd "$1" && pwd); STAGE=$2
-K=flagpipe/katana
+K=synphy/katana
 source $K/common.sh
-QV=(-v "RUN=$RUN,FLAGPIPE_ENV=$FLAGPIPE_ENV")
-[ -x "$FLAGPIPE_ENV/bin/iqtree2" ] || { echo "No env at $FLAGPIPE_ENV -- qsub $K/setup_env.pbs first"; exit 1; }
+QV=(-v "RUN=$RUN,SYNPHY_ENV=$SYNPHY_ENV")
+[ -x "$SYNPHY_ENV/bin/iqtree2" ] || { echo "No env at $SYNPHY_ENV -- qsub $K/setup_env.pbs first"; exit 1; }
 case "$STAGE" in
   orthology)
     [ -d "$RUN/genomes/faa" ] && [ -s "$RUN/tree/gtdb_acc.nwk" ] || { echo "Run init, genomes, fetch and tree first"; exit 1; }

@@ -31,14 +31,20 @@ actually run, what it was used for, and its citation.
 
 ## 2. Finding the flagellar genes (orthology)
 
-| what | version | used for | cite |
-|---|---|---|---|
-| **OrthoFinder** | 3.1.5 | orthogroups across all proteomes; cross-referencing name-matched genes to find missed/renamed orthologs | Emms et al. 2026 † (OrthoFinder 3); Emms & Kelly 2019 † |
-| **DIAMOND** | 2.2.8 | protein searches inside OrthoFinder and eggNOG-mapper; reference-protein searches (regulon set, `verify_gene_calls.py`) | Buchfink et al. 2015; Buchfink et al. 2021 |
-| **MCL** | (inside OrthoFinder) | orthogroup clustering | Van Dongen 2000 |
-| **eggNOG-mapper** | 2.1.13 (logs say "emapper-6.0.17", an internal build label) | confirming candidate orthologs (preferred name, KEGG KO); only "confirmed" calls kept | Cantalapiedra et al. 2021 † |
-| **eggNOG database** | 5.0.2 (the version this eggNOG-mapper expects) | orthology database behind eggNOG-mapper | Huerta-Cepas et al. 2019 |
-| **KEGG** | flagellar assembly pathway ko02040; KO annotations from eggNOG | defining the flagellar gene set | Kanehisa & Goto 2000 |
+| what | version | settings | used for | cite |
+|---|---|---|---|---|
+| **OrthoFinder** | 3.1.5 | `orthofinder -f campy_prot -t 10 -a 2` (defaults otherwise: DIAMOND search, BLOSUM62, gap open 11 / extend 1; FAMSA + FastTree for gene trees). Only `Orthogroups/Orthogroups.tsv` was used downstream | orthogroups across all 166 proteomes; cross-referencing name-matched genes to find missed/renamed orthologs | Emms et al. 2026 † (OrthoFinder 3); Emms & Kelly 2019 † |
+| **DIAMOND** | 2.2.8 | inside OrthoFinder / eggNOG-mapper: their defaults. `verify_gene_calls.py`: `blastp --very-sensitive --max-target-seqs 1 --evalue 1e-5 --query-cover 50`. Regulon seed search (50 NCTC 11168 proteins): best hit only; exact command not recorded | protein searches inside OrthoFinder and eggNOG-mapper; reference-protein searches (regulon set, `verify_gene_calls.py`) | Buchfink et al. 2015; Buchfink et al. 2021 |
+| **MCL** | (inside OrthoFinder) | OrthoFinder default (inflation not changed) | orthogroup clustering | Van Dongen 2000 |
+| **FAMSA**, **FastTree** | 2.4.1, 2.2.0 (installed in the `orthology` env) | OrthoFinder defaults | OrthoFinder's internal gene trees (not used downstream) | Deorowicz et al. 2016; Price et al. 2010 (check before citing) |
+| **eggNOG-mapper** | 2.1.13 (logs say "emapper-6.0.17", an internal build label) | `emapper.py --itype proteins --cpu 10`; batches 1–3 (`eggnog_out`, `_out2`, `_out3`): `-m diamond`; batches 4–5 (`eggnog_out4`, `_out5` = regulon): `-m hmmer -d 2` (HMMER search against the Bacteria-level database, taxid 2). Confirmed = eggNOG Preferred_name or description names the seed gene (`orthology_eggnog_confirm.py`) | confirming candidate orthologs (preferred name, KEGG KO); only "confirmed" calls kept | Cantalapiedra et al. 2021 † |
+| **HMMER** | 3.4 (installed in the `orthology` env) | via eggNOG-mapper `-m hmmer` (batches 4–5) | profile searches for eggNOG batches 4–5 | Eddy 2011 (check before citing) |
+| **eggNOG database** | 5.0.2 (the version this eggNOG-mapper expects) | — | orthology database behind eggNOG-mapper | Huerta-Cepas et al. 2019 |
+| **KEGG** | flagellar assembly pathway ko02040; KO annotations from eggNOG | — | defining the flagellar gene set | Kanehisa & Goto 2000 |
+
+**Versions marked "installed in the env"** were read from the local
+`orthology` conda env on 2026-11-11, not from the run logs. They are the same
+env the runs used, but check nothing was updated in between.
 
 **Citing OrthoFinder 3.1.5:** OrthoFinder's own `Citation.txt` asks for Emms
 & Kelly 2019, and Emms & Kelly 2015 for the original method. Version 3 now has
@@ -59,10 +65,10 @@ not eggNOG 6 or 7. The installed package (2.1.13) uses eggNOG 5.0.2.
 
 ## 3. Assembly scaffolding (gene order on draft genomes)
 
-| what | version | used for | cite |
-|---|---|---|---|
-| **RagTag** (`scaffold`) | 2.1.0 | ordering draft contigs against a same-species complete genome so gene order is readable on one chromosome (13 genomes in the reliable set) | Alonge et al. 2022 † |
-| **minimap2** | 2.31-r1302 | aligner used by RagTag | Li 2018 |
+| what | version | settings | used for | cite |
+|---|---|---|---|---|
+| **RagTag** (`scaffold`) | 2.1.0 | `ragtag.py scaffold reference.fna query.fna -t 4` (defaults otherwise); reference = a complete genome of the same species (`run_ragtag_scaffold.py`) | ordering draft contigs against a same-species complete genome so gene order is readable on one chromosome (13 genomes in the reliable set) | Alonge et al. 2022 † |
+| **minimap2** | 2.31-r1302 | RagTag's default call | aligner used by RagTag | Li 2018 |
 
 - Alonge M, Lebeigle L, Kirsche M, Jenike K, Ou S, Aganezov S, Wang X, Lippman ZB, Schatz MC, Soyk S (2022). Automated assembly scaffolding using RagTag elevates a new tomato system for high-throughput genome editing. *Genome Biology* 23:258. doi:10.1186/s13059-022-02823-7 †
 - Li H (2018). Minimap2: pairwise alignment for nucleotide sequences. *Bioinformatics* 34:3094–3100. doi:10.1093/bioinformatics/bty191
@@ -124,8 +130,13 @@ metric. Say that explicitly in the methods.
 ### 4b. Comparing gene order with phylogeny
 
 **Statistics settings:**
+- *Synteny distance (`common/synteny_distance.py`):* signed adjacencies,
+  overlap mismatch = 0.5, circular for closed chromosomes, ≥ 4 shared genes,
+  gene names duplicated on a contig dropped.
+- *Patristic distance:* ete3 `get_distance` on the GTDB R232 tree pruned with
+  `preserve_branch_length=True`.
 - *Synteny (`04_synteny/synteny_analysis.py`):* Mantel test with Pearson r,
-  999 permutations, seed 0.
+  999 permutations, seed 0, two-sided (|r|); smallest possible p = 0.001.
 - *GTDB vs flagellar patristic distances (`compare_to_gtdb.py`):* Mantel test
   with Pearson r, 9,999 permutations.
 - *Agreement score:* Spearman rank correlation per genome.
@@ -145,19 +156,23 @@ metric. Say that explicitly in the methods.
 
 ## 5. Phylogenetics (UNSW Katana)
 
-| what | version | used for | cite |
-|---|---|---|---|
-| **MAFFT** L-INS-i | 7.526 | per-gene protein alignment | Katoh & Standley 2013 |
-| **trimAl** `-automated1` | 1.5.0 | alignment trimming | Capella-Gutiérrez et al. 2009 |
-| **IQ-TREE 2** | 2.4.0 | gene trees, concatenated partitioned tree, concordance, AU tests | Minh et al. 2020a |
-| **ModelFinder** (`-m MFP`) | in IQ-TREE | substitution model selection per gene / partition | Kalyaanamoorthy et al. 2017 |
-| **UFBoot2** (`-B 1000`) | in IQ-TREE | branch support | Hoang et al. 2018 |
-| partition model (`-p`) | in IQ-TREE | concatenated analysis with per-gene models | Chernomor et al. 2016 |
-| **gCF** (`--gcf`) | in IQ-TREE | gene concordance factors on GTDB and flagellar trees | Minh, Hahn & Lanfear 2020b †; Baum 2007 (concept) |
-| **sCF, likelihood version** (`--scfl 100`) | in IQ-TREE ≥ 2.2.2 | site concordance factors (the only sCF used; robust to homoplasy) | Mo et al. 2023 †; Minh, Hahn & Lanfear 2020b (original sCF) |
-| **AU test** (`-au -zb 10000`, RELL) | in IQ-TREE | GTDB vs gene-tree placement of HGT candidates; single-gene and marker tests | Shimodaira 2002; Kishino, Miyata & Hasegawa 1990 (RELL) |
-| **ete3** | 3.1.3 | tree handling, pruning, RF, gCF re-implementation check, figures | Huerta-Cepas, Serra & Bork 2016 |
-| **UNSW Katana** | HPC (PBS) | all tree inference | UNSW Research Technology Services, doi:10.26190/669X-A286 † |
+Versions are pinned in `scripts/11_flagellar_trees/katana/env.yml`; IQ-TREE
+2.4.0 is also confirmed in every `.iqtree`/`.log` output.
+
+| what | version | settings | used for | cite |
+|---|---|---|---|---|
+| gene selection (`prepare_gene_sets.py`) | — | gene in ≥ 80 genomes (42-gene run; 100 in the 37-gene run); ambiguous (2+ copies in main orthogroup) in ≤ 10 % of them; genome kept if it has ≥ 60 % of selected genes (37-gene run; the 42-gene run reused the same 149 genomes) | choosing genes and genomes for the trees | this work |
+| **MAFFT** L-INS-i | 7.526 | `mafft --localpair --maxiterate 1000` | per-gene protein alignment | Katoh & Standley 2013 |
+| **trimAl** | 1.5.0 | `-automated1` | alignment trimming | Capella-Gutiérrez et al. 2009 |
+| **IQ-TREE 2** | 2.4.0 | gene trees: `iqtree2 -s gene.faa -m MFP -B 1000`; concatenated: `iqtree2 -p trimmed/ -m MFP -B 1000` | gene trees, concatenated partitioned tree, concordance, AU tests | Minh et al. 2020a |
+| **ModelFinder** | in IQ-TREE | `-m MFP`, BIC (default) | substitution model selection per gene / partition | Kalyaanamoorthy et al. 2017 |
+| **UFBoot2** | in IQ-TREE | `-B 1000`; branches with UFBoot ≥ 95 counted as supported | branch support | Hoang et al. 2018 |
+| partition model | in IQ-TREE | `-p trimmed/` (edge-linked proportional branch lengths, ModelFinder per partition) | concatenated analysis with per-gene models | Chernomor et al. 2016 |
+| **gCF** | in IQ-TREE | `iqtree2 -t <reference tree> --gcf loci.treefile` (loci = all gene trees), run on the flagellar and the pruned GTDB tree | gene concordance factors on GTDB and flagellar trees | Minh, Hahn & Lanfear 2020b †; Baum 2007 (concept) |
+| **sCF, likelihood version** | in IQ-TREE ≥ 2.2.2 | `iqtree2 -te <reference tree> -p concat.best_model.nex --scfl 100` (100 quartets per branch; models fixed from the concat run) | site concordance factors (the only sCF used; robust to homoplasy) | Mo et al. 2023 †; Minh, Hahn & Lanfear 2020b (original sCF) |
+| **AU test** | in IQ-TREE | `-au -zb 10000` (RELL) | GTDB vs gene-tree placement of HGT candidates; single-gene and marker tests | Shimodaira 2002; Kishino, Miyata & Hasegawa 1990 (RELL) |
+| **ete3** | 3.1.3 | GTDB tree pruned with `preserve_branch_length=True`; patristic distance = `get_distance` | tree handling, pruning, RF, gCF re-implementation check, figures | Huerta-Cepas, Serra & Bork 2016 |
+| **UNSW Katana** | HPC (PBS) | — | all tree inference | UNSW Research Technology Services, doi:10.26190/669X-A286 † |
 
 **Interpreting concordance factors** (for the discussion of gCF on short
 genes; see Lanfear & Hahn 2024):
@@ -179,6 +194,20 @@ genes; see Lanfear & Hahn 2024):
 - Huerta-Cepas J, Serra F, Bork P (2016). ETE 3: reconstruction, analysis, and visualization of phylogenomic data. *Molecular Biology and Evolution* 33:1635–1638. doi:10.1093/molbev/msw046
 
 ## 6. Comparing flagellar and species trees; HGT
+
+**Settings:**
+- *RF:* normalised by 2(n − 3); shuffle null = flagellar tip labels permuted
+  (`compare_to_gtdb.py`).
+- *HGT screen (`screen_hgt_candidates.py`):* gene-tree or concat branch with
+  UFBoot ≥ 95 that is incompatible with a GTDB branch, reduced to minimal
+  conflicting groups.
+- *Shortlist:* conflict in ≥ 10 gene trees and the concatenated tree; favoured
+  alternative in ≥ 50 % of decisive gene trees and ≥ 3× the other
+  alternative; GTDB branch ≥ 25th percentile length (0.0086 subst./site).
+  Thresholds are this work's choices.
+- *Spike-in:* 3 genes (fliE, flhB, flhA) × 3 recipients × 4 donor levels =
+  36 planted transfers + 36 unmodified controls, run through the same screen;
+  95 % Clopper–Pearson CI.
 
 | method | used for | cite |
 |---|---|---|
