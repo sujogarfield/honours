@@ -60,6 +60,33 @@ the same script on the login node inside `screen`:
 `bash synphy/katana/download_eggnog.pbs`. Check with
 `emapper.py --data_dir /srv/scratch/$USER/eggnog_data --version` (should say DB version 5.0.2).
 
+## Copying files to and from Katana
+
+Run these **in a terminal on your own computer**, not on Katana. Replace
+`<zID>` with your zID (e.g. `z1234567`). `scp` asks for your zPass.
+
+```bash
+# GTDB TSV -> Katana. Every GTDB download is called gtdb-adv-search.tsv,
+# so rename it per taxon on the way:
+scp ~/Desktop/gtdb-adv-search.tsv <zID>@katana.restech.unsw.edu.au:/srv/scratch/<zID>/listeriaceae.tsv
+
+# Your own gene list (one name per line) -> Katana
+scp ~/Desktop/genes.txt <zID>@katana.restech.unsw.edu.au:/srv/scratch/<zID>/
+
+# Report -> your Desktop (report.html is self-contained, so the one file is enough)
+scp <zID>@katana.restech.unsw.edu.au:/srv/scratch/<zID>/synphy_runs/listeriaceae/report/report.html ~/Desktop/listeriaceae_report.html
+open ~/Desktop/listeriaceae_report.html      # macOS: opens it in your browser
+
+# Whole report folder (adds tanglegram.png, hgt_shortlist.tsv)
+scp -r <zID>@katana.restech.unsw.edu.au:/srv/scratch/<zID>/synphy_runs/listeriaceae/report ~/Desktop/listeriaceae_report
+```
+
+Forgotten the run name? On Katana: `ls /srv/scratch/$USER/synphy_runs/`.
+
+When `init` asks for the TSV or gene list, give the **full** Katana path, e.g.
+`/srv/scratch/<zID>/listeriaceae.tsv`. A bare file name is looked for in the
+folder you ran `init` from, and `~` / `$USER` are not expanded at the prompt.
+
 ## A run
 
 Every step takes a **run directory**. Put it in scratch, e.g.
@@ -127,8 +154,9 @@ keywords, or both.
 
 ### Output: `$RUN/report/report.html`
 
-One self-contained page with three tabs. Copy it to a laptop (`rsync`/FileZilla)
-and open it in a browser.
+One self-contained page with three tabs. Copy it to your computer (see
+[Copying files to and from Katana](#copying-files-to-and-from-katana)) and open
+it in a browser.
 
 | Tab | Ready after | What it shows |
 |---|---|---|
