@@ -21,7 +21,7 @@ import os
 import sys
 from collections import Counter
 
-from fp.common import REPO, Run, add_scripts_path
+from synphy_lib.common import REPO, Run, add_scripts_path
 
 
 # ── interactive tree ────────────────────────────────────────────────────────
@@ -415,11 +415,11 @@ function show(id) {
   document.querySelectorAll("nav button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === id));
   const src = document.getElementById("page-" + id);
   if (src && !loaded[id]) { document.querySelector("#" + id + " iframe").srcdoc = JSON.parse(src.textContent); loaded[id] = true; }
-  try { localStorage.setItem("fp-tab", id); } catch (e) {}
+  try { localStorage.setItem("synphy-tab", id); } catch (e) {}
 }
 document.querySelectorAll("nav button").forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
 let start = null;
-try { start = localStorage.getItem("fp-tab"); } catch (e) {}
+try { start = localStorage.getItem("synphy-tab"); } catch (e) {}
 const usable = [...document.querySelectorAll("nav button:not([disabled])")].map(b => b.dataset.tab);
 show(usable.includes(start) ? start : usable[0] || "cmp");
 </script>

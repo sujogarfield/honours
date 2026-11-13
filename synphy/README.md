@@ -37,15 +37,15 @@ wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge
 bash Miniforge3-Linux-x86_64.sh -b -p /srv/scratch/$USER/miniforge3
 
 # 1. conda environment (OrthoFinder, eggNOG-mapper 2.1.13, DIAMOND, MAFFT, trimAl, IQ-TREE 2.4.0)
-qsub synphy/katana/setup_env.pbs              # -> /srv/scratch/$USER/flagpipe_env
-#    wait for it to finish (qstat -u $USER); fp_env.o* should end with "python deps OK"
+qsub synphy/katana/setup_env.pbs              # -> /srv/scratch/$USER/synphy_env
+#    wait for it to finish (qstat -u $USER); synphy_env.o* should end with "python deps OK"
 
 # 2. eggNOG database, ~50 GB (needs step 1 finished)
 qsub synphy/katana/download_eggnog.pbs        # -> /srv/scratch/$USER/eggnog_data
 ```
 
 The defaults are set in `katana/common.sh`:
-- `SYNPHY_ENV=/srv/scratch/$USER/flagpipe_env`;
+- `SYNPHY_ENV=/srv/scratch/$USER/synphy_env`;
 - `CONDA_BASE`: the `conda` on your PATH, otherwise `/srv/scratch/$USER/miniforge3`.
 
 To use an env or database someone else already built, pass its path with
@@ -63,11 +63,11 @@ the same script on the login node inside `screen`:
 ## A run
 
 Every step takes a **run directory**. Put it in scratch, e.g.
-`/srv/scratch/$USER/flagpipe_runs/listeriaceae`.
+`/srv/scratch/$USER/synphy_runs/listeriaceae`.
 
 ```bash
-export PATH=/srv/scratch/$USER/flagpipe_env/bin:$PATH
-RUN=/srv/scratch/$USER/flagpipe_runs/listeriaceae
+export PATH=/srv/scratch/$USER/synphy_env/bin:$PATH
+RUN=/srv/scratch/$USER/synphy_runs/listeriaceae
 
 # Login node (light work, needs internet)
 python synphy/synphy.py init    $RUN   # questions -> config.json
@@ -184,7 +184,7 @@ concatenated tree, the tanglegram and this shortlist.
    UFBoot ≥ 95 in a gene tree or the concatenated tree that is incompatible
    with GTDB, reduced to minimal groups of genomes.
 2. **Shortlist** (`hgt-shortlist`). The thesis rule, which the thesis applied
-   by hand, now in `fp/hgt.py`. A group passes if:
+   by hand, now in `synphy_lib/hgt.py`. A group passes if:
    1. it is a branch in ≥ `min_gene_trees` gene trees **and** the concatenated tree;
    2. it is one-sided: at the GTDB branch it contradicts, ≥ 50% of the gene
       trees that can resolve that branch support the group's alternative, and

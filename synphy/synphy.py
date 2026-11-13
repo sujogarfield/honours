@@ -30,19 +30,19 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 STEPS = {
-    "init": ("fp.genomes", "init"),
-    "genomes": ("fp.genomes", "genomes"),
-    "fetch": ("fp.genomes", "fetch"),
-    "tree": ("fp.genomes", "tree"),
-    "check": ("fp.orthology", "check"),
-    "string-match": ("fp.orthology", "string_match"),
-    "crossref": ("fp.orthology", "crossref"),
-    "confirm": ("fp.orthology", "confirm"),
-    "select": ("fp.select_genes", "select"),
-    "synteny": ("fp.synteny", "synteny"),
-    "report": ("fp.report", "report"),
-    "hgt-screen": ("fp.hgt", "screen"),
-    "hgt-shortlist": ("fp.hgt", "shortlist"),
+    "init": ("synphy_lib.genomes", "init"),
+    "genomes": ("synphy_lib.genomes", "genomes"),
+    "fetch": ("synphy_lib.genomes", "fetch"),
+    "tree": ("synphy_lib.genomes", "tree"),
+    "check": ("synphy_lib.orthology", "check"),
+    "string-match": ("synphy_lib.orthology", "string_match"),
+    "crossref": ("synphy_lib.orthology", "crossref"),
+    "confirm": ("synphy_lib.orthology", "confirm"),
+    "select": ("synphy_lib.select_genes", "select"),
+    "synteny": ("synphy_lib.synteny", "synteny"),
+    "report": ("synphy_lib.report", "report"),
+    "hgt-screen": ("synphy_lib.hgt", "screen"),
+    "hgt-shortlist": ("synphy_lib.hgt", "shortlist"),
 }
 
 

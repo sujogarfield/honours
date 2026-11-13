@@ -30,7 +30,7 @@ import subprocess
 import sys
 from collections import Counter, defaultdict
 
-from fp.common import (Run, build_gff_index, load_eggnog, load_orthogroups, read_fasta,
+from synphy_lib.common import (Run, build_gff_index, load_eggnog, load_orthogroups, read_fasta,
                        write_json)
 
 

@@ -2,7 +2,7 @@
 """
 build_report.py
 The thesis frontend as one page, in the same format as the SynPhy report
-(synphy/fp/report.py), built from the thesis results:
+(synphy/synphy_lib/report.py), built from the thesis results:
 
   Tree                  interactive_tree.py with its thesis inputs (RagTag
                         scaffolds, merged agreement scores, motility dots)
@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "synphy"))
 sys.path.insert(0, str(ROOT / "scripts" / "10_visualisation"))
 sys.path.insert(0, str(ROOT / "scripts" / "common"))
-from fp import report as fpr  # noqa: E402
+from synphy_lib import report as spr  # noqa: E402
 
 TITLE = "Campylobacterota"
 OUT = Path("frontend/report.html")
@@ -80,14 +80,14 @@ def au_html():
 
 
 def main():
-    scatter = fpr.scatter_page(
+    scatter = spr.scatter_page(
         json.loads(ALL_JSON.read_text()), json.loads(RELIABLE_JSON.read_text()), TITLE,
         "All genomes = main flagellar contig, RagTag-scaffolded where a same-species reference allowed, "
         "compared as linear. Reliable = every flagellar gene on one closed chromosome (complete assembly "
         "or RagTag scaffold), compared as circular.")
-    cmp = (fpr.tanglegram_html(TANGLEGRAM.read_bytes(), fpr.TANGLE_NOTE)
-           + fpr.comparison_html(FLAG / "comparison.json") + au_html())
-    OUT.write_text(fpr.build_page(TITLE, fpr.tree_defaults(tree_page()), scatter, cmp))
+    cmp = (spr.tanglegram_html(TANGLEGRAM.read_bytes(), spr.TANGLE_NOTE)
+           + spr.comparison_html(FLAG / "comparison.json") + au_html())
+    OUT.write_text(spr.build_page(TITLE, spr.tree_defaults(tree_page()), scatter, cmp))
     print(f"Wrote {OUT} ({OUT.stat().st_size / 1e6:.1f} MB)")
 
 

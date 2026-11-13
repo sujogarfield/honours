@@ -14,7 +14,7 @@ QV=(-v "RUN=$RUN,SYNPHY_ENV=$SYNPHY_ENV")
 case "$STAGE" in
   orthology)
     [ -d "$RUN/genomes/faa" ] && [ -s "$RUN/tree/gtdb_acc.nwk" ] || { echo "Run init, genomes, fetch and tree first"; exit 1; }
-    J=$(qsub "${QV[@]}" "$K/orthology.pbs"); echo "orthology: $J (log: fp_orthology.o* in the repo root)" ;;
+    J=$(qsub "${QV[@]}" "$K/orthology.pbs"); echo "orthology: $J (log: synphy_ortho.o* in the repo root)" ;;
   trees)
     N=$(grep -c . "$RUN/trees/genes.txt")
     [ "$N" -ge 4 ] || { echo "Only $N genes selected -- too few for a concatenated tree (see gene_selection.json)"; exit 1; }

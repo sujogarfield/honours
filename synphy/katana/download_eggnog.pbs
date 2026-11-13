@@ -2,7 +2,7 @@
 #PBS -l select=1:ncpus=2:mem=8gb
 #PBS -l walltime=12:00:00
 #PBS -j oe
-#PBS -N fp_eggnog_db
+#PBS -N synphy_eggnog
 
 # One-off: downloads the eggNOG 5.0.2 database (~50 GB) for eggNOG-mapper 2.1.13.
 #   qsub synphy/katana/download_eggnog.pbs              # -> /srv/scratch/$USER/eggnog_data

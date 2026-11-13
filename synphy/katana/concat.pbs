@@ -2,7 +2,7 @@
 #PBS -l select=1:ncpus=16:mem=32gb
 #PBS -l walltime=24:00:00
 #PBS -j oe
-#PBS -N fp_concat
+#PBS -N synphy_concat
 
 # Stage 2b, after every gene tree: partitioned concatenated tree, gCF + sCFL on
 # the concatenated and GTDB trees, comparison with GTDB, HGT screen + shortlist,
@@ -26,8 +26,8 @@ for REF in flagellar:"$D/concat/concat.treefile" gtdb:"$D/gtdb_ref_pruned.nwk"; 
         --scfl 100 -T "$NCPUS" --seed 1 --prefix "$C/${NAME}_scfl"
 done
 FLAG_DIR="$D" python scripts/11_flagellar_trees/compare_to_gtdb.py
-$FP hgt-screen "$RUN"       # gene-tree branches that contradict GTDB
-$FP hgt-shortlist "$RUN"    # thesis shortlist rule -> hgt_shortlist.tsv
+$SYNPHY hgt-screen "$RUN"       # gene-tree branches that contradict GTDB
+$SYNPHY hgt-shortlist "$RUN"    # thesis shortlist rule -> hgt_shortlist.tsv
 cp "$D/hgt_shortlist.tsv" "$RUN/report/" 2>/dev/null || true
-$FP report "$RUN"
+$SYNPHY report "$RUN"
 echo "=== stage 2 done: $RUN/report/ ==="

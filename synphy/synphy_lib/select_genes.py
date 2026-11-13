@@ -20,7 +20,7 @@ gene_selection.json -- the same inputs the thesis Katana tree jobs used.
 import json
 from collections import Counter, defaultdict
 
-from fp.common import Run, accession, build_gff_index, load_orthogroups, read_fasta, write_json
+from synphy_lib.common import Run, accession, build_gff_index, load_orthogroups, read_fasta, write_json
 
 
 def resolve_copies(gene_to_proteins, p2og, og_genomes):

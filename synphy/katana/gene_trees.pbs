@@ -2,7 +2,7 @@
 #PBS -l select=1:ncpus=4:mem=8gb
 #PBS -l walltime=06:00:00
 #PBS -j oe
-#PBS -N fp_gene_trees
+#PBS -N synphy_trees
 
 # Stage 2a: PBS array, one element per gene in $RUN/trees/genes.txt.
 # MAFFT L-INS-i -> trimAl -automated1 -> IQ-TREE ModelFinder + 1000 UFBoot

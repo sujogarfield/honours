@@ -30,7 +30,7 @@ import os
 import re
 import sys
 
-from fp.common import Run, add_scripts_path, write_json
+from synphy_lib.common import Run, add_scripts_path, write_json
 
 add_scripts_path("11_flagellar_trees")
 

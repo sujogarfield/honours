@@ -19,7 +19,7 @@ import json
 
 import numpy as np
 
-from fp.common import Run, add_scripts_path, write_json
+from synphy_lib.common import Run, add_scripts_path, write_json
 
 add_scripts_path("common")
 from synteny_distance import primary_contig_records, signed_overlap_distance  # noqa: E402

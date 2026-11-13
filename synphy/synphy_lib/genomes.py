@@ -19,7 +19,7 @@ import urllib.request
 from collections import defaultdict
 from pathlib import Path
 
-from fp.common import SYNPHY, Run, accession, clean_label, gtdb_tree_path, write_json
+from synphy_lib.common import SYNPHY, Run, accession, clean_label, gtdb_tree_path, write_json
 
 DEFAULT_KEYWORDS = ["flagell", "chemotax", "chemorecept", "methyl-accepting", "motility"]
 
